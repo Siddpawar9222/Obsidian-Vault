@@ -68,7 +68,7 @@ Log entry is a typical startup log message in a Spring Boot application, providi
 
 1. **Logback**: A popular logging framework that is the default in many Spring Boot applications. It offers flexible configuration and good performance.
 
-    Spring Boot comes with a default logging configuration that uses Logback as the default logging implementation. It provides a good balance between simplicity and flexibility. When you create a Spring Boot project, you don't need to manually set up Logback because Spring Boot has already done it for you
+    It provides a good balance between simplicity and flexibility. When you create a Spring Boot project, you don't need to manually set up Logback because Spring Boot has already done it for you.(default for spring boot)
 
 2. **Log4j2**: Another widely used logging framework with features like asynchronous logging and support for various output formats.
 
