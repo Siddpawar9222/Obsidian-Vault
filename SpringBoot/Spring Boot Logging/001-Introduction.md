@@ -1,3 +1,6 @@
+
+---
+
 Logging in Spring Boot is important because it helps developers understand what their application is doing. Here are the main reasons why logging is needed:
 
 1. **Debugging**: When something goes wrong, logs can show you what happened and help you find and fix the problem.
