@@ -13,7 +13,7 @@
 | **Proxied**       | Target objects are proxied, meaning during runtime the target methods are overridden and, depending on method configuration, the advice is included in the target object.                                                                                                                                                                                   |
 | **Weaving**       | The process of linking the application with the aspect is called weaving. It can be done at load time, compile time, and runtime.                                                                                                                                                                                                                           |
 
-Sure! Here’s how each terminology applies to your simple logging example:
+ Each terminology applies to Project :
 
 ### Aspect
 - **Aspect Class**: `LoggingAspect`
