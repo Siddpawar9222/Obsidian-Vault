@@ -52,3 +52,43 @@ Caching is a technique used to store frequently accessed data in a temporary sto
 2. **Caching Strategies:**
    - Code can check the cache first before fetching from the database.
    - Cache updates can be managed through specific functions that update or delete old cache data and fetch the latest information.
+
+
+# Cache Eviction Strategies
+
+Caching has limited storage capacity, which means old or unnecessary data must be removed over time to make space for new data. This process is known as cache eviction.
+
+## Configuring Cache Expiration Times
+
+Cache expiration times determine how long data remains in the cache before being considered stale and eligible for eviction. These times can be adjusted based on needs, such as reducing a 10-year expiration to 1 year or even shorter periods.
+
+## Cache Miss
+
+A cache miss occurs when the requested data is not found in the cache. This requires the system to fetch the data from the database, which can be slower than retrieving it from the cache.
+
+## Cache Eviction Strategies
+
+### 1. Least Recently Used (LRU)
+- **Description:** Deletes data that has not been accessed for the longest time.
+- **Use Case:** Suitable for general caching needs where older data is less likely to be reused.
+- **Consideration:** Requires additional memory to track access times.
+
+### 2. Most Recently Used (MRU)
+- **Description:** Deletes the most recently accessed items.
+- **Use Case:** Useful when business logic requires removing the latest data first.
+
+### 3. Least Frequently Used (LFU)
+- **Description:** Removes data that has been accessed the least number of times.
+- **Use Case:** Ideal for keeping frequently used data in the cache while evicting rarely accessed data.
+
+### 4. First In First Out (FIFO)
+- **Description:** Removes the oldest data first, based on the time it was added to the cache.
+- **Use Case:** Simple and effective for scenarios where the oldest data is least relevant.
+
+### 5. Last In First Out (LIFO)
+- **Description:** Removes the most recently added data first.
+- **Use Case:** Useful in specific scenarios where the newest data is less important than older data.
+
+### 6. Random Replacement
+- **Description:** Evicts data randomly without any specific probability biases.
+- **Use Case:** Provides a balanced approach without favoring any particular data.
