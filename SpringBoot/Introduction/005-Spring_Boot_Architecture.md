@@ -26,7 +26,7 @@
    - Uses a main class with `@SpringBootApplication`, which includes `@EnableAutoConfiguration` to trigger automatic configuration.
 
 2. **Auto-Configuration**:
-   - Sets up the application based on its dependencies, using sensible defaults and configuring beans accordingly.
+   - Sets up the application based on its dependencies and configuring beans accordingly.
 
 3. **Spring IoC Container**:
    - Manages beans annotated with `@Component`, `@Service`, `@Repository`, or `@Controller`.
@@ -62,11 +62,6 @@
     - Gracefully shuts down the embedded web server and releases resources when the application stops.
 
 ### Spring Boot Internal Architecture:
-
-**For Spring Core:** 
-
-![[SpringbootintenalArchi.jpeg]]
-
 
 **For Spring MVC:**
 
