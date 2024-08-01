@@ -119,4 +119,7 @@ services:
 - **Command-line arguments and System properties:** These take precedence over any other property sources. You can provide these using the command line or by setting system properties.
 - **Properties or YAML files:** Properties defined in the `application.properties` file take precedence over those in the `application.yml` file. If a property is defined in both files, the value from `application.properties` will be used.
 - **Profile-specific properties:** If you have profiles (e.g., `application-dev.properties`), the properties in these files will override the general `application.properties` or `application.yml`.
-- **Default properties:** These are the last fallback and contain the default values for your application.
+- **Default properties:** These are the last fallback and contain the default values for your application. 
+
+   **In Short :** 
+     Command-line arguments and System properties >> Profile-specific properties >>  application.properties >> application.yml
