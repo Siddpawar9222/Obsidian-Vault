@@ -50,7 +50,7 @@ public class MyPrototypeService {
 ```
 
 #### 3. Request Scope
-- **Description**: Applicable in web-based applications. A new instance of the bean is created for each HTTP request.
+- **Description**: Applicable in web-based applications. A new instance of the bean is created for each HTTP request. This is same as prototype scope.
 - **Usage**: Used for beans that need to maintain state for the duration of an HTTP request.
 
 ```java
@@ -62,7 +62,7 @@ public class MyRequestScopedService {
 ```
 
 #### 4. Session Scope
-- **Description**: Specific to web applications. A new instance of the bean is created for each user session.
+- **Description**: Applicable in web-based applications. A new instance of the bean is created for each user session.
 - **Usage**: Suitable for maintaining user-specific data throughout a session.
 
 ```java
@@ -73,9 +73,9 @@ public class MySessionScopedService {
 }
 ```
 
-#### 5. Application Scope (Singleton in WebApplicationContext)
+#### 5. Application Scope 
 - **Description**: A single instance of the bean is created for the entire web application.
-- **Usage**: Used when you want to maintain global application-level state.
+- **Usage**: Create global session beans for Portlet applications..
 
 ```java
 @Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -85,4 +85,18 @@ public class MyApplicationScopedService {
 }
 ```
 
-These scopes allow you to control the lifecycle and sharing of your beans, making your Spring application more flexible and adaptable to various requirements.
+**Note**
+ A portlet is a small web application that runs inside a larger web portal. Think of it as a widget or mini-application that provides a specific piece of functionality within a web page. Each portlet operates independently but can be part of a larger page with multiple portlets.
+
+### Example:
+
+Imagine you are visiting a web portal for a news website. On the homepage, you see different sections: latest news, weather updates, stock market information, and sports scores. Each of these sections can be considered a portlet.
+
+- **News Portlet:** Displays the latest news headlines.
+- **Weather Portlet:** Shows the current weather and forecasts.
+- **Stock Market Portlet:** Provides updates on stock prices.
+- **Sports Portlet:** Lists recent sports scores and updates.
+
+Each portlet can be developed, deployed, and managed separately, allowing for modularity and flexibility.
+
+When deployed to a portlet container (like Apache Pluto or Liferay), this portlet will display the weather information as a small section within a larger portal page.
