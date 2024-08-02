@@ -50,3 +50,47 @@ Imagine you want to borrow a book from the library. You approach the librarian f
 **REST API:**
 
 ![[rest.pdf]]
+
+
+---
+
+### HTTP status codes : 
+
+HTTP status codes are three-digit numbers that provide information about the outcome of a client's request to a server. They are part of the HTTP protocol and are included in the response header when a server responds to a client's request. Status codes fall into different classes, each indicating a different category of response.
+
+Here are some common classes of HTTP status codes and their meanings:
+
+1. **1xx - Informational**:
+   - These status codes indicate that the request was received, the process is continuing, or is in progress.
+
+   **Example**:
+   - 100 Continue: The initial part of the request has been received, and the client should proceed with the request.
+
+2. **2xx - Success**:
+   - These status codes indicate that the request was successfully received, understood, and accepted.
+
+   **Examples**:
+   - 200 OK: The request was successful.
+   - 201 Created: The request resulted in a new resource being successfully created.
+
+3. **3xx - Redirection**:
+   - These status codes indicate that further action needs to be taken to complete the request.
+
+   **Examples**:
+   - 301 Moved Permanently: The requested resource has been permanently moved to a different location.
+   - 302 Found (or 307 Temporary Redirect): The requested resource has been temporarily moved to a different location.
+
+4. **4xx - Client Errors**:
+   - These status codes indicate that there was a problem with the client's request.
+
+   **Examples**:
+   - 400 Bad Request: The server cannot process the request because the client's request is malformed.
+   - 401 Unauthorized: The request requires user authentication.
+   - 404 Not Found: The server cannot find the requested resource.
+
+5. **5xx - Server Errors**:
+   - These status codes indicate that there was an error on the server's side.
+
+   **Examples**:
+   - 500 Internal Server Error: A generic error message returned when an unexpected condition was encountered on the server.
+   - 503 Service Unavailable: The server is not ready to handle the request. Common causes include maintenance or temporary overloading.

@@ -37,9 +37,6 @@ This annotation indicates that a class is a Spring MVC controller. It's used in 
 `@RestController`:
 This is a specialization of `@Controller` that combines the `@Controller` and `@ResponseBody` annotations. It's used to create RESTful web services, where the methods return data directly to the response body.
 
-`@Component`:
-This annotation indicates that a class is a Spring component. Spring will automatically detect and register classes with this annotation as Spring beans during component scanning. These beans can then be wired and used in other parts of the application. A bean name is created with the first letter in lowercase (example: if the class name is `CowCow`, then the bean name is `cowCow`).
-
 `@Autowired`:
 This annotation is used to inject dependencies automatically. It can be applied to fields, constructors, or methods. Spring will automatically look for a bean of the required type and inject it into the annotated element.
 
