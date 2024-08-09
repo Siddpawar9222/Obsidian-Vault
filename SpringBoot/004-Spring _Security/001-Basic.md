@@ -2,7 +2,7 @@
 -----
 **Spring Security Notes by eazy bytes:**
 
-![[SpringBoot/Spring  Security/docs/SpringSecurity.pdf|SpringSecurity]]
+![[SpringSecurity.pdf]]
 
 
 **Flow chart For DaoAuthentcationProvider:**

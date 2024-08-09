@@ -60,37 +60,33 @@ HTTP status codes are three-digit numbers that provide information about the out
 
 Here are some common classes of HTTP status codes and their meanings:
 
-1. **1xx - Informational**:
-   - These status codes indicate that the request was received, the process is continuing, or is in progress.
+#### Informational (1xx)
+- **100 Continue**: The server has received the request headers, and the client should proceed to send the request body.
+- **101 Switching Protocols**: The requester has asked the server to switch protocols, and the server is acknowledging that it will do so.
 
-   **Example**:
-   - 100 Continue: The initial part of the request has been received, and the client should proceed with the request.
+#### Success (2xx)
+- **200 OK**: The request was successful.
+- **201 Created**: The request was successful, and a new resource was created as a result.
+- **202 Accepted**: The request has been accepted for processing, but the processing is not complete.
+- **204 No Content**: The server successfully processed the request, but there is no content to return.
 
-2. **2xx - Success**:
-   - These status codes indicate that the request was successfully received, understood, and accepted.
+#### Redirection (3xx)
+- **301 Moved Permanently**: The requested resource has been permanently moved to a new URL.
+- **302 Found**: The requested resource has been temporarily moved to a different URL.
+- **304 Not Modified**: The resource has not been modified since the last request.
 
-   **Examples**:
-   - 200 OK: The request was successful.
-   - 201 Created: The request resulted in a new resource being successfully created.
+#### Client Errors (4xx)
+- **400 Bad Request**: The server could not understand the request due to invalid syntax.
+- **401 Unauthorized**: The client must authenticate itself to get the requested response.
+- **403 Forbidden**: The client does not have access rights to the content.
+- **404 Not Found**: The server can not find the requested resource.
+- **405 Method Not Allowed**: The request method is known by the server but has been disabled and cannot be used.
+- **409 Conflict**: The request could not be completed due to a conflict with the current state of the resource.
+- **429 Too Many Requests**: The user has sent too many requests in a given amount of time.
 
-3. **3xx - Redirection**:
-   - These status codes indicate that further action needs to be taken to complete the request.
-
-   **Examples**:
-   - 301 Moved Permanently: The requested resource has been permanently moved to a different location.
-   - 302 Found (or 307 Temporary Redirect): The requested resource has been temporarily moved to a different location.
-
-4. **4xx - Client Errors**:
-   - These status codes indicate that there was a problem with the client's request.
-
-   **Examples**:
-   - 400 Bad Request: The server cannot process the request because the client's request is malformed.
-   - 401 Unauthorized: The request requires user authentication.
-   - 404 Not Found: The server cannot find the requested resource.
-
-5. **5xx - Server Errors**:
-   - These status codes indicate that there was an error on the server's side.
-
-   **Examples**:
-   - 500 Internal Server Error: A generic error message returned when an unexpected condition was encountered on the server.
-   - 503 Service Unavailable: The server is not ready to handle the request. Common causes include maintenance or temporary overloading.
+#### Server Errors (5xx)
+- **500 Internal Server Error**: The server encountered an unexpected condition that prevented it from fulfilling the request.
+- **501 Not Implemented**: The server does not support the functionality required to fulfill the request.
+- **502 Bad Gateway**: The server, while acting as a gateway or proxy, received an invalid response from the upstream server.
+- **503 Service Unavailable**: The server is not ready to handle the request, usually due to maintenance or overload.
+- **504 Gateway Timeout**: The server, while acting as a gateway or proxy, did not get a response in time from the upstream server.
