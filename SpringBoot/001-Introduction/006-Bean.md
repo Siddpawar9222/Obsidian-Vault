@@ -9,16 +9,26 @@
 
 #### IoC Container
 - **Purpose**: Manages the lifecycle and configuration of application beans.
+
 - **Types**:
   1. **BeanFactory Container**: 
      - Basic container that provides fundamental functionalities for managing beans.
      - Lightweight and suitable for simple applications.
+    
   2. **ApplicationContext Container**: 
      - Provides more advanced features like event propagation, declarative mechanisms to create a bean, and various ways to look up.
      - Typically used in enterprise applications.
+     
+     Specifically, Spring Boot typically uses one of the following implementations depending on the type of application:
+
+     1. **`AnnotationConfigApplicationContext`**: Used in non-web (standalone) Spring applications where the configuration is provided through annotations like `@Configuration`.
+    
+     2. **`AnnotationConfigServletWebServerApplicationContext`**: Used in traditional Spring web applications that run in a servlet container (like Tomcat). This is the typical context in a Spring Boot web application.
+    
+     3. **`AnnotationConfigReactiveWebServerApplicationContext`**: Used in reactive web applications, which are built using Spring WebFlux. 
+     
   3. **WebApplicationContext**: 
-     - Specialized version of `ApplicationContext` for web applications.
-     - Designed to handle web-related beans and specific configurations needed for web applications.
+     - Specialized version of the standard `ApplicationContext` in Spring, designed specifically for web applications. It extends the `ApplicationContext` interface and adds features that are specific to web environments, such as access to the `ServletContext`.
 
 
 ---
@@ -85,7 +95,11 @@ public class MyApplicationScopedService {
 }
 ```
 
+
+---
+
 **<span style="background:#ff4d4f">Note:</span>** 
+
  A portlet is a small web application that runs inside a larger web portal. Think of it as a widget or mini-application that provides a specific piece of functionality within a web page. Each portlet operates independently but can be part of a larger page with multiple portlets.
 
 ### Example:
@@ -100,3 +114,14 @@ Imagine you are visiting a web portal for a news website. On the homepage, you s
 Each portlet can be developed, deployed, and managed separately, allowing for modularity and flexibility.
 
 When deployed to a portlet container (like Apache Pluto or Liferay), this portlet will display the weather information as a small section within a larger portal page.
+
+
+---
+
+`ServletContext` is an interface provided by the Java Servlet API that represents the context of a web application within a servlet container (like Tomcat, Jetty, etc.). It provides a way for servlets to interact with the servlet container and share information across different parts of a web application.
+
+[Difference between ServletConfig and ServletContext](https://www.geeksforgeeks.org/difference-between-servletconfig-and-servletcontext-in-java-servlet/)
+
+- **Singleton** and **Application** scopes both create a single instance, but **Singleton** is broader (covering the entire Spring container), while **Application** is specific to the web application's `ServletContext`. **Singleton** is the default scope, even in Spring Boot web applications.
+
+- **Application Scope** is more commonly used in web applications where you need  to maintain a global state that is tied to the lifecycle of the web application  itself.
