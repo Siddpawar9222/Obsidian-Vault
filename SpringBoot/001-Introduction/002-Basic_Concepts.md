@@ -3,10 +3,10 @@
 
 ### Understanding Libraries and Frameworks
 
-A **library** is like hiring a specialized team of workers for different tasks when building a house. For example, you might hire a team just to lay the foundation. They come with all the expertise and tools needed for that specific job, allowing you to focus on other parts of the project. Similarly, in programming, a library is a collection of pre-written code that you can use in your own programs to perform specific tasks. For example, if you need to work with dates in your program, you can use a date library that already has all the code for handling dates.
+A **library** is like hiring a specialized team of workers for different tasks when building a house. For example, you might hire a team just to lay the foundation. They come with all the expertise and tools needed for that specific job, allowing you to focus on other parts of the project. Similarly, in programming, <font color="#ffff00">a library is a collection of pre-written code that you can use in your own programs to perform specific tasks.</font> For example, if you need to work with dates in your program, you can use a date library that already has all the code for handling dates.
 
 
-A **framework** is like hiring a team of builders to help you construct your house. Instead of just giving them tools, you also give them a blueprint or a plan to follow. This blueprint tells them how to build the house step by step, what materials to use, and where everything should go. Similarly, in programming, a framework is a set of rules and guidelines that help you build your application. It provides a structure for your code, dictates how different parts of your application should interact, and often comes with pre-built components to speed up development.
+A **framework** is like hiring a team of builders to help you construct your house. Instead of just giving them tools, you also give them a blueprint or a plan to follow. This blueprint tells them how to build the house step by step, what materials to use, and where everything should go. Similarly, in programming, <font color="#ffff00">a framework is a set of rules and guidelines that help you build your application.</font> It provides a structure for your code, dictates how different parts of your application should interact, and often comes with pre-built components to speed up development.
 
 
 
@@ -36,7 +36,7 @@ REST is a set of rules for building web APIs. REST provides guidelines for struc
 
 **Other API Paradigms**
 
-While REST is popular, there are other types of APIs, such as SOAP and GraphQL. Each has its own set of rules and uses.
+While REST is popular, there are other types of APIs, such as SOAP (Simple Object Access Protocol) and GraphQL. Each has its own set of rules and uses.
 
 ---
 **Another Example**

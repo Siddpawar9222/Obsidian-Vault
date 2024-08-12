@@ -85,7 +85,7 @@ public class MyApplicationScopedService {
 }
 ```
 
-**Note**
+**<span style="background:#ff4d4f">Note:</span>** 
  A portlet is a small web application that runs inside a larger web portal. Think of it as a widget or mini-application that provides a specific piece of functionality within a web page. Each portlet operates independently but can be part of a larger page with multiple portlets.
 
 ### Example:
