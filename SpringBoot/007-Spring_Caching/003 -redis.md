@@ -99,3 +99,79 @@ public class RedisExample {
 - They abstract the complexity of the Redis protocol, providing a simple API for developers to perform operations like setting and getting values, handling data serialization, and managing connections.
 - The choice of Redis client often depends on the programming language being used and the specific needs of the application (e.g., synchronous vs. asynchronous communication).
 
+
+
+
+
+
+🚀 Excited to share my latest progress! 🚀
+
+🌟Spring Boot Caching- Part1🌟
+
+  
+
+Started Learning Spring Cache and I have learned in-memory Spring caching. Here's a quick breakdown of what I did:
+
+  
+
+✅ Started with the basics of caching, learning about different types of caching.
+
+✅ Implemented caching in a Spring Boot project.
+
+✅ Learned about important annotations like @EnableCaching, @Cacheable, @CachePut, and @CacheEvict.
+
+✅ Confirmed caching by creating an API that lists all available caches.
+
+  
+
+Additionally, I earned the July LeetCode Badge for my consistent efforts! 🏅
+
+  
+
+
+
+  
+
+🔗 Check out my July Month Leetcode solutions : 
+
+   https://lnkd.in/gtwXNije
+
+  
+
+**#SpringBoot** **#caching** **#Java** **#CodingJourney** **#LeetCode** **#Programming** **#JavaDeveloper** **#SpringJPA** **#SpringAOP** **#SpringSecurity** **#jwt** **#SoftwareDevelopment** **#CodingCommunity** **#TechSkills** **#ProgrammingTips** **#CareerGrowth** **#LinkedInLearning** **#Learning** **#SoftwareDevelopment** **#Programming** **#Achievements**
+
+
+
+
+
+Here's a simplified version of the LinkedIn post:
+
+---
+
+ **Today’s Learning: Spring Boot Caching with Redis** 
+
+Today, I learned how to use **Spring Boot caching** with **Redis**! 
+
+ **Step 1:** I started by setting up Redis on my Windows computer. I did this by installing Linux on Windows and then setting up Redis. 
+
+ **Step 2:** Next, I connected Redis to my Spring Boot app by using a simple string serializer. 🛠️
+
+ **Step 3:** Finally, I configured my Spring Boot app to use caching with the `@Cacheable` annotation and tested the APIs. It was amazing to see how much faster everything was with caching compared to without it! ⚡
+
+
+🔗 Check out my practical implementation of Spring caching on GitHub: 
+
+  https://lnkd.in/g26JEt2k
+
+  
+🔗 Check out my personal notes : 
+
+   https://lnkd.in/gfbWn2tZ
+
+Caching really helps improve performance, and Redis makes it easy to do. I’m excited to keep learning more about it! 📈
+
+#SpringBoot #Redis #Caching #Learning #Java #BackendDevelopment
+
+---
+
+This version uses simpler language and is easy to understand.
