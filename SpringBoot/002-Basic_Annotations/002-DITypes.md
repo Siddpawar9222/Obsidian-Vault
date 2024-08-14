@@ -71,4 +71,19 @@ Dependency Injection (DI) is a design pattern used in software development to im
    }
    ```
 
-In Spring Framework, constructor and setter injections are widely used. Constructor injection is generally preferred because it makes the dependency requirements of a class explicit and ensures that the class is always in a valid state after construction. Setter injection is useful for optional dependencies or when the dependencies need to be changed after the object is constructed. Field injection is quick and convenient but should be used with caution due to potential issues with testing and immutability.
+##### In Spring Framework, constructor and setter injections are widely used. 
+
+### Why Constructor Injection is Generally Preferred?
+
+Constructor injection vs. Setter injection:  
+If you want to instantiate a class, you always do it with its constructor. So, if you are using constructor-based injection, the only way to instantiate the class is through that constructor. If you pass the dependency through the constructor, it becomes evident that it is a mandatory dependency.
+
+On the other hand, if you have a setter method in a POJO class, you may or may not set a value for your class variable using that setter method. It is completely based on your need, i.e., it is optional. So, if you pass the dependency through the setter method of a class, it implicitly means that it is an optional dependency.
+
+### Constructor Injection vs. Field Injection
+
+- **Constructor Injection**:  
+  Allows dependencies to be `final`, ensuring they are not changed after construction (avoiding accidental reassignment).
+
+- **Field Injection**:  
+  Field injection doesn’t allow the use of `final` for injected dependencies, reducing the assurance that these fields won’t be altered later.

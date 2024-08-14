@@ -24,11 +24,11 @@ Caching is a technique used to store frequently accessed data in a temporary sto
 ## Types of Caching
 
 ### 1. In-Memory (Local) Caching
-- Stores data in the RAM of a single server.
+- <font color="#ffff00">Stores data in the RAM of a single server.</font>
 - Fast access but limited to the memory capacity of that server.
 
 ### 2. Distributed Caching
-- Multiple servers share a cache, which is managed by systems like Redis.
+- Multiple servers share a cache, which is managed by systems like <font color="#ffff00">Redis.</font>
 - Provides a scalable solution for large applications.
 
 ## Use Cases for Caching
