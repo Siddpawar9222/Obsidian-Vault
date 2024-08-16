@@ -163,3 +163,4 @@ We can send  data through Producer to consumer as key-value pair or only value .
   - Ensure that all related messages (which need to be in order) use the same key so that they all go to the same partition.
 
 - **No Global Order**: When you have multiple partitions, Kafka does not guarantee a global order across all partitions, regardless of whether you use a key or not.
+ 
