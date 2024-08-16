@@ -74,3 +74,48 @@ Kafka acts like a middleman (or a "broker") that handles all these messages (lik
 
 ----
 
+Here are the commands exactly as you provided:
+
+### 🟢 INSTALLATION COMMANDS
+
+```bash
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+```
+
+```bash
+kafka-server-start.bat ..\..\config\server.properties
+```
+
+```bash
+kafka-topics.bat --create --topic my-topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3
+```
+
+```bash
+kafka-console-producer.bat --broker-list localhost:9092 --topic my-topic
+```
+
+```bash
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic my-topic --from-beginning
+```
+
+### 🟢 SENDING MESSAGES COMMANDS
+
+```bash
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+```
+
+```bash
+kafka-server-start.bat ..\..\config\server.properties
+```
+
+```bash
+kafka-topics.bat --create --topic foods --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4
+```
+
+```bash
+kafka-console-producer.bat --broker-list localhost:9092 --topic foods --property "key.separator=-" --property "parse.key=true"
+```
+
+```bash
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic foods --from-beginning --property "key.separator=-" --property "print.key=false"
+```
