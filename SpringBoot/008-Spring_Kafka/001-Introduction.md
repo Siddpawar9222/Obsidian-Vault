@@ -163,4 +163,112 @@ We can send  data through Producer to consumer as key-value pair or only value .
   - Ensure that all related messages (which need to be in order) use the same key so that they all go to the same partition.
 
 - **No Global Order**: When you have multiple partitions, Kafka does not guarantee a global order across all partitions, regardless of whether you use a key or not.
- 
+
+---
+
+
+**Consumer Offset:**
+- The consumer offset is a marker that keeps track of the last message read by a consumer in a Kafka topic. Each consumer group maintains its own offset for every partition it reads from.
+  
+- **`_consumer_offset` Topic:**
+  - Kafka has a special internal topic named `_consumer_offset` that stores the latest offsets for each partition of every consumer group.
+  - This topic is not meant to be directly modified by clients. Instead, Kafka automatically updates it to reflect the current offset of each consumer.
+  - This helps Kafka ensure that messages are not lost or duplicated.
+
+- **Consumer Groups:**
+  - For each consumer group, Kafka creates a separate entry in the `_consumer_offset` topic to store the offsets.
+  - For example, if you have two consumer groups, each with four consumers, Kafka will maintain entries in the `_consumer_offset` topic for each consumer's offset.
+
+- **Partition Assignment:**
+  - When a consumer joins a group, it sends a request to the group coordinator.
+  - The group coordinator assigns partitions to the consumer based on the number of consumers and the current assignments.
+  - Kafka tries to keep the same partitions assigned to the same consumers ("sticky" assignment) to allow consumers to continue processing from where they left off, even after rebalancing.
+
+-  When we run consumer without group id every id kafka create and assign new group id to it.
+-  Assign producer to partitions in round-robin fashion.
+
+Here are the commands to describe a topic, list all available consumer groups, and list all topics in Kafka:
+
+### **Describe a Topic**
+To describe a specific topic, use the following command:
+
+```bash
+kafka-topics.bat --describe --topic <topic_name> --bootstrap-server localhost:9092
+```
+
+Replace `<topic_name>` with the name of the topic you want to describe. For example, to describe the topic `my-topic`, the command would be:
+
+```bash
+kafka-topics.bat --describe --topic my-topic --bootstrap-server localhost:9092
+```
+
+### **List All Available Consumer Groups**
+To list all consumer groups in Kafka, use the following command:
+
+```bash
+kafka-consumer-groups.bat --list --bootstrap-server localhost:9092
+```
+
+### **List All Topics**
+To list all topics in Kafka, use the following command:
+
+```bash
+kafka-topics.bat --list --bootstrap-server localhost:9092
+```
+
+
+
+To create a consumer and assign a group ID in Kafka, you can use the following command:
+
+### **Creating a Consumer with a Specific Group ID**
+
+```bash
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name> --group <group_id>
+```
+
+Replace `<topic_name>` with the name of the topic you want to consume from, and replace `<group_id>` with the desired group ID.
+
+For example, if you want to consume from the topic `my-topic` with the group ID `my-group`, the command would be:
+
+```bash
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic my-topic --group my-group
+```
+
+This command will create a consumer in the specified consumer group (`my-group`) and start consuming messages from the specified topic (`my-topic`).
+
+
+
+
+### Kafka Segments, Commit Logs, and Retention Policy
+
+#### 1. **Segments**
+- **Definition**: 
+  - In Kafka, a segment is a smaller part of a topic's partition log. Each partition in Kafka is broken down into multiple segments, and these segments are stored as individual files on disk.
+- **Purpose**: 
+  - Segments help manage the partition logs efficiently, making it easier to handle large volumes of data by dividing the log into manageable chunks.
+- **Segment Naming**: 
+  - Each segment file is named using the offset of the first message it contains, which helps in organizing and retrieving the logs.
+
+#### 2. **Commit Logs**
+- **Definition**: 
+  - A commit log in Kafka is a log of all messages that have been produced to a partition. It is an append-only, immutable log where each message is assigned a unique offset.
+- **Purpose**: 
+  - The commit log ensures that all messages are stored reliably and can be consumed by consumers in order. This log is what makes Kafka a highly durable and fault-tolerant system.
+- **Location**: 
+  - Commit logs (or partition logs) are stored on disk in a directory specified by the `log.dirs` configuration in Kafka's server properties file.
+
+#### 3. **Retention Policy**
+- **Definition**: 
+  - The retention policy in Kafka determines how long Kafka retains messages in a topic before deleting them. 
+- **Types of Retention Policies**:
+  - **Time-Based Retention**: Messages are retained for a specified period (e.g., 7 days). After this period, the messages are eligible for deletion.
+  - **Size-Based Retention**: Messages are retained until the total log size reaches a specified limit (e.g., 100GB). When the log size exceeds this limit, older segments are deleted to free up space.
+  - **Log Compaction**: Instead of deleting old messages based on time or size, Kafka keeps the latest version of each key in the log. This is useful for scenarios where you only need the latest state of each record.
+- **Configuration**: 
+  - The retention policy is configured in Kafka’s server properties file using settings like `log.retention.hours` (time-based) or `log.retention.bytes` (size-based).
+
+
+How to create  and run mutiple kafka broker ? 
+Copy server.properties file and rename it (like server-1.properties) and change
+id and server port.
+
