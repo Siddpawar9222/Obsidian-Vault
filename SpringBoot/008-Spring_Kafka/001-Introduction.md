@@ -272,3 +272,30 @@ How to create  and run mutiple kafka broker ?
 Copy server.properties file and rename it (like server-1.properties) and change
 id and server port.
 
+
+To list all topics in Kafka, use the following command:
+
+```bash
+kafka-topics.bat --list --bootstrap-server localhost:9092
+```
+
+This command will display a list of all the topics currently available on the Kafka broker running on `localhost` at port `9092`.
+
+
+
+
+To delete a Kafka topic, you can use the following command:
+
+```bash
+kafka-topics.bat --delete --topic <topic_name> --bootstrap-server localhost:9092
+```
+
+Replace `<topic_name>` with the name of the topic you want to delete.
+
+For example, to delete a topic named `my-topic`, the command would be:
+
+```bash
+kafka-topics.bat --delete --topic my-topic --bootstrap-server localhost:9092
+```
+
+
