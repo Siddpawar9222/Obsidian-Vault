@@ -1,5 +1,10 @@
 
 -----
+Default Spring Behavior : 
+  https://satyacodes.medium.com/a-complete-guide-to-spring-security-with-springboot-329a959a7c64
+
+
+
 **Spring Security Notes by eazy bytes:**
 
 ![[SpringSecurity.pdf]]
