@@ -55,3 +55,6 @@
 
 **Service**
 - The service converts sorting direction and fields into a `Sort` object, which is used to create a `PageRequest`.
+
+
+https://www.tailwindtap.com/components/table/custom-table
