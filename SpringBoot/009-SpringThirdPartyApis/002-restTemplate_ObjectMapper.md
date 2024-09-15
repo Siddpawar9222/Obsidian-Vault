@@ -149,3 +149,42 @@ In summary, `ObjectMapper` is a tool that helps you work with JSON easily in Spr
   ```java
   ResponseEntity<List<MyObject>> response = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<List<MyObject>>() {});
   ```
+
+
+
+### What Does `JsonNode` Do?
+- **Represents JSON Objects**: When you get JSON data, such as from an API or a file, `JsonNode` allows you to work with that data in a structured way.
+- **Tree-Like Structure**: It treats JSON as a tree, meaning that you can easily navigate through the different parts (nodes) of the JSON, such as objects, arrays, and fields.
+
+### Example:
+Suppose you have the following JSON:
+```json
+{
+    "name": "John",
+    "age": 30,
+    "address": {
+        "city": "New York",
+        "zip": "10001"
+    }
+}
+```
+
+With `JsonNode`, you can access the individual parts like this:
+- `name` is a field with the value `"John"`.
+- `age` is a field with the value `30`.
+- `address` is an object that contains `city` and `zip`.
+
+### How Do You Use `JsonNode`?
+
+1. **Parse JSON into a JsonNode**:
+   You can use `ObjectMapper` (another class from Jackson) to read a JSON string and convert it into a `JsonNode`.
+
+2. **Access Fields**:
+   You can then use methods like `get()` to access individual parts of the JSON.
+
+### When Is `JsonNode` Useful?
+- When you don't want to define a specific class to map JSON (unlike `POJO` classes).
+- When the structure of the JSON is flexible or unknown.
+- When you need to traverse complex or deeply nested JSON data.
+
+So, `JsonNode` is like a flexible tool for working with JSON data in Spring Boot without needing predefined classes.
