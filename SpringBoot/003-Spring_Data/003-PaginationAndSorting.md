@@ -1,4 +1,6 @@
 
+---
+
 ### Pagination
 
 **What is Pagination?**
@@ -38,6 +40,8 @@
 **Handling Pagination Details**
 - Use methods like `getTotalPages()`, `getNumber()`, `getTotalElements()`, `getSize()`, and `getContent()` from the `Page` object to manage pagination details.
 
+---
+
 ### Sorting
 
 **What is Sorting?**
@@ -47,6 +51,9 @@
 
 **Sorting by Multiple Fields**
 - Data can be sorted by multiple fields (e.g., first by name, then by price). This is useful for hierarchical ordering.
+
+
+---
 
 ### Pagination with Sorting
 
