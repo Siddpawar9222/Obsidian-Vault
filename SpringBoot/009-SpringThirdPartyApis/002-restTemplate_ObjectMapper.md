@@ -188,3 +188,9 @@ With `JsonNode`, you can access the individual parts like this:
 - When you need to traverse complex or deeply nested JSON data.
 
 So, `JsonNode` is like a flexible tool for working with JSON data in Spring Boot without needing predefined classes.
+
+
+Go delete recent commit 
+ ```
+git reset --soft HEAD~1
+```
