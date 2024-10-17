@@ -4,7 +4,6 @@
 
 1. **Create a Security Group and configure inbound and outbound rule:**
    
-
 2. **Generate a Key Pair:**
    - When creating the key pair, save the `.pem` file securely.
 
