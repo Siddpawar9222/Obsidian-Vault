@@ -121,3 +121,7 @@ If you want more control over your terminal sessions, you can use `tmux`:
 Both applications will continue running even if you close PuTTY.
 
 Let me know if you need any further clarifications!
+
+
+
+ps -ef | grep your_springboot_app.jar
