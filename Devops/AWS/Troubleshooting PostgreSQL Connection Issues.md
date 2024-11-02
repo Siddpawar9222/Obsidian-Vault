@@ -1,63 +1,6 @@
 
 ---
 
-### Step-by-Step Guide for Troubleshooting PostgreSQL Connection Issues
-
-#### 1. **Check PostgreSQL Version**
-First, make sure you have PostgreSQL installed and check its version:
-```bash
-psql --version
-```
-
-#### 2. **Connect to PostgreSQL**
-Connect to PostgreSQL using the following command:
-```bash
-psql -U postgres
-```
-This assumes you are using the default user `postgres`. Replace it with your username if different.
-
----
-
-### Common PostgreSQL Setup Commands:
-
-#### a. **Create a New User**
-To create a new user in PostgreSQL:
-```sql
-CREATE USER new_user WITH PASSWORD 'your_password';
-```
-
-#### b. **Grant Superuser Privileges to a User**
-If you need to give superuser privileges to the user:
-```sql
-ALTER USER new_user WITH SUPERUSER;
-```
-
-#### c. **Grant Database Access**
-To allow a user access to a specific database:
-```sql
-GRANT ALL PRIVILEGES ON DATABASE your_database TO new_user;
-```
-
-#### d. **Drop a User**
-If you need to remove a user:
-```sql
-DROP USER username;
-```
-
-#### e. **View List of Users**
-To see all users in the PostgreSQL system:
-```sql
-\du
-```
-
-#### f. **Exit PostgreSQL**
-To quit the PostgreSQL shell:
-```bash
-\q
-```
-
----
-
 ### Troubleshooting PostgreSQL Connection Issue in IntelliJ
 
 If you are having trouble connecting to your PostgreSQL database from IntelliJ, here’s a step-by-step guide to troubleshoot the issue:
@@ -126,7 +69,7 @@ sudo -u postgres psql
 \du
 \l
 ```
-If the user does not exist or lacks privileges, you can create the user and grant access:
+If the user does not exist or lacks privileges, you can create the user and grant access: 
 ```sql
 CREATE USER root WITH PASSWORD 'your_password';
 GRANT ALL PRIVILEGES ON DATABASE rms TO root;
