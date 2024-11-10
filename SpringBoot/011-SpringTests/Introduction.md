@@ -114,5 +114,3 @@ Here’s a breakdown of JUnit, AssertJ, and Mockito, explaining their difference
 - **JUnit**: Core framework for writing tests and managing the lifecycle of test methods.
 - **AssertJ**: Used with JUnit to make advanced and readable assertions, especially for complex data structures or custom conditions.
 - **Mockito**: Creates mock objects to simulate dependencies, allowing you to isolate and test individual units of code independently.
-
-In practice, **JUnit provides the test structure**, **Mockito helps simulate dependencies**, and **AssertJ makes your assertions clearer and more descriptive**. These tools together make testing in Spring Boot effective and readable.
