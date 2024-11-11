@@ -11,7 +11,7 @@ Ensure you have installed NGINX, Java, and PostgreSQL on your Linux server. Use 
 
 Upload both the React and Spring Boot projects to the `/opt` directory using the following command:
 ```bash
-scp -r build username@server-ip-address:/opt/techeazy/rms/
+scp -r rms-0.0.6.jar root@94.156.35.143:/opt/techeazy/rms/
 ```
 
 ### 1. **Host the React Project**
