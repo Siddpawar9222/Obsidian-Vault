@@ -38,4 +38,14 @@ Here’s the conceptual idea:
 - Use `CriteriaBuilder` to construct conditions dynamically.
 - Use `CriteriaQuery` to specify the result type (e.g., `Product`).
 
-Let me know when you're ready for **Step 3**, where we define **query roots** and start building conditions.
+---
+
+### Step 3: **Define Query Roots and Add Filtering Logic**
+
+In this step, you’ll add dynamic filtering logic using the `CriteriaBuilder` and `Root`. This will allow filtering based on **Category**, **Price Range**, and **Availability**.
+
+Here’s how to proceed:
+1. Use the `Root` object to specify attributes (like `category`, `price`, etc.).
+2. Build **predicates** using the `CriteriaBuilder` for each filter condition.
+3. Combine these predicates dynamically using `CriteriaBuilder.and()`.
+
