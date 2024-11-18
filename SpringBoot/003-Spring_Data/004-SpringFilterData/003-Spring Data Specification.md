@@ -46,4 +46,8 @@ Spring Data Specification addresses these issues by providing a more **modular**
 
 In a real-world scenario, if you're building a complex system with multiple filtering and sorting needs, **Spring Data Specification** will significantly improve your code’s clarity, reusability, and maintainability compared to using the Criteria API directly.
 
-Let me know if you'd like more details or examples!
+
+---
+
+##### More improvemet in pagination : 
+**keyset pagination** using the `WindowIterator` from Spring Data
