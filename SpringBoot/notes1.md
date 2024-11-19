@@ -63,5 +63,3 @@ If you want your application to ask for authentication each time, or if you want
 - **Force Authentication**: Add `prompt=consent` to the OAuth URL to force the user to authenticate each time.
 - **Delete Cached Tokens**: If you're caching tokens locally (in a file or database), delete them to force reauthentication.
 - **Optional**: Use `access_type=online` if you don’t want a refresh token to be issued and want the user to reauthenticate after the token expires.
-
-Let me know if you need more help implementing these options!
