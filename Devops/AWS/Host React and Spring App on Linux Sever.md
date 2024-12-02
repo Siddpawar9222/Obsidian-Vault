@@ -80,6 +80,12 @@ To ensure your Spring Boot app remains active even after closing PuTTY, use eith
 
    - `your_springboot_app.jar`: Replace this with the actual JAR file name.
    - `log.txt`: This file will store logs. You can check it for any errors or output from your app.
+   
+1. Run the Spring Boot application using `nohup`:
+   ```bash
+   nohup java -jar -Dspring.profiles.active=prod your-application.jar > log.txt 2>&1 &
+   ```
+
 
 3. Check if the app is running:
    ```bash
