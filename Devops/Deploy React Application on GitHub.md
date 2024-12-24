@@ -50,5 +50,19 @@
     
     - [FreeCodeCamp Guide](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/)
     - [GitHub Community Discussion](https://github.com/community/community/discussions/22392#discussioncomment-10697248)
+    
+9. **If You add custom domain then**
+     -  Add CNAME file in public folder and with new domain URL
+     - Change  
+         ```json
+        "homepage": "https://<your-github-username>.github.io/<your-project-name>/"
+        ```
+          to 
+      ```json
+         "homepage": "https://<your-github-username>.github.io/"
+```
+
+     - [GitHub Community Discussion](https://github.com/orgs/community/discussions/23066#discussioncomment-3238923)
+
 
 ---
