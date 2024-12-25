@@ -64,5 +64,9 @@
 
      - [GitHub Community Discussion](https://github.com/orgs/community/discussions/23066#discussioncomment-3238923)
 
+ ---
+    If you want normal url (without hashing) follow following blog
+      [Medium Blog](https://medium.com/@itspaulolimahimself/deploying-a-react-js-spa-app-to-github-pages-58ddaa2897a3)
+      [GitHub Repo](https://github.com/rafgraph/spa-github-pages)
 
 ---
