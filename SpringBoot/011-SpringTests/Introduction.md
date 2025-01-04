@@ -4,7 +4,6 @@
 
 <font color="#ffff00">Spring Boot tests are essential because they help us verify that our code works as expected before we release it to production.</font> Think of it as a way to check if each part of your application behaves correctly, both on its own and with other parts of the system. Here’s a simple analogy:
 
-Imagine you’re building a house. You don’t wait until the entire house is complete to check if it’s safe and stable. You inspect and test each part as you build—checking if the foundation is strong, the walls are straight, and the electrical wiring is correct. By the time the house is ready, you’re confident it’s safe to live in because each part was tested along the way.
 
 Spring Boot tests work the same way for your application. They help you:
 1. **Catch Bugs Early:** By testing small parts of your code (like individual methods), you can find and fix bugs before they become bigger problems.
