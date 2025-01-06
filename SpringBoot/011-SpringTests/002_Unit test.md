@@ -1,26 +1,15 @@
 
 ---
 
+Unit test  Encourage test driven development.
+For unit test in java mainly we use junit , assertJ and mockito libraries. 
+Spring boot test dependency provides this in budled . 
+we can use h2 in-memory database for repo and service layer.
 
-<font color="#ffff00">Spring Boot tests are essential because they help us verify that our code works as expected before we release it to production.</font> Think of it as a way to check if each part of your application behaves correctly, both on its own and with other parts of the system. Here’s a simple analogy:
-
-
-Spring Boot tests work the same way for your application. They help you:
-1. **Catch Bugs Early:** By testing small parts of your code (like individual methods), you can find and fix bugs before they become bigger problems.
-2. **Verify Interactions:** Spring Boot applications often connect with databases, APIs, or other services. Tests make sure these connections work smoothly and respond as expected.
-3. **Improve Reliability:** Testing lets you make changes to your code without worrying about breaking things. If a test fails, it quickly shows you which part of the code isn’t working as intended.
-
-For example, suppose you’re developing a simple online store in Spring Boot, with features like adding items to a cart or checking out. Spring Boot tests let you write checks for:
-- **Unit Tests:** Testing each method, like adding an item to the cart or calculating the total price.
-- **Integration Tests:** Making sure the checkout process works correctly when it involves multiple components, such as the cart, payment, and inventory systems.
-
-Without testing, bugs could easily slip into your app, causing issues for users later on. But with Spring Boot tests, you gain confidence that the app will run smoothly, even as it grows more complex.
 
 ---
 
-Here’s a breakdown of JUnit, AssertJ, and Mockito, explaining their differences and when to use each of them.
-
----
+### Difference between  jUnit , assertJ and mockito :
 
 ### 1. **JUnit**
    - **Purpose**: JUnit is the primary framework used to write and run tests in Java.
@@ -108,8 +97,3 @@ Here’s a breakdown of JUnit, AssertJ, and Mockito, explaining their difference
    - It’s perfect for service classes, controller tests, or any place where you want to simulate external services or complex dependencies.
 
 ---
-
-### Quick Summary:
-- **JUnit**: Core framework for writing tests and managing the lifecycle of test methods.
-- **AssertJ**: Used with JUnit to make advanced and readable assertions, especially for complex data structures or custom conditions.
-- **Mockito**: Creates mock objects to simulate dependencies, allowing you to isolate and test individual units of code independently.

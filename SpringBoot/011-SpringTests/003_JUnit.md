@@ -1,9 +1,8 @@
 
-
 ---
 
 
-**JUnit Jupiter** is the name of the programming and extension model for **JUnit 5**, the modern version of the JUnit testing framework used in Java.
+**JUnit(Java Unit) Jupiter** is the name of the programming and extension model for **JUnit 5**(Jupiter is 5th planet) , the modern version of the JUnit testing framework used in Java.
 
 JUnit 5 is divided into three main modules:
 
@@ -90,5 +89,3 @@ class CalculatorTest {
 - More flexible and modular compared to JUnit 4.
 - Backward compatibility with JUnit 4 tests using the JUnit Vintage module.
 - Advanced test configurations and dynamic test creation.
-
-Let me know if you'd like a deeper dive into any part of JUnit Jupiter!

@@ -1,6 +1,5 @@
 
 
-
 To enable a scheduler in a Spring Boot application, you need to follow these steps:
 
 ---
