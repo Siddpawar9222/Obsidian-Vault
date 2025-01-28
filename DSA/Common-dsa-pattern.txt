@@ -1,0 +1,22 @@
+﻿Common problem solving patterns 
+
+1. Fast and Slow Pointer
+2. Merge intervals
+3. Sliding window
+4. Islands (Matrix Traversal)
+5. Two pointers
+6. Cyclic Sort
+7. In-place Reversal of Linkedin List
+8. Breadth First Search
+9. Depth First Search
+10. Two Heaps
+11. Subsets
+12. Modified Binary Search
+13. Bitwise XOR
+14. Top 'K' elements
+15. K way merge
+16. 0/1 Knapsack (Dynamic Programming)
+17. Unbounded Knapsack (Dynamic Programming)
+18. Topological Sort (Graphs)
+19. Monotonic Stack
+20. Backtracking
