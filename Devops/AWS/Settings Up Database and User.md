@@ -124,7 +124,8 @@ It will ask for the password.
 
    - **Grant Access to a Specific Database**:
      ```sql
-     GRANT ALL PRIVILEGES ON DATABASE yourdbname TO newuser;
+   CREATE USER newuser WITH ENCRYPTED PASSWORD 'newpassword';
+
      ```
      This gives `newuser` full access to `yourdbname`.
 
