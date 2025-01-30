@@ -169,6 +169,9 @@ It will ask for the password.
 \dt;
 -- Lists all tables in the connected database.
 
+-- Show user in database
+\du;
+
 -- Describe Table Structure
 \d table_name;
 -- Displays the schema/structure of `table_name`, including column names and data types.
