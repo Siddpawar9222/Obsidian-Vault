@@ -68,3 +68,33 @@ A company needs an **SSL Certificate** from a **Certificate Authority (CA)** lik
 🔹 **TLS ensures data is encrypted & safe from hackers.**  
 🔹 **Industries like banking, e-commerce, and social media must use HTTPS.**
 
+---
+
+
+## **Note**
+#### **Default Ports for Web Servers:**
+
+- **Port 80** → Used for **HTTP (Unsecured)** websites.
+- **Port 443** → Used for **HTTPS (Secured with SSL/TLS)** websites.
+
+---
+
+## **How It Works in a Browser?**
+
+When you enter a URL like `http://example.com`, your browser **automatically** connects to **port 80**.  
+When you enter `https://example.com`, your browser **automatically** connects to **port 443**.
+
+You **don’t need to type** the port number in the browser because these are **default ports**.
+
+💡 **Example:**
+
+- `http://example.com` → Connects to `example.com:80`
+- `https://example.com` → Connects to `example.com:443`
+
+If you want to use a **custom port**, you must specify it:
+
+- `https://example.com:8443` → Connects to `example.com` on **port 8443** instead of 443.
+
+---
+
+
