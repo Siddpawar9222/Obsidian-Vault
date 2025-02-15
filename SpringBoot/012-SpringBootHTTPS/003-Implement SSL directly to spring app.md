@@ -77,6 +77,7 @@ sudo openssl pkcs12 -export \
     -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem \
     -out /etc/letsencrypt/live/yourdomain.com/keystore.p12 \
     -name tomcat
+    -password pass:yourpassword
 ```
 
 ### **💡 Explanation:**
@@ -85,8 +86,8 @@ sudo openssl pkcs12 -export \
 - `-in fullchain.pem` → Use your **certificate**.
 - `-out keystore.p12` → Create a new `.p12` keystore.
 - `-name tomcat` → Give the keystore an **alias** ("tomcat" is just a name).
+- `-password pass:` : Password for spring boot app to connect
 
-🔴 **Important:** The command will ask for a **password**. **Remember this password!** You will need it later.
 
 ✅ **Now your SSL certificate is converted to a format that Spring Boot can use!**
 
