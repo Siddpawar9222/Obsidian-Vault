@@ -91,6 +91,11 @@ sudo openssl pkcs12 -export \
 
 ✅ **Now your SSL certificate is converted to a format that Spring Boot can use!**
 
+**Note : 
+ Give proper permission to `keystore.p12` path so spring boot can access this path.**
+```bash
+    sudo chmod 644 /home/ubuntu/your-app/keystore.p12
+ ```
 ---
 
 ## **Step 6: Configure SSL in Spring Boot**
@@ -121,7 +126,7 @@ server.ssl.key-alias=tomcat
 
 ## **Step 7: Restart Your Spring Boot Application**
 
-Now restart your Spring Boot application to apply the changes.
+Now restart  Spring Boot application to apply the changes.
 
 ```bash
 sudo systemctl restart your-spring-boot-app
@@ -133,7 +138,7 @@ sudo systemctl restart your-spring-boot-app
 
 ## **Step 8: Test Your SSL Configuration**
 
-1. Open your browser and go to:
+1. Open  browser and go to:
     
     ```
     https://yourdomain.com:8443
@@ -141,7 +146,7 @@ sudo systemctl restart your-spring-boot-app
     
 2. If everything is set up correctly, you should see **a secure lock 🔒 in the browser**.
 
-✅ **Congratulations! Your Spring Boot app is now secured with SSL! 🎉**
+✅ **Congratulations!  Spring Boot app is now secured with SSL! 🎉**
 
 ---
 
@@ -175,7 +180,7 @@ systemctl restart your-spring-boot-app
 
 This will **auto-renew your SSL certificate every Monday at midnight**.
 
-✅ **Now your SSL will be automatically renewed!**
+✅ **Now  SSL will be automatically renewed!**
 
 ---
 
