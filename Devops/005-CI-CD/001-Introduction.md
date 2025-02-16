@@ -51,3 +51,4 @@ Instead of manually building, testing, and deploying the application every time 
 
 ---
 
+![[ci-cd.jpg]]

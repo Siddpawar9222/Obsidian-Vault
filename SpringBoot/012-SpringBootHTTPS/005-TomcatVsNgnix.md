@@ -53,3 +53,4 @@ A bank has a web application for customers to manage their accounts.
 - **Nginx improves performance by reducing Tomcat’s load.**
 
 ---
+![[forward-reverse-proxy.jpg]]
