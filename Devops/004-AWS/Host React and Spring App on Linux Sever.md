@@ -83,7 +83,7 @@ To ensure your Spring Boot app remains active even after closing PuTTY, use eith
    
 1. Run the Spring Boot application using `nohup`:
    ```bash
-   nohup java -jar -Dspring.profiles.active=stage techeazy-gateway-0.0.6.jar > log.txt 2>&1 &
+   nohup java -jar -Dspring.profiles.active=prod techeazy-gateway-0.0.6.jar > log.txt 2>&1 &
    ```
 
 
