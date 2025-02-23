@@ -53,18 +53,28 @@ We use the formula:
 
 Bucket Index=⌊Element×10⌋\text{Bucket Index} = \lfloor \text{Element} \times 10 \rfloor
 
-| $Element$ | $Computation$                                   | $Bucket #$ |
-| ------- | --------------------------------------------- | -------- |
-| $0.78$    | $⌊0.78×10⌋=7\lfloor 0.78 \times 10 \rfloor = 7$ | $7$        |
-| $0.17$    | $⌊0.17×10⌋=1\lfloor 0.17 \times 10 \rfloor = 1$ | $1$        |
-| $0.39$    | $⌊0.39×10⌋=3\lfloor 0.39 \times 10 \rfloor = 3$ | $3$        |
-| $0.26$    | $⌊0.26×10⌋=2\lfloor 0.26 \times 10 \rfloor = 2$ | $2$        |
-| $0.72$    | $⌊0.72×10⌋=7\lfloor 0.72 \times 10 \rfloor = 7$ | $7$        |
-| $0.94$    | $⌊0.94×10⌋=9\lfloor 0.94 \times 10 \rfloor = 9$ | $9$        |
-| $0.21$    | $⌊0.21×10⌋=2\lfloor 0.21 \times 10 \rfloor = 2$ | $2$        |
-| $0.12$    | $⌊0.12×10⌋=1\lfloor 0.12 \times 10 \rfloor = 1$ | $1$        |
-| $0.23$    | $⌊0.23×10⌋=2\lfloor 0.23 \times 10 \rfloor = 2$ | $2$        |
-| $0.68$    | $⌊0.68×10⌋=6\lfloor 0.68 \times 10 \rfloor = 6$ | $6$        |
+### **🔹 Step 2: Distribute Elements into Buckets**
+
+#### **Formula:**
+
+**Bucket Index = $⌊ Element × 10 ⌋$**
+
+#### **Table:**
+
+| $Element$ | $Computation$       | $Bucket$ |
+| --------- | ------------------- | -------- |
+| $0.78$    | $⌊ 0.78 × 10 ⌋ = 7$ | $7$      |
+| $0.17$    | $⌊ 0.17 × 10 ⌋ = 1$ | $1$      |
+| $0.39$    | $⌊ 0.39 × 10 ⌋ = 3$ | $3$      |
+| $0.26$    | $⌊ 0.26 × 10 ⌋ = 2$ | $2$      |
+| $0.72$    | $⌊ 0.72 × 10 ⌋ = 7$ | $7$      |
+| $0.94$    | $⌊ 0.94 × 10 ⌋ = 9$ | $9$      |
+| $0.21$    | $⌊ 0.21 × 10 ⌋ = 2$ | $2$      |
+| $0.12$    | $⌊ 0.12 × 10 ⌋ = 1$ | $1$      |
+| $0.23$    | $⌊ 0.23 × 10 ⌋ = 2$ | $2$      |
+| $0.68$    | $⌊ 0.68 × 10 ⌋ = 6$ | $6$      |
+
+This table represents how elements are assigned to different buckets using the given formula. 🚀
 
 📌 **Buckets after distribution:**
 
