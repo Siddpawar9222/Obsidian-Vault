@@ -34,10 +34,10 @@ The `@RequestMapping` annotation provides a flexible way to define the routing a
 
 **PUT vs PATCH**:
 
-- When you send a PUT request, you are typically replacing the entire resource even if you send a subset of the resource for an update. It also creates the resource if it doesn't exist.
-
-- Unlike PUT, PATCH is designed for partial updates. It allows you to update specific fields or properties of a resource without affecting the rest of the resource. It gives an error if the resource doesn't exist.
-
+- Use PUT when you want to update everything (if you miss a field, it becomes null).  Also creates the resource if it doesn't exist.
+- Use PATCH when you want to update only some fields (others remain unchanged). It gives an error if the resource doesn't exist.
+- In a real system, use PATCH when users change only one field (e.g., just the email), but use PUT when users must update everything.
+- 
 ---
 
 - `@RequestBody`: This annotation is used to indicate that a method parameter should be bound to the body of the HTTP request. It's commonly used to receive and parse JSON or XML data sent in the request body.
