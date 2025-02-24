@@ -122,10 +122,10 @@ Sorted Array: [0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94]
 
 ## **🔹 Time and Space Complexity**
 
-- **Best Case:** O(N)O(N) → When elements are evenly distributed, and we use Insertion Sort inside small buckets.
-- **Worst Case:** O(N2)O(N^2) → If all elements go into the same bucket (behaves like Insertion Sort).
-- **Average Case:** O(N+K)O(N + K) → With `K` buckets and uniform distribution.
-- **Space Complexity:** O(N+K)O(N + K) → Need extra space for buckets.
+- **Best Case:** O(N) → When elements are evenly distributed, and we use Insertion Sort inside small buckets.
+- **Worst Case:** O(N2) → If all elements go into the same bucket (behaves like Insertion Sort).
+- **Average Case:** O(N+K)→ With `K` buckets and uniform distribution.
+- **Space Complexity:** O(N+K) → Need extra space for buckets.
 
 ---
 
@@ -133,7 +133,7 @@ Sorted Array: [0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94]
 
 ✅ Best when input is **uniformly distributed** (e.g., floating point numbers, percentages).  
 ✅ Works well when **bucket size is small** and **sorting inside buckets is fast**.  
-❌ **Not good when elements are clustered in a few buckets** (behaves like O(N2)O(N^2)).  
+❌ **Not good when elements are clustered in a few buckets** (behaves like O(N2).  
 ❌ **Extra space required** for buckets.
 
 ---
@@ -144,5 +144,52 @@ Sorted Array: [0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94]
 - **Sort each bucket individually.**
 - **Concatenate all sorted buckets to get the final sorted array.**
 
-🚀 **Bucket Sort is powerful when data is uniformly spread over a range.**  
-Let me know if you have any doubts! 😊🔥
+---
+### Reference
+[Animation](https://youtube.com/shorts/p50Qh-dZdUY?si=NoPYPGfK7N7aAAC6)
+
+---
+
+### Code 
+
+
+```java
+private static void bucketSort(double[] arr) {
+    int n = arr.length;
+
+    // Create buckets of size n
+    ArrayList<Double>[] buckets = new ArrayList[n];
+
+    // Initialize buckets
+    for (int i = 0; i < n; i++) {
+        buckets[i] = new ArrayList<>();
+    }
+
+    // Store number at each respective bucket
+    for (double num : arr) {
+        int index = (int) num * 10;
+        buckets[index].add(num);
+    }
+
+    // Sort each bucket
+    for (ArrayList<Double> bucket : buckets) {
+        Collections.sort(bucket);
+    }
+
+    // Combine buckets
+    double[] ans = new double[n];
+
+    int idx = 0;
+    for (ArrayList<Double> bucket : buckets) {
+        for (Double num : bucket) {
+            ans[idx++] = num;
+        }
+    }
+
+    // copy element to original array
+    for (int i = 0; i < n; i++) {
+        arr[i] = ans[i];
+    }
+}
+
+```
