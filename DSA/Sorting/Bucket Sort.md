@@ -49,12 +49,6 @@ Bucket 9: []
 
 ### **🔹 Step 2: Distribute Elements into Buckets**
 
-We use the formula:
-
-Bucket Index=⌊Element×10⌋\text{Bucket Index} = \lfloor \text{Element} \times 10 \rfloor
-
-### **🔹 Step 2: Distribute Elements into Buckets**
-
 #### **Formula:**
 
 **Bucket Index = $⌊ Element × 10 ⌋$**
@@ -193,3 +187,57 @@ private static void bucketSort(double[] arr) {
 }
 
 ```
+
+### **General Rule for Choosing the Number of Buckets in Bucket Sort**
+
+The number of buckets plays a crucial role in the efficiency of **Bucket Sort**. Choosing too few or too many buckets can impact performance.
+
+#### **🔹 General Formula:**
+
+`Number of Buckets=⌈Total Elements/K⌉`
+
+Where **K** is a constant that depends on the distribution of data.
+
+---
+
+### **🔹 Common Approaches for Choosing Buckets**
+
+#### **1️⃣ Use `n` Buckets (When Elements Are Uniformly Distributed)**
+
+- If elements are **evenly spread** between a known range, a common heuristic is: Number of Buckets≈n\text{Number of Buckets} \approx n
+    - **Example:** If you have **10 elements**, you create **10 buckets**.
+
+#### **2️⃣ Use `√n` Buckets (When Distribution Is Unknown)**
+
+- If the **distribution is not uniform**, using **√n buckets** (square root of total elements) balances performance.
+    - **Example:** If `n = 100`, then `√100 = 10` buckets.
+
+#### **3️⃣ Use `Max Element × Constant` (For Fractional Values)**
+
+- When dealing with **floating point numbers** in `[0,1]`, we often multiply by a constant (e.g., **10, 100, or 1000**).
+    - **Example:**
+        - If values are in `[0,1]`, we use **10 buckets** (`element × 10`).
+        - If values are in `[0,100]`, we might use **100 buckets**.
+
+#### **4️⃣ Adaptive Bucket Sizing (For Skewed Distributions)**
+
+- If the **data is skewed**, use **variable bucket sizes** instead of fixed-size buckets.
+- This technique is often used in **histogram-based sorting algorithms**.
+
+---
+
+### **🔹 Why Is Choosing the Right Number Important?**
+
+- **Too few buckets** → Larger bucket size → Elements need **more sorting inside buckets** (increases sorting complexity).
+- **Too many buckets** → More memory usage and **empty buckets**, reducing efficiency.
+
+---
+
+### **🔹 Summary**
+
+✔ If **uniformly distributed** → Use `n` buckets.  
+✔ If **distribution is unknown** → Use `√n` buckets.  
+✔ If **values are in `[0,1]`** → Multiply by **10** (or 100 for precision).  
+✔ If **data is skewed**, use **adaptive bucket sizing**.
+
+---
