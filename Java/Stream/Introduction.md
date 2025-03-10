@@ -79,3 +79,5 @@ You don’t need to write loops or manage variables. Instead, you use stream ope
 2. **Conciseness**: You can achieve complex operations in just a few lines of code.
 3. **Less Error-Prone**: Since you’re not writing low-level logic (like loops), there’s less chance of making mistakes.
 4. **Functional Programming**: It aligns with functional programming principles, making your code more modular and reusable.
+
+---
