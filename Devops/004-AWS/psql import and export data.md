@@ -28,4 +28,16 @@ psql -U newuser -d database_name -f file.sql
 
 --Log in as newuser
 psql -U newuser -d database_name
+
+
+
+
+
+promotenus and grapana
+audit log
+flyway integration
+
+
+UI testing with tejawi
+admin , class fee , payment , student 
 ```
