@@ -11,7 +11,7 @@ Ensure you have installed NGINX, Java, and PostgreSQL on your Linux server. Use 
 
 Upload both the React and Spring Boot projects to the `/opt` directory using the following command:
 ```bash
-scp -r techeazy-gateway-0.0.6.jar root@193.37.212.121:/opt/techeazy/rms/
+scp -r techeazy-gateway-0.0.6.jar root@185.203.118.111:/root/techeazy-gateway/
 ```
 
 ### 1. **Host the React Project**
