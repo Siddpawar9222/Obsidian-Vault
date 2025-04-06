@@ -90,3 +90,243 @@ Here are some common classes of HTTP status codes and their meanings:
 - **502 Bad Gateway**: The server, while acting as a gateway or proxy, received an invalid response from the upstream server.
 - **503 Service Unavailable**: The server is not ready to handle the request, usually due to maintenance or overload.
 - **504 Gateway Timeout**: The server, while acting as a gateway or proxy, did not get a response in time from the upstream server.
+
+---
+## **1. What are HTTP Headers?**
+
+When your browser or app communicates with a server (like Spring Boot), they send and receive **HTTP requests and responses**.
+
+An **HTTP Header** is like a **label** or **tag** that provides **extra information** about the request or response (it can information about body, request authentication etc) .
+
+
+---
+
+## **2. Why are headers important for PDF or CSV download?**
+
+When your Spring Boot backend sends a file (like PDF or CSV), you need to **tell the browser**:
+
+- What kind of file it is (PDF, CSV, image, etc.)
+    
+- How the browser should treat it (Open it? Or download it?)
+    
+
+This is done using headers like:
+
+- `Content-Type`
+    
+- `Content-Disposition`
+    
+
+---
+
+##  Important Headers for File Downloads
+
+### **a. Content-Type**
+
+This tells the browser **what kind of file** is being sent.
+
+Examples:
+
+- PDF: `application/pdf`
+    
+- CSV: `text/csv`
+    
+- Excel: `application/vnd.ms-excel`
+    
+- Word: `application/msword`
+    
+
+### ** Content-Disposition**
+
+This tells the browser how to **handle** the file:
+
+- Show it in browser
+    
+- OR download it with a specific name
+    
+
+Example:
+
+```http
+Content-Disposition: attachment; filename="mydata.csv"
+```
+
+- `attachment`: Tells browser to download the file.
+    
+- `filename`: Suggested name of the file when downloading.
+    
+
+---
+
+## **4. Example in Spring Boot (CSV download)**
+
+Here is a **Java code example** to generate and download a CSV file:
+
+```java
+@GetMapping("/download-csv")
+public ResponseEntity<byte[]> downloadCsv() {
+    String csvContent = "Name,Email\nJohn,john@example.com\nJane,jane@example.com";
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.TEXT_PLAIN); // CSV is plain text
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"users.csv\"");
+
+    return new ResponseEntity<>(csvContent.getBytes(), headers, HttpStatus.OK);
+}
+```
+
+### Output:
+
+When you hit `http://localhost:8080/download-csv`, browser will:
+
+- Get a CSV file
+    
+- Automatically download it as `users.csv`
+    
+
+---
+
+## **5. Example for PDF download**
+
+```java
+@GetMapping("/download-pdf")
+public ResponseEntity<byte[]> downloadPdf() {
+    // Sample PDF content (normally, you generate real PDF bytes using iText or other libraries)
+    byte[] pdfBytes = ...; // Generate or load your PDF bytes here
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.pdf\"");
+
+    return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+}
+```
+
+---
+
+
+Nowadays most APIs use **JSON**, but **XML** is still used in some systems (like banking, legacy systems, or integrations with SOAP-based APIs).
+
+
+---
+
+## **1. Add dependency**
+
+If you're using **Spring Boot with Spring Web**, you don’t need any extra dependency because it already includes support for XML using **Jackson** and **JAXB**.
+
+If not working, you can add this to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+```
+
+---
+
+## **2. Create a Java class (POJO)**
+
+To convert Java objects into XML, annotate your class with `@XmlRootElement`.
+
+```java
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class User {
+    private String name;
+    private String email;
+
+    // Default constructor is required
+    public User() {}
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    // Getters and setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+}
+```
+
+---
+
+## **3. Create Controller to return XML**
+
+```java
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api")
+public class UserController {
+
+    @GetMapping(value = "/user", produces = MediaType.APPLICATION_XML_VALUE)
+    public User getUser() {
+        return new User("Siddhesh", "siddhesh@example.com");
+    }
+
+    @PostMapping(value = "/user", consumes = MediaType.APPLICATION_XML_VALUE)
+    public String createUser(@RequestBody User user) {
+        return "Received XML for user: " + user.getName();
+    }
+}
+```
+
+---
+
+## **4. How to test?**
+
+You can use **Postman**, **curl**, or your frontend app.
+
+### For GET request (to receive XML):
+
+Hit:
+
+```
+GET http://localhost:8080/api/user
+Accept: application/xml
+```
+
+You will receive:
+
+```xml
+<user>
+    <name>Siddhesh</name>
+    <email>siddhesh@example.com</email>
+</user>
+```
+
+### For POST request (send XML):
+
+Send:
+
+```
+POST http://localhost:8080/api/user
+Content-Type: application/xml
+
+<user>
+    <name>Siddhesh</name>
+    <email>siddhesh@example.com</email>
+</user>
+```
+
+---
+
+## **Summary**
+
+|Task|What to use|
+|---|---|
+|Send XML|`produces = MediaType.APPLICATION_XML_VALUE`|
+|Receive XML|`consumes = MediaType.APPLICATION_XML_VALUE`|
+|Java Object to XML|Use `@XmlRootElement` and getter/setters|
+|Dependency (optional)|`jackson-dataformat-xml`|
+
+---
+
+Let me know if you want this in a full project zip or want to try this step by step. I can help you with testing it too.
