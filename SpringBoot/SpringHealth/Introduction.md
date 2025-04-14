@@ -1,7 +1,8 @@
 
 ---
 
-## **Before Prometheus and Grafana: What Was the Problem?**
+## Why  ? 
+### **Before Prometheus and Grafana: What Was the Problem?**
 
 ### 1. **No Visibility into Application Health**
 
@@ -83,19 +84,6 @@ But these are **raw data** — not beautiful dashboards or alerts.
 
 ---
 
-## **So What’s the Difference?**
-
-| Feature            | Spring Boot Actuator    | Prometheus                 | Grafana              | Alertmanager           |
-| ------------------ | ----------------------- | -------------------------- | -------------------- | ---------------------- |
-| Exposes metrics    | ✅ Yes                   | ❌ No                       | ❌ No                 | ❌ No                   |
-| Collects metrics   | ❌ No                    | ✅ Yes                      | ❌ No                 | ❌ No                   |
-| Stores metrics     | ❌ No                    | ✅ Yes                      | ❌ No                 | ❌ No                   |
-| Visualizes metrics | ❌ No                    | ❌ No                       | ✅ Yes                | ❌ No                   |
-| Sends alerts       | ❌ No                    | ✅ (rules)                  | ❌ No                 | ✅ Yes                  |
-| Integration        | Acts as data **source** | Scrapes data from actuator | Uses Prometheus data | Uses Prometheus alerts |
-
----
-
 ## **How They Work Together (Real-World Example)**
 
 1. **Spring Boot + Actuator**
@@ -129,3 +117,4 @@ But these are **raw data** — not beautiful dashboards or alerts.
 |Alertmanager|The alarm system that notifies doctors if patient’s heart rate is too high|
 
 ---
+
