@@ -234,5 +234,3 @@ After running a query:
     
 
 ---
-
-Let me know if you'd like to move to **Step 4: Install Grafana** now, where you can create beautiful dashboards and charts from this data.

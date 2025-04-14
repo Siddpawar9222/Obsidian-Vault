@@ -1,7 +1,7 @@
 
 ---
 
-## 🎯 Install and Set Up Grafana on Windows:
+##  Install and Set Up Grafana on Windows:
 
 - Install Grafana on Windows
     
