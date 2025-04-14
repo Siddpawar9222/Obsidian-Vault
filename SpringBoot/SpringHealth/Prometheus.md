@@ -178,7 +178,7 @@ Go to your browser and open:
 
 ---
 
-### 🧪 Step 2: Run a Query
+### Step 2: Run a Query
 
 In the **search bar at the top**, try typing the following metric name:
 
