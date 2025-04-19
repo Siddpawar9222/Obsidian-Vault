@@ -1,25 +1,17 @@
 
-
-
 ---
 
-## 🌟 Final Goal:
-
-Monitor your Spring Boot application using **Prometheus** and **Grafana**, and set up **alerts** with **Alertmanager**.
-
----
-
-## 🧭 Step-by-Step Syllabus:
+##  Step-by-Step Syllabus:
 
 ### **1. Basics (Understanding the tools)**
 
-- ✅ What is Prometheus?
+-  What is Prometheus?
     
-- ✅ What is Grafana?
+-  What is Grafana?
     
-- ✅ What is Alertmanager?
+-  What is Alertmanager?
     
-- ✅ How they work together?
+-  How they work together?
     
 
 ### **2. Prepare Your Spring Boot App**
@@ -67,7 +59,7 @@ Monitor your Spring Boot application using **Prometheus** and **Grafana**, and s
 
 ---
 
-## 🔧 Required Tools
+##  Required Tools
 
 - Java + Spring Boot (already known to you)
     
