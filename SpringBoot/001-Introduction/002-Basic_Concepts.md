@@ -34,9 +34,54 @@ REST is a set of rules for building web APIs. REST provides guidelines for struc
 
 - **<font color="#c00000">REST</font>** : <font color="#ffff00">REST API involves a set of rules or constraints. These rules are specifically for how web APIs should be structured and how requests and responses should be formatted. REST is a type of API.</font>
 
-**Other API Paradigms**
+#### **Other API Paradigms**
 
-While REST is popular, there are other types of APIs, such as SOAP (Simple Object Access Protocol) and GraphQL. Each has its own set of rules and uses.
+### 1. **REST API**
+
+- Uses **HTTP**.
+    
+- Data in **JSON** format.
+    
+- Simple and fast.
+    
+- Example:
+    
+    - `GET /users`
+        
+    - `POST /products`
+        
+
+ Most common in modern apps.
+
+---
+
+### 2. **SOAP API**
+
+- Uses **XML**.
+    
+- Heavy and strict.
+    
+- Used in **banking and enterprise systems**.
+    
+
+---
+
+### 3. **GraphQL API**
+
+- **Client can choose** what data to fetch.
+    
+- Only one endpoint (usually `/graphql`).
+    
+- Use case: Facebook uses GraphQL.
+    
+
+---
+
+### 4. **WebSocket API**
+
+- For **real-time communication** (chat, notifications).
+    
+- Keeps a **constant connection** between client and server.
 
 ---
 **Another Example**
@@ -56,7 +101,7 @@ Imagine you want to borrow a book from the library. You approach the librarian f
 
 ### HTTP status codes : 
 
-HTTP status codes are three-digit numbers that provide information about the outcome of a client's request to a server. They are part of the HTTP protocol and are included in the response header when a server responds to a client's request. Status codes fall into different classes, each indicating a different category of response.
+<font color="#ffc000">HTTP  codes are three-digit numbers that provide information about the outcome of a client's request to a server.</font> They are part of the HTTP protocol and are included in the response header when a server responds to a client's request. Status codes fall into different classes, each indicating a different category of response.
 
 Here are some common classes of HTTP status codes and their meanings:
 
@@ -329,4 +374,42 @@ Content-Type: application/xml
 
 ---
 
-Let me know if you want this in a full project zip or want to try this step by step. I can help you with testing it too.
+###  Content-Type vs MediaType
+
+Both refer to the **type of data** being sent or expected in an HTTP request or response.
+
+| Term           | Meaning                                                                            | Where it's used                                 |
+| -------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `Content-Type` | **Header** in HTTP request/response that says **what kind of data** is being sent. | Used in actual HTTP communication               |
+| `MediaType`    | **Java class** (in Spring framework) that represents different **Content-Types**.  | Used in Java code (like Spring Boot controller) |
+
+
+---
+
+### Example 2: API request
+
+Let’s say your frontend sends a POST request with a JSON body:
+
+#### HTTP (Browser or Postman)
+
+```http
+POST /api/user
+Content-Type: application/json
+```
+
+#### In Spring Boot Controller
+
+```java
+@PostMapping(value = "/api/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<String> createUser(@RequestBody User user) {
+    // handle request
+}
+```
+
+- `"application/json"` → this is the **Content-Type header**.
+    
+- `MediaType.APPLICATION_JSON_VALUE` → this is how you use it in **Java code** with Spring.
+    
+
+  When a client (like frontend or Postman) sends a request with JSON data, both should **match** so that Spring Boot knows how to handle it.
+---
