@@ -20,46 +20,42 @@
 - **Role**: Performs CRUD (Create, Retrieve, Update, Delete) operations.
 - **Components**: Database tables and entities.
 
-### How Spring Internally Works:
 
-1. **Starting the Application**:
-   - Uses a main class with `@SpringBootApplication`, which includes `@EnableAutoConfiguration` to trigger automatic configuration.
+## Spring Boot Application Startup Flow
 
-2. **Auto-Configuration**:
-   - Sets up the application based on its dependencies and configuring beans accordingly.
+When you run a Spring Boot application, several important processes happen behind the scenes. :
 
-3. **Spring IoC Container**:
-   - Manages beans annotated with `@Component`, `@Service`, `@Repository`, or `@Controller`.
+1. **Application Launch**: You trigger the application start (via IDE, command line, etc.)
+    
+2. **Bootstrap Phase**:
+    - Spring Boot identifies the main class (with `@SpringBootApplication`)
+    - Creates the Spring ApplicationContext (the core container that holds all components)
+    - Sets up initial configuration from properties files, environment variables, etc.
+    - 
+3. **Auto-configuration Magic**:
+    - Spring Boot scans your classpath for libraries and dependencies
+    - Automatically configures components based on what it finds
+    - For example, if it finds database libraries, it sets up database connections
+4. **Component Scanning**:
+    - Searches through your project packages for Spring components
+    - Finds classes marked with annotations like `@Component`, `@Service`, `@Controller`, etc.
+    - Registers these as beans in the application context
+5. **Dependency Injection**:
+    - Connects all your beans together based on their dependencies
+    - Resolves `@Autowired` fields and constructor parameters
+    - Creates a complete network of connected components
+<font color="#c0504d">6. **Application Events**:</font>
+    - Fires various events during startup (e.g., ApplicationStartedEvent)
+    - Runs any registered event listeners
+7. **Embedded Server Startup** (for web applications):
+    - Creates and configures an embedded web server (Tomcat by default)
+    - Sets up servlets, filters, and other web components
+    - Starts the server on the configured port (default 8080)
+8. **Ready State**:
+    - Application is fully initialized and ready to handle requests
+    - Logs "Started Application in X seconds" message
 
-4. **Application Context**:
-   - Creates a container for managing beans and handling dependency injection.
-
-5. **Component Scanning**:
-   - Automatically scans for components in the main application class's package and sub-packages.
-
-6. **Dependency Injection**:
-   - Injects dependencies between beans using `@Autowired` or constructor injection.
-
-7. **Web Server Initialization**:
-   - Initializes an embedded web server (like Tomcat) if web dependencies are present.
-
-8. **Auto-Configuration of Web Components**:
-   - Configures web components like `DispatcherServlet` for handling web requests, customizable via properties.
-
-9. **External Configuration**:
-   - Configures the application using external files or environment variables, with the option to override defaults.
-
-10. **Running the Application**:
-    - The `main` method in the main class initializes the context, performs auto-configuration, and starts the embedded web server.
-
-11. **Handling Requests**:
-    - Uses `DispatcherServlet` to manage incoming HTTP requests, directing them to appropriate controllers.
-
-12. **Response Rendering**:
-    - Controllers prepare responses, which can be views, JSON, etc., with Spring Boot selecting a suitable view resolver.
-
-13. **Shutting Down**:
-    - Gracefully shuts down the embedded web server and releases resources when the application stops.
+This entire process is what makes Spring Boot so powerful - it handles all this complex setup automatically, letting you focus on writing your business logic instead of configuration.
 
 ### Spring Boot Internal Architecture:
 

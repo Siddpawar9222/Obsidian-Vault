@@ -7,29 +7,42 @@
   - A bean is simply a Java object.
   - Often, it is a POJO (Plain Old Java Object), meaning it has no dependencies on Spring and is just a regular Java class.
 
-#### IoC Container
+---
+### IoC Container
+
 - **Purpose**: Manages the lifecycle and configuration of application beans.
 
-- **Types**:
-  1. **BeanFactory Container**: 
-     - Basic container that provides fundamental functionalities for managing beans.
-     - Lightweight and suitable for simple applications.
-    
-  2. **ApplicationContext Container**: 
-     - Provides more advanced features like event propagation, declarative mechanisms to create a bean, and various ways to look up.
-     - Typically used in enterprise applications.
-     
-     Specifically, Spring Boot typically uses one of the following implementations depending on the type of application:
+### 1. BeanFactory
 
-     1. **`AnnotationConfigApplicationContext`**: Used in non-web (standalone) Spring applications where the configuration is provided through annotations like `@Configuration`.
-    
-     2. **`AnnotationConfigServletWebServerApplicationContext`**: Used in traditional Spring web applications that run in a servlet container (like Tomcat). This is the typical context in a Spring Boot web application.
-    
-     3. **`AnnotationConfigReactiveWebServerApplicationContext`**: Used in reactive web applications, which are built using Spring WebFlux. 
-     
-  3. **WebApplicationContext**: 
-     - Specialized version of the standard `ApplicationContext` in Spring, designed specifically for web applications. It extends the `ApplicationContext` interface and adds features that are specific to web environments, such as access to the `ServletContext`.
+  This is the simplest and most basic container:
 
+ - **Lazy initialization**: Only creates beans when they're explicitly requested, not when the container starts
+  - **Lightweight**: Uses minimal memory and resources
+ - **Limited features**: Provides basic dependency injection and bean lifecycle management
+ - **Typically used**: For resource-constrained environments or when memory consumption is a critical concern
+
+## 2. ApplicationContext
+
+This is the more advanced and commonly used container (especially in Spring Boot):
+
+- **Eager initialization**: Creates singleton beans at startup by default
+- **Feature-rich**: Extends BeanFactory with additional enterprise features
+- **Built-in capabilities**:
+    - International messaging/text support (i18n)
+    - Event publication mechanism
+    - Application layer specific contexts (WebApplicationContext for web apps)
+    - AOP (Aspect-Oriented Programming) integration
+    - Advanced bean configuration options
+
+## In Spring Boot Context
+
+Spring Boot almost always uses the ApplicationContext container, specifically:
+
+- For web applications: `AnnotationConfigServletWebServerApplicationContext`
+- For reactive applications: `AnnotationConfigReactiveWebServerApplicationContext`
+- For non-web applications: `AnnotationConfigApplicationContext`
+
+These specialized ApplicationContext implementations provide additional functionality tailored to different application types while handling auto-configuration, component scanning, and embedded server initialization.
 
 ---
 ### Bean Scopes in Spring Boot
