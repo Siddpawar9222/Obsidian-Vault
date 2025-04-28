@@ -73,7 +73,7 @@ public class MyPrototypeService {
 ```
 
 #### 3. Request Scope
-- **Description**: Applicable in web-based applications. A new instance of the bean is created for each HTTP request. This is same as prototype scope.
+- **Description**: <font color="#ffff00">Applicable in web-based applications</font>. A new instance of the bean is created for each HTTP request. This is same as prototype scope.
 - **Usage**: Used for beans that need to maintain state for the duration of an HTTP request.
 
 ```java
@@ -85,7 +85,7 @@ public class MyRequestScopedService {
 ```
 
 #### 4. Session Scope
-- **Description**: Applicable in web-based applications. A new instance of the bean is created for each user session.
+- **Description**: <font color="#ffff00">Applicable in web-based applications</font>. A new instance of the bean is created for each user session.
 - **Usage**: Suitable for maintaining user-specific data throughout a session.
 
 ```java
@@ -97,7 +97,7 @@ public class MySessionScopedService {
 ```
 
 #### 5. Application Scope 
-- **Description**: A single instance of the bean is created for the entire web application.
+- **Description**: <font color="#ffff00">Applicable in web-based applications</font>.  A single instance of the bean is created for the entire web application.
 - **Usage**: Create global session beans for Portlet applications..
 
 ```java
@@ -135,6 +135,171 @@ When deployed to a portlet container (like Apache Pluto or Liferay), this portle
 
 [Difference between ServletConfig and ServletContext](https://www.geeksforgeeks.org/difference-between-servletconfig-and-servletcontext-in-java-servlet/)
 
-- **Singleton** and **Application** scopes both create a single instance, but **Singleton** is broader (covering the entire Spring container), while **Application** is specific to the web application's `ServletContext`. **Singleton** is the default scope, even in Spring Boot web applications.
+# Singleton Scope vs. Application Scope in Spring Boot
 
-- **Application Scope** is more commonly used in web applications where you need  to maintain a global state that is tied to the lifecycle of the web application  itself.
+## Singleton Scope
+
+- **Default scope** in Spring for all beans
+- Creates **exactly one instance** per Spring IoC container
+- Shared across the **entire application context**
+- **Created** when the application context loads or when first requested (depending on lazy-loading configuration)
+- **Destroyed** when the application context is shut down
+- Defined using `@Scope("singleton")` or by default without any scope annotation
+
+## Application Scope
+
+- Only applicable in **web applications**
+- Creates one instance per **ServletContext** (web application)
+- Shared across **all Spring application contexts** within the same web application
+- Useful when you have **multiple Spring contexts** in a single web application (which is uncommon in typical Spring Boot apps)
+- Defined using `@Scope("application")`
+- Stored as an attribute in the ServletContext
+
+## Key Difference
+
+The main difference becomes apparent when you have multiple Spring application contexts within a single web application:
+
+- **Singleton beans** are unique to each Spring application context
+- **Application-scoped beans** are shared across all Spring contexts within the same web application
+
+---
+
+### Multiple Spring application contexts in the same Spring Boot project 
+ this is less common than having a single application context.
+
+## Common Scenarios for Multiple Contexts
+
+1. **Parent-Child Context Relationships**: A parent context containing shared services and infrastructure beans, with child contexts for specific modules or features
+    
+2. **Testing**: Creating separate contexts for integration tests
+    
+3. **Custom Module Systems**: Applications that need isolation between components
+    
+4. **Web + Batch Processing**: Having separate contexts for web components and batch processing components
+    
+
+## How to Create Multiple Contexts
+
+### Method 1: Programmatic Creation
+
+```java
+// Creating the first application context
+AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext();
+context1.register(AppConfig1.class);
+context1.refresh();
+
+// Creating the second application context
+AnnotationConfigApplicationContext context2 = new AnnotationConfigApplicationContext();
+context2.register(AppConfig2.class);
+context2.refresh();
+```
+
+### Method 2: Using Spring Boot's SpringApplication
+
+```java
+// First context
+SpringApplication app1 = new SpringApplication(App1Config.class);
+ConfigurableApplicationContext context1 = app1.run();
+
+// Second context
+SpringApplication app2 = new SpringApplication(App2Config.class);
+ConfigurableApplicationContext context2 = app2.run();
+```
+
+### Method 3: Parent-Child Relationship
+
+```java
+// Create parent context
+AnnotationConfigApplicationContext parentContext = new AnnotationConfigApplicationContext();
+parentContext.register(ParentConfig.class);
+parentContext.refresh();
+
+// Create child context with parent reference
+AnnotationConfigApplicationContext childContext = new AnnotationConfigApplicationContext();
+childContext.setParent(parentContext);
+childContext.register(ChildConfig.class);
+childContext.refresh();
+```
+
+
+Here's what these classes typically look like:
+
+```java
+@Configuration
+@ComponentScan("com.example.module1")
+public class AppConfig1 {
+    // Bean definitions specific to the first context
+    @Bean
+    public Service1 service1() {
+        return new Service1Impl();
+    }
+    
+    @Bean
+    public Repository1 repository1() {
+        return new Repository1Impl();
+    }
+}
+```
+
+```java
+@Configuration
+@ComponentScan("com.example.module2")
+public class AppConfig2 {
+    // Bean definitions specific to the second context
+    @Bean
+    public Service2 service2() {
+        return new Service2Impl();
+    }
+    
+    @Bean
+    public Repository2 repository2() {
+        return new Repository2Impl();
+    }
+}
+```
+
+Each configuration class:
+
+- Uses `@Configuration` to mark it as a source of bean definitions
+- May use `@ComponentScan` to specify which packages to scan for components
+- Contains `@Bean` methods that define individual beans
+- May include properties, profiles, and other Spring configuration elements
+
+These configuration classes allow you to create completely separate contexts with different beans, different component scanning paths, and different configurations, all within the same application.
+## Important Considerations
+
+1. **Bean Visibility**: Beans in a child context can see beans in the parent context, but not vice versa
+    
+2. **Resource Management**: Each context manages its own resources, so you need to close each context separately
+    
+3. **Increased Complexity**: Multiple contexts make your application more complex and harder to debug
+    
+4. **Startup Time**: Multiple contexts will increase your application's startup time
+    
+5. **Memory Usage**: Each context consumes additional memory
+    
+
+---
+
+
+Here is summary
+
+1. **ApplicationContext**: The modern, feature-rich Spring IoC container used in most Spring applications (including Spring Boot)
+    
+2. **Types of ApplicationContext**:
+    
+    - For REST APIs: `AnnotationConfigServletWebServerApplicationContext` (traditional) or `AnnotationConfigReactiveWebServerApplicationContext` (reactive)
+    - For web-based applications: `WebApplicationContext` which extends the base ApplicationContext
+3. **ServletContext Access**:
+    
+    - The `WebApplicationContext` provides access to the ServletContext
+    - This makes web-specific scopes like "request", "session", and "application" possible
+    - The application scope is specifically tied to the ServletContext's lifecycle
+4. **Scope Relationship**:
+    
+    - Singleton scope: One instance per Spring ApplicationContext
+    - Application scope: One instance per ServletContext (web application)
+
+In most Spring Boot applications with a single ApplicationContext and a single ServletContext, singleton and application scopes behave essentially the same. The distinction becomes important only when you have multiple Spring contexts within a single web application.
+
+---

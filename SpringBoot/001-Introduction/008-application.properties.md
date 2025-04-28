@@ -26,7 +26,7 @@ Where:
 - `spring.jpa.show-sql`: Specifies whether to show SQL statements executed by Hibernate in the console. Set it to `true` to enable SQL logging.
 - `spring.jpa.properties.hibernate.dialect`: Sets the Hibernate dialect for MySQL, which determines the SQL syntax and specific behavior for MySQL. In this case, it's set to `org.hibernate.dialect.MySQLDialect` for MySQL databases.
 
-**Placeholder substitution in Spring applications:**
+<font color="#ffff00">**Placeholder substitution in Spring applications:**</font>
 
 e.g.
 ```
@@ -69,12 +69,12 @@ services:
 **Ans:**
 
 1. **Syntax:**
-   - **Properties File:** Uses a simple key-value pair format. Each property is represented as `key=value`.
+   - **Properties File:** Uses a simple <font color="#ffff00">key-value</font> pair format. Each property is represented as `key=value`.
      ```
      server.port=8080
      database.url=jdbc:mysql://localhost:3306/mydb
      ```
-   - **YAML File:** Employs indentation for structure and uses a more human-readable syntax. It represents data using a combination of key-value pairs and nested structures.
+   - **YAML File:** Employs <font color="#ffff00">indentation</font> for structure and uses a more human-readable syntax. It represents data using a combination of key-value pairs and nested structures.
      ```yaml
      server:
        port: 8080
@@ -121,5 +121,7 @@ services:
 - **Profile-specific properties:** If you have profiles (e.g., `application-dev.properties`), the properties in these files will override the general `application.properties` or `application.yml`.
 - **Default properties:** These are the last fallback and contain the default values for your application. 
 
-   **In Short :** 
-     Command-line arguments and System properties >> Profile-specific properties >>  application.properties >> application.yml
+   <font color="#ffff00">**In Short :** </font>
+<font color="#ffff00">     Command-line arguments and System properties >> Profile-specific properties >>  application.properties >> application.yml</font>
+
+

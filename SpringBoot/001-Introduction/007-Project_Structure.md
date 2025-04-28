@@ -57,7 +57,7 @@ The help.md file is a Markdown file that provides help documentation for your pr
 These are Maven Wrapper scripts provided by the Spring Boot project. The mvnw script is used on Unix-like systems (Linux, macOS) and is a shell script. The mvnw.cmd script is used on Windows systems and is a batch script. The purpose of the Maven Wrapper is to ensure that the version of Maven used to build and run the project is consistent across different development environments. When you run these scripts (mvnw or mvnw.cmd), they automatically download the specified version of Maven and use it to build your project, eliminating the need for a pre-installed version of Maven on your local machine.
 
 **Use of pom.xml <font color="#ffff00">(Project Object Model):**</font>
-**Dependency Management:** The pom.xml file lists all the dependencies your project needs. Dependencies are external libraries or frameworks that your Spring Boot application relies on. Maven uses this information to automatically download and manage these dependencies for you.
+**Dependency Management:** The pom.xml file lists all the dependencies your project needs. Dependencies <font color="#ffff00">are external libraries or frameworks that your Spring Boot application relies on</font>. Maven uses this information to automatically download and manage these dependencies for you.
 **e.g.:**
 ```
 <dependency>
