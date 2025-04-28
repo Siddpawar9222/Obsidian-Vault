@@ -40,7 +40,7 @@ The `@RequestMapping` annotation provides a flexible way to define the routing a
 - 
 ---
 
-- `@RequestBody`: This annotation is used to indicate that a method parameter should be bound to the body of the HTTP request. It's commonly used to receive and parse JSON or XML data sent in the request body.
+- `@RequestBody`: This annotation is used to indicate that a <font color="#ffc000">method parameter should be bound to the body of the HTTP request.</font> It's commonly used to receive and parse JSON or XML data sent in the request body.
 
 - `@PathVariable`: This annotation is used to bind a method parameter to a template variable in the URL path. It allows you to extract values from the URL and use them as method arguments.
 

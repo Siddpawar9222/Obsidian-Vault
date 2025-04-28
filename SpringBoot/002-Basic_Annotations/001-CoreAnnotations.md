@@ -29,10 +29,56 @@ This annotation indicates that a class is a Spring component. Spring will automa
 This annotation is a specialization of `@Component`. It indicates that a class is a service bean. It's often used to mark classes that provide business logic or service-oriented functionality.
 
 `@Repository`:
-This annotation is also a specialization of `@Component`. It's used to indicate that a class is a data access or repository bean. It's often applied to classes that interact with the database or other data storage mechanisms.
+This annotation is also a specialization of `@Component`. It's used to indicate that a class is a <font color="#ffc000">data access or repository bean</font>. It's often applied to classes that interact with the database or other data storage mechanisms.
 
 `@Controller`:
 This annotation indicates that a class is a Spring MVC controller. It's used in web applications to handle HTTP requests and manage the flow of data between the user interface and the business logic.
+
+`@ResponseBody`: 
+When you return a value from a controller method, **Spring expects you are returning a View name** (like a webpage).
+
+Example:
+
+```java
+@Controller
+public class MyController {
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "hello"; // Spring will search for hello.jsp or hello.html page to show
+    }
+}
+```
+
+Here, `"hello"` means: **Find and render a page named `hello`**.
+
+When you add `@ResponseBody`, **Spring will not look for a view**.  
+**It will directly return the data** (like plain text, JSON, etc.) to the browser or client.
+
+Example:
+
+```java
+@Controller
+public class MyController {
+
+    @GetMapping("/hello")
+    @ResponseBody
+    public String sayHello() {
+        return "Hello, World!";
+    }
+}
+```
+
+Now, **Spring will return the text `Hello, World!` directly** in the browser.
+
+You will **see "Hello, World!" as response**, not any HTML page. It can be object (json) as well
+
+
+- `@ResponseBody` tells Spring: **"Don't search for a view, just send the return data directly to the client."**
+
+If you want to build REST APIs, instead of `@Controller + @ResponseBody`, you can also use `@RestController` — it does the same thing automatically!
+
+
 
 `@RestController`:
 This is a specialization of `@Controller` that combines the `@Controller` and `@ResponseBody` annotations. It's used to create RESTful web services, where the methods return data directly to the response body.
@@ -47,28 +93,28 @@ When multiple beans of the same type are available for injection, the `@Qualifie
 When multiple beans of the same type are available for injection, the `@Primary` annotation can be used to specify which particular bean should be prioritized first.
 
 `@Lazy`:
-This annotation is used to indicate that a bean should be initialized lazily, i.e., only when it is first requested, rather than during the application startup. By default, Spring Boot is eager-loaded, meaning it creates beans automatically.
+This annotation is used to indicate that a bean should be initialized lazily, i.e., only <font color="#ffc000">when it is first requested, rather than during the application startup. </font>By default, Spring Boot is eager-loaded, meaning it creates beans automatically.
 
 `@Scope`:
-This annotation is used to define the scope of a bean. It determines the lifecycle and visibility of a bean. Common scopes include `singleton` (default), `prototype`, `request`, `session`, etc.
+This annotation is used to define the scope of a bean. It determines the<font color="#ffc000"> lifecycle and visibility of a bean.</font> Common scopes include `singleton` (default), `prototype`, `request`, `session`, etc.
 
 `@Value`:
 This annotation is used to inject values from property sources (e.g., properties files) into fields or constructor parameters. It can be used to inject simple values or expressions.
 
 `@PropertySource`:
-This annotation is used to specify the location of property files that Spring should use to resolve property values. It's often used in conjunction with the `@Value` annotation to inject properties.
+ This annotation Used on class level and  used to specify the location of property files that Spring should use to resolve property values. It's often used in conjunction with the `@Value` annotation to inject properties.
 
 `@ConfigurationProperties`:
-This annotation is used to bind external properties directly to a Java bean. It allows you to group multiple properties under a single Java class and inject them into your application.
+This annotation can be used on class level as well as on method level(rare case) and used to bind external properties directly to a Java bean. It allows you to group multiple properties under a single Java class and inject them into your application.
 
 `@Profile`:
-This annotation is used to define a profile for beans. Beans annotated with `@Profile` will only be registered and created if the specified profiles are active.
-
-`@RestControllerAdvice`:
-`@RestControllerAdvice` is an annotation in Spring used to define a global exception handler class. It's typically placed on a class that contains methods for handling exceptions thrown by controllers across the entire application. It combines the functionality of `@ControllerAdvice` and `@ResponseBody`, which means it can handle exceptions and return responses in a RESTful format (usually JSON) suitable for APIs.
+This annotation can be used with class or method level and  used to define a profile for beans. <font color="#ffc000">Beans annotated with `@Profile` will only be registered and created if the specified profiles are active.</font>
 
 `@ControllerAdvice`:
 This annotation is used to define global exception handlers and advice for controllers. Use `@ControllerAdvice` when dealing with traditional web applications that return both views and data. Use `@RestControllerAdvice` when building APIs where your controllers return data in formats like JSON or XML.
+
+`@RestControllerAdvice`:
+`@RestControllerAdvice` is an annotation in Spring used to define a global exception handler class. It's typically placed on a class that contains methods for handling exceptions thrown by controllers across the entire application. It combines the functionality of `@ControllerAdvice` and `@ResponseBody`, which means it can handle exceptions and return responses in a RESTful format (usually JSON) suitable for APIs.
 
 `@ExceptionHandler`:
 `@ExceptionHandler` is an annotation used within a class annotated with `@RestControllerAdvice` to define methods that handle specific types of exceptions.
