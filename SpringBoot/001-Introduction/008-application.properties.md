@@ -125,3 +125,56 @@ services:
 <font color="#ffff00">     Command-line arguments and System properties >> Profile-specific properties >>  application.properties >> application.yml</font>
 
 
+## Running Spring Boot Application : 
+
+
+ **Command to run a basic Spring Boot project using command line:**
+
+If you have a Spring Boot project and you have built a `.jar` file,  
+you can run it using:
+
+```bash
+mvn clean package
+java -jar yourprojectname.jar
+
+```
+
+ **Command to run a Spring Boot project with a specific profile (like dev, prod, test):**
+
+You can pass the profile using `--spring.profiles.active` option:
+
+```bash
+java -jar yourprojectname.jar --spring.profiles.active=profilename
+```
+
+---
+
+**If you are running from Maven without building a jar:**
+
+Sometimes during development,  
+you just want to run without creating a jar file.  
+Use:
+
+```bash
+./mvnw spring-boot:run
+```
+
+or (if you have Maven installed):
+
+```bash
+mvn spring-boot:run
+```
+
+ **Running with profile using Maven:**
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=profilename
+```
+
+**Example:**
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+---
