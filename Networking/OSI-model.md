@@ -24,15 +24,15 @@ Think of it like a **parcel delivery system**:
 
 ## 🔹 OSI Model 7 Layers (Top to Bottom)
 
-|Layer No.|Layer Name|Purpose (Simple English)|Industrial Example|
-|---|---|---|---|
-|7|Application|Interface for users to interact with network|Web browser, Gmail, WhatsApp|
-|6|Presentation|Translates data (encrypt, decrypt, compress)|SSL/TLS encryption for secure websites (HTTPS)|
-|5|Session|Opens and maintains a connection|Video call session, login sessions on websites|
-|4|Transport|Breaks data into chunks, ensures error-free delivery|TCP (ensures complete file download)|
-|3|Network|Finds best route to send data|Routers, IP addresses (like finding the address)|
-|2|Data Link|Creates frames, handles errors in physical layer|MAC Address, Switches, Ethernet|
-|1|Physical|Actual hardware sending data as bits (0s and 1s)|Cables, Wi-Fi, Network Cards|
+| Layer No. | Layer Name   | Purpose (Simple English)                             | Industrial Example                               |
+| --------- | ------------ | ---------------------------------------------------- | ------------------------------------------------ |
+| 7         | Application  | Interface for users to interact with network         | Web browser, Gmail, WhatsApp                     |
+| 6         | Presentation | Translates data (encrypt, decrypt, compress)         | SSL/TLS encryption for secure websites (HTTPS)   |
+| 5         | Session      | Opens and maintains a connection                     | Video call session, login sessions on websites   |
+| 4         | Transport    | Breaks data into chunks, ensures error-free delivery | TCP (ensures complete file download)             |
+| 3         | Network      | Finds best route to send data                        | Routers, IP addresses (like finding the address) |
+| 2         | Data Link    | Creates frames, handles errors in physical layer     | MAC Address, Switches, Ethernet                  |
+| 1         | Physical     | Actual hardware sending data as bits (0s and 1s)     | Cables, Wi-Fi, Network Cards                     |
 
 ---
 

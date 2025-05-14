@@ -183,4 +183,9 @@ This will **auto-renew your SSL certificate every Monday at midnight**.
 ✅ **Now  SSL will be automatically renewed!**
 
 ---
+## Steps to renew : 
+- Stop running spring boot application
+- sudo lsof -i :443 : use this command to see running any app and if it is kill it
+- sudo certbot renew run this command then
+- Run spring boot application
 
