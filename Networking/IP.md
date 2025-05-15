@@ -131,13 +131,14 @@ There are **2 ways** to assign an IP address:
 
 ## 🔁 Summary Table:
 
-|Term|Simple Meaning|Real Example|
-|---|---|---|
-|IP|Internet Protocol – identifies devices|Like your home address|
-|IPv4|Older IP version (e.g., 192.168.1.1)|4 numbers separated by dots|
-|IPv6|New IP version for more devices|Long hex address like `2001:...`|
-|Subnet|Divides a network into smaller networks|Like flats in an apartment|
-|DHCP|Automatically gives IP to devices|Like hotel receptionist|
+| Term   | Simple Meaning                            | Real Example                     |
+| ------ | ----------------------------------------- | -------------------------------- |
+| IP     | Internet Protocol – identifies devices    | Like your home address           |
+| IPv4   | Older IP version (e.g., 192.168.1.1)      | 4 numbers separated by dots      |
+| IPv6   | New IP version for more devices           | Long hex address like `2001:...` |
+| Subnet | Divides a network into smaller networks   | Like flats in an apartment       |
+| DHCP   | Automatically gives IP to devices         | Like hotel receptionist          |
+| NAT    | Allow many devices to share one public ip |                                  |
 
 ---
 
@@ -151,10 +152,10 @@ Let’s break it down.
 
 ## ✅ There are **two types** of IP addresses:
 
-|Type|Used For|Example|
-|---|---|---|
-|**Private IP**|Inside your home or local network|192.168.0.5|
-|**Public IP**|Visible to the internet (outside)|49.36.XXX.XXX (Jio gives this)|
+| Type           | Used For                          | Example                        |
+| -------------- | --------------------------------- | ------------------------------ |
+| **Private IP** | Inside your home or local network | 192.168.0.5                    |
+| **Public IP**  | Visible to the internet (outside) | 49.36.XXX.XXX (Jio gives this) |
 
 ---
 
@@ -232,115 +233,210 @@ Look for:
 
 ## 🔁 Summary:
 
-|Term|Meaning|
+| Term       | Meaning                                     |
+| ---------- | ------------------------------------------- |
+| Private IP | Assigned to device inside home (Wi-Fi)      |
+| Public IP  | Given by Jio to your home router            |
+| NAT        | Allows many devices to share one public IP  |
+| Subnet     | Divides local network (e.g. 192.168.0.0/24) |
+
+
+---
+
+## ✅ What is a Subnet?
+
+A **subnet** is a **subset of a bigger network**.  
+In AWS, the **bigger network is the VPC**, and the **subnets are smaller networks inside it**.
+
+Each subnet:
+
+- Has its **own unique CIDR block** (IP range)
+    
+- Contains **non-overlapping IP addresses**
+    
+- Is either **public** or **private**
+    
+
+---
+
+## ✅ Real-World Analogy
+
+Imagine a big apartment building (VPC) divided into floors (subnets):
+
+- **VPC**: Whole building
+    
+- **Subnet 1**: 1st floor (Rooms 101–150)
+    
+- **Subnet 2**: 2nd floor (Rooms 201–250)
+    
+
+Each floor (subnet) has **its own range** of room numbers (IP addresses).
+
+---
+
+## ✅ Example: Different IP Addresses in Each Subnet
+
+Let’s say you created a VPC with range:
+
+```
+10.0.0.0/16   → Allows 65,536 IPs
+```
+
+Now you divide it into 2 subnets:
+
+|Subnet Name|CIDR Block|Range of IPs|Public/Private|
+|---|---|---|---|
+|Subnet A|10.0.1.0/24|10.0.1.0 to 10.0.1.255|Public|
+|Subnet B|10.0.2.0/24|10.0.2.0 to 10.0.2.255|Private|
+
+So:
+
+- EC2 in Subnet A might get IP: `10.0.1.10`
+    
+- EC2 in Subnet B might get IP: `10.0.2.15`
+    
+
+These IPs are **different** and come from their **own subnet ranges**.
+
+---
+
+## ✅ Key Rule
+
+> **Each subnet must have a different, non-overlapping CIDR block.**
+
+You cannot have:
+
+- Subnet A: `10.0.1.0/24`
+    
+- Subnet B: `10.0.1.0/24` → ❌ Overlaps!
+    
+
+---
+
+## ✅ Visual Tree (in your mental image style)
+
+```
+VPC: 10.0.0.0/16
+│
+├── Subnet A: 10.0.1.0/24
+│     └── EC2-A: 10.0.1.10
+│
+└── Subnet B: 10.0.2.0/24
+      └── EC2-B: 10.0.2.15
+```
+
+Each EC2 is in a different **branch of the tree** (subnet), and gets IP from that branch’s range.
+
+---
+
+## ✅ Summary
+
+- Yes, **each subnet has a different IP address range**
+    
+- The ranges are defined by **CIDR blocks** like `10.0.1.0/24`
+    
+- IPs given to EC2s come from that range
+    
+- This structure helps organize your cloud network properly
+    
+---
+
+## ✅ First, What Jio Really Manages?
+
+Jio provides:
+
+- Internet to **millions of users**
+    
+- Each user may have multiple devices
+    
+- Each device needs an **IP address** to talk on the internet
+    
+
+Clearly, Jio needs a system to **manage these millions of devices**. That’s where **subnets** come in.
+
+---
+
+## ✅ How Jio Uses Subnets
+
+### 1. **Jio owns a big block of public IP addresses**
+
+They get these from global IP authorities (like APNIC for Asia).
+
+Example:
+
+```
+Jio gets block: 49.36.0.0/14
+```
+
+That means they own IPs from:
+
+```
+49.36.0.0 → 49.39.255.255  (~262,144 IPs!)
+```
+
+---
+
+### 2. **Jio divides that big IP block into smaller subnets**
+
+Just like AWS divides VPC into subnets, Jio divides its block:
+
+- Subnet A → For Mumbai users: `49.36.0.0/18`
+    
+- Subnet B → For Delhi users: `49.36.64.0/18`
+    
+- Subnet C → For Bangalore users: `49.36.128.0/18`
+    
+- ...
+    
+
+Each subnet serves a specific **region, tower, or type of service**.
+
+---
+
+### 3. **Jio assigns IPs to towers/routers**
+
+Each Jio mobile tower or fiber router:
+
+- Acts like a **mini-router**
+    
+- Has its own subnet range
+    
+- Assigns **private IPs** to user devices
+    
+- Uses **NAT** to connect them to the internet
+    
+
+Your devices might get:
+
+- **Private IP**: `192.168.1.5` (from local Jio box/router)
+    
+- **Public IP**: `49.36.87.220` (Jio’s public subnet)
+    
+
+---
+
+## ✅ Visual Example (Mental Tree)
+
+```
+Jio IP Block: 49.36.0.0/14
+│
+├── Mumbai Subnet: 49.36.0.0/18
+│     └── Tower 1: assigns IPs to homes & phones
+│
+├── Delhi Subnet: 49.36.64.0/18
+│     └── Tower 2: assigns IPs to devices there
+│
+└── Bangalore Subnet: 49.36.128.0/18
+      └── Tower 3: assigns IPs to devices there
+```
+
+---
+
+## ✅ Summary
+
+|Question|Answer|
 |---|---|
-|Private IP|Assigned to device inside home (Wi-Fi)|
-|Public IP|Given by Jio to your home router|
-|NAT|Allows many devices to share one public IP|
-|Subnet|Divides local network (e.g. 192.168.0.0/24)|
-
----
-
-
-Awesome! You're thinking like a network engineer now! 🌐  
-Since you already imagine a network like a **tree**, let's now clearly explain how **Private IP** and **Public IP** addresses are assigned — using that **tree model**.
-
----
-
-## ✅ Quick Recap:
-
-In a network:
-
-| IP Type        | Who Assigns It             | Used For                                 | Example       |
-| -------------- | -------------------------- | ---------------------------------------- | ------------- |
-| **Public IP**  | ISP (e.g. Jio)             | Identifies your home to the **internet** | 49.36.202.100 |
-| **Private IP** | Your **router** (via DHCP) | Identifies devices **inside your home**  | 192.168.0.101 |
-
----
-
-## 🌳 Tree Analogy for IP Assignment
-
-Let's build a tree step by step:
-
-### 🔷 LEVEL 1: Internet (Root Node)
-
-At the top, we have the **Internet**. IP addresses here are:
-
-- **Public IPs**
-    
-- Managed globally by an organization called **IANA**
-    
-
-Example ranges:
-
-- `49.36.202.100` → Jio owns this IP range
-    
-
----
-
-### 🔷 LEVEL 2: ISP (Jio Fiber)
-
-Jio buys a **block of public IPs** from the global organization.  
-Let’s say Jio owns:
-
-```
-49.36.202.0/24  → 256 public IPs
-```
-
-Jio then **assigns one of these** public IPs to your **home router**:
-
-```
-Your router gets: 49.36.202.100
-```
-
----
-
-### 🔷 LEVEL 3: Your Home Router (Private Subnet)
-
-Now your router acts like a **sub-network root** (a smaller tree root).
-
-It creates a **private IP network** like:
-
-```
-192.168.0.0/24 → 256 private IPs
-```
-
-Then your router assigns private IPs to your devices:
-
-|Device|Private IP|
-|---|---|
-|Laptop|192.168.0.101|
-|Mobile|192.168.0.102|
-|Smart TV|192.168.0.103|
-
-This assignment is usually done by **DHCP (Dynamic Host Configuration Protocol)** — which runs inside your router.
-
----
-
-## 🌐 Summary of Tree Structure
-
-```
-[Internet Root]
-    ↓
-[Public IP Block owned by Jio] → 49.36.202.0/24
-    ↓
-[Your Router] → Gets 49.36.202.100
-    ↓
-[Your Private Network] → 192.168.0.0/24
-   ├── Laptop → 192.168.0.101
-   ├── Mobile → 192.168.0.102
-   └── TV     → 192.168.0.103
-```
-
----
-
-## 🧠 Key Points to Remember:
-
-| Concept          | Meaning                                                |
-| ---------------- | ------------------------------------------------------ |
-| **Public IP**    | Given by ISP (e.g., Jio) to your router                |
-| **Private IP**   | Given by your router to your devices                   |
-| **DHCP**         | A service that assigns private IPs automatically       |
-| **Tree analogy** | Public IP is root, private subnets are branches/leaves |
-
----
+|Does Jio use subnets?|Yes|
+|Why does Jio use subnets?|To manage IPs efficiently and avoid conflicts|
+|Do you get IP from Jio subnet?|Yes, your public IP comes from one of Jio’s subnets|
+|What about private IPs?|Your router or hotspot gives you a private IP (like 192.168.x.x)|
