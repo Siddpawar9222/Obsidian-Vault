@@ -187,5 +187,14 @@ This will **auto-renew your SSL certificate every Monday at midnight**.
 - Stop running spring boot application
 - sudo lsof -i :443 : use this command to see running any app and if it is kill it
 - sudo certbot renew run this command then
+- We need to create `keystore.p12` key maually in spring boot jar directory using command 
+   ```
+   openssl pkcs12 -export \
+  -inkey /etc/letsencrypt/live/stage.techeazyconsulting.com/privkey.pem \
+  -in /etc/letsencrypt/live/stage.techeazyconsulting.com/fullchain.pem \
+  -out /root/techeazy-gateway/keystore.p12 \
+  -name tomcat \
+  -passout pass:techeazy@1234
+     ```
 - Run spring boot application
 
