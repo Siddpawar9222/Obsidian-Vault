@@ -190,8 +190,8 @@ This will **auto-renew your SSL certificate every Monday at midnight**.
 - We need to create `keystore.p12` key maually in spring boot jar directory using command 
    ```
    openssl pkcs12 -export \
-  -inkey /etc/letsencrypt/live/stage.techeazyconsulting.com/privkey.pem \
-  -in /etc/letsencrypt/live/stage.techeazyconsulting.com/fullchain.pem \
+  -inkey /etc/letsencrypt/live/prod.techeazyconsulting.com/privkey.pem \
+  -in /etc/letsencrypt/live/prod.techeazyconsulting.com/fullchain.pem \
   -out /root/techeazy-gateway/keystore.p12 \
   -name tomcat \
   -passout pass:techeazy@1234
