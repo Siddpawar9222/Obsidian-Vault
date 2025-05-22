@@ -124,6 +124,276 @@ services:
    <font color="#ffff00">**In Short :** </font>
 <font color="#ffff00">     Command-line arguments and System properties >> Profile-specific properties >>  application.properties >> application.yml</font>
 
+---
+
+## 🗂️ Property Priority in Spring Boot (Highest ➡️ Lowest)
+
+---
+
+### 1. **Command Line Arguments**
+
+✅ **Highest priority**
+
+You can pass properties when starting your application using `--` syntax:
+
+```bash
+java -jar myapp.jar --server.port=9999 --spring.profiles.active=dev
+```
+
+🧠 **Why use this?**
+
+- Great for overriding values temporarily (like in CI/CD pipelines or quick testing).
+    
+- Highest priority — overrides everything else.
+    
+
+---
+
+### 2. **Environment Variables**
+
+These are OS-level or system-wide settings.
+
+#### Example (Linux/macOS):
+
+```bash
+export SERVER_PORT=8888
+```
+
+In `application.properties`:
+
+```properties
+server.port=${SERVER_PORT}
+```
+
+🧠 **Why use this?**
+
+- Securely inject secrets like passwords or API keys.
+    
+- Easy to change without modifying your code or config files.
+    
+
+---
+
+### 3. **`application-{profile}.properties` or `.yml`**
+
+These are **profile-specific config files**, like:
+
+- `application-dev.properties`
+    
+- `application-prod.properties`
+    
+
+You select the profile like this:
+
+```properties
+spring.profiles.active=dev
+```
+
+🧠 **Why use this?**
+
+- Keep different configs for different environments.
+    
+- For example, `dev` DB on localhost, but `prod` DB on cloud.
+    
+
+---
+
+### 4. **`application.properties` or `.yml` (Default)**
+
+This is the main/default configuration file.
+
+```properties
+server.port=8080
+spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+```
+
+🧠 **Why use this?**
+
+- Base/default settings for all environments.
+    
+- Can be overridden by profile-specific files or other sources.
+    
+
+---
+
+### 5. **`@PropertySource` Annotations**
+
+You can use this inside a Spring class to load properties manually:
+
+```java
+@PropertySource("classpath:custom.properties")
+@Configuration
+public class MyConfig {
+    // Inject properties here
+}
+```
+
+🧠 **Why use this?**
+
+- When you want to load custom property files other than the default ones.
+    
+- Used for modular configurations.
+    
+
+---
+
+### 6. **Default Values in Code**
+
+If nothing else sets a value, you can give a default directly in code:
+
+```java
+@Value("${my.value:DefaultValue}")
+private String myValue;
+```
+
+If `my.value` is **not** defined anywhere, Spring uses `DefaultValue`.
+
+🧠 **Why use this?**
+
+- Safety net in case no property is set.
+    
+- Helps prevent NullPointerException.
+    
+
+---
+
+## 🔁 Example of Override Priority
+
+Let’s say you define the same property `server.port` in different places:
+
+|Source|Value|
+|---|---|
+|Command Line|`9999`|
+|Environment Variable (`SERVER_PORT`)|`8888`|
+|application-dev.properties|`9090`|
+|application.properties|`8080`|
+|`@PropertySource`|`7070`|
+|Default in code|`6060`|
+
+If you run:
+
+```bash
+java -jar app.jar --server.port=9999
+```
+
+➡️ Spring Boot will use **9999** (from Command Line).
+
+If command line is not set, then it will use **8888** (from Environment Variable), and so on...
+
+---
+
+> 🧠 **Where should we keep these `export` commands (`DB_PASSWORD`, `JWT_SECRET`) so they are available when we run our Spring Boot app?**
+
+---
+
+## ✅ 1. **If You Run Your App from Terminal (Manually)**
+
+You can export the variables **in the terminal** before running your Spring Boot app.
+
+### 🧪 Steps:
+
+```bash
+export DB_PASSWORD=MySecretPassword
+export JWT_SECRET=MyJwtKey
+java -jar your-app.jar
+```
+
+⏳ This works **only for the current terminal session**. Once you close the terminal, variables are gone.
+
+---
+
+## ✅ 2. **To Make Environment Variables Permanent (Linux/macOS)**
+
+Add your `export` lines in your shell config file (based on the terminal you use):
+
+|Shell|File to update|
+|---|---|
+|Bash|`~/.bashrc` or `~/.bash_profile`|
+|Zsh|`~/.zshrc`|
+
+### 👇 Example:
+
+Edit `~/.bashrc`:
+
+```bash
+export DB_PASSWORD=MySecretPassword
+export JWT_SECRET=MyJwtKey
+```
+
+Then run:
+
+```bash
+source ~/.bashrc
+```
+
+Now these variables will be available **every time you open the terminal**.
+
+---
+
+## ✅ 3. **If You Run Spring Boot from IntelliJ IDEA**
+
+You can set environment variables inside IntelliJ:
+
+### 🛠️ Steps:
+
+1. Go to **Run > Edit Configurations**.
+    
+2. Select your Spring Boot app.
+    
+3. In the **Environment Variables** field, add:
+    
+    ```
+    DB_PASSWORD=MySecretPassword;JWT_SECRET=MyJwtKey
+    ```
+    
+4. Click **Apply** and run your app.
+    
+
+---
+
+## ✅ 4. **If You Use a `.env` File (Optional)**
+
+Create a file named `.env`:
+
+```
+DB_PASSWORD=MySecretPassword
+JWT_SECRET=MyJwtKey
+```
+
+This is useful when using **Docker**, **Docker Compose**, or libraries like **dotenv-java**.
+
+⚠️ Spring Boot does **not automatically read `.env`** unless you use extra tools.
+
+---
+
+## ✅ 5. **On Production Servers (like AWS, DigitalOcean, etc.)**
+
+- Set environment variables in your **cloud provider dashboard** or in **startup scripts**.
+    
+- For example:
+    
+    - AWS EC2 → add in user-data script or instance environment settings.
+        
+    - Docker → use `-e` option:
+        
+        ```bash
+        docker run -e DB_PASSWORD=MySecretPassword your-app
+        ```
+        
+
+---
+
+## 🧾 Summary
+
+|Method|Where to keep it|Usage|
+|---|---|---|
+|Temporary (manual)|Terminal|Good for quick test|
+|Permanent (Linux/macOS)|`~/.bashrc`, `~/.zshrc`|Best for local development|
+|IntelliJ IDEA|Run Config → Environment Variables|Best for Java developers|
+|Docker / Cloud|In Docker/Cloud configs|Best for deployment|
+|`.env` file|Project root (with dotenv support)|Use with Docker or libraries|
+
+---
 
 ## Running Spring Boot Application : 
 
@@ -178,3 +448,5 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 ---
+[Medium Article](https://medium.com/@mayank-yadav/mastering-spring-boot-profiles-easy-guide-with-examples-priority-order-pro-tips-47f1484769ff)
+
