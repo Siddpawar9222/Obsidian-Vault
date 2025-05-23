@@ -3,7 +3,7 @@
 
 ### Why Use Spring AOP (Aspect-Oriented Programming) ?
 
-Spring AOP (Aspect-Oriented Programming) allows you to define cross-cutting concerns separately from your business logic. This helps in improving code modularity and reduces redundancy. Here are some key reasons and a simple example to illustrate:
+Spring AOP (Aspect-Oriented Programming) allows you to define <font color="#ffc000">cross-cutting concerns separately from your business logic.</font> This helps in improving code modularity and reduces redundancy. Here are some key reasons and a simple example to illustrate:
 
 #### Key Reasons to Use Spring AOP:
 
