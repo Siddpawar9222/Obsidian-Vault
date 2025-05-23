@@ -10,6 +10,6 @@
 - How to configure JPA in spring
 - JPA methods 
 - Custom methods, JPQL
-- Pagination , sorting (pagable)
+- Pagination , sorting (`pagable`)
 - Spring data Specification(For better filter)
 - Custom Filter(used `@EntityLister, @Filter ,@preprsit,@PostLoad` etc..)

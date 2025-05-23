@@ -12,15 +12,15 @@
 
 ---
 
-## ✅ 1. `@OneToOne` – Example: Person & Passport
+## ✅ 1. `@OneToOne` – **Student & Address**
 
-> One person has one passport.
+> One student has one address.
 
-### 🔸 Entity: `Person`
+### 🔸 Entity: `Student`
 
 ```java
 @Entity
-public class Person {
+public class Student {
     @Id
     @GeneratedValue
     private Long id;
@@ -28,29 +28,44 @@ public class Person {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "passport_id")
-    private Passport passport;
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
 ```
 
-### 🔸 Entity: `Passport`
+### 🔸 Entity: `Address`
 
 ```java
 @Entity
-public class Passport {
+public class Address {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String passportNumber;
+    private String street;
+    private String city;
 }
 ```
 
+### 🗃️ Database Tables and Dummy Data
+
+**Student Table**
+
+|id|name|address_id|
+|---|---|---|
+|1|Raj|101|
+
+**Address Table**
+
+|id|street|city|
+|---|---|---|
+|101|MG Road|Mumbai|
+
 ---
 
-## ✅ 2. `@OneToMany` and `@ManyToOne` – Example: School & Students
+## ✅ 2. `@OneToMany` and `@ManyToOne` – **School & Students**
 
-> One school has many students, but each student belongs to one school.
+> One school has many students.
 
 ### 🔸 Entity: `School`
 
@@ -85,11 +100,26 @@ public class Student {
 }
 ```
 
+### 🗃️ Database Tables and Dummy Data
+
+**School Table**
+
+|id|name|
+|---|---|
+|1|ABC High School|
+
+**Student Table**
+
+|id|name|school_id|
+|---|---|---|
+|1|Anil|1|
+|2|Riya|1|
+
 ---
 
-## ✅ 3. `@ManyToMany` – Example: Students & Courses
+## ✅ 3. `@ManyToMany` – **Students & Courses**
 
-> A student can join many courses, and a course can have many students.
+> Students can take multiple courses and vice versa.
 
 ### 🔸 Entity: `Student`
 
@@ -121,36 +151,49 @@ public class Course {
     @GeneratedValue
     private Long id;
 
-    private String courseName;
+    private String title;
 
     @ManyToMany(mappedBy = "courses")
     private List<Student> students = new ArrayList<>();
 }
 ```
 
+### 🗃️ Database Tables and Dummy Data
+
+**Student Table**
+
+|id|name|
+|---|---|
+|1|Aarti|
+|2|Sameer|
+
+**Course Table**
+
+|id|title|
+|---|---|
+|101|Math|
+|102|Computer Sci|
+
+**Student_Course Join Table**
+
+|student_id|course_id|
+|---|---|
+|1|101|
+|1|102|
+|2|101|
+
 ---
 
 ## 🔁 Important Annotations
 
-|Annotation|Purpose|
-|---|---|
-|`@OneToOne`|Defines one-to-one relationship|
-|`@OneToMany`|One to many, placed on parent entity|
-|`@ManyToOne`|Many to one, placed on child entity|
-|`@ManyToMany`|Many-to-many mapping|
-|`@JoinColumn`|Specifies the foreign key column|
-|`@JoinTable`|For many-to-many join table|
-|`mappedBy`|Inverse side of relationship (non-owning)|
-
----
-
-## 🧠 Real-World Summary
-
-- `@OneToOne` → Person - Passport
-    
-- `@OneToMany`/`@ManyToOne` → School - Students
-    
-- `@ManyToMany` → Students - Courses
-    
+| Annotation    | Purpose                                   |
+| ------------- | ----------------------------------------- |
+| `@OneToOne`   | Defines one-to-one relationship           |
+| `@OneToMany`  | One to many, placed on parent entity      |
+| `@ManyToOne`  | Many to one, placed on child entity       |
+| `@ManyToMany` | Many-to-many mapping                      |
+| `@JoinColumn` | Specifies the foreign key column          |
+| `@JoinTable`  | For many-to-many join table               |
+| `mappedBy`    | Inverse side of relationship (non-owning) |
 
 ---

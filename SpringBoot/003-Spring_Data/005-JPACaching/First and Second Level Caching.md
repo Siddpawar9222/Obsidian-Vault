@@ -64,11 +64,9 @@
 
 ### Key Differences Between First-Level and Second-Level Cache:
 
-|**Aspect**|**First-Level Cache**|**Second-Level Cache**|
-|---|---|---|
-|**Scope**|Per `Session`|Per `SessionFactory`|
-|**Enabled By Default**|Yes|No|
-|**Configuration**|No configuration needed|Requires configuration and provider|
-|**Data Sharing**|Not shared across sessions|Shared across sessions|
-
-In summary, the **first-level cache** is automatic and session-specific, while the **second-level cache** requires explicit configuration and works across sessions for better performance.
+| **Aspect**             | **First-Level Cache**      | **Second-Level Cache**              |
+| ---------------------- | -------------------------- | ----------------------------------- |
+| **Scope**              | Per `Session`              | Per `SessionFactory`                |
+| **Enabled By Default** | Yes                        | No                                  |
+| **Configuration**      | No configuration needed    | Requires configuration and provider |
+| **Data Sharing**       | Not shared across sessions | Shared across sessions              |
