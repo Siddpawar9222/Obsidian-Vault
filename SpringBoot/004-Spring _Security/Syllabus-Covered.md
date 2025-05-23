@@ -8,4 +8,6 @@
 - Oauth2 , flow 
 
 
-- Need to learn : Build OTP login/verification to understand Authentication provider better
+- Need to learn : 
+  - Build OTP login/verification to understand Authentication provider better
+  - Access Token & Refresh Token
