@@ -90,6 +90,11 @@ Imagine you want to borrow a book from the library. You approach the librarian f
 - **Librarian**: The librarian represents the API, handling your requests and providing responses.
 - **Actions (Get and Submit a Book)**: The actions you perform (like getting a book or submitting a book) represent RESTful API operations.
 
+---
+
+[SOAP vs REST](https://jelvix.com/blog/rest-vs-soap)
+
+---
 
 
 **REST API:**

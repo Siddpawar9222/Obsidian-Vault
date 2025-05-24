@@ -280,9 +280,7 @@ These configuration classes allow you to create completely separate contexts wit
     
 
 ---
-
-
-Here is summary
+### ApplicationContext : 
 
 1. **ApplicationContext**: The modern, feature-rich Spring IoC container used in most Spring applications (including Spring Boot)
     

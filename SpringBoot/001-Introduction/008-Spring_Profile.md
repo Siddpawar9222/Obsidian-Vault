@@ -1,9 +1,11 @@
 
 -----
 
+### Spring Profile : 
+**Spring Profile** is a way to define **different configurations for different environments** in a Spring Boot application.
+
 
 **application.properties:**
-
 It's commonly used to configure settings for a Spring Boot application, such as database connection details, server port, logging levels, and many other aspects.
 
 **MySQL:**
@@ -57,6 +59,8 @@ services:
       - MYSQL_USERNAME=myuser
       - MYSQL_PASSWORD=mypassword
 ```
+
+----
 
 **Profiles:**
 
