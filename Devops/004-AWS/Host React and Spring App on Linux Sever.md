@@ -1,5 +1,4 @@
 
-
 ---
 
 # Deployment Guide: Hosting React and Spring Boot Applications on a Linux Server
