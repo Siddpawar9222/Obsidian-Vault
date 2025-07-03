@@ -70,10 +70,19 @@
       [GitHub Repo](https://github.com/rafgraph/spa-github-pages)
 
 ---
+ CI-CD  with react and gh-pages: 
 
 - create different environments
 - Create build of that environment
-- create 404 file similar to index.html
+- create 404 file similar to index.html and put in build
 - copy domain name for environment to CNAME and CNAME to build folder
 - Need to define CNAME mapping in bigrock (example : when we host build to react app it create url like `https://techeazy-consulting.github.io/techeazy-frontend` this url we need to define in  bigrock CNAME)
-- 
+- To Host on self repo gh-pages need to give following 
+- ![[Pasted image 20250703115928.png]]
+- ![[Pasted image 20250703120015.png]]
+
+  if you want deploy on another repository branch(gh-pages) then
+  ![[Pasted image 20250703120238.png]]
+Create token(classic token) with _repo, workflow_ permissions
+
+Write deploy.yml carefully
