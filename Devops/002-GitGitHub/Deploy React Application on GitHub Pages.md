@@ -70,3 +70,10 @@
       [GitHub Repo](https://github.com/rafgraph/spa-github-pages)
 
 ---
+
+- create different environments
+- Create build of that environment
+- create 404 file similar to index.html
+- copy domain name for environment to CNAME and CNAME to build folder
+- Need to define CNAME mapping in bigrock (example : when we host build to react app it create url like `https://techeazy-consulting.github.io/techeazy-frontend` this url we need to define in  bigrock CNAME)
+- 
