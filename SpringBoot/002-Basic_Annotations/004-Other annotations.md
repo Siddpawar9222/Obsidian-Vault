@@ -51,3 +51,5 @@ Used in Jakarta EE for managing dependency injection lifecycle:
 15. **`@Disposes`** - Defines a disposal method for a producer.
     
 16. **`@Observes`** - Allows a method to listen for CDI events.
+
+
