@@ -126,6 +126,7 @@ PaymentService upiService = new PaymentService(
 
 - **Example**: Method creates/uses object briefly/ adding log object in method
 - **Strength**: Weakest
+- **Dependency is the foundation** - all other relationships are stronger forms of dependency!
 
 ```class PaymentService {
     // No Logger stored as instance variable
