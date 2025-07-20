@@ -188,6 +188,9 @@ It will ask for the password.
 \conninfo;
 -- Displays information about the current database connection.
 
+-- connect to specific databse
+\c database_name
+
 -- Create a New Database
 CREATE DATABASE new_database;
 -- Creates a new database called `new_database`.
