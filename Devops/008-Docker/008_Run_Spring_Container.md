@@ -73,6 +73,13 @@ ENTRYPOINT ["java", "-jar", "app.war"]
     
 
 ---
+## How to build image : 
+```
+docker build -t my-spring-app .
+
+```
+
+---
 
 ## How to  run  image: 
 
