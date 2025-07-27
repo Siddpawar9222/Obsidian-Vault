@@ -123,13 +123,13 @@ Here’s what happens internally:
 
 ## 🏠 Real-World Analogy
 
-|Component|Real-world analogy|
-|---|---|
-|Docker Client|You, placing a food order|
-|Docker Daemon|Chef who cooks the food|
-|Image|Recipe|
-|Container|Dish served on your table|
-|Docker Hub|Supermarket to get ingredients|
+| Component     | Real-world analogy             |
+| ------------- | ------------------------------ |
+| Docker Client | You, placing a food order      |
+| Docker Daemon | Chef who cooks the food        |
+| Image         | Recipe                         |
+| Container     | Dish served on your table      |
+| Docker Hub    | Supermarket to get ingredients |
 
 ---
 

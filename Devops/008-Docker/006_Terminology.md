@@ -152,17 +152,17 @@ docker push your-username/your-app
 
 ## 🧾 Quick Summary Table
 
-|Term|Meaning|Analogy|
-|---|---|---|
-|Image|Template for container|Java class|
-|Container|Running app|Java object|
-|Dockerfile|Instructions to build image|`pom.xml` / `build.gradle`|
-|Build|Create image|Compile|
-|Tag|Version label|Maven version|
-|Volume|Persistent storage|Folder on disk|
-|Network|Communication between containers|LAN|
-|Compose|Multi-container setup|Shell script to start app|
-|Registry|Store images|GitHub|
-|Daemon|Docker engine|JVM|
+| Term       | Meaning                          | Analogy                    |
+| ---------- | -------------------------------- | -------------------------- |
+| Image      | Template for container           | Java class                 |
+| Container  | Running app                      | Java object                |
+| Dockerfile | Instructions to build image      | `pom.xml` / `build.gradle` |
+| Build      | Create image                     | Compile                    |
+| Tag        | Version label                    | Maven version              |
+| Volume     | Persistent storage               | Folder on disk             |
+| Network    | Communication between containers | LAN                        |
+| Compose    | Multi-container setup            | Shell script to start app  |
+| Registry   | Store images                     | GitHub                     |
+| Daemon     | Docker engine                    | JVM                        |
 
 ---

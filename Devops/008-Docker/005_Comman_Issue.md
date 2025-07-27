@@ -222,10 +222,10 @@ To enable root SSH login:
 
 ## 🧠 Two Ways to Use Root Power in Linux
 
-|Method|Description|
-|---|---|
-|🔑 **Act like root (use `sudo`)**|You are still a **normal user**, but temporarily **borrow root's power** to run a command|
-|👑 **Login as root (become root)**|You are **fully logged in as root user** — 100% access, 100% responsibility|
+| Method                             | Description                                                                               |
+| ---------------------------------- | ----------------------------------------------------------------------------------------- |
+| 🔑 **Act like root (use `sudo`)**  | You are still a **normal user**, but temporarily **borrow root's power** to run a command |
+| 👑 **Login as root (become root)** | You are **fully logged in as root user** — 100% access, 100% responsibility               |
 
 ---
 
@@ -278,13 +278,13 @@ root@ip-172-xx-xx-xx:~#
 
 ## 📊 Key Differences
 
-|Feature|`sudo` (Act like root)|`root` login|
-|---|---|---|
-|Who are you?|Normal user with root power|You _are_ root|
-|Need to type `sudo`?|Yes|No|
-|Safer?|✅ Yes|❌ Risky|
-|Session limited?|Only root for that command|Full root access|
-|Recommended?|✅ Best Practice|❌ Not recommended for everyday work|
+| Feature              | `sudo` (Act like root)      | `root` login                        |
+| -------------------- | --------------------------- | ----------------------------------- |
+| Who are you?         | Normal user with root power | You _are_ root                      |
+| Need to type `sudo`? | Yes                         | No                                  |
+| Safer?               | ✅ Yes                       | ❌ Risky                             |
+| Session limited?     | Only root for that command  | Full root access                    |
+| Recommended?         | ✅ Best Practice             | ❌ Not recommended for everyday work |
 
 ---
 

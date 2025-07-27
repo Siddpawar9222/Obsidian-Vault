@@ -137,10 +137,10 @@ When you run a container, it has its **own isolated network** — it’s like a 
 
 ### 🧠 Why `-p 8080:8080` is important
 
-|Part|Meaning|
-|---|---|
-|`-p`|Publish or expose a port|
-|`8080:8080`|`HOST_PORT:CONTAINER_PORT`|
+| Part        | Meaning                    |
+| ----------- | -------------------------- |
+| `-p`        | Publish or expose a port   |
+| `8080:8080` | `HOST_PORT:CONTAINER_PORT` |
 
 ---
 

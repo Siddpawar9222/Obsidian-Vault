@@ -66,14 +66,14 @@ You create 2 Docker containers:
 
 ## 🔍 Key Differences
 
-|Feature|Virtualization (VMs)|Containerization (Docker)|
-|---|---|---|
-|OS|Each VM has its **own OS**|All containers **share host OS**|
-|Size|**Heavy** (GBs)|**Lightweight** (MBs)|
-|Boot Time|**Slow** (minutes)|**Fast** (seconds)|
-|Isolation|Strong, but resource-heavy|Good, and efficient|
-|Performance|Slightly slower|Faster (less overhead)|
-|Tools|VMware, VirtualBox, Hyper-V|Docker, Podman, containerd|
+| Feature     | Virtualization (VMs)        | Containerization (Docker)        |
+| ----------- | --------------------------- | -------------------------------- |
+| OS          | Each VM has its **own OS**  | All containers **share host OS** |
+| Size        | **Heavy** (GBs)             | **Lightweight** (MBs)            |
+| Boot Time   | **Slow** (minutes)          | **Fast** (seconds)               |
+| Isolation   | Strong, but resource-heavy  | Good, and efficient              |
+| Performance | Slightly slower             | Faster (less overhead)           |
+| Tools       | VMware, VirtualBox, Hyper-V | Docker, Podman, containerd       |
 
 ---
 
@@ -91,12 +91,12 @@ You create 2 Docker containers:
 
 ## 💡 When to Use What?
 
-|Situation|Use|
-|---|---|
-|Need strong isolation (e.g., different OS)|Virtual Machines|
-|Want fast, efficient app deployment|Containers|
-|Running a cloud-based microservices system|Containers (Docker + Kubernetes)|
-|Running apps with GUI like Windows/Linux desktop|Virtual Machines|
+| Situation                                        | Use                              |
+| ------------------------------------------------ | -------------------------------- |
+| Need strong isolation (e.g., different OS)       | Virtual Machines                 |
+| Want fast, efficient app deployment              | Containers                       |
+| Running a cloud-based microservices system       | Containers (Docker + Kubernetes) |
+| Running apps with GUI like Windows/Linux desktop | Virtual Machines                 |
 
 ---
 
