@@ -74,18 +74,14 @@ ENTRYPOINT ["java", "-jar", "app.war"]
 
 ---
 
-### 🔁 Real World Analogy
+## How to  run  image: 
 
-Imagine you’re packing a lunchbox (Docker image):
+```
+docker run -d --name container_name -p 8080:8080 image-name
+```
 
-- `FROM` is choosing the box with a microwave (Java 17).
-    
-- `COPY` is putting your cooked food (JAR file) inside.
-    
-- `EXPOSE` is putting a sticker saying “heat at 8080°C” (your app listens at 8080).
-    
-- `ENTRYPOINT` is saying: "When someone opens the box, auto-heat the food" (run your app with `java -jar`).
-    
+
+
 
 ---
 

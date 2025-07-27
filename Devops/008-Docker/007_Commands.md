@@ -17,6 +17,13 @@ docker run hello_world : pull image from docker hub(docker registry)  + run
 docker stop container_id
 docker start container_id or container_name
 
+
+docker restart container_id 
+docker rm container_id 
+docker rmi image_id
+
+docker logs container_name
+
 ```
 
 
