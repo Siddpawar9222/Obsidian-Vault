@@ -311,42 +311,5 @@ docker exec -it spring-container ping postgres-db
 
 ---
 
-## 📊 Network Comparison Table
 
-|Network Type|DNS Resolution|Isolation|Performance|Best For|
-|---|---|---|---|---|
-|Default Bridge|❌ IP Only|✅ Yes|Medium|Single containers|
-|User-Defined Bridge|✅ Container Names|✅ Yes|Medium|**Multi-container apps**|
-|Host|❌ N/A|❌ No|✅ High|Monitoring, performance|
-|None|❌ N/A|✅ Complete|N/A|Security testing|
 
----
-
-## 🎯 Best Practices
-
-1. **Always use user-defined networks** for multi-container applications
-2. **Use meaningful container names** (they become hostnames)
-3. **Use environment variables** for configuration
-4. **Test connectivity** between containers before deploying
-5. **Check logs** when troubleshooting connectivity issues
-
----
-
-## 🚀 Next Steps
-
-Once you master basic networking:
-
-1. Learn **Docker Compose** for easier multi-container management
-2. Explore **Docker Swarm** for multi-host networking
-3. Study **Kubernetes networking** for production environments
-4. Practice with **3-tier applications** (frontend + backend + database)
-
----
-
-## 💡 Key Takeaways
-
-- **User-defined bridge networks** are your best friend for multi-container apps
-- **Container names become hostnames** in custom networks
-- **Environment variables** make containers configurable
-- **Always test connectivity** between containers
-- **This knowledge scales** to Docker Compose and Kubernetes!
