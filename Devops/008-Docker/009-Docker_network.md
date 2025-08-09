@@ -1,7 +1,6 @@
 
 ---
 
-
 ## 🚀 STEP 1: Networking Basics
 
 ### What is Docker Networking?
@@ -307,7 +306,6 @@ docker exec -it spring-container ping postgres-db
     # Use different port
     docker run -p 8081:8080 ...
     ```
-    
 
 ---
 

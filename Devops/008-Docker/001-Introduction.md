@@ -114,25 +114,3 @@ Before Docker, we used VMs to create isolated environments. But:
 | Complex deployments      | Simple, portable images          |
 
 ---
-
-## 🔧 Real-world scenario (your case)
-
-You’re a **Java full-stack developer** using:
-
-- Spring Boot
-    
-- PostgreSQL
-    
-- React.js frontend
-    
-
-With Docker:
-
-- You can create a **Dockerfile** for Spring Boot
-    
-- Use `docker-compose` to run both backend and database together
-    
-- Share with others or deploy to any server with ease
-    
-
----

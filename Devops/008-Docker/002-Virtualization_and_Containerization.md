@@ -63,6 +63,10 @@ You create 2 Docker containers:
     
 
 ---
+![[virtualization_and_containerization.jpeg]]
+
+
+---
 
 ## 🔍 Key Differences
 

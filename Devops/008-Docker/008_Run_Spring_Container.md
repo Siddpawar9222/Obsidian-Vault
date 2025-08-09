@@ -74,6 +74,7 @@ ENTRYPOINT ["java", "-jar", "app.war"]
 
 ---
 ## How to build image : 
+
 ```
 docker build -t my-spring-app .
 ```
@@ -87,11 +88,9 @@ docker run -d --name container_name -p 8080:8080 image-name
 ```
 
 
-
-
 ---
 
-## ✅ Accessing Jar File
+## Comman Problem while Accessing  hosted docker containter (Not reach): 
 
 ---
 

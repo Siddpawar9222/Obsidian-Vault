@@ -108,6 +108,7 @@ docker stop my-postgres
 | Stop container | `docker stop my-postgres`                                                                      |
 
 ---
+## What does `-itd` means :
 
 ## 🔹 1. `-i` → Interactive mode
 
