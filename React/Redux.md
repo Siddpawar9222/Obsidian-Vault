@@ -1,3 +1,10 @@
-Redux -persistent 
 
-react window 
+---
+Redux basics
+Redux -persistent  for keeping authentication 
+
+
+
+
+
+
