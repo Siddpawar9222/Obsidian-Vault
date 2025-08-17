@@ -177,10 +177,6 @@ kubectl create deployment myapp --image=nginx
 
 ---
 
-Good question 👍 Let’s break it down very simply.
-
----
-
 # 🔹 What is a Kubernetes Cluster?
 
 A **Kubernetes Cluster** = **Master Node(s) + Worker Node(s)** working together to run containerized applications.
