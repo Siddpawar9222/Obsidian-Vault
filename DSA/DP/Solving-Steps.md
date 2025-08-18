@@ -190,10 +190,4 @@ dp[len] = best price for rod of length `len`
     
 3. The **recursive → memo → tab** flow you followed here is _exactly the standard pattern_ for most DP problems.
     
-
----
-
-⚡ So yes — your `cutRod()` **tabulation solution is correct and optimized**.  
-Only possible improvement would be to **also return the cuts** (the actual way to cut the rod, not just the max price) if the interviewer asks.
-
 ---
