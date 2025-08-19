@@ -239,10 +239,7 @@ docker start -ai myubuntu
 ```
 
 ---
-
-
-Good catch 👏 — both `-it` and `-ai` look similar, but they’re used in **different contexts**:
-
+## `-it vs -ai`
 ---
 
 ### 🔹 When you use `docker run`
@@ -301,4 +298,4 @@ Only `docker run` accepts `-t` (since it sets up the container initially).
 
 ---
 
-![[Pasted image 20250818224849.png]]
+![[docker-desktop.png]]

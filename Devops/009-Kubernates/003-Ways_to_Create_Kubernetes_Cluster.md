@@ -62,6 +62,8 @@ If you want **production-ready clusters** without managing everything yourself.
 If you want full control → you install Kubernetes on multiple servers yourself.
 
 - **kubeadm** → official way to set up clusters manually.
+        - Worker → Master API Server: **TCP 6443** (mandatory)
+        - Master → Worker kubelet: **TCP 10250**
     
 - **k3s** → lightweight Kubernetes distribution (good for IoT, edge devices).
     
@@ -120,14 +122,35 @@ EC2 (Host)
 👉 Good for **multi-node simulation** and **testing real cluster behavior**.
 
 ---
-# 🔹 EKS High-Level Design
+
+### 🟢 kubeadm : 
+
+```
+EC2 (Host)
+ ├── kubeadm-Master Node
+ │     ├── API Server (Pod)
+ │     ├── Scheduler (Pod)
+ │     ├── Controller Manager (Pod)
+ │     └── etcd (Pod)
+ │
+ ├── kubeadm-Worker-1 Node
+ │     └── Pods
+ │
+ └── kubeadm-Worker-2 Node
+       └── Pods
+```
+
+    
+- **kubeadm:** Nodes are full virtual/physical machines (EC2 instances, VMs, or bare-metal). Components run as pods on the host, not separate containers.
+---
+## 🟢 EKS 
 
 In **EKS**, AWS manages the **control plane (Master nodes)** for you.  
 You only manage the **Worker nodes (EC2 or Fargate)**.
 
 ---
 
-### 🟢 Control Plane (Managed by AWS – you don’t touch it)
+###  Control Plane (Managed by AWS – you don’t touch it)
 
 ```
 EKS Control Plane (AWS-managed)
@@ -146,7 +169,7 @@ EKS Control Plane (AWS-managed)
 
 ---
 
-### 🟢 Data Plane (You manage)
+###  Data Plane (You manage)
 
 ```
 Your AWS Account
@@ -194,12 +217,6 @@ VPC (Your AWS Network)
     
 - **Scaling** → Auto Scaling Groups for EC2, or Fargate for serverless.
     
-
----
-
-✅ This means: in EKS you **don’t need to create a master EC2**.  
-You only launch **worker EC2s (node groups)**, and AWS connects them to the EKS control plane.
-
 ---
 
 ## 🔹 Why Master nodes are **1 or 3 (or 5, 7)** ?
@@ -282,5 +299,3 @@ Behind the scenes, AWS runs **3 masters across 3 AZs** for you.
 That’s why you don’t worry about it.
 
 ---
-
-Do you want me to also explain **what exactly happens if a master node dies in 3-master setup**? (like who becomes leader, how election works).

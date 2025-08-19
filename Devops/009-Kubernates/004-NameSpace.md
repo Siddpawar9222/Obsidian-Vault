@@ -243,7 +243,7 @@ http://localhost:8080
 
 ---
 
-#### Option 2: Use `kubectl port-forward` with `--address 0.0.0.0` (less secure - Worked for me)
+#### Option 2: Use `kubectl port-forward` with `--address 0.0.0.0` (less secure - Worked for e)
 
 On your EC2 instance:
 
@@ -264,7 +264,26 @@ http://EC2_PUBLIC_IP:8080
 
 ---
 
-💡 For learning, **Option 1 (SSH tunnel)** is safer.
+- **`localhost`** and **`127.0.0.1`** are the **same thing**.
+    
+- They both mean **“this computer only”**, so only programs running on the same machine can connect.
+    
 
-I can give you a **step-by-step command set** to make Nginx accessible from your browser. Do you want me to do that?
- 
+You can test it like this on your EC2:
+
+```bash
+ping localhost
+ping 127.0.0.1
+```
+
+You will see both point to **your own EC2 machine**.
+
+- `localhost` is just a **friendly name**.
+    
+- `127.0.0.1` is the **actual IP address**.
+    
+
+If you want, I can also explain **why we use 0.0.0.0 when we want to allow external access** with a tiny diagram. Do you want me to do that?
+
+
+
