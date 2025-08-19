@@ -170,3 +170,135 @@ So `-d` and `sleep` solve different problems:
 
 - `-d` → "Don't block my terminal"
 - `sleep` → "Keep the container running"
+
+
+
+---
+
+Great question 👍 this happens to everyone the first time.  
+When you **exit** an Ubuntu container, Docker stops it. It doesn’t delete it (unless you ran with `--rm`). You just need to **start it again**.
+
+---
+
+### 🔹 Step 1: Check existing containers
+
+Run this in your PowerShell/terminal:
+
+```bash
+docker ps -a
+```
+
+This lists all containers, including stopped ones.  
+You’ll see something like:
+
+```
+CONTAINER ID   IMAGE    COMMAND   STATUS                      NAMES
+03b95adef2f7   ubuntu   "bash"    Exited (0)  5 minutes ago   quirky_brown
+```
+
+---
+
+### 🔹 Step 2: Restart the container
+
+Pick the **CONTAINER ID** (e.g., `03b95adef2f7`) or the name (`quirky_brown`) and run:
+
+```bash
+docker start -ai 03b95adef2f7
+```
+
+- `-a` → attach (connect to it)
+    
+- `-i` → interactive
+    
+
+👉 Now you’re back inside the same Ubuntu container with your previous changes (like users you created).
+
+---
+
+### 🔹 Step 3: Run a fresh container (optional)
+
+If you don’t care about the old one and just want a **new Ubuntu shell**:
+
+```bash
+docker run -it ubuntu
+```
+
+---
+
+⚡ Quick Tip:  
+If you want a **named container** so you don’t need to remember IDs, run:
+
+```bash
+docker run -it --name myubuntu ubuntu
+```
+
+Then later restart with:
+
+```bash
+docker start -ai myubuntu
+```
+
+---
+
+
+Good catch 👏 — both `-it` and `-ai` look similar, but they’re used in **different contexts**:
+
+---
+
+### 🔹 When you use `docker run`
+
+```bash
+docker run -it ubuntu
+```
+
+- `-i` → interactive (keeps STDIN open)
+    
+- `-t` → allocate a terminal (TTY)  
+    👉 Together (`-it`) gives you an **interactive shell** in a **new container**.
+    
+
+---
+
+### 🔹 When you use `docker start`
+
+```bash
+docker start -ai <container_id>
+```
+
+- `-a` → attach (connects your terminal to the container’s output)
+    
+- `-i` → interactive (keeps STDIN open so you can type)
+    
+
+👉 Here, **`-t` isn’t needed** because the container already has a TTY from when it was first created with `docker run -it`.
+
+So:
+
+- First time (create new container) → `-it`
+    
+- Restart existing container → `-ai`
+    
+
+---
+
+### 🔹 What if you used `-it` with `docker start`?
+
+```bash
+docker start -it <container_id>
+```
+
+❌ This won’t work because `docker start` doesn’t support `-t`.  
+Only `docker run` accepts `-t` (since it sets up the container initially).
+
+---
+
+✅ In short:
+
+- **`docker run -it`** → start new container with terminal
+    
+- **`docker start -ai`** → restart and reattach to existing container
+    
+
+---
+
+![[Pasted image 20250818224849.png]]
