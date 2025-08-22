@@ -163,6 +163,19 @@ kubectl apply -f all-in-one.yml
 # Describe a pod
 kubectl describe pod myapp -n dev
 
+# See container logs
+kubectl logs <pod-name>
+
+# If multiple containers are inside the pod (like with a sidecar), you must specify the container name:
+kubectl logs <pod-name> -c <container-name>
+
+# Get inside the pod (open a shell or bash inside container)
+kubectl exec -it <pod-name> -- /bin/sh
+kubectl exec -it <pod-name> -- /bin/bash
+
+# Stream logs live
+kubectl logs -f <pod-name>
+
 # Port-forward (inside EC2)
 kubectl port-forward --address 0.0.0.0 pod/myapp 8080:80 -n dev
 ```
