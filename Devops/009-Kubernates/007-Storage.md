@@ -64,6 +64,8 @@ This is the **proper way** for persistence.
 #### PersistentVolume (PV)
 
 - **Actual storage resource** (e.g., disk on a node, NFS share, cloud disk).
+
+- Cluster Level
     
 - Created by admins.
     
@@ -79,6 +81,8 @@ This is the **proper way** for persistence.
 #### PersistentVolumeClaim (PVC)
 
 - **Request for storage** made by developers (like an application).
+
+- Namespace Level
     
 - Says: _“I need 1Gi of storage, ReadWriteOnce.”_
     
