@@ -288,16 +288,3 @@ spec:
 
 ---
 
-✅ Now you understand:
-
-- Why we need storage in Kubernetes.
-    
-- Types: EmptyDir, HostPath, PV/PVC, StorageClass.
-    
-- Key concepts: AccessModes, ReclaimPolicy.
-    
-- Real-world analogies + examples.
-    
-
----
-
