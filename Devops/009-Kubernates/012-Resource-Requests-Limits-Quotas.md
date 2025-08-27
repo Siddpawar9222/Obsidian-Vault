@@ -84,6 +84,7 @@ spec:
 
 👉 Sometimes developers forget to set limits.  
 You can use **LimitRange** to assign default values.
+Which means any container created inside given namespace assign default values
 
 ### Example: Default CPU/Memory for Dev Namespace
 
@@ -160,12 +161,12 @@ kubectl get resourcequota -n dev
 
 ## 7. Key Differences
 
-|Concept|Level|Purpose|
-|---|---|---|
-|Request|Container|Minimum guarantee|
-|Limit|Container|Maximum allowed|
-|ResourceQuota|Namespace|Total team budget|
-|LimitRange|Namespace|Default for containers|
+| Concept       | Level     | Purpose                                             |
+| ------------- | --------- | --------------------------------------------------- |
+| Request       | Container | Minimum guarantee                                   |
+| Limit         | Container | Maximum allowed                                     |
+| ResourceQuota | Namespace | Total team budget                                   |
+| LimitRange    | Namespace | Default for containers created inside the container |
 
 ---
 
@@ -173,5 +174,3 @@ kubectl get resourcequota -n dev
 This prevents “noisy neighbor” problems in production.
 
 ---
-
-👉 Do you want me to **make a text diagram** (like we did for namespaces/pods earlier) showing how quota applies to namespace and requests/limits apply to containers inside it?

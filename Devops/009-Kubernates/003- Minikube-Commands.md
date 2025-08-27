@@ -6,6 +6,8 @@
 minikube start --driver=docker
 # Starts a local Kubernetes cluster using Docker as the virtualization driver, create one node which act like master node and worker node
 
+minikube start --nodes 2 --profile multi-node-cluster --driver=docker
+
 minikube start --driver=docker --nodes=4 
 #create 1 MN + 3 WN
 
