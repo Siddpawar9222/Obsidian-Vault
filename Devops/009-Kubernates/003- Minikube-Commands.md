@@ -59,6 +59,9 @@ kubectl port-forward <pod-name> <local-port>:<pod-port>
 # For example: kubectl port-forward mypod 8080:80
 # Lets you access pod service on localhost:8080
 
+kubectl port-forward --address 0.0.0.0 svc/nginx-service 8080:80 -n dev
+# --address 0.0.0.0 allows binding to all network interfaces, not just localhost.
+
 # 13️⃣ Enable Minikube addons (like metrics, ingress)
 minikube addons list
 # Lists all available addons
