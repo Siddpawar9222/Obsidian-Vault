@@ -461,11 +461,11 @@ spec:
         image: nginx
         resources:
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 25m
+            memory: 64Mi
           limits:
-            cpu: 200m
-            memory: 200Mi
+            cpu: 50m
+            memory: 100Mi
 ```
 
 ### vpa.yaml
@@ -499,6 +499,8 @@ kubectl apply -f vpa.yaml
 
 ```bash
 kubectl describe vpa nginx-vpa
+or 
+kubectl get pod nginx-deployment-54bd8c5548-pj5hj -n dev -o jsonpath='{.spec.containers[0].resources}'
 ```
 
 👉 You’ll see **recommended CPU/Memory** values (based on usage).  
@@ -510,4 +512,7 @@ If `updateMode: Auto`, VPA will **evict pods & recreate** with updated requests/
 
 ---
 
-Do you want me to also give you a **load test script** (so we can generate CPU/memory stress inside the pod and watch VPA recommendations change)?
+
+```
+Learn Cluster Autoscaler (CA) Later
+```
