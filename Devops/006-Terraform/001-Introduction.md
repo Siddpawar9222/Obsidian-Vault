@@ -125,3 +125,101 @@ terraform apply
 |Real-world example?|Set up EC2, install app, configure security — all done from code.|
 
 ---
+
+## 🌍 Terraform History
+
+#### **1. Early Days (2014)**
+
+- Terraform was **created by HashiCorp** in **2014**.
+    
+- HashiCorp is a company known for DevOps tools (like Vagrant, Consul, Vault, Nomad, Packer).
+    
+- Terraform was made as an **open-source tool** for **Infrastructure as Code (IaC)** → meaning you can write code to manage servers, databases, networking, etc.
+    
+
+---
+
+#### **2. Open Source Growth (2014 – 2017)**
+
+- From 2014 to 2017, Terraform became **very popular** in the DevOps world.
+    
+- It supported **multiple cloud providers** like AWS, Azure, and GCP (while other tools like CloudFormation only worked on AWS).
+    
+- This **multi-cloud support** made it special.
+    
+- It was fully **open-source** → anyone could use it freely, modify, and contribute.
+    
+
+---
+
+#### **3. Terraform Enterprise (2017 onwards)**
+
+- Around **2017**, HashiCorp launched **Terraform Enterprise** (paid version).
+    
+- Purpose: For **big companies** that needed **team collaboration, governance, and security features**.
+    
+- Example: role-based access, policy checks, audit logs, private registries, etc.
+    
+- Still, the **core Terraform** remained open-source.
+    
+
+---
+
+#### **4. License Change – BSL (2021 – 2023)**
+
+- Terraform was initially under **MPL (Mozilla Public License)** → very free.
+    
+- But in **2021–2023**, HashiCorp shifted to **Business Source License (BSL)**.
+    
+- Meaning:
+    
+    - You can **use Terraform freely** for personal projects, learning, and even inside companies.
+        
+    - But you **cannot make a commercial product** that directly competes with Terraform.
+        
+
+---
+
+#### **5. IBM Acquisition (2023)**
+
+- In **2023**, **IBM acquired HashiCorp**.
+    
+- Reason: IBM wanted to strengthen its cloud + hybrid cloud + DevOps toolset.
+    
+- After this, there was some **community tension** because of licensing (many people worried about “vendor lock-in”).
+    
+
+---
+
+#### **6. Forked Project – OpenTofu (2023 onwards)**
+
+- Due to the license change, the open-source community created a **fork** of Terraform called **OpenTofu** (under Linux Foundation).
+    
+- OpenTofu = fully open-source version, free forever.
+    
+- So today, you have:
+    
+    - **Terraform (by HashiCorp/IBM)** → with BSL license.
+        
+    - **OpenTofu (community-driven)** → open-source alternative.
+        
+
+✅ **Summary Timeline**
+
+```
+2014 ─── Terraform launched by HashiCorp (Open Source)
+   |
+2014 - 2017 ─── Became popular (multi-cloud support, free usage)
+   |
+2017 ─── Terraform Enterprise introduced (paid version for companies)
+   |
+2021 - 2023 ─── License changed to BSL (limited commercial use)
+   |
+2023 ─── IBM acquired HashiCorp
+   |
+2023 ─── OpenTofu fork created (Linux Foundation, fully open-source)
+
+```
+
+
+- Now IBM acquired Ansible, terraform and RedHat
