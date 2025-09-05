@@ -34,15 +34,15 @@ resource "aws_instance" "my_ec2" {
 
 ## 2. Common Block Types
 
-|Block Type|Prefix when referencing|Purpose|
-|---|---|---|
-|`resource`|`aws_instance.my_ec2`|Create/manage infrastructure|
-|`data`|`data.aws_vpc.default`|Fetch existing info from cloud|
-|`variable`|`var.instance_type`|Input values for flexibility|
-|`output`|`output.public_ip`|Show values after apply|
-|`locals`|`local.project_name`|Store calculated values|
-|`module`|`module.vpc`|Reusable group of resources|
-|`provider`|N/A|Defines which cloud/service to use|
+| Block Type | Prefix when referencing | Purpose                            |
+| ---------- | ----------------------- | ---------------------------------- |
+| `resource` | `aws_instance.my_ec2`   | Create/manage infrastructure       |
+| `data`     | `data.aws_vpc.default`  | Fetch existing info from cloud     |
+| `variable` | `var.instance_type`     | Input values for flexibility       |
+| `output`   | `output.public_ip`      | Show values after apply            |
+| `locals`   | `local.project_name`    | Store calculated values            |
+| `module`   | `module.vpc`            | Reusable group of resources        |
+| `provider` | N/A                     | Defines which cloud/service to use |
 
 ---
 
