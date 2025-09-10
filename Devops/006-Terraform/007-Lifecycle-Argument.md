@@ -155,13 +155,13 @@ resource "aws_s3_bucket" "logs" {
 
 # 🔥 Summary (Cheat-Sheet)
 
-|Meta-Arg|Use Case|
-|---|---|
-|`depends_on`|Force order of creation|
-|`count`|Create N identical resources (indexed)|
-|`for_each`|Create multiple named resources from map/set|
-|`lifecycle.create_before_destroy`|Avoid downtime (replace safely)|
-|`lifecycle.prevent_destroy`|Protect critical resources|
+| Meta-Arg                          | Use Case                                     |
+| --------------------------------- | -------------------------------------------- |
+| `depends_on`                      | Force order of creation                      |
+| `count`                           | Create N identical resources (indexed)       |
+| `for_each`                        | Create multiple named resources from map/set |
+| `lifecycle.create_before_destroy` | Avoid downtime (replace safely)              |
+| `lifecycle.prevent_destroy`       | Protect critical resources                   |
 
 ---
 
