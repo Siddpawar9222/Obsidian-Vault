@@ -157,5 +157,3 @@ Then Terraform uses `"geekysiddhesh"` wherever you used `var.project_name` in yo
     
 
 ---
-
-Do you want me to show you **all three ways of assigning this variable** (interactive prompt, tfvars file, CLI var) with example commands?
