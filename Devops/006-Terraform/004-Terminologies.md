@@ -2,7 +2,6 @@
 
 ---
 
-
 # 📒 Terraform Terminologies
 
 ## 1. Provider

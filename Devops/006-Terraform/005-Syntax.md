@@ -149,7 +149,3 @@ Both are cars, but **ownership matters**.
     
 
 ---
-
-✅ **Pro Tip**: Always structure your project cleanly → `main.tf`, `variables.tf`, `outputs.tf`, `provider.tf`, and a `scripts/` folder for any shell scripts.
-
----
