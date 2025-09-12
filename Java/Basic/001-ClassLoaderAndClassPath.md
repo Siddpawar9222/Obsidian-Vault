@@ -40,12 +40,14 @@ By default, the **JVM (Java Virtual Machine)** searches for classes in the follo
 
 2. **The Bootstrap Classpath**:
    - This includes the core Java libraries (like `java.lang`, `java.util`, etc.) that are part of the Java Runtime Environment (JRE).
-   - These classes are stored in the `rt.jar` file (or its equivalent in newer Java versions) and are automatically included by the JVM.
+   - These classes are stored in the `rt.jar`(before java 8) file (or its equivalent in newer Java versions  `java.base.module`) and are automatically included by the JVM.
 
 3. **The Extension Classpath**:
    - The JVM also looks in the **extension directories** (usually `lib/ext` inside the JRE installation directory) for additional JAR files or classes.
    - This is rarely used in modern Java development.
-   - The `lib/ext` folder was removed in **Java 9** as part of the move to the **Java Platform Module System (JPMS)**.
+   - The `lib/ext` folder was removed in **Java 9** as part of the move to the **<font color="#ffc000">Java Platform Module</font> System (JPMS)**.
+      - `lib/ext` : To maintain backword compability (in old project this used to be)
+      - `java.sql , java.desktop`
    
  4. **The System Classpath**:
    - If you don’t specify a classpath using the `-cp` or `-classpath` option, the JVM uses the **system classpath**, which is defined by the `CLASSPATH`<font color="#ffff00"> environment variable.</font>
