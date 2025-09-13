@@ -102,3 +102,47 @@ aws ec2 describe-regions --query "Regions[*].RegionName" --output table
 ```
 
 ---
+
+## Set AWS CLI Default user 
+
+When you run
+
+```bash
+aws configure
+```
+
+it sets up credentials under the **default profile** in  
+`~/.aws/credentials` and `~/.aws/config`.
+
+If you want to add another AWS user, you can create a **named profile** like this:
+
+```bash
+aws configure --profile user2
+```
+
+Now you will have two profiles:
+
+- `default` (first one)
+    
+- `user2` (second one)
+    
+
+👉 To use a specific user, you can either:
+
+1. Pass `--profile` in commands:
+    
+    ```bash
+    aws s3 ls --profile user2
+    ```
+    
+2. Or set the environment variable (for current session):
+    
+    ```bash
+    export AWS_PROFILE=user2
+    aws s3 ls
+    ```
+    
+
+That way you can easily switch between users without overwriting credentials.
+
+---
