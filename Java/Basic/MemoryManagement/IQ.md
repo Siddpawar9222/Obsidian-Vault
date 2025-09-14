@@ -485,21 +485,7 @@ A **memory leak** in Java happens when objects are **no longer used by the appli
 - **Unreachable objects → GC removes them automatically** ✅
     
 - **Reachable but unused objects → GC cannot remove → Memory Leak** ❌
-    
 
----
-
-### 🔹 Real-World Analogy
-
-Think of it like:
-
-- You rented a flat (object in heap).
-    
-- You moved out but forgot to give the keys back (reference still exists).
-    
-- The landlord (GC) thinks you are still living there and won’t give the flat to others.  
-    ➡ Result: wasted space = memory leak.
-    
 
 ---
 
@@ -570,6 +556,10 @@ Causes:
 - Listeners not removed
     
 - Improper cache usage
+
+- Improper usages of `hashcode()` and `equals()` method
+
+- Not properly Resource Closing 
     
 
 ---
@@ -745,10 +735,7 @@ class Cache {
 
 ---
 
-
-
-Great question 👍 This is one of the **most asked interview questions** around memory management.
-Let’s break it down step by step.
+## OutOfMemoryError Vs StackOverflowError
 
 ---
 
@@ -929,7 +916,7 @@ java -Xss512k MyApp
 
 ---
 
-## 🔹 5. Example Configuration (Real-World)
+0
 
 ```bash
 java -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Xss1m MyApp
