@@ -198,3 +198,8 @@ This will **auto-renew your SSL certificate every Monday at midnight**.
      ```
 - Run spring boot application
 
+
+- Check certificate Status
+```
+sudo certbot certificates
+```
