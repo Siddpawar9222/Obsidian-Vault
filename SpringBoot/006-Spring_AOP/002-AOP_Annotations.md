@@ -3,15 +3,26 @@
 
 ### Terminologies in AOP : 
 
-| Terminology       | Action Performed                                                                                                                                                                                                                                                                                                                                            |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Aspect**        | It is a module that provides cross-cutting concerns by encapsulating the advice and pointcuts. An application can have any number of aspects in it. In order to use it, we need to annotate a class with `@Aspect` annotation.                                                                                                                              |
-| **Advice**        | It is an action that is taken before or after method execution. An action is a block of code that gets invoked during the execution of a program. The Spring AOP framework supports five types of advice: before, after, after-returning, after-throwing, and around advice. The advice is taken for join points. Advice is applied over the target object. |
-| **Pointcuts**     | Pointcuts are the set of join points where the advice is executed. These pointcuts are defined using expressions or patterns.                                                                                                                                                                                                                               |
-| **Join Points**   | It is a place in an application where the AOP aspect is applied. A join point can be a method execution, exception handling, etc.                                                                                                                                                                                                                           |
-| **Target Object** | It is an object where the advice is applied. These target objects are proxied.                                                                                                                                                                                                                                                                              |
-| **Proxied**       | Target objects are proxied, meaning during runtime the target methods are overridden and, depending on method configuration, the advice is included in the target object.                                                                                                                                                                                   |
-| **Weaving**       | The process of linking the application with the aspect is called weaving. It can be done at load time, compile time, and runtime.                                                                                                                                                                                                                           |
+Got it 👍  
+Your notes are technically correct, but they feel a bit heavy because of too many formal words. Let me simplify them for you with **easy English + small real-world examples**:
+
+---
+
+### 📝 Simplified Notes on AOP (Aspect Oriented Programming)
+
+| Term                       | Simple Meaning                                                                                                 |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Aspect**                 | A **separate class** where we keep common things (cross-cutting concerns) like logging, security, transaction. |
+| **Advice**                 | The **actual code** that runs at a specific time (before/after/around a method).                               |
+| **Pointcut**               | The **condition/expression** that decides **where** advice should run.                                         |
+| **Join Point**             | The **spot in code** where advice can be applied (like method call, exception).                                |
+| **Target Object**          | The **main object** whose method you want to run (your business logic).                                        |
+| **Proxy (Proxied Object)** | Spring creates a **fake wrapper (proxy)** around the target to add extra behavior (advice).                    |
+| **Weaving**                | The process of **joining aspect + target object** together.                                                    |
+
+ ---
+
+
 
  Each terminology applies to Project :
 
