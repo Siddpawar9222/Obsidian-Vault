@@ -65,9 +65,11 @@ After: ₹4000 + ₹4000 = ₹8000 ✅
 
 Consistency ensures:
 
-- No extra money is created
+- <font color="#ffc000">No extra money is created</font>
     
-- No rules (like balance can't go negative) are broken
+- <font color="#ffc000">No rules (like balance can't go negative) are broken</font>
+
+- 
     
 
 ---
