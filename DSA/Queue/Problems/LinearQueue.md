@@ -9,7 +9,8 @@
 | 3.      | Queue Reversal(GFS)                                                                                                   |         |
 | 4.      | [1700. Number of Students Unable to Eat Lunch](https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/) |         |
 | 5.      | [2073. Time Needed to Buy Tickets](https://leetcode.com/problems/time-needed-to-buy-tickets/)                         |         |
-| 6.      | [1291. Sequential Digits](https://leetcode.com/problems/sequential-digits/)                                           |         |
+| 6.      | [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/)                                  | Revise  |
+| 7.      | [1291. Sequential Digits](https://leetcode.com/problems/sequential-digits/)                                           |         |
 |         |                                                                                                                       |         |
 |         | **BFS**                                                                                                               |         |
 | 1.      | [752. Open the Lock](https://leetcode.com/problems/open-the-lock/)                                                    |         |
