@@ -156,5 +156,4 @@ public class ProducerConsumerExecutor {
 
 ---
 
-If you want, I can also show **how to implement Producer-Consumer using `Semaphore`**, which is another concurrency approach commonly asked in interviews.
 
