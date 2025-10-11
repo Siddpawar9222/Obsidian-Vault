@@ -157,13 +157,3 @@ But if you use **prime durations**, patterns take longer to repeat — feels mor
 
 ---
 
-## 🧠 Real-World Analogy
-
-Think of primes as **“building blocks”** —  
-just like atoms in chemistry —  
-every number can be built from them,  
-so they’re used anywhere math and structure matter (security, hashing, computation, randomness).
-
----
-
-Would you like me to show a **mini Java demo** — like how primes improve a hash function’s distribution or how they’re used in RSA key generation (conceptually, not full math)?
