@@ -1,10 +1,11 @@
 
 ---
 
-| Problem Name                                                                                                                                                                                                    | Comment |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| [392. Is Subsequence](https://leetcode.com/problems/is-subsequence/)<br>[2486. Append Characters to String to Make Subsequence](https://leetcode.com/problems/append-characters-to-string-to-make-subsequence/) |         |
-| [792. Number of Matching Subsequences](https://leetcode.com/problems/number-of-matching-subsequences/)                                                                                                          |         |
-| Longest Consecutive Subsequence(GFS)                                                                                                                                                                            |         |
-| [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)                                                                                                                   |         |
-| [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)                                                                                                            |         |
+| Problem Name                                                                                                                                                          | Comment |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| https://www.geeksforgeeks.org/problems/repeating-character-first-appearance-leftmost/1<br>https://www.geeksforgeeks.org/problems/non-repeating-character-1587115620/1 |         |
+| how many smaller character to left                                                                                                                                    |         |
+| Permutation and combination                                                                                                                                           |         |
+| rank permuation                                                                                                                                                       |         |
+| https://www.geeksforgeeks.org/problems/rank-the-permutations2229/1                                                                                                    |         |
+| Palindromic check                                                                                                                                                     |         |
