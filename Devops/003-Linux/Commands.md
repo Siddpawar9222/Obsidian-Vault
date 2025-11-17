@@ -36,5 +36,3 @@ tail -n 100 -f /path/to/your/logfile.log
     
 
 ---
-
-Let me know if you want to **search inside those lines** or **filter by a keyword** like `ERROR` or `WARN`.
