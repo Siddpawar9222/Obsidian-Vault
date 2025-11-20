@@ -2,7 +2,7 @@
 
 ---
 
-# 🌐 Kubernetes Ingress — Complete Notes
+#  Kubernetes Ingress 
 
 ---
 
@@ -30,17 +30,6 @@ That’s messy ❌
 - It lets you define **rules** for routing external HTTP/HTTPS traffic to internal services.
     
 - Instead of exposing each service separately, you expose **only the Ingress Controller** to the outside world.
-    
-
----
-
-### 🔎 Real-world Analogy:
-
-- Think of a **mall** (cluster).
-    
-- Each **shop** (service) has its own entrance. Without Ingress, customers must know each shop’s separate door (NodePorts).
-    
-- Instead, the mall has **one main gate** (Ingress). At the entrance, a **security guard** (Ingress Controller) checks where you want to go and directs you to the correct shop. ✅
     
 
 ---

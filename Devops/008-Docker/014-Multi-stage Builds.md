@@ -444,17 +444,6 @@ When the build is done:
 
 ---
 
-💡 Think of it like **a kitchen**:
-
-- Stage 1 = messy prep kitchen (Maven, source code, build tools) → cleaned up after cooking.
-    
-- Stage 2 = serving plate with only the cooked dish → what you deliver to the customer.
-    
-- You don’t carry the entire kitchen to the customer — just the dish.
-    
-
----
-
 - **Stage 1** → **JDK + Maven** for **building** your `.war`
     
     - Heavy image

@@ -33,7 +33,7 @@ Before Kubernetes, people used:
 
 ---
 
-## 🔹 2. What Problems Kubernetes Solves?
+## 🔹 2. What Problems Kubernetes Solves ?
 
 Kubernetes (K8s) is like the **manager of all your containers**. It helps when you have too many containers to handle manually.
 

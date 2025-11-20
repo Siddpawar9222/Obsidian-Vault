@@ -1,6 +1,7 @@
 
 ---
 
+
 ![[Kubernetes-Architecture.webp]]
 
 
@@ -45,8 +46,6 @@ It has 4 key components:
 
 - Entry point for all requests (from CLI/UI/other services).
     
-- Acts like a **receptionist** in an office – receives your requests and forwards them.
-    
 
 ---
 
@@ -75,8 +74,6 @@ It has 4 key components:
 - Watches the system continuously → ensures the desired state = actual state.
     
 - Example: You said 3 replicas of `myapp`. If one pod dies, Controller Manager creates a new one.
-    
-- Acts like a **supervisor**.
     
 
 ---

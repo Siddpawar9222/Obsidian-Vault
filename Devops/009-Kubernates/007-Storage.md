@@ -16,15 +16,11 @@ By default, Pods in Kubernetes are **ephemeral**:
 
 ## 2. Types of Storage in Kubernetes
 
-Think of storage in Kubernetes as **different lockers** where your applications can keep their things.
-
 ### (a) **EmptyDir**
 
 - Storage that lives as long as the Pod runs.
     
 - Deleted when Pod is deleted.
-    
-- **Analogy:** Like a _temporary desk_ in an office → once you leave the office, it’s cleaned up.
     
 - Use case: Cache, temp files.
     
@@ -42,8 +38,6 @@ volumes:
 - Mounts a directory from the **node’s filesystem** into the Pod.
     
 - If Pod moves to another node, data is lost.
-    
-- **Analogy:** Like leaving files on a particular worker’s desk. If you switch workers, files aren’t there.
     
 - Use case: Single-node testing (not recommended in production).
     
@@ -106,9 +100,7 @@ This is the **proper way** for persistence.
 
 - Provides **dynamic provisioning** of PVs.
     
-- Instead of admins creating PVs manually, Kubernetes creates them automatically using `StorageClass`.
-    
-- **Analogy:** Like a facility manager who automatically rents a new warehouse when employees request one.
+- Instead of admins creating PVs manually, Kubernetes creates them automatically using `StorageClass`
     
 - Example: In Minikube → `standard` storage class uses hostPath.
     
@@ -121,11 +113,8 @@ This is the **proper way** for persistence.
 
 - Modern way to plug external storage providers (AWS EBS, GCP PD, Ceph, etc.).
     
-- Lets Kubernetes work with any storage system.
+- Lets Kubernetes work with any storage system. 
     
-- **Analogy:** Like a universal adapter that lets your office plug into different types of warehouses worldwide.
-    
-
 ---
 
 ## 3. Access Modes
@@ -161,15 +150,6 @@ Defines what happens to PV data after PVC is deleted:
 - **Recycle (deprecated)** → Old option to wipe and reuse.
     
 
-📌 **Analogy:**
-
-- Retain → Warehouse keeps your stuff after you leave (manual cleanup needed).
-    
-- Delete → Warehouse throws away everything once you leave.
-    
-- Recycle → Warehouse cleans and gives locker to someone else.
-    
-
 ---
 
 ## 5. Storage Lifecycle
@@ -177,13 +157,13 @@ Defines what happens to PV data after PVC is deleted:
 Here’s the typical flow:
 
 ```
-[Admin] Create PV (warehouse)
+[Admin] Create PV 
     ↓
-[Developer] Create PVC (request)
+[Developer] Create PVC 
     ↓
-K8s matches PVC → PV (assignment)
+K8s matches PVC → PV 
     ↓
-Pod uses PVC as a volume (employee stores stuff)
+Pod uses PVC as a volume 
     ↓
 If Pod dies → data persists in PV
     ↓

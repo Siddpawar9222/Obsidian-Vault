@@ -1,5 +1,6 @@
 
 ---
+
 ## 🚀 Steps to Push Local Docker Image to Registry
 
 ### 1. **Check if you have an image locally**

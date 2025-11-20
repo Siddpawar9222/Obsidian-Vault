@@ -296,21 +296,6 @@ spec:
 
 ---
 
-## ✅ Analogy
-
-- **Label** = badge on employee: “Finance Dept.”
-    
-- **Selector** = HR rule: “I only manage Finance Dept employees.”
-    
-- If badges mismatch, HR ignores them.
-    
----
-Excellent 👍 this is exactly the type of “real-world design thinking” question you should be asking.
-
-Let’s break it with our **company analogy** again:
-
----
-
 # 1️⃣ What goes into **one Pod**?
 
 👉 **Rule of thumb**:
@@ -376,22 +361,6 @@ It’s about **organization, access control, and resource limits**, not tight co
         
 
 All belong to the same **namespace (dev)** because they are part of the **same project/environment**.
-
----
-
-# 3️⃣ Simple Analogy
-
-- **Pod** = Cabin with 1 or more employees who always sit together.
-    
-- **Namespace** = Entire department (like HR, Finance, Engineering) where multiple cabins exist.
-    
-
-So:
-
-- Decide **Pod** grouping based on _tight coupling (must always run together)_.
-    
-- Decide **Namespace** grouping based on _logical separation (environment/team/project)_.
-    
 
 ---
 

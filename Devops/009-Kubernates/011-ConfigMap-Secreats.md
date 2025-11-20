@@ -12,8 +12,6 @@
 A **ConfigMap** is used to store **non-sensitive configuration data** (key-value pairs, environment variables, or config files).
 
 💡 Example in real life:
-
-- Think of a **notice board** in an office. Everyone can read it. It contains things like office timings, policies → these are not secret but important.
     
 - Same way, a **ConfigMap** stores configuration like `DB_NAME`, `DB_HOST`, `APP_MODE=dev` etc.
     
@@ -220,18 +218,5 @@ kubectl exec mysql-0 -n dev -- env | grep MYSQL
 - ✅ **Separation of Concerns** → passwords and configs are managed independently.
     
 
----
-
-⚡ **Real-world analogy**:
-
-- **ConfigMap** → Office whiteboard: everyone can see DB name, user.
-    
-- **Secret** → Office locker: only pod can open it to read passwords.
-    
-- **PVC (Storage)** → Filing cabinet: each employee (pod) keeps their own files safe.
-    
 
 ---
-
-👉 Now tell me:  
-Do you want me to **show how to update a ConfigMap/Secret without restarting the StatefulSet** (like rolling updates), or first you want to practice the above setup?

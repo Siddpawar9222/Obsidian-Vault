@@ -30,17 +30,6 @@ A **Service** in Kubernetes is:
     
 - Works using **labels + selectors**.
     
-
-📌 **Analogy:**  
-Imagine a company:
-
-- Employees (Pods) keep changing desks (IPs).
-    
-- Instead of giving their desk numbers to clients, you create a **Reception Desk (Service)**.
-    
-- Reception always knows where employees are sitting and forwards calls correctly.
-    
-
 ---
 
 ## 3. How Service Works (internally)
@@ -68,8 +57,6 @@ There are mainly **4 types**:
     
 - Other Pods can use it, but **not accessible outside**.
     
-- **Analogy:** Internal office extension number (only employees can call).
-    
 
 ```yaml
 apiVersion: v1
@@ -94,8 +81,6 @@ Access: `curl http://my-service:80` (from another Pod in cluster)
 - Exposes service on each **Node’s IP:Port** (port between 30000–32767).
     
 - Accessible from outside using `http://<NodeIP>:NodePort`.
-    
-- **Analogy:** Reception desk opens a special door at a fixed street address.
     
 
 ```yaml
@@ -124,8 +109,7 @@ kubectl port-forward --address 0.0.0.0 svc/myapp-service -n dev 8080:80
     
 - External users get a **public IP** or DNS.
     
-- **Analogy:** Company rents a professional receptionist at a fancy building with a public hotline number.
-    
+
 
 ```yaml
 spec:
@@ -146,8 +130,6 @@ Access: Cloud provider gives `http://<public-ip>`
 - Special case.
     
 - Doesn’t route traffic to Pods, instead **maps to an external DNS name**.
-    
-- **Analogy:** Receptionist forwards call to another company (outsourced).
     
 
 ```yaml
@@ -216,24 +198,11 @@ So Pods in the same namespace can just use `http://my-service`.
 
 ## 8. Quick Revision Table
 
-|Service Type|Scope|Access from Outside?|Real-world analogy|
-|---|---|---|---|
-|**ClusterIP**|Inside cluster only|❌ No|Internal extension|
-|**NodePort**|NodeIP:Port|✅ Yes (manual)|Door at street address|
-|**LoadBalancer**|Cloud LoadBalancer|✅ Yes (cloud-managed)|Fancy public receptionist|
-|**ExternalName**|External DNS|✅ Yes (redirect)|Forward calls outside|
-
----
-
-✅ Now you know:
-
-- Why Services exist (stable networking + load balancing).
-    
-- Types of Services (ClusterIP, NodePort, LoadBalancer, ExternalName).
-    
-- How DNS and labels connect Pods ↔ Services.
-    
-- Real-world analogies to remember.
-    
+| Service Type     | Scope               | Access from Outside?  | Real-world analogy        |
+| ---------------- | ------------------- | --------------------- | ------------------------- |
+| **ClusterIP**    | Inside cluster only | ❌ No                  | Internal extension        |
+| **NodePort**     | NodeIP:Port         | ✅ Yes (manual)        | Door at street address    |
+| **LoadBalancer** | Cloud LoadBalancer  | ✅ Yes (cloud-managed) | Fancy public receptionist |
+| **ExternalName** | External DNS        | ✅ Yes (redirect)      | Forward calls outside     |
 
 ---

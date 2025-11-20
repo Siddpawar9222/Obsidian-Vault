@@ -175,8 +175,7 @@ So `-d` and `sleep` solve different problems:
 
 ---
 
-Great question 👍 this happens to everyone the first time.  
-When you **exit** an Ubuntu container, Docker stops it. It doesn’t delete it (unless you ran with `--rm`). You just need to **start it again**.
+# When you **exit** an Ubuntu container, Docker stops it. It doesn’t delete it (unless you ran with `--rm`). You just need to **start it again**.
 
 ---
 
@@ -299,3 +298,6 @@ Only `docker run` accepts `-t` (since it sets up the container initially).
 ---
 
 ![[docker-desktop.png]]
+
+---
+

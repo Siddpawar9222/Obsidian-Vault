@@ -21,7 +21,8 @@ Let’s say you have **100 orders** in an e-commerce application.
 
 ### **2. When to Use Parallel Streams?**
 
-You should use **parallel streams** when: ✅ You have **a large dataset** (e.g., processing millions of records).  
+You should use **parallel streams** when: 
+✅ You have **a large dataset** (e.g., processing millions of records).  
 ✅ The operations on elements are **independent** (not dependent on previous elements).  
 ✅ The operations are **CPU-intensive** (e.g., mathematical calculations, data processing).
 

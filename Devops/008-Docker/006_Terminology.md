@@ -1,7 +1,6 @@
 
 ---
 
-
 ## 🧠 Core Docker Terminologies (with Simple Examples)
 
 ---

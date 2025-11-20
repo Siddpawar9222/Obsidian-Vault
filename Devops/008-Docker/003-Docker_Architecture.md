@@ -120,11 +120,11 @@ Here’s what happens internally:
 ---
 ## ✅ Summary
 
-|Component|Role|
-|---|---|
-|Docker Client|Sends commands|
-|Docker Daemon|Executes commands, manages containers|
-|Docker Image|Blueprint of app|
-|Docker Container|Running app|
-|Docker Registry|Image storage (like Docker Hub)|
+| Component        | Role                                  |
+| ---------------- | ------------------------------------- |
+| Docker Client    | Sends commands                        |
+| Docker Daemon    | Executes commands, manages containers |
+| Docker Image     | Blueprint of app                      |
+| Docker Container | Running app                           |
+| Docker Registry  | Image storage (like Docker Hub)       |
 

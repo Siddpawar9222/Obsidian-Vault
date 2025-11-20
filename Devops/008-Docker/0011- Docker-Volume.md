@@ -1,7 +1,5 @@
 
-
 ----
-
 
 ## 🔍 What is a Docker Volume?
 
@@ -20,11 +18,11 @@ By default, when a container stops or is deleted, **everything inside it is lost
 
 ✅ Docker volume helps in:
 
-|Benefit|Example|
-|---|---|
-|Data persistence|MySQL/PostgreSQL DB keeps data even after restart|
-|Sharing data between containers|Uploads folder used by both app + Nginx|
-|Host <--> container sync|Develop frontend and sync with container|
+| Benefit                         | Example                                           |
+| ------------------------------- | ------------------------------------------------- |
+| Data persistence                | MySQL/PostgreSQL DB keeps data even after restart |
+| Sharing data between containers | Uploads folder used by both app + Nginx           |
+| Host <--> container sync        | Develop frontend and sync with container          |
 
 ---
 
@@ -184,11 +182,11 @@ docker run -d \
 
 ## 🧠 Summary Table
 
-|Type|Command Used|Data Location|Reusable?|Good For|
-|---|---|---|---|---|
-|Named Volume|`-v pg_named:/path`|Docker-managed (`/var/lib/docker`)|✅ Yes|Production DB|
-|Anonymous|`-v /path`|Docker-managed (random name)|❌ No|Temporary testing|
-|Bind Mount|`-v ~/host:/path`|Host-managed (your file system)|✅ Yes|Dev, custom backup|
+| Type         | Command Used        | Data Location                      | Reusable? | Good For           |
+| ------------ | ------------------- | ---------------------------------- | --------- | ------------------ |
+| Named Volume | `-v pg_named:/path` | Docker-managed (`/var/lib/docker`) | ✅ Yes     | Production DB      |
+| Anonymous    | `-v /path`          | Docker-managed (random name)       | ❌ No      | Temporary testing  |
+| Bind Mount   | `-v ~/host:/path`   | Host-managed (your file system)    | ✅ Yes     | Dev, custom backup |
 
 ---
 ## Some commands 
