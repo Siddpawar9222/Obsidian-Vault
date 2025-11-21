@@ -125,6 +125,12 @@ Now you will have two profiles:
 - `default` (first one)
     
 - `user2` (second one)
+
+To list AWS CLI profile 
+
+```bash
+aws configure list-profiles
+```
     
 
 👉 To use a specific user, you can either:
