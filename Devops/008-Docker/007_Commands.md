@@ -24,6 +24,8 @@ docker rmi image_id
 
 docker logs container_name
 
+docker tag existing_image new_image   // copy image with new name
+
 ```
 
 
