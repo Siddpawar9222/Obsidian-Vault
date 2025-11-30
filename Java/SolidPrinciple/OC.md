@@ -1,8 +1,4 @@
 
-----
-
-
-🚀 **Open/Closed Principle (OCP) Explained with Payment System in Spring Boot**
 
 ---
 
@@ -171,15 +167,3 @@ public class PaymentController {
 
 ---
 
-## **🎯 Summary**
-
-|**Approach**|**OCP Violated?**|**Problem**|
-|---|---|---|
-|**If-Else in `PaymentService`**|🚨 Yes|Every new payment method requires modifying existing code.|
-|**Using Strategy Pattern (OCP Applied)**|✅ No|New payment methods can be added without modifying `PaymentService`.|
-
----
-
-## **🚀 Final Thoughts**
-
-By applying the **Open/Closed Principle**, your Spring Boot application becomes **scalable, maintainable, and testable**. Now, adding new payment methods is **as simple as creating a new class**—without modifying any existing logic!

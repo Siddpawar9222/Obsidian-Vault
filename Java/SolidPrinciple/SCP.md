@@ -18,19 +18,6 @@ Think like this:
 👉 **Changes in one feature will affect other features.**  
 👉 **So, divide the work—one class does one job.**
 
-Just like in a company:
-
-- Finance team → Handles money
-    
-- HR team → Handles hiring
-    
-- IT team → Handles technology
-    
-
-No one team does everything.
-
-Same logic applies in Spring Boot classes.
-
 ---
 
 # 💳 **Spring Boot Payment Example (SRP From Scratch)**
@@ -190,22 +177,5 @@ Each class is small and easy to understand.
 ### ✔ Easily testable
 
 You can write unit tests for each service separately.
-
----
-
-# 🎯 **Quick Summary**
-
-|Class|Responsibility|Reason to Change|
-|---|---|---|
-|`DiscountService`|Discount logic|Discount algorithm changes|
-|`PaymentService`|Payment handling|Payment calculation changes|
-|`NotificationService`|Sending notifications|Message format / channel changes|
-
----
-
-# 🔥 Final Simple Definition (You Will Never Forget)
-
-👉 **SRP means dividing your big logic into multiple small classes so that each class does one thing only.**  
-👉 **One class should have only one reason to change.**
 
 ---

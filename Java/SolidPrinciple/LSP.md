@@ -2,10 +2,6 @@
 
 ---
 
-🚀 **Liskov Substitution Principle (LSP) Explained with Payment System in Spring Boot**
-
----
-
 ### **🔹 What is the Liskov Substitution Principle (LSP)?**
 
 👉 **Definition:** _"Objects of a superclass should be replaceable with objects of its subclasses without affecting the correctness of the program."_
@@ -203,23 +199,3 @@ public class PaymentController {
 ✅ **LSP is satisfied because subclasses can replace their parent class without breaking behavior.**
 
 ---
-
-## **🎯 Summary**
-
-|**Approach**|**LSP Violated?**|**Problem**|
-|---|---|---|
-|**Forcing GiftCard to Implement `pay(amount)`**|🚨 Yes|Throws `UnsupportedOperationException`, breaking behavior.|
-|**Using Separate `FixedAmountPaymentStrategy`**|✅ No|Now, each class has its correct behavior and doesn't break LSP.|
-
----
-
-## **🚀 Final Thoughts**
-
-By applying **Liskov Substitution Principle**, we ensure that:
-
-- **All subclasses respect the behavior of the parent class**.
-    
-- **Unexpected exceptions are avoided when using polymorphism**.
-    
-- **New payment types can be added without breaking existing code**.
-    
