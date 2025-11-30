@@ -137,17 +137,6 @@ Spring Boot uses **Inversion of Control (IoC)** and **Dependency Injection (DI)*
 
 ---
 
-## 🎯 Summary Table
-
-|❌ Violating DIP|✅ Following DIP|
-|---|---|
-|`PaymentService` depends on `CreditCardPayment`|`PaymentService` depends on `PaymentMethod` interface|
-|Hard to change payment method|Easy to change, add, or test new payment methods|
-|Tightly coupled|Loosely coupled|
-|Hard to test|Easy to test with mock/fake objects|
-
----
-
 ## 🧪 Bonus: DIP helps with Unit Testing!
 
 ```java

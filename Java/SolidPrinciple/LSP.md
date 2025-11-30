@@ -23,7 +23,7 @@ Now, **we introduce a new type of payment: "GiftCard Payment"**, but it has a li
 
 ```java
 public interface PaymentStrategy {
-    void pay(double amount);
+    void pay(double amount); // support partial payment
 }
 ```
 

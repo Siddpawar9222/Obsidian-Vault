@@ -13,23 +13,7 @@ _A client (class) should not be forced to depend on methods it does not use._
 - Instead, create **small, specific interfaces**.
     
 - Each class should implement **only the methods it really needs**.
-    
 
----
-
-## 🔧 Real-World Analogy
-
-Imagine you go to a **restaurant**. They give you a big menu with:
-
-- Indian food
-    
-- Italian food
-    
-- Chinese food  
-    You just came for **coffee**, but now you must look through the **entire menu**—even though 90% doesn’t matter to you. Annoying, right?
-    
-
-👉 This is exactly what happens when we give **large interfaces** to classes that need **only 1 or 2 methods**.
 
 ---
 
@@ -126,17 +110,6 @@ public class CreditCardPayment implements Payable, Refundable, CardSavable {
 
 ---
 
-## ✅ Why Is This Better?
-
-|❌ Old Approach|✅ ISP Applied|
-|---|---|
-|One big interface with all methods|Small, focused interfaces|
-|Classes forced to implement unused methods|Classes implement only what they need|
-|Risk of runtime errors|Safe and clean code|
-|Hard to maintain & scale|Easy to test, extend, and refactor|
-
----
-
 ## 🔧 Spring Boot Real Use
 
 In Spring, this is similar to splitting responsibilities between:
@@ -150,13 +123,6 @@ In Spring, this is similar to splitting responsibilities between:
 
 You don’t mix these into one giant interface. You create **small services/interfaces**, and classes depend **only on what they use**.
 
----
-
-## 🎯 Summary
-
-|Principle|Explanation|
-|---|---|
-|**ISP**|Don’t force a class to depend on methods it doesn’t use. Break large interfaces into smaller, meaningful ones.|
 
 ---
 
