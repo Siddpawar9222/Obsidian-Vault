@@ -1,28 +1,32 @@
 
 ---
-### ✔ Creational → Singleton, Factory, Builder
+#### ✔ Creational → Singleton, Factory, Builder
 
-### ✔ Structural → Adapter, Decorator, Proxy
+#### ✔ Structural → Adapter, Decorator, Proxy
 
-### ✔ Behavioral → Strategy, Observer
+#### ✔ Behavioral → Strategy, Observer
 
 
 
 # 🔥 Bonus (Real-world example for understanding)
 
 
-### **Singleton** → One DB connection manager
+#### **Singleton** → One DB connection manager
 
-### **Factory** →   Create correct PaymentProcessor (UPI, Card, COD)
+#### **Factory** →   Create correct PaymentProcessor (UPI, Card, COD)
 
-### **Builder** → Build complex User object
+#### **Builder** → Build complex User object
 
-### **Strategy** → Choose sorting algorithm at runtime
+#### **Strategy** → Choose sorting algorithm at runtime
 
-### **Observer** → Notify followers when new post is uploaded
+#### **Observer** → Notify followers when new post is uploaded
 
-### **Adapter** → Convert old Payment API to new API
+#### **Adapter** → Convert old Payment API to new API
 
-### **Decorator** → Add “logging”, “security”, “caching” over service
+#### **Decorator** → Add “logging”, “security”, “caching” over service
 
-### **Proxy** → Spring @Transactional, @Cacheable (AOP uses proxy)
+#### **Proxy** → Spring @Transactional, @Cacheable (AOP uses proxy)
+
+
+
+
