@@ -47,7 +47,7 @@ flowchart LR
 ### 4\. What is a Cache, really?
 
   * **Not just RAM:** While we often think of caches as RAM (Random Access Memory), a cache is not restricted to RAM-based storage.
-  * **Definition:** *Any* storage that is "nearer" to the user and helps you avoid an expensive task is considered a cache for you.
+  * **Definition:** *Any* storage that is  "nearer" to the user and helps you avoid an expensive task is considered a cache for you.
   * **The Simplest Form:** At their core, most caches are just **"Glorified Hash Tables."** They store data as Key-Value pairs for quick lookups.
 
 ### 5\. Real-World Examples

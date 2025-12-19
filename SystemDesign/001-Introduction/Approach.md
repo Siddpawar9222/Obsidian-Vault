@@ -6,7 +6,7 @@
 
 ## 1. What is System Design?
 
-System Design is the process of planning and creating the structure of a software system. The goal is to build a system that:
+<font color="#ffc000">System Design is the process of planning and creating the structure of a software system.</font> The goal is to build a system that:
 
 - **Works Efficiently:** Performs well under load.
     
@@ -64,8 +64,7 @@ graph LR
 
 ---
 
-## 4. Dissecting Components (Deep Dive)
-
+## 4. Dissecting Components 
 Once you have the high-level components, pick one (e.g., the **Feed Service**) and "crack it open" (dissect it).
 
 ### A. The Basic Flow

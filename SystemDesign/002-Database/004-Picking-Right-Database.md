@@ -57,21 +57,21 @@ Use this logic flow to make your decision during an interview or design phase.
 
 ### Scenario A: Data fits on a Single Node
 
-|**Requirement**|**Recommended DB**|**Why?**|
-|---|---|---|
-|**Strong Consistency** & Data Correctness is critical (e.g., Banking)|**Relational Database (SQL)**|ACID compliance ensures data is always accurate.|
-|**Complex Queries** & Aggregations (Joins, Group By)|**Relational Database (SQL)**|SQL is optimized for analyzing relationships between data.|
-|**Key-Value Access** but needs to be **extremely fast**|**Redis**|Stores data in RAM (Memory) for lightning speed.|
-|Advanced Data Structures (Sets, Lists, Leaderboards)|**Redis**|Built-in support for complex structures beyond simple keys.|
+| **Requirement**                                                       | **Recommended DB**            | **Why?**                                                    |
+| --------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------------- |
+| **Strong Consistency** & Data Correctness is critical (e.g., Banking) | **Relational Database (SQL)** | ACID compliance ensures data is always accurate.            |
+| **Complex Queries** & Aggregations (Joins, Group By)                  | **Relational Database (SQL)** | SQL is optimized for analyzing relationships between data.  |
+| **Key-Value Access** but needs to be **extremely fast**               | **Redis**                     | Stores data in RAM (Memory) for lightning speed.            |
+| Advanced Data Structures (Sets, Lists, Leaderboards)                  | **Redis**                     | Built-in support for complex structures beyond simple keys. |
 
 ### Scenario B: Data CANNOT fit on one node (Sharding Needed)
 
-|**Requirement**|**Recommended DB**|**Why?**|
-|---|---|---|
-|You have **SQL expertise** & can handle manual sharding|**Relational DB** (with dropped constraints)|You get the familiarity of SQL but manage the scaling yourself.|
-|Simple **Key-Value** based access patterns|**NoSQL / KV Store** (e.g., DynamoDB, Cassandra)|Designed to scale horizontally automatically.|
-|You need sophisticated **Graph Algorithms** (Social networks, Recommendation engines)|**Graph DB** (e.g., Neo4j)|Optimized to traverse relationships between nodes.|
-|Nothing specific, but want to **future-proof** (Flexible schema)|**Document DB** (e.g., MongoDB)|Easy to change data structure later without breaking the DB.|
+| **Requirement**                                                                       | **Recommended DB**                               | **Why?**                                                        |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------- |
+| You have **SQL expertise** & can handle manual sharding                               | **Relational DB** (with dropped constraints)     | You get the familiarity of SQL but manage the scaling yourself. |
+| Simple **Key-Value** based access patterns                                            | **NoSQL / KV Store** (e.g., DynamoDB, Cassandra) | Designed to scale horizontally automatically.                   |
+| You need sophisticated **Graph Algorithms** (Social networks, Recommendation engines) | **Graph DB** (e.g., Neo4j)                       | Optimized to traverse relationships between nodes.              |
+| Nothing specific, but want to **future-proof** (Flexible schema)                      | **Document DB** (e.g., MongoDB)                  | Easy to change data structure later without breaking the DB.    |
 
 ---
 

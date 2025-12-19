@@ -131,11 +131,11 @@ These are designed for data that is heavily interconnected.
 
 ## 3. Quick Comparison Summary
 
-|**Database Type**|**Data Model**|**Best For**|**Examples**|
-|---|---|---|---|
-|**Document**|JSON-like docs|Flexible schema, General purpose apps|MongoDB|
-|**Key-Value**|Key-Value pairs|High speed, Caching, Simple lookups|Redis, DynamoDB|
-|**Graph**|Nodes & Edges|Complex relationships, Social networks|Neo4j|
+| **Database Type** | **Data Model**  | **Best For**                           | **Examples**    |
+| ----------------- | --------------- | -------------------------------------- | --------------- |
+| **Document**      | JSON-like docs  | Flexible schema, General purpose apps  | MongoDB         |
+| **Key-Value**     | Key-Value pairs | High speed, Caching, Simple lookups    | Redis, DynamoDB |
+| **Graph**         | Nodes & Edges   | Complex relationships, Social networks | Neo4j           |
 
 ---
 
