@@ -1,7 +1,6 @@
 
 ---
 
-
 ## 1️⃣ Why Pub/Sub? (Problem before Pub/Sub)
 
 Before Pub/Sub, systems mainly used:
@@ -259,15 +258,15 @@ Problem:
 
 ## 8️⃣ Comparison with Queue & Kafka (Clear Table)
 
-|Feature|Queue|Kafka|Pub/Sub|
-|---|---|---|---|
-|Model|Pull|Pull|Push|
-|Latency|Medium|Medium|Very Low|
-|Storage|Yes|Yes|Usually No|
-|Replay|No|Yes|No|
-|Broadcast|No|Yes|Yes|
-|Consumer Control|Yes|Yes|No|
-|Use Case|Tasks|Streams|Realtime updates|
+| Feature          | Queue  | Kafka   | Pub/Sub          |
+| ---------------- | ------ | ------- | ---------------- |
+| Model            | Pull   | Pull    | Push             |
+| Latency          | Medium | Medium  | Very Low         |
+| Storage          | Yes    | Yes     | Usually No       |
+| Replay           | No     | Yes     | No               |
+| Broadcast        | No     | Yes     | Yes              |
+| Consumer Control | Yes    | Yes     | No               |
+| Use Case         | Tasks  | Streams | Realtime updates |
 
 ---
 

@@ -17,7 +17,7 @@ In simple terms, a **Cache** is anything that helps you avoid performing an "exp
 
 ### 2\. The Core Concept
 
-The main idea is to store **frequently accessed data** in a **temporary storage location** (the cache).
+The main idea is to <font color="#ffc000">store **frequently accessed data** in a **temporary storage location** (the cache)</font>.
 
   * Fetching data directly from the main Database is often slow because it involves expensive queries or disk usage.
   * Therefore, we keep a copy of that data in a "Cache" (a place that is faster to access).
