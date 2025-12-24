@@ -28,152 +28,329 @@ Let’s say you’re building a Java application that uses a library like **Apac
 - Without the correct classpath, the JVM won’t be able to find the classes or libraries your program needs, and you’ll get errors like `ClassNotFoundException` or `NoClassDefFoundError`.
 - It ensures your program can access all the necessary components to run properly.
 
-
 ---
-## Types of classpath : 
 
-By default, the **JVM (Java Virtual Machine)** searches for classes in the following locations, in this order:
-
-1. **The Current Directory (`.`)**:
-   - The JVM first looks in the current directory (where you run the `java` command) for any `.class` files.
-   - For example, if you run `java MyProgram`, the JVM will look for `MyProgram.class` in the current directory.
-
-2. **The Bootstrap Classpath**:
-   - This includes the core Java libraries (like `java.lang`, `java.util`, etc.) that are part of the Java Runtime Environment (JRE).
-   - These classes are stored in the `rt.jar`(before java 8) file (or its equivalent in newer Java versions  `java.base.module`) and are automatically included by the JVM.
-
-3. **The Extension Classpath**:
-   - The JVM also looks in the **extension directories** (usually `lib/ext` inside the JRE installation directory) for additional JAR files or classes.
-   - This is rarely used in modern Java development.
-   - The `lib/ext` folder was removed in **Java 9** as part of the move to the **<font color="#ffc000">Java Platform Module</font> System (JPMS)**.
-      - `lib/ext` : To maintain backword compability (in old project this used to be)
-      - `java.sql , java.desktop`
-   
- 4. **The System Classpath**:
-   - If you don’t specify a classpath using the `-cp` or `-classpath` option, the JVM uses the **system classpath**, which is defined by the `CLASSPATH`<font color="#ffff00"> environment variable.</font>
-   - If the `CLASSPATH` environment variable is not set, the JVM only looks in the current directory and the bootstrap/extension classpaths.
-
-By default, the **JVM (Java Virtual Machine)** searches for classes in the following locations, in this order: 
-
-`Current Directory (`.`) --> Bootstrap Classpath -->Extension Classpath --> System Classpath`
+# 📘 Java ClassLoader Notes (Java 9+ – JPMS)
 
 ---
 
-### Example of Default Behavior:
-If you compile and run a simple Java program like this:
+## 1️⃣ Before Java 9 (for context)
+
+### Java 8 and below
+
+|ClassLoader|Location|
+|---|---|
+|Bootstrap|`jre/lib`|
+|Extension|`jre/lib/ext`|
+|Application|`classpath`|
+
+Problems:
+
+- Classpath conflicts
+    
+- Security issues
+    
+- Hard to manage dependencies
+    
+
+---
+
+## 2️⃣ Java 9+ Changes (Big Shift)
+
+### What changed?
+
+- ❌ `jre/` folder removed
+    
+- ❌ `lib/ext` removed
+    
+- ✅ **JPMS (Java Platform Module System)** introduced
+    
+
+### New structure
+
+```text
+JAVA_HOME/lib/
+ ├── modules      → actual JDK bytecode
+ ├── jrt-fs.jar   → virtual filesystem for modules
+```
+
+---
+
+## 3️⃣ `modules` & `jrt-fs.jar` (Core concept)
+
+### 🔹 `modules`
+
+- Single runtime image
+    
+- Contains **all JDK modules**
+    
+- Examples:
+    
+    - `java.base`
+        
+    - `java.sql`
+        
+    - `java.xml`
+        
+    - `java.desktop`
+        
+
+### 🔹 `jrt-fs.jar`
+
+- Provides **jrt:/ virtual filesystem**
+    
+- Allows Java tools & APIs to read classes from `modules`
+    
+
+---
+
+### 🔍 Practical (Ubuntu)
+
+```bash
+java --list-modules
+```
+
+```bash
+jar tf $JAVA_HOME/lib/jrt-fs.jar | head
+```
+
+---
+
+## 4️⃣ Types of ClassLoaders (Java 9+)
+
+---
+
+## 1️⃣ Bootstrap ClassLoader
+
+### 🔹 What it does
+
+- Loads **core Java classes**
+    
+- Required for JVM startup
+    
+
+### 🔹 Module
+
+- `java.base`
+    
+
+### 🔹 Examples
+
+- `java.lang.String`
+    
+- `java.lang.Object`
+    
+- `java.util.List`
+    
+
+### 🔹 ClassLoader value
+
+```text
+null
+```
+
+### 🔹 Think like this
+
+👉 **Foundation of JVM**
+
+---
+
+### 🔍 Practical Example
+
 ```java
-// MyProgram.java
-public class MyProgram {
+public class BootstrapDemo {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        System.out.println(String.class.getClassLoader());
     }
 }
 ```
 
-1. Compile it:
-   ```bash
-   javac MyProgram.java
-   ```
-   This creates `MyProgram.class` in the current directory.
+Output:
 
-2. Run it:
-   ```bash
-   java MyProgram
-   ```
-   The JVM will:
-   - Look for `MyProgram.class` in the current directory (`.`).
-   - Find and load the `System` class from the bootstrap classpath (`java.lang.System`).
-
----
-
-### How to Override the Default Classpath?
-You can override the default classpath by using the `-cp` or `-classpath` option when running the `java` command. For example:
-```bash
-java -cp "/path/to/your/classes:/path/to/library.jar" MyProgram
-```
-This tells the JVM to look in `/path/to/your/classes` and `/path/to/library.jar` instead of the default locations.
-
----
-## Set System classpath in windows: 
-
- If you set the **`CLASSPATH` environment variable** in your Windows system, any Java program you run will automatically use the directories or JAR files specified in that `CLASSPATH` to find the required classes and resources. Here’s how it works:
-
----
-
-### Steps to Set the `CLASSPATH` Environment Variable in Windows:
-
-1. **Open Environment Variables Settings**:
-   - Right-click on **This PC** or **My Computer** on your desktop or in File Explorer.
-   - Select **Properties**.
-   - Click on **Advanced system settings** on the left.
-   - In the System Properties window, click the **Environment Variables** button.
-
-2. **Add or Edit the `CLASSPATH` Variable**:
-   - In the **Environment Variables** window:
-     - If `CLASSPATH` already exists, select it and click **Edit**.
-     - If it doesn’t exist, click **New** under the **System variables** section.
-   - Set the **Variable name** to `CLASSPATH`.
-   - Set the **Variable value** to the paths of the directories or JAR files you want to include, separated by semicolons (`;`). For example:
-     ```
-     C:\myproject\classes;C:\myproject\lib\mylibrary.jar
-     ```
-
-3. **Save and Close**:
-   - Click **OK** to save the changes and close all the windows.
-
----
-
-### What Happens After Setting the `CLASSPATH`?
-
-Once you set the `CLASSPATH` environment variable:
-- Any Java program you run on your system will automatically use the paths specified in the `CLASSPATH` to find classes and resources.
-- You no longer need to specify the `-cp` or `-classpath` option when running your Java programs (unless you want to override the system classpath for a specific program).
-
----
-
-### Example:
-
-Let’s say:
-- You have a directory `C:\myproject\classes` containing your compiled `.class` files.
-- You have a JAR file `C:\myproject\lib\mylibrary.jar` containing a third-party library.
-
-#### Step 1: Set the `CLASSPATH` Environment Variable
-Set the `CLASSPATH` variable to:
-```
-C:\myproject\classes;C:\myproject\lib\mylibrary.jar
+```text
+null
 ```
 
-#### Step 2: Run a Java Program
-If you have a class `MyProgram.class` in `C:\myproject\classes`, you can simply run:
-```bash
-java MyProgram
+---
+
+## 2️⃣ Platform ClassLoader
+
+_(Earlier Extension ClassLoader)_
+
+### 🔹 What it does
+
+- Loads **standard JDK libraries**
+    
+- Not needed to start JVM, but provided by JDK
+    
+
+### 🔹 Modules
+
+- `java.sql`
+    
+- `java.xml`
+    
+- `java.desktop`
+    
+- `java.logging`
+    
+
+### 🔹 ClassLoader value
+
+```text
+PlatformClassLoader
 ```
-The JVM will:
-- Look for `MyProgram.class` in `C:\myproject\classes`.
-- Look for any additional classes in `C:\myproject\lib\mylibrary.jar`.
+
+### 🔹 Think like this
+
+👉 **Official tools JVM can use when needed**
 
 ---
 
-### Important Notes:
-1. **Overriding the System Classpath**:
-   - If you want to override the system classpath for a specific program, you can still use the `-cp` or `-classpath` option:
-     ```bash
-     java -cp "C:\other\classes;C:\other\lib\otherlibrary.jar" MyProgram
-     ```
-   - This will ignore the system `CLASSPATH` and use the paths you specify.
+### 🔍 Practical Example
 
-2. **Avoid Using System `CLASSPATH` for Everything**:
-   - Setting a global `CLASSPATH` can sometimes cause issues if different projects require different libraries or versions.
-   - In modern development, it’s more common to use build tools like **Maven** or **Gradle**, or specify the classpath explicitly for each program.
+```java
+public class PlatformDemo {
+    public static void main(String[] args) {
+        System.out.println(java.sql.Driver.class.getClassLoader());
+    }
+}
+```
 
----
-Sure! Let me explain **classloaders** in Java in simple terms.
+Output:
 
----
-
-### What is a ClassLoader?
-A **classloader** is a part of the Java Runtime Environment (JRE) that loads Java classes into memory so they can be executed. Think of it as a **librarian** in a library:
-- The **librarian** (classloader) knows where all the books (Java classes) are stored.
-- When you ask for a book (a class), the librarian finds it and brings it to you (loads it into memory).
+```text
+jdk.internal.loader.ClassLoaders$PlatformClassLoader@...
+```
 
 ---
+
+## 3️⃣ Application ClassLoader
+
+_(System ClassLoader)_
+
+### 🔹 What it does
+
+- Loads **your application code**
+    
+- Loads **external JARs**
+    
+
+### 🔹 From
+
+- Classpath / Module path
+    
+
+### 🔹 Examples
+
+- Your `.class` files
+    
+- Spring Boot jars
+    
+- Third-party libraries
+    
+
+### 🔹 ClassLoader value
+
+```text
+AppClassLoader
+```
+
+### 🔹 Think like this
+
+👉 **Your project code**
+
+---
+
+### 🔍 Practical Example
+
+```java
+public class AppDemo {
+    public static void main(String[] args) {
+        System.out.println(AppDemo.class.getClassLoader());
+    }
+}
+```
+
+Output:
+
+```text
+jdk.internal.loader.ClassLoaders$AppClassLoader@...
+```
+
+---
+
+## 5️⃣ ClassLoader vs Modules (Important)
+
+- `modules` → **storage**
+    
+- ClassLoader → **loader**
+    
+- Same file, **different responsibility**
+    
+
+### Mapping
+
+|Module|Loaded By|
+|---|---|
+|`java.base`|Bootstrap|
+|Other JDK modules|Platform|
+|App code|Application|
+
+---
+
+## 6️⃣ Parent Delegation Model
+
+Order of loading:
+
+```
+Bootstrap
+   ↑
+Platform
+   ↑
+Application
+```
+
+Why?
+
+- Security
+    
+- Prevent overriding core classes
+    
+
+---
+
+## 7️⃣ One Code to See All Loaders
+
+```java
+public class LoaderSummary {
+    public static void main(String[] args) {
+        System.out.println("String → " + String.class.getClassLoader());
+        System.out.println("SQL → " + java.sql.Driver.class.getClassLoader());
+        System.out.println("App → " + LoaderSummary.class.getClassLoader());
+    }
+}
+```
+
+---
+
+## 8️⃣ Interview-Ready Summary ⭐
+
+> In Java 9+, all JDK classes are stored inside the `lib/modules` runtime image.  
+> The `java.base` module is loaded by the Bootstrap ClassLoader, other standard JDK modules are loaded by the Platform ClassLoader, and application code is loaded by the Application ClassLoader.  
+> The `jrt-fs.jar` provides a virtual filesystem to access classes inside modules.
+
+---
+
+## 9️⃣ Quick Revision Table
+
+|ClassLoader|Loads|Example|
+|---|---|---|
+|Bootstrap|Core Java|`String`|
+|Platform|Standard APIs|`java.sql`|
+|Application|App + jars|Your code|
+
+---
+
+
+
