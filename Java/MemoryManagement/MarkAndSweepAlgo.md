@@ -128,6 +128,7 @@ If later `A` is no longer referenced → Major GC removes it from Old Gen.
 3. Objects that **survive multiple GCs → promoted to Old Gen**.
     
 4. **Major GC**: Cleans both Young and Old Gen.
+5. 
     
 5. Mark phase = identify live objects; Sweep phase = free dead ones.
     
