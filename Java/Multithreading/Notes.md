@@ -74,5 +74,3 @@
     
 
 ---
-
-👉 Do you want me to also explain what **threads (4 threads in your CPU)** mean and how they fit into concurrency vs parallelism?

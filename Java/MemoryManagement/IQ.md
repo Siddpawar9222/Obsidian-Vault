@@ -450,12 +450,12 @@ public class PhantomRefExample {
 
 ## 🔥 Quick Comparison Table
 
-|Reference Type|GC Behavior|Use Case|
-|---|---|---|
-|**Strong**|Never GC’d while referenced|Normal program objects|
-|**Weak**|GC’d anytime (if only weak refs exist)|WeakHashMap, caches|
-|**Soft**|GC’d only if memory is low|Memory-sensitive caches|
-|**Phantom**|GC’d after finalize, before removal|Tracking object cleanup|
+| Reference Type | GC Behavior                            | Use Case                |
+| -------------- | -------------------------------------- | ----------------------- |
+| **Strong**     | Never GC’d while referenced            | Normal program objects  |
+| **Weak**       | GC’d anytime (if only weak refs exist) | WeakHashMap, caches     |
+| **Soft**       | GC’d only if memory is low             | Memory-sensitive caches |
+| **Phantom**    | GC’d after finalize, before removal    | Tracking object cleanup |
 
 ---
 
