@@ -73,5 +73,3 @@ So:
     
 
 ---
-
-Do you want me to next **map out all concurrency tools in Java (step-by-step)** so you know what to learn after the basics you already covered?

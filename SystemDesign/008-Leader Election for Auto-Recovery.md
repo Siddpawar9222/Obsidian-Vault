@@ -2,9 +2,6 @@
 
 ---
 
-
-# 📌 Leader Election for Auto-Recovery 
-
 ## 1️⃣ Problem Statement (Why this concept is needed)
 
 ### Scenario
