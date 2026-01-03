@@ -133,7 +133,11 @@ Spring Boot uses **Inversion of Control (IoC)** and **Dependency Injection (DI)*
 - Spring injects the appropriate **implementation** (like `CreditCardPayment`) at runtime
     
 - Now your `PaymentService` is **loosely coupled** and **easy to switch/test/extend**
-    
+
+   Note :
+   PaymentService does NOT decide the payment type.   Spring decides it BEFORE the app starts
+     You can use @Primary, @Qualifier,@Strategy Design Pattern or profile based  bean.
+     Above one just for demo for dependency Injection example.
 
 ---
 
