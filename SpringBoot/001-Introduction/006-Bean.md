@@ -98,7 +98,7 @@ public class MySessionScopedService {
 
 #### 5. Application Scope 
 - **Description**: <font color="#ffff00">Applicable in web-based applications</font>.  A single instance of the bean is created for the entire web application.
-- **Usage**: Create global session beans for Portlet applications..
+- **Usage**: Create global session beans for Portlet applications.
 
 ```java
 @Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)

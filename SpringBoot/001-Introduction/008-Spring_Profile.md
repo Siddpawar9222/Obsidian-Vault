@@ -265,14 +265,14 @@ If `my.value` is **not** defined anywhere, Spring uses `DefaultValue`.
 
 Let’s say you define the same property `server.port` in different places:
 
-|Source|Value|
-|---|---|
-|Command Line|`9999`|
-|Environment Variable (`SERVER_PORT`)|`8888`|
-|application-dev.properties|`9090`|
-|application.properties|`8080`|
-|`@PropertySource`|`7070`|
-|Default in code|`6060`|
+| Source                               | Value  |
+| ------------------------------------ | ------ |
+| Command Line                         | `9999` |
+| Environment Variable (`SERVER_PORT`) | `8888` |
+| application-dev.properties           | `9090` |
+| application.properties               | `8080` |
+| `@PropertySource`                    | `7070` |
+| Default in code                      | `6060` |
 
 If you run:
 

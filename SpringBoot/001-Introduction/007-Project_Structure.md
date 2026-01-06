@@ -216,22 +216,104 @@ In Maven, plugins and dependencies serve different purposes in the build process
    - Maven automatically downloads and manages these dependencies, making it easier to manage external libraries.
    - Dependencies are essential for the compilation and execution of your project.
 
------
 
-**What is Apache?**
-Apache usually refers to the Apache HTTP Server, a popular open-source web server. Think of it like a traffic cop for the internet.
+---
 
-When you browse a website, your request goes to the server, and Apache helps manage that request. It handles things like delivering web pages, processing data, and ensuring that when you type a website address, you get the right information.
+## What is Apache (Apache HTTP Server)?
 
-**Apache Tomcat:**
-Apache Tomcat is different from the Apache HTTP Server. Apache Tomcat is a web server and servlet container, mainly used for running Java-based web applications.
+Apache is a **web server**.
 
-**Apache vs Nginx:**
-Same like Maven Difference is
-**Traffic Handling:**
-Apache: It handles incoming requests one by one, like a queue. If there are many requests, it might take a bit longer to process each one.
-Nginx: It's like a super-efficient traffic cop. It can handle a large number of requests simultaneously, making it really fast.
+👉 **In simple words**:  
+Apache receives requests from the browser and sends back web pages.
 
-**Use Cases:**
-Apache: Traditionally used for dynamic content and supports a wide range of modules.
-Nginx: Often preferred for static content, high-traffic websites, and as a reverse proxy.
+It mainly serves:
+
+- HTML pages
+    
+- CSS, JS, images
+    
+
+---
+
+## What is Apache Tomcat?
+
+Apache Tomcat is **not the same** as Apache HTTP Server.
+
+👉 **In simple words**:  
+Tomcat is used to **run Java web applications**.
+
+### Real-world example
+
+Think of **Tomcat as a Java engine**:
+
+- Browser sends request → `/login`
+    
+- Tomcat runs **Java code (Servlet / JSP / Spring Boot)**
+    
+- Java code talks to DB
+    
+- Tomcat sends response back
+    
+
+📌 If your backend is **Java + Spring Boot**, Tomcat is very important.
+
+---
+
+## Apache vs Tomcat (One-line)
+
+|Tool|Used For|
+|---|---|
+|Apache HTTP Server|Serve static content|
+|Apache Tomcat|Run Java backend code|
+
+---
+
+## Apache vs Nginx (Very Simple)
+
+Both are **web servers**, but they work differently.
+
+### Traffic handling (easy example)
+
+#### Apache
+
+- Handles requests **one by one**
+    
+- If 100 people come → waiting happens
+    
+
+#### Nginx
+
+- Handles **many requests together**
+    
+- Very fast for high traffic
+    
+---
+
+## Use cases (Simple)
+
+### Apache
+
+- Good for **dynamic websites**
+    
+- Supports many plugins (modules)
+    
+- Older but very stable
+    
+### Nginx
+
+- Best for **high traffic**
+    
+- Very fast for **images, videos, static files**
+    
+- Commonly used as **reverse proxy**
+    
+---
+
+## Simple Summary 
+
+- **Apache HTTP Server** → serves web pages
+    
+- **Apache Tomcat** → runs Java backend
+    
+- **Nginx** → very fast, handles heavy traffic
+    
