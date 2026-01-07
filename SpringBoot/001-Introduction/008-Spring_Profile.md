@@ -310,10 +310,10 @@ java -jar your-app.jar
 
 Add your `export` lines in your shell config file (based on the terminal you use):
 
-|Shell|File to update|
-|---|---|
-|Bash|`~/.bashrc` or `~/.bash_profile`|
-|Zsh|`~/.zshrc`|
+| Shell | File to update                   |
+| ----- | -------------------------------- |
+| Bash  | `~/.bashrc` or `~/.bash_profile` |
+| Zsh   | `~/.zshrc`                       |
 
 ### 👇 Example:
 
