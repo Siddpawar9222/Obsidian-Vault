@@ -243,11 +243,11 @@ public Response registerQuizUser(HttpServletRequest request, UserDto userDto)
 
 ## ⚙️ Transaction Propagation (for clarity)
 
-|Propagation Type|Behavior|
-|---|---|
-|`REQUIRED` (default)|Join existing transaction or start a new one. ✅ Best for most use cases.|
-|`REQUIRES_NEW`|Always start a new transaction — isolates it (not what you want here).|
-|`NESTED`|Starts a nested transaction (rollback partially possible, but rarely used).|
+| Propagation Type     | Behavior                                                                    |
+| -------------------- | --------------------------------------------------------------------------- |
+| `REQUIRED` (default) | Join existing transaction or start a new one. ✅ Best for most use cases.    |
+| `REQUIRES_NEW`       | Always start a new transaction — isolates it (not what you want here).      |
+| `NESTED`             | Starts a nested transaction (rollback partially possible, but rarely used). |
 
 So keep all related methods as `@Transactional(propagation = Propagation.REQUIRED)`  
 and manage rollback from the **outermost service**.
@@ -534,18 +534,19 @@ a single `@Transactional` won’t cover both unless you use a **distributed tran
 
 ## 🧾 Quick Summary Table
 
-|#|Rule|Default|Example|
-|---|---|---|---|
-|1|Works only through Spring proxy|—|`@Autowired` bean calls|
-|2|Only on public methods|—|`public void save()`|
-|3|Commit on success, rollback on error|—|`throw new RuntimeException()`|
-|4|Rollback only on RuntimeException|✅|use `rollbackFor` for checked|
-|5|Propagation = REQUIRED|✅|joins parent transaction|
-|6|Isolation = READ_COMMITTED|✅|avoid dirty reads|
-|7|Timeout = none|∞|can set manually|
-|8|readOnly = false|❌|set true for queries|
-|9|Works only on same DB|—|one datasource only|
-|10|Self-invocation ignored|—|no `this.method()`|
+| #   | Rule                                                        | Default | Example                        |
+| --- | ----------------------------------------------------------- | ------- | ------------------------------ |
+| 1   | Works only through Spring proxy                             | —       | `@Autowired` bean calls        |
+| 2   | Only on public methods                                      | —       | `public void save()`           |
+| 3   | Commit on success, rollback on error                        | —       | `throw new RuntimeException()` |
+| 4   | Rollback only on RuntimeException                           | ✅       | use `rollbackFor` for checked  |
+| 5   | Propagation = REQUIRED                                      | ✅       | joins parent transaction       |
+| 6   | Isolation = READ_COMMITTED                                  | ✅       | avoid dirty reads              |
+| 7   | Timeout = none                                              | ∞       | can set manually               |
+| 8   | readOnly = false                                            | ❌       | set true for queries           |
+| 9   | Works only on same DB                                       | —       | one datasource only            |
+| 10  | Self-invocation ignored                                     | —       | no `this.method()`             |
+| 11  | If used at class level then it applys to all public methods |         |                                |
 
 ---
 

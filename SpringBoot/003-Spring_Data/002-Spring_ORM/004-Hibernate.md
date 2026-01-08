@@ -72,7 +72,7 @@ try (FileInputStream fis = new FileInputStream("example.txt")) {
 
 # Transactions in Hibernate
 
-In Hibernate, transactions are used to group a set of operations that should be treated as a single unit of work. When you use transactions with sessions, you ensure that changes made to the database are atomic, consistent, isolated, and durable (ACID properties).
+In Hibernate, <font color="#ffc000">transactions are used to group a set of operations that should be treated as a single unit of work</font>. When you use transactions with sessions, you ensure that changes made to the database are atomic, consistent, isolated, and durable (ACID properties).
 
 ### When and How Transactions are Used:
 1. **Data Manipulation:**
@@ -98,7 +98,7 @@ In Hibernate, transactions are used to group a set of operations that should be 
 
 # Single Session and Multiple Transactions
 
-In Hibernate, a single session can have multiple transactions, but only one transaction can be active at a time.
+In Hibernate, <font color="#ffc000">a single session can have multiple transactions, but only one transaction can be active at a time.</font>
 
 ### How It Typically Works:
 1. **Single Transaction at a Time:**

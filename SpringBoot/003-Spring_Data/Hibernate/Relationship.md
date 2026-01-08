@@ -1,26 +1,37 @@
 
 ---
 
-## 🔗 Types of Relationships in JPA
+# 🔗 Types of Relationships in JPA (Complete Notes)
 
-| Relationship  | Meaning                                       |
-| ------------- | --------------------------------------------- |
-| `@OneToOne`   | One entity has **exactly one** related entity |
-| `@OneToMany`  | One entity has **many** related entities      |
-| `@ManyToOne`  | Many entities are related to **one** entity   |
-| `@ManyToMany` | Many entities related to **many** entities    |
+In JPA, **relationships define how tables are connected using foreign keys**.
 
 ---
 
-## ✅ 1. `@OneToOne` – **Student & Address**
+## 📌 Relationship Types Overview
 
-> One student has one address.
+|Relationship|Meaning|Real-World Example|
+|---|---|---|
+|`@OneToOne`|One entity → exactly one entity|Student ↔ Address|
+|`@OneToMany`|One entity → many entities|School → Students|
+|`@ManyToOne`|Many entities → one entity|Students → School|
+|`@ManyToMany`|Many entities → many entities|Students ↔ Courses|
 
-### 🔸 Entity: `Student`
+---
+
+#  1️⃣ `@OneToOne` Relationship
+
+## Example: **Student & Address**
+
+👉 **One student has one address**
+
+---
+
+### 🔸 Student Entity (Owning Side)
 
 ```java
 @Entity
 public class Student {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -33,11 +44,14 @@ public class Student {
 }
 ```
 
-### 🔸 Entity: `Address`
+---
+
+### 🔸 Address Entity
 
 ```java
 @Entity
 public class Address {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -47,47 +61,41 @@ public class Address {
 }
 ```
 
-### 🗃️ Database Tables and Dummy Data
+---
 
-**Student Table**
+### 🗃️ Database Tables
 
-|id|name|address_id|
-|---|---|---|
-|1|Raj|101|
+#### Student Table
 
-**Address Table**
+| id  | name | address_id |
+| --- | ---- | ---------- |
+| 1   | Raj  | 101        |
 
-|id|street|city|
-|---|---|---|
-|101|MG Road|Mumbai|
+#### Address Table
+
+| id  | street  | city   |
+| --- | ------- | ------ |
+| 101 | MG Road | Mumbai |
+
+📌 **Foreign key (`address_id`) is in Student table**  
+👉 So **Student is the owning side**
 
 ---
 
-## ✅ 2. `@OneToMany` and `@ManyToOne` – **School & Students**
+# 2️⃣ `@ManyToOne` Relationship
 
-> One school has many students.
+## Example: **Student → School**
 
-### 🔸 Entity: `School`
+👉 **Many students belong to one school**
 
-```java
-@Entity
-public class School {
-    @Id
-    @GeneratedValue
-    private Long id;
+---
 
-    private String name;
-
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
-    private List<Student> students = new ArrayList<>();
-}
-```
-
-### 🔸 Entity: `Student`
+### 🔸 Student Entity (Owning Side)
 
 ```java
 @Entity
 public class Student {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -100,32 +108,109 @@ public class Student {
 }
 ```
 
-### 🗃️ Database Tables and Dummy Data
+---
 
-**School Table**
+### 🔸 School Entity
+
+```java
+@Entity
+public class School {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+}
+```
+
+---
+
+### 🗃️ Database Tables
+
+#### School Table
 
 |id|name|
 |---|---|
 |1|ABC High School|
 
-**Student Table**
+#### Student Table
 
 |id|name|school_id|
 |---|---|---|
 |1|Anil|1|
 |2|Riya|1|
 
+📌 **Foreign key is always on MANY side**  
+👉 `@ManyToOne` is **ALWAYS owning side**
+
 ---
 
-## ✅ 3. `@ManyToMany` – **Students & Courses**
+#  3️⃣ `@OneToMany` Relationship
 
-> Students can take multiple courses and vice versa.
+## Example: **School → Students**
 
-### 🔸 Entity: `Student`
+👉 **One school has many students**
+
+---
+
+### 🔸 School Entity (Inverse Side)
+
+```java
+@Entity
+public class School {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
+}
+```
+
+---
+
+### 🔸 Student Entity (Owning Side)
 
 ```java
 @Entity
 public class Student {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private School school;
+}
+```
+
+📌 **No foreign key in School table**  
+📌 `mappedBy = "school"` → refers to variable name in Student
+
+---
+
+# 4️⃣ `@ManyToMany` Relationship
+
+## Example: **Students & Courses**
+
+👉 **A student can take many courses**  
+👉 **A course can have many students**
+
+---
+
+### 🔸 Student Entity (Owning Side)
+
+```java
+@Entity
+public class Student {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -142,11 +227,14 @@ public class Student {
 }
 ```
 
-### 🔸 Entity: `Course`
+---
+
+### 🔸 Course Entity (Inverse Side)
 
 ```java
 @Entity
 public class Course {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -158,42 +246,120 @@ public class Course {
 }
 ```
 
-### 🗃️ Database Tables and Dummy Data
+---
 
-**Student Table**
+### 🗃️ Database Tables
 
-|id|name|
-|---|---|
-|1|Aarti|
-|2|Sameer|
+#### Student Table
 
-**Course Table**
+| id  | name   |
+| --- | ------ |
+| 1   | Aarti  |
+| 2   | Sameer |
 
-|id|title|
-|---|---|
-|101|Math|
-|102|Computer Sci|
+#### Course Table
 
-**Student_Course Join Table**
+| id  | title        |
+| --- | ------------ |
+| 101 | Math         |
+| 102 | Computer Sci |
 
-|student_id|course_id|
-|---|---|
-|1|101|
-|1|102|
-|2|101|
+#### Student_Course Table
+
+| student_id | course_id |
+| ---------- | --------- |
+| 1          | 101       |
+| 1          | 102       |
+| 2          | 101       |
+
+📌 Join table is **mandatory** for `@ManyToMany`
 
 ---
 
-## 🔁 Important Annotations
+# 🧠 CORE CONCEPTS (VERY IMPORTANT)
 
-| Annotation    | Purpose                                   |
-| ------------- | ----------------------------------------- |
-| `@OneToOne`   | Defines one-to-one relationship           |
-| `@OneToMany`  | One to many, placed on parent entity      |
-| `@ManyToOne`  | Many to one, placed on child entity       |
-| `@ManyToMany` | Many-to-many mapping                      |
-| `@JoinColumn` | Specifies the foreign key column          |
-| `@JoinTable`  | For many-to-many join table               |
-| `mappedBy`    | Inverse side of relationship (non-owning) |
+---
+
+## 🔹 `@JoinColumn`
+
+### 👉 Meaning
+
+> Defines **where the foreign key column is stored**
+
+```java
+@JoinColumn(name = "school_id")
+```
+
+📌 Creates:
+
+```
+student.school_id → school.id
+```
+
+✅ Used in:
+
+- `@ManyToOne`
+    
+- `@OneToOne`
+    
+- Owning side only
+    
+
+---
+
+## 🔹 `@JoinTable`
+
+### 👉 Meaning
+
+> Creates a **separate table** to manage relationship
+
+Used when:
+
+- Both sides are MANY
+    
+- Foreign key cannot exist in one table
+    
+
+```java
+@JoinTable(
+  name = "student_course",
+  joinColumns = @JoinColumn(name = "student_id"),
+  inverseJoinColumns = @JoinColumn(name = "course_id")
+)
+```
+
+✅ Used only in `@ManyToMany`
+
+---
+
+## 🔹 `mappedBy`
+
+### 👉 Meaning
+
+> “I am NOT the owner. Other side manages the FK.”
+
+```java
+@OneToMany(mappedBy = "school")
+```
+
+📌 Rules:
+
+- `mappedBy` value = **variable name**
+    
+- Used on **inverse side**
+    
+- Prevents extra join table
+    
+
+---
+
+# 🧠 Owning Side Summary (Interview Gold)
+
+|Relationship|Owning Side|
+|---|---|
+|`@ManyToOne`|Always owning|
+|`@OneToMany`|Inverse (uses `mappedBy`)|
+|`@OneToOne`|Side with `@JoinColumn`|
+|`@ManyToMany`|Side with `@JoinTable`|
 
 ---

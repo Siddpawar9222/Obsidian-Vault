@@ -54,3 +54,100 @@ void deleteByExpirationDate(@Param("expirationDate") Date expirationDate);
 - **@Query**: Defines the custom JPQL (Java Persistence Query Language) query. The query deletes all records where `operatorId` matches the given `operatorId` and `sessionId` is not equal to the given `sessionId`.
 
 The `<>` symbol in the query represents the "not equal to" operator in JPQL. This operator is used to specify that the `sessionId` should not be equal to a given value.
+
+
+
+---
+
+
+ **@Query** :  Used for  select, update and delete opertion
+ select  : no need to transcation (@Transactional)
+ update and delete : need transcation 
+ 
+ Create operation always need to call save method. 
+
+@Query internally assume every sql string is SELECT statement(executeQuery()), hence we used @Modifying
+
+
+---
+
+### JPQL vs Native SQL (Simple English)
+
+###  JPQL (Default)
+
+```java
+@Query("SELECT e FROM Employee e WHERE e.age > :age")
+```
+
+- Works with **Entity names**, not table names
+    
+- Uses **field names**, not column names
+    
+- Database independent
+    
+- Handled by JPA
+    
+
+Think of JPQL as:
+
+> “Java-style query for entities”
+
+---
+
+###  Native Query (`nativeQuery = true`)
+
+```java
+@Query(
+  value = "SELECT * FROM employee WHERE age > :age",
+  nativeQuery = true
+)
+```
+
+- Works with **real table name**
+    
+- Uses **real column names**
+    
+- Database specific (MySQL, Postgres, etc.)
+    
+- Sent directly to DB
+    
+
+Think of native SQL as:
+
+> “Exact SQL that DB understands”
+
+---
+
+## Why would we use `nativeQuery = true`?
+
+### ✅ When JPQL is NOT enough
+
+Examples:
+
+- Database specific functions
+    
+    - `LIMIT`, `ILIKE`, `JSONB`, `WINDOW FUNCTIONS`
+        
+- Complex joins
+    
+- Performance optimized SQL
+    
+- Legacy database queries
+    
+
+Example:
+
+```java
+@Query(
+  value = "SELECT * FROM employee ORDER BY created_at DESC LIMIT 5",
+  nativeQuery = true
+)
+List<Employee> findLatestEmployees();
+```
+
+JPQL **cannot use `LIMIT`** directly.
+
+---
+
+ 
+ 

@@ -1,6 +1,6 @@
 
 ### What is Spring Data Specification?
-Spring Data Specification is part of Spring Data JPA, and it provides a more **flexible and reusable** way of building dynamic queries. Specifications allow you to build complex queries in a more declarative and modular way by combining simple conditions into larger queries.
+Spring Data Specification is part of Spring Data JPA, and it provides a more **flexible and reusable** way of building dynamic queries. <font color="#ffc000">Specifications allow you to build complex queries in a more declarative and modular way by combining simple conditions into larger queries.</font>
 
 ### Problems with Criteria API (with a real-world example):
 
