@@ -82,11 +82,11 @@ public class HashingExample {
 
 ### 🔑 Summary Table
 
-|Feature|Encryption|Hashing|
-|---|---|---|
-|Reversible|✅ Yes (with key)|❌ No|
-|Use-case|Protect data (e.g., messages)|Verify data (e.g., passwords)|
-|Key needed?|✅ Yes|❌ No|
-|Output length|Varies or fixed|Always fixed|
+| Feature       | Encryption                    | Hashing                       |
+| ------------- | ----------------------------- | ----------------------------- |
+| Reversible    | ✅ Yes (with key)              | ❌ No                          |
+| Use-case      | Protect data (e.g., messages) | Verify data (e.g., passwords) |
+| Key needed?   | ✅ Yes                         | ❌ No                          |
+| Output length | Varies or fixed               | Always fixed                  |
 
 ---
