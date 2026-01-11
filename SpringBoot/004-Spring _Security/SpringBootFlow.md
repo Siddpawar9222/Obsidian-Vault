@@ -575,13 +575,3 @@ So:
 
 ---
 
-If you want next:
-
-- 🧠 Why `principal` is Object
-    
-- 🔁 How OAuth does the same crossover
-    
-- ⚠️ What breaks if you skip this step in JWT
-    
-
-Just tell me 👍
