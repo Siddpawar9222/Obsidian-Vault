@@ -3,9 +3,6 @@
 
 ### Terminologies in AOP : 
 
-Got it 👍  
-Your notes are technically correct, but they feel a bit heavy because of too many formal words. Let me simplify them for you with **easy English + small real-world examples**:
-
 ---
 
 ### 📝 Simplified Notes on AOP (Aspect Oriented Programming)
