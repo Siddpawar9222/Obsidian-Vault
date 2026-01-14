@@ -10,4 +10,7 @@
 | 4       | [885. Spiral Matrix III](https://leetcode.com/problems/spiral-matrix-iii/)                                                                                                                          |                                        |
 | 4.      | [498. Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/)                                                                                                                          |                                        |
 | 5       | Check Element in sorted array                                                                                                                                                                       |                                        |
+|         |                                                                                                                                                                                                     |                                        |
+|         | Distance Travere                                                                                                                                                                                    |                                        |
+|         | [1266. Minimum Time Visiting All Points](https://leetcode.com/problems/minimum-time-visiting-all-points/)                                                                                           |                                        |
 
