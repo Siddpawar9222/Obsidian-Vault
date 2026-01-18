@@ -724,18 +724,6 @@ When error occurs, you must show **line number**.
 
 ---
 
-If you want next:
-
-- ✅ **When NOT to use each Reader**
-    
-- ✅ **Which Reader is used in Spring Boot**
-    
-- ✅ **Real Java code example for each (simple)**
-    
-
-Just say 👍
----
-
 ## Internal Stream Usage
 
 - Java uses **Byte Streams** for:
@@ -777,9 +765,9 @@ Just say 👍
 
 Every Java program creates **3 streams automatically**:
 
-- `System.out` → Standard output
-    
 - `System.in` → Standard input
+
+- `System.out` → Standard output
     
 - `System.err` → Error output
     
