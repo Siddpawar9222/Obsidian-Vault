@@ -344,11 +344,11 @@ public class LoaderSummary {
 
 ## 9️⃣ Quick Revision Table
 
-|ClassLoader|Loads|Example|
-|---|---|---|
-|Bootstrap|Core Java|`String`|
-|Platform|Standard APIs|`java.sql`|
-|Application|App + jars|Your code|
+| ClassLoader | Loads         | Example    |     |
+| ----------- | ------------- | ---------- | --- |
+| Bootstrap   | Core Java     | `String`   |     |
+| Platform    | Standard APIs | `java.sql` |     |
+| Application | App + jars    | Your code  |     |
 
 ---
 
