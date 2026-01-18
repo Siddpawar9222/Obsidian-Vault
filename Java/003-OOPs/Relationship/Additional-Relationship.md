@@ -1,6 +1,9 @@
 
 ---
 
+Relationship :  
+Defines how different classes interact with or depend on each other.
+
 ## **🔗 Complete OOP Relationships:**
 
 ### **Already Covered:**
