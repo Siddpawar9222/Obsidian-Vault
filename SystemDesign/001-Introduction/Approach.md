@@ -1,5 +1,4 @@
 
-
 ---
 
 # System Design: Introduction & Strategy

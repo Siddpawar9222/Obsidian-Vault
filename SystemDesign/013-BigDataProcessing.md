@@ -1,8 +1,6 @@
 
 ---
 
-
-
 # 📘 Big Data Processing – Detailed Notes (System Design View)
 
 ---

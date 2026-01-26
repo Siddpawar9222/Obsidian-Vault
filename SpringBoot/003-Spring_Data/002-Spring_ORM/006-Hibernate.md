@@ -2,7 +2,7 @@
 ----
 
 
-![[Pasted image 20260107162132.png]]
+![[hibernate.png]]
 
 
 
