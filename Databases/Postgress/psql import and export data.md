@@ -8,7 +8,6 @@
 --(export) Dump database
  pg_dump -U <username> -d <database_name> -f <file_path>.sql
  
-
 --Log in as superuser
  psql -U postgres -d postgres
 
