@@ -91,13 +91,13 @@ flowchart LR
 
 ## 🧠 Key Terms (Must Know)
 
-|Term|Meaning|
-|---|---|
-|Service Registry|Database of all services|
-|Service Discovery|Finding services dynamically|
-|Heartbeat|Client tells server “I am alive”|
-|Self-Registration|Client registers itself|
-|Self-Preservation|Eureka avoids mass deletion|
+| Term              | Meaning                          |
+| ----------------- | -------------------------------- |
+| Service Registry  | Database of all services         |
+| Service Discovery | Finding services dynamically     |
+| Heartbeat         | Client tells server “I am alive” |
+| Self-Registration | Client registers itself          |
+| Self-Preservation | Eureka avoids mass deletion      |
 
 ---
 
