@@ -289,6 +289,3 @@ If you want, next we can:
 - Learn **Counting Bloom Filter**
     
 - Use Bloom Filter in **Spring Boot system design**
-    
-
-Just tell me 👍
