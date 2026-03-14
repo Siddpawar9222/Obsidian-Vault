@@ -11,7 +11,6 @@ mvn liquibase:generateChangeLog
 # changeLogFile=src/main/resources/db/changelog/db.changelog-master.xml
 mvn liquibase:changelogSync
 
-
 mvn liquibase:update
 
 ```
