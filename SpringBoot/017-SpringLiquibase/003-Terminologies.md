@@ -85,13 +85,75 @@ If yes → **skip**
 
 # 4. **DATABASECHANGELOGLOCK Table**
 
-This table prevents **multiple Liquibase executions at the same time**.
+This table prevents **multiple Liquibase executions at the same time**.  
+
+Example :  
+ When Multiple Servers Start at the Same Time (Most Common Case) 
+
+```
+Load Balancer
+      │
+ ┌────┴────┐
+App Server 1
+App Server 2
+App Server 3
+```
+
+
+All servers start at the same time.
+
+Each server tries to run Liquibase migration during startup.
+
+Example flow:
+
+1️⃣ Server 1 starts  
+2️⃣ Server 2 starts  
+3️⃣ Server 3 starts
+
+All three try to execute:
+
+```
+Liquibase update
+```
+
+Without locking, this could happen:
+
+```
+Server 1 → CREATE TABLE users  
+Server 2 → CREATE TABLE users  
+Server 3 → CREATE TABLE users
+```
+
+💥 Database error.
+
+To prevent this:
+
+Server 1 sets:
+
+```
+DATABASECHANGELOGLOCK  
+locked = true
+```
+
+Now:
+
+- Server 2 waits
+    
+- Server 3 waits
+    
+
+When Server 1 finishes migration:
+
+`locked = false`
+
+Now other servers start normally.
+
 
 Example:
 
-|id|locked|
-|---|---|
-|1|false|
+| id  | locked |
+| --- | ------ |
+| 1   | false  |
 
 When Liquibase starts migration:
 
