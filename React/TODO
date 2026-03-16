@@ -2,3 +2,4 @@
 - Localization (Showing date and time according  to user location or preferred location)
 - Retrict app open on different tab (useful on bank application)
 - secure cookies
+- How  to add filter(name search, DropDown Select, checkbox ) with proper design pattern if we have million of data
