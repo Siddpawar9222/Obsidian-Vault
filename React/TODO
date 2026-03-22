@@ -1,0 +1,6 @@
+- Cross Browsing check (How we check if user open application on different platform or browser at same time) 
+- Localization (Showing date and time according  to user location or preferred location)
+- Retrict app open on different tab (useful on bank application)
+- secure cookies
+- How  to add filter(name search, DropDown Select, checkbox ) with proper design pattern if we have million of data
+- What are  the libraries we used for to show diagram ,  pie charts , validation libraries
