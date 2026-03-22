@@ -11,6 +11,6 @@
 | 4.      | [498. Diagonal Traverse](https://leetcode.com/problems/diagonal-traverse/)                                                                                                                          |                                        |
 | 5       | Check Element in sorted array                                                                                                                                                                       |                                        |
 |         |                                                                                                                                                                                                     |                                        |
-|         | Distance Travere                                                                                                                                                                                    |                                        |
+|         | Distance Traverse                                                                                                                                                                                   |                                        |
 |         | [1266. Minimum Time Visiting All Points](https://leetcode.com/problems/minimum-time-visiting-all-points/)                                                                                           |                                        |
 
