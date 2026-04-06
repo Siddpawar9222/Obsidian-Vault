@@ -4,3 +4,4 @@
 - secure cookies
 - How  to add filter(name search, DropDown Select, checkbox ) with proper design pattern if we have million of data
 - What are  the libraries we used for to show diagram ,  pie charts , validation libraries
+- How we can navigate to pages keeping the previous page data if i visited back with  breadCumbs
