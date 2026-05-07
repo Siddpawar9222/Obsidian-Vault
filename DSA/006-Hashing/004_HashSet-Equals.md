@@ -82,7 +82,16 @@ public class HashSetClass {
 }
 ```
 
+---
+`equals()` and `hashCode()` are used mainly in maintain uniqueness and in hashing-based collections like `HashMap`, `HashSet`, and `Hashtable`.
 
+- `hashCode()` is used to generate an integer hash value, which helps Java decide in which bucket the object should be stored.  
+  By default, `hashCode()` generates a hash value based on the object's memory address.
+
+- `equals()` is used to compare the logical equality of two objects.  
+  By default, `equals()` compares memory addresses (reference comparison).
+
+For default behavior, see the `Object` class implementation.
 ----
 
 
@@ -93,8 +102,20 @@ public class HashSetClass {
 The `hashCode()` and `equals()` methods have a fundamental contract in Java:
 
 1. **If two objects are equal (equals() returns true), they MUST have the same hash code**
-2. **If two objects have the same hash code, they MAY OR MAY NOT be equal**
-3. **If two objects are not equal, they SHOULD have different hash codes (but it's not mandatory)**
+
+Example :
+```
+Student s1 = new Student(10);
+Student s2 = new Student(10);
+
+System.out.println(s1.equals(s2)); // true
+System.out.println(s1.hashCode()); // 10
+System.out.println(s2.hashCode()); // 10
+System.out.println(s1.hashCode()==s2.hashCode()); // true
+```
+
+2. **If two objects have the same hash code, they MAY OR MAY NOT be equal(Hash collision is allowed but rare).**
+3. **If two objects are not equal, they SHOULD have different hash codes ()**
 
 ## How HashSet Uses These Methods
 
@@ -327,13 +348,6 @@ Student s2 = new Student(12, "Kanvesh");
 
 Result: HashSet would treat them as different objects and store both!
 
-## Performance Benefits
-
-This two-step process (hashCode → equals) is much faster than checking equality with every existing object:
-
-1. **Fast filtering:** HashCode quickly eliminates most non-duplicate candidates
-2. **Precise checking:** Equals method only runs on objects in the same bucket
-3. **O(1) average complexity:** Instead of O(n) linear search
 
 ## Best Practices
 
@@ -342,3 +356,8 @@ This two-step process (hashCode → equals) is much faster than checking equalit
 3. **Ensure immutable fields are used (or handle mutability carefully)**
 4. **Use prime numbers in hashCode calculation for better distribution**
 5. **Consider using IDE-generated implementations or Objects.hash() and Objects.equals()**
+
+
+---
+
+
