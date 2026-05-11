@@ -454,3 +454,12 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ---
 [Medium Article](https://medium.com/@mayank-yadav/mastering-spring-boot-profiles-easy-guide-with-examples-priority-order-pro-tips-47f1484769ff)
 
+
+---
+
+ **Build Spring boot project:**
+   
+```bash
+mvn clean install -DskipTests             #compile test cases but not execute(Run)
+mvn clean install -Dmaven.test.skip=true  #ignore compilation as well as execution
+```
