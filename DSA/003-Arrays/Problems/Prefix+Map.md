@@ -14,4 +14,5 @@
 | Longest Span with same Sum in two Binary arrays                                                                                                     |                                                            |
 | Sliding widow                                                                                                                                       |                                                            |
 | Count distinct elements in every window                                                                                                             |                                                            |
+|                                                                                                                                                     |                                                            |
 
