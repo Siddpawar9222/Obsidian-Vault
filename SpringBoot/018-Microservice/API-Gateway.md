@@ -379,3 +379,10 @@ graph LR
 
 ---
 
+- Spring boot gateway dependency uses reqctive code(Spring flex)
+[Reactive code](https://gemini.google.com/share/28da176e33b8)
+
+- Also research web server other than tomcat 
+--
+
+

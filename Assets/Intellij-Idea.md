@@ -69,6 +69,12 @@ Ctrl + Alt + L
 Ctrl + Alt + V
 ```
 
+### Remove unused Imports from file
+
+```text
+Ctrl + Alt + O
+```
+
 ---
 
 ## UML
