@@ -3,127 +3,344 @@
 
 # How to Configure Hibernate in a Maven Project
 
-[Hibernate 5 Java Configuration Example](https://www.digitalocean.com/community/tutorials/jpa-hibernate-annotations)
-
 ## SessionFactory: Interface
-The `SessionFactory` is a heavyweight object in Hibernate that represents a single database connection or data source configuration. It is typically instantiated once per application and is thread-safe. The `SessionFactory` is responsible for:
-- Establishing and managing database connections.
-- Loading Hibernate configuration settings.
-- Creating and managing `Session` instances.
-- Providing access to the Hibernate Transaction API.
 
-## Session: Interface
-A `Session` in Hibernate represents a single unit of work or a database transaction. It is a lightweight, short-lived object that is instantiated from the `SessionFactory` and is not thread-safe. The `Session` is responsible for:
-- Performing CRUD (Create, Read, Update, Delete) operations on persistent objects.
-- Managing the state of persistent objects (e.g., loading, saving, updating, deleting).
-- Caching and tracking changes made to persistent objects.
-- Synchronizing changes with the database during transaction commit.
+The `SessionFactory` is a heavyweight, thread-safe Hibernate object responsible for managing Hibernate’s overall persistence configuration and creating `Session` objects.
 
-## Configuration: Class
-The `Configuration` object in Hibernate represents the configuration settings for Hibernate, including database connection details, entity mappings, and other options required for Hibernate to operate.
+It is typically created once per database configuration in an application.
 
-## Properties: Class
-In Hibernate, `Properties` are key-value pairs used to specify configuration settings such as database connection parameters, dialect, and other Hibernate-specific options.
+### Responsibilities of SessionFactory
 
-## ServiceRegistry: Interface
-The `ServiceRegistry` in Hibernate is a central registry for managing and accessing services needed by Hibernate, such as connection pooling, transaction management, and caching. It provides a way to locate and access these services within the Hibernate framework.
+* Loading Hibernate configuration settings.
+* Managing entity metadata and mappings.
+* Integrating with datasource/connection pools.
+* Creating and managing `Session` instances.
+* Managing second-level cache configuration.
+* Providing Hibernate infrastructure services.
+
+### Important Notes
+
+* `SessionFactory` does NOT represent a single database connection.
+* It internally uses database connections from a connection pool.
+* Creating a `SessionFactory` is expensive because Hibernate performs:
+
+  * Entity scanning
+  * Metadata parsing
+  * Cache initialization
+  * SQL strategy preparation
+
+Because of this, applications usually create only one `SessionFactory` per database.
+
+---
+
+# Session: Interface
+
+A `Session` in Hibernate represents a single persistence context and acts as the primary interface for interacting with the database.
+
+It is a lightweight, short-lived, and non-thread-safe object created by the `SessionFactory`.
+
+### Responsibilities of Session
+
+* Performing CRUD operations on entities.
+* Managing entity lifecycle states.
+* Tracking changes using dirty checking.
+* Managing the first-level cache.
+* Synchronizing changes with the database during flush/commit operations.
+
+### Important Notes
+
+* A `Session` is usually opened per request or per transaction.
+* It should always be closed after use.
+* One session can contain multiple transactions, but only one transaction can be active at a time.
+
+---
+
+# Configuration: Class
+
+The `Configuration` class in Hibernate is used to configure Hibernate settings and register entity mappings before creating the `SessionFactory`.
+
+It loads:
+
+* Database connection settings
+* Hibernate properties
+* Entity mapping configurations
+* Caching settings
+* Dialect configuration
+
+Example:
+
+```java
+Configuration configuration = new Configuration();
+configuration.configure("hibernate.cfg.xml");
+```
+
+---
+
+# Properties: Class
+
+`Properties` in Hibernate are key-value configuration settings used to define Hibernate behavior.
+
+Examples include:
+
+* Database URL
+* Username/password
+* Hibernate dialect
+* SQL logging
+* DDL auto settings
+* Cache configuration
+
+Example:
+
+```properties
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+hibernate.show_sql=true
+```
+
+---
+
+# ServiceRegistry: Interface
+
+`ServiceRegistry` is Hibernate’s internal service container used to manage and provide Hibernate services.
+
+It helps Hibernate access services like:
+
+* Connection management
+* Transaction management
+* Caching
+* JDBC services
+* Event handling
+
+It acts similarly to a dependency injection container inside Hibernate.
+
+Example:
+
+```java
+ServiceRegistry serviceRegistry =
+    new StandardServiceRegistryBuilder()
+        .applySettings(configuration.getProperties())
+        .build();
+```
+
+---
 
 # File Structure of Maven Web-Based Project
 
-```
+```text
 src
 └── main
+    ├── java
+    ├── resources
     └── webapp
         ├── WEB-INF
         │   └── web.xml
         ├── css
-        │   └── styles.css
         ├── images
-        │   └── logo.png
         ├── js
-        │   └── script.js
         ├── jsp
-        │   └── employeeForm.jsp
         └── index.jsp
 ```
 
-# HQL and HCQL
+### Important Correction
 
-- **HQL:** `session.createQuery("from Employee", Employee.class).list();`
-- **HCQL (Hibernate Criteria Query Language):** [JavaTpoint - HCQL](https://www.javatpoint.com/hcql)
+In a Maven project:
+
+* Java source files are stored inside:
+
+```text
+src/main/java
+```
+
+* Configuration files are usually stored inside:
+
+```text
+src/main/resources
+```
+
+---
+
+# HQL and Criteria API
+
+## HQL (Hibernate Query Language)
+
+HQL is an object-oriented query language provided by Hibernate.
+
+It works with entity classes instead of database tables.
+
+Example:
+
+```java
+session.createQuery(
+    "from Employee",
+    Employee.class
+).list();
+```
+
+---
+
+## Criteria API
+
+The old term “HCQL” is outdated and not commonly used in industry.
+
+Modern Hibernate applications use:
+
+* JPA Criteria API
+
+It provides type-safe dynamic query building.
+
+Example use cases:
+
+* Dynamic filters
+* Search screens
+* Complex query generation
+
+---
 
 # Try-with-Resources
 
-Try-with-resources is a feature introduced in Java 7 that simplifies resource management by automatically closing resources at the end of a try block. 
+Try-with-resources is a Java feature introduced in Java 7 for automatic resource management.
 
-### Automatic Resource Management:
-- Try-with-resources simplifies the management of resources that need to be closed after their use, such as file streams, database connections, network sockets, etc.
-- By using try-with-resources, you can declare one or more resources within the parentheses of the try statement. These resources are automatically closed at the end of the try block, regardless of whether an exception occurs.
-- The resources are closed in the reverse order of their declaration, and they are closed before any catch or finally blocks are executed.
+Resources declared inside the `try()` block are automatically closed.
 
 Example:
+
 ```java
-try (FileInputStream fis = new FileInputStream("example.txt")) {
-    // Code to read from the file
+try (FileInputStream fis =
+         new FileInputStream("example.txt")) {
+
+    // read file
+
 } catch (IOException e) {
-    // Exception handling
+
 }
 ```
 
+### Benefits
+
+* Prevents resource leaks
+* Reduces boilerplate code
+* Automatically closes resources
+
+---
+
 # Transactions in Hibernate
 
-In Hibernate, <font color="#ffc000">transactions are used to group a set of operations that should be treated as a single unit of work</font>. When you use transactions with sessions, you ensure that changes made to the database are atomic, consistent, isolated, and durable (ACID properties).
+Transactions group multiple database operations into a single unit of work.
 
-### When and How Transactions are Used:
-1. **Data Manipulation:**
-   - Transactions are commonly used when performing operations that modify data in the database, such as saving, updating, or deleting entities.
-   - For example, when you call `session.save(entity)` to persist a new entity to the database, it's typically wrapped within a transaction.
+Hibernate transactions help maintain ACID properties:
 
-2. **Ensuring Data Consistency:**
-   - Transactions help maintain data consistency by ensuring that either all the operations within the transaction are successfully committed to the database or none of them are.
-   - If an error occurs during the execution of operations within a transaction, Hibernate can rollback the transaction, reverting any changes made so far, ensuring that the database remains in a consistent state.
+* Atomicity
+* Consistency
+* Isolation
+* Durability
 
-3. **Isolation and Concurrency Control:**
-   - Transactions provide isolation between concurrent database access by ensuring that changes made by one transaction are not visible to other transactions until the changes are committed.
-   - Transactions can specify isolation levels to control the degree of isolation required for a particular transaction, balancing consistency and performance.
+### Why Transactions are Important
 
-4. **Optimistic Locking:**
-   - Transactions are often used in conjunction with optimistic locking mechanisms to handle concurrent updates to the same data.
-   - Optimistic locking relies on versioning or timestamps to detect conflicting updates, and transactions are used to encapsulate the check and update operations.
+* Ensures data consistency
+* Supports rollback during failures
+* Handles concurrent access safely
+* Maintains database integrity
 
-5. **Error Handling and Rollback:**
-   - Transactions help manage error handling and rollback operations in case of exceptions or errors during database operations.
-   - If an exception occurs within a transaction, Hibernate can automatically rollback the transaction to ensure that the database is not left in an inconsistent state.
+---
 
+# Common Transaction Flow
+
+```java
+Transaction tx = null;
+
+try {
+    tx = session.beginTransaction();
+
+    session.save(employee);
+
+    tx.commit();
+
+} catch (Exception e) {
+
+    if (tx != null) {
+        tx.rollback();
+    }
+}
+```
+
+---
 
 # Single Session and Multiple Transactions
 
-In Hibernate, <font color="#ffc000">a single session can have multiple transactions, but only one transaction can be active at a time.</font>
+A single Hibernate `Session` can contain multiple transactions, but only one transaction can be active at a time.
 
-### How It Typically Works:
-1. **Single Transaction at a Time:**
-   - Hibernate enforces a single transaction per session at any given moment.
-   - Once a transaction is started on a session, it must be completed (committed or rolled back) before another transaction can be started.
+### Lifecycle
 
-2. **Transaction Lifecycle:**
-   - You can start a transaction on a session using `session.beginTransaction()`. This marks the beginning of the transactional context for that session.
-   - Within the transaction, you can perform various database operations like saving, updating, or deleting entities.
-   - Once the transaction is completed (either committed or rolled back), the session returns to a non-transactional state.
-   - After completing a transaction, you can start a new transaction on the same session if needed.
+```text
+Open Session
+    ↓
+Start Transaction
+    ↓
+DB Operations
+    ↓
+Commit/Rollback
+    ↓
+Start Another Transaction
+    ↓
+Close Session
+```
 
-3. **Nested Transactions:**
-   - Hibernate does not support true nested transactions. Each transaction is treated independently within its session.
-   - However, you can achieve a similar effect by using savepoints, which allow you to mark a point within a transaction to which you can later roll back if needed. Hibernate supports this through JDBC savepoints.
+### Important Notes
 
-4. **Transaction Management:**
-   - It's essential to properly manage transactions to ensure data consistency and integrity.
-   - Always commit transactions after successful completion of database operations to persist changes permanently.
-   - If an error occurs during the transaction, ensure that it's rolled back to maintain data consistency and avoid leaving the database in an inconsistent state.
+* Hibernate does not support true nested transactions.
+* JDBC savepoints can be used for partial rollback behavior.
+* In Spring Boot applications, transaction management is usually handled using `@Transactional`.
 
-When using the `@Transactional` annotation in Spring, you typically don't need to write explicit transaction management logic.
+---
 
-# How to Deploy a .war File on Tomcat
+# Spring Transaction Management
 
-[How to Deploy a .war File in Tomcat 7](https://stackoverflow.com/questions/5109112/how-to-deploy-a-war-file-in-tomcat-7)
+In Spring applications, transactions are usually managed declaratively using:
+
+```java
+@Transactional
+```
+
+Spring internally handles:
+
+* Transaction creation
+* Commit
+* Rollback
+* Exception handling
+
+This reduces boilerplate transaction code.
+
+---
+
+# How to Deploy a WAR File on Tomcat
+
+A `.war` file is a packaged Java web application.
+
+Steps:
+
+* Build the WAR file using Maven:
+
+```bash
+mvn clean package
+```
+
+* Copy the WAR file into Tomcat’s:
+
+```text
+webapps/
+```
+
+directory.
+
+* Start Tomcat server.
+
+Tomcat automatically extracts and deploys the application.
+
+---
+
+[Hibernate 5 Java Example](https://www.digitalocean.com/community/tutorials/jpa-hibernate-annotations)
+
+
+[Hibernate 5 Java Configuration Example](https://github.com/Siddpawar9222/BlueBricks-Assessment/blob/master/employee-management-system/src/main/java/com/bluebricks/util/HibernateUtil.java)
+
 
 ---
