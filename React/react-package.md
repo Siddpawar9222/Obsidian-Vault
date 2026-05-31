@@ -309,5 +309,3 @@ PATCH → Bug fixes only    (small fix)
 ```
 
 ---
-
-*Notes prepared from React Package Management session.*
