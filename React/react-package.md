@@ -1,12 +1,7 @@
-# 📦 React Package Management — Complete Notes
-
-> **Topic:** package.json, package-lock.json, Version System
-> **Level:** Beginner to Intermediate
-> **Stack:** React / Node.js / npm
 
 ---
 
-## Chapter 1 — package.json
+## package.json
 
 ### What is it?
 - The **main config file** of your React project
@@ -37,7 +32,7 @@
 
 ---
 
-## Chapter 2 — package-lock.json
+## package-lock.json
 
 ### What is it?
 - **Auto-generated** by npm when you run `npm install`
@@ -67,7 +62,7 @@
 
 ---
 
-## Chapter 3 — package.json vs package-lock.json
+## package.json vs package-lock.json
 
 | Feature | package.json | package-lock.json |
 |---|---|---|
@@ -86,7 +81,7 @@ package-lock.json = What you GOT      ("Amul Milk, exactly 1.000 litre")
 
 ---
 
-## Chapter 4 — Version Number System (SemVer)
+## Version Number System (SemVer)
 
 ### The 3-Number Format
 ```
@@ -95,11 +90,12 @@ package-lock.json = What you GOT      ("Amul Milk, exactly 1.000 litre")
 MAJOR  MINOR  PATCH
 ```
 
-| Type | Position | When it changes | Example |
-|---|---|---|---|
-| **MAJOR** | 1st number | Big breaking changes | React 17 → 18 |
+| Type      | Position   | When it changes           | Example         |
+| --------- | ---------- | ------------------------- | --------------- |
+| **MAJOR** | 1st number | Big breaking changes      | React 17 → 18   |
 | **MINOR** | 2nd number | New features, no breaking | New hooks added |
-| **PATCH** | 3rd number | Bug fixes only | Small bug fixed |
+| **PATCH** | 3rd number | Bug fixes only            | Small bug fixed |
+|           |            |                           |                 |
 
 ### Real-World Analogy
 ```
@@ -110,7 +106,7 @@ Android 13.1.2  → Patch  (battery bug fixed)
 
 ---
 
-## Chapter 5 — Version Symbols `^` and `~`
+## Version Symbols `^` and `~`
 
 ### `^` Caret — "Same MAJOR, update freely"
 ```json
@@ -168,7 +164,7 @@ Android 13.1.2  → Patch  (battery bug fixed)
 
 ---
 
-## Chapter 6 — Why Two Developers Can Have Different package-lock.json
+##  Why Two Developers Can Have Different package-lock.json
 
 > Same package.json ≠ Same package-lock.json
 > Because `^` and `~` are **ranges**, npm picks **latest available** at time of install.
@@ -244,7 +240,7 @@ runs npm install
 
 ---
 
-## Chapter 7 — `npm install` vs `npm ci`
+##  `npm install` vs `npm ci`
 
 | Command | Uses | Updates lock file | Used in |
 |---|---|---|---|
