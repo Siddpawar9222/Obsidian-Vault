@@ -6,7 +6,6 @@
 ### What is it?
 - The **main config file** of your React project
 - You **create and edit** this file manually
-- Think of it as your **shopping list**
 
 ### What it contains
 ```json
@@ -137,23 +136,6 @@ Android 13.1.2  → Patch  (battery bug fixed)
 
 ---
 
-### `^` vs `~` Side by Side
-```
-"react": "^18.2.0"          "axios": "~1.4.0"
-─────────────────────        ─────────────────────
-✅ 18.2.0                    ✅ 1.4.0
-✅ 18.2.5                    ✅ 1.4.3
-✅ 18.3.0  ← minor OK        ❌ 1.5.0  ← minor BLOCKED
-❌ 19.0.0  ← major BLOCKED   ❌ 2.0.0  ← major BLOCKED
-```
-
-| Symbol | Name | MAJOR | MINOR | PATCH |
-|---|---|---|---|---|
-| `^` | Caret | ❌ No | ✅ Yes | ✅ Yes |
-| `~` | Tilde | ❌ No | ❌ No | ✅ Yes |
-
----
-
 ### Other Version Symbols
 ```json
 "lodash": "4.17.21"          // Exact version only
@@ -266,7 +248,7 @@ npm ci
 
 ---
 
-## Chapter 8 — Industry Best Practices
+## Industry Best Practices
 
 ```json
 {
