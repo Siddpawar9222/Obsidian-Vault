@@ -2,6 +2,7 @@
 
 ---
 
+
 ### 🔹 First, recap how thread pools generally work:
 
 A **ThreadPoolExecutor** has these main parts:
@@ -42,7 +43,8 @@ public class CustomExecutorExample {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 2,                      // corePoolSize
                 4,                      // maximumPoolSize
-                60, TimeUnit.SECONDS,   // keepAliveTime for extra threads
+                60,                     // keepAliveTime for extra threads
+                TimeUnit.SECONDS, 
                 new ArrayBlockingQueue<>(2),  // queue with size 2
                 new ThreadPoolExecutor.CallerRunsPolicy() // rejection handler
         );
@@ -78,9 +80,6 @@ public class CustomExecutorExample {
 - **Next tasks (5 & 6)** → since queue is full and thread count < max (4), 2 more threads are created.
     
 - **Tasks 7 & 8** → now queue is full + max threads (4) reached → rejection handler is triggered.
-    
-    - In this example, `CallerRunsPolicy` makes the **main thread execute** them.
-        
 
 
 ---

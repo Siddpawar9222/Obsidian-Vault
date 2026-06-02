@@ -1,5 +1,6 @@
 # CPU Core, Thread, Multithreading, Concurrency & Parallelism
 
+
 ## What is a CPU Core?
 
 A CPU core is the actual execution unit inside the processor.
