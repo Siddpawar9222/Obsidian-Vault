@@ -1,7 +1,7 @@
 
 ---
 
-## Step 1 — What rejection looks like (AbortPolicy)
+## What rejection looks like (AbortPolicy)
 
 ```java
 try {
@@ -18,7 +18,7 @@ try {
 
 ---
 
-## Step 2 — All 4 Rejection Policies with examples
+## All 4 Rejection Policies with examples
 
 ```java
 // Policy 1: AbortPolicy (default)
@@ -49,7 +49,7 @@ executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy(
 
 ---
 
-## Step 5 — Industry Best Practice: Custom Handler
+##  Industry Best Practice: Custom Handler
 
 In real systems (Amazon, Flipkart, banking apps), you never silently drop tasks. You write a **custom handler**:
 

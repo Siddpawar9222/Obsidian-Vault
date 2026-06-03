@@ -3,7 +3,7 @@
 ---
 
 
-### 🔹 First, recap how thread pools generally work:
+### 🔹How thread pools  works:
 
 A **ThreadPoolExecutor** has these main parts:
 
@@ -29,7 +29,6 @@ When you submit a task to `ThreadPoolExecutor`:
 3. If **queue is full** and **current thread count < maximumPoolSize** → create an extra thread.
     
 4. If **queue is full** and **threads == maximumPoolSize** → reject task (goes to RejectedExecutionHandler).
-    
 
 ---
 
@@ -84,3 +83,207 @@ public class CustomExecutorExample {
 
 ---
 
+# Important Questions : 
+
+## Does `corePoolSize` create threads immediately?
+
+Example:
+
+```java
+new ThreadPoolExecutor(
+        2, 4, 60,
+        TimeUnit.SECONDS,
+        new ArrayBlockingQueue<>(2)
+);
+```
+
+### Answer
+
+❌ No.
+
+When the pool is created:
+
+```text
+ThreadPool Created
+|
+└── 0 Threads
+```
+
+No worker threads are created initially.
+
+Threads are created only when tasks are submitted.
+
+---
+
+### If only one task is submitted
+
+```java
+executor.submit(task1);
+```
+
+Result:
+
+```text
+Worker-1 created
+```
+
+Only one thread exists.
+
+`Worker-2` is not created because there is no need.
+
+---
+
+### Meaning of `corePoolSize = 2`
+
+It means:
+
+```text
+Up to 2 threads can be created before using the queue.
+```
+
+It does NOT mean:
+
+```text
+Always create 2 threads immediately.
+```
+
+---
+
+## What happens when no tasks are left?
+
+Suppose:
+
+```text
+Worker-1 (core)
+Worker-2 (core)
+Worker-3 (extra)
+Worker-4 (extra)
+```
+
+All tasks finish.
+
+---
+
+### Core Threads
+
+By default:
+
+```java
+allowCoreThreadTimeOut(false);
+```
+
+Core threads remain alive.
+
+```text
+Worker-1 stays alive
+Worker-2 stays alive
+```
+
+They wait for future tasks.
+
+---
+
+### Extra Threads
+
+Threads above core size:
+
+```text
+Worker-3
+Worker-4
+```
+
+use:
+
+```java
+keepAliveTime = 60 seconds
+```
+
+If idle for 60 seconds:
+
+```text
+Worker-3 dies
+Worker-4 dies
+```
+
+Pool shrinks back to:
+
+```text
+Worker-1
+Worker-2
+```
+
+---
+
+## What if I want core threads to die too?
+
+```java
+executor.allowCoreThreadTimeOut(true);
+```
+
+Now if all threads stay idle for 60 seconds:
+
+```text
+Worker-1 dies
+Worker-2 dies
+Worker-3 dies
+Worker-4 dies
+```
+
+Pool becomes:
+
+```text
+0 Threads
+```
+
+---
+
+## What happens after `shutdown()`?
+
+```java
+executor.shutdown();
+```
+
+Result:
+
+```text
+No new tasks accepted.
+Existing tasks complete.
+All worker threads terminate.
+```
+
+Final state:
+
+```text
+0 Threads
+```
+
+---
+
+## Quick Revision
+
+```text
+Pool Creation
+    ↓
+0 Threads Created
+
+First Task Arrives
+    ↓
+Create Thread
+
+Only 1 Task Submitted
+    ↓
+Only 1 Thread Created
+
+No Tasks Left
+    ↓
+Core Threads Stay Alive
+Extra Threads Die After keepAliveTime
+
+allowCoreThreadTimeOut(true)
+    ↓
+Even Core Threads Die
+
+shutdown()
+    ↓
+All Threads Die After Completing Work
+```
