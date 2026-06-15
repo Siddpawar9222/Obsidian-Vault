@@ -18,6 +18,20 @@ In JPA, **relationships define how tables are connected using foreign keys**.
 
 ---
 
+### Hibernate Relationship Design :
+
+#### The core question: who should own the relationship?
+
+ when two entities are related, one side needs to be the **owner** of the relationship. <font color="#ffc000">The owner is the side that controls the foreign key in the database.</font>
+
+There are two choices:
+
+- **Parent → Child** (one-to-many from parent side)
+- **Child → Parent** (many-to-one from child side, <font color="#ffc000">child owns the FK</font>)
+
+
+---
+
 #  1️⃣ `@OneToOne` Relationship
 
 ## Example: **Student & Address**
@@ -276,7 +290,7 @@ public class Course {
 
 ---
 
-# 🧠 CORE CONCEPTS (VERY IMPORTANT)
+# 🧠 CORE CONCEPTS
 
 ---
 
@@ -336,7 +350,7 @@ Used when:
 
 ### 👉 Meaning
 
-> “I am NOT the owner. Other side manages the FK.”
+> <font color="#ffc000">“I am NOT the owner. Other side manages the FK.”</font>
 
 ```java
 @OneToMany(mappedBy = "school")
@@ -353,13 +367,262 @@ Used when:
 
 ---
 
-# 🧠 Owning Side Summary (Interview Gold)
+# 🧠 Owning Side Summary 
 
-|Relationship|Owning Side|
+| Relationship  | Owning Side               |
+| ------------- | ------------------------- |
+| `@ManyToOne`  | Always owning             |
+| `@OneToMany`  | Inverse (uses `mappedBy`) |
+| `@OneToOne`   | Side with `@JoinColumn`   |
+| `@ManyToMany` | Side with `@JoinTable`    |
+
+---
+
+
+# 🧠 Fetch & Cascade
+
+---
+
+## 🔹 FetchType
+
+### 👉 Meaning
+
+> Defines **when related entities should be loaded from the database**
+
+JPA provides two fetch strategies:
+
+- `FetchType.LAZY`
+    
+- `FetchType.EAGER`
+    
+
+---
+
+### `FetchType.LAZY` vs `FetchType.EAGER`
+
+|                  | LAZY                           | EAGER                                      |
+| ---------------- | ------------------------------ | ------------------------------------------ |
+| Loads data       | Only when you access the field | Always, even if you don't need it          |
+| Performance      | Better for production          | Can cause N+1 and memory issues            |
+| Default for      | `@OneToMany`, `@ManyToMany`    | `@ManyToOne`, `@OneToOne`                  |
+| When to override | Rarely                         | Almost never — use JPQL JOIN FETCH instead |
+
+---
+
+### Default JPA Behavior
+
+#### 📌 To-Many Relationships → LAZY
+
+```java
+@OneToMany
+private List<Student> students;
+
+@ManyToMany
+private List<Course> courses;
+```
+
+By default:
+
+```java
+FetchType.LAZY
+```
+
+JPA loads the parent first and fetches children only when accessed.
+
+---
+
+#### 📌 To-One Relationships → EAGER
+
+```java
+@ManyToOne
+private School school;
+
+@OneToOne
+private Address address;
+```
+
+By default:
+
+```java
+FetchType.EAGER
+```
+
+JPA loads the related entity immediately.
+
+---
+
+### Production Rule
+
+✅ Always prefer:
+
+```java
+fetch = FetchType.LAZY
+```
+
+Example:
+
+```java
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "school_id")
+private School school;
+```
+
+Instead of loading relationships automatically, fetch them explicitly when needed:
+
+```java
+SELECT s
+FROM Student s
+JOIN FETCH s.school
+WHERE s.id = :id
+```
+
+📌 This avoids:
+
+- N+1 query problems
+    
+- Unnecessary memory usage
+    
+- Large object graphs being loaded accidentally
+    
+
+---
+
+## 🔹 CascadeType
+
+### 👉 Meaning
+
+> Tells JPA what to do to related entities when an operation is performed on the parent entity.
+
+Example:
+
+```java
+@OneToMany(cascade = CascadeType.ALL)
+private List<OrderItem> items;
+```
+
+When an operation is performed on `Order`, the same operation can automatically be applied to `OrderItem`.
+
+---
+
+### Cascade Types
+
+|CascadeType|What Happens|
 |---|---|
-|`@ManyToOne`|Always owning|
-|`@OneToMany`|Inverse (uses `mappedBy`)|
-|`@OneToOne`|Side with `@JoinColumn`|
-|`@ManyToMany`|Side with `@JoinTable`|
+|`PERSIST`|Saving parent also saves children|
+|`MERGE`|Updating parent also updates children|
+|`REMOVE`|Deleting parent also deletes children|
+|`REFRESH`|Refreshing parent also refreshes children|
+|`DETACH`|Detaching parent also detaches children|
+|`ALL`|All of the above|
+
+---
+
+### Example
+
+```java
+Order order = new Order();
+
+OrderItem item1 = new OrderItem();
+OrderItem item2 = new OrderItem();
+
+order.setItems(List.of(item1, item2));
+
+entityManager.persist(order);
+```
+
+With:
+
+```java
+cascade = CascadeType.PERSIST
+```
+
+JPA automatically saves:
+
+```text
+Order
+OrderItem 1
+OrderItem 2
+```
+
+No need to call:
+
+```java
+entityManager.persist(item1);
+entityManager.persist(item2);
+```
+
+---
+
+### Production Tips
+
+#### ✅ Good Use Case
+
+```java
+@OneToMany(
+    mappedBy = "order",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+)
+private List<OrderItem> items;
+```
+
+Reason:
+
+```text
+OrderItem cannot exist without Order
+```
+
+Deleting an order should also delete its items.
+
+---
+
+#### ❌ Avoid on Many-to-Many
+
+```java
+@ManyToMany(cascade = CascadeType.REMOVE)
+private List<Role> roles;
+```
+
+Problem:
+
+```text
+User A ── Role ADMIN
+User B ── Role ADMIN
+```
+
+Deleting User A may also delete the shared `ADMIN` role.
+
+This can break other users that reference the same role.
+
+---
+
+### Production Rule
+
+✅ Use `CascadeType.ALL` only when the child entity has no meaning without the parent.
+
+Examples:
+
+```text
+Order → OrderItem
+Invoice → InvoiceLine
+Cart → CartItem
+```
+
+❌ Avoid `CascadeType.REMOVE` on `@ManyToMany` relationships because entities are typically shared.
+
+---
+
+### Quick Memory Trick
+
+```text
+ToMany  → LAZY
+ToOne   → EAGER
+```
+
+```text
+FetchType = WHEN to load data
+CascadeType = WHAT operation to propagate
+```
+
 
 ---

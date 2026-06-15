@@ -2,7 +2,7 @@
 ---
 
 Imagine:  
-You are managing a **student database** (like your LMS project). Each student has a name and a course. We'll use `Student` class with Hibernate to perform actions like save, fetch, update, delete.
+You are managing a **student database** . Each student has a name and a course. We'll use `Student` class with Hibernate to perform actions like save, fetch, update, delete.
 
 ---
 
