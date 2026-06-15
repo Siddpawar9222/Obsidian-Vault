@@ -1,10 +1,5 @@
 
-
-
-
 ----
-
-
 # Evolution of Java Persistence: JDBC → Hibernate → JPA
 
 ## Timeline

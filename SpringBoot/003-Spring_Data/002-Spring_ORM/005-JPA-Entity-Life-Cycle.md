@@ -1,3 +1,6 @@
+
+---
+
 # Entity Life Cycle in JPA
 
 An entity in JPA can exist in **4 different states**.

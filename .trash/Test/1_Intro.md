@@ -1,6 +1,5 @@
 
------
-
+----
 # Evolution of Java Persistence: JDBC → Hibernate → JPA
 
 ## Timeline
@@ -253,6 +252,3 @@ Spring ORM is a Spring module that helps ORM frameworks work smoothly inside the
 ```
 ---
 
-
-
-![[SpringORM.png]]

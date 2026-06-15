@@ -1,7 +1,7 @@
 
 ---
 
-# 🔗 Types of Relationships in JPA (Complete Notes)
+# 🔗 Types of Relationships in JPA 
 
 In JPA, **relationships define how tables are connected using foreign keys**.
 
@@ -9,12 +9,12 @@ In JPA, **relationships define how tables are connected using foreign keys**.
 
 ## 📌 Relationship Types Overview
 
-|Relationship|Meaning|Real-World Example|
-|---|---|---|
-|`@OneToOne`|One entity → exactly one entity|Student ↔ Address|
-|`@OneToMany`|One entity → many entities|School → Students|
-|`@ManyToOne`|Many entities → one entity|Students → School|
-|`@ManyToMany`|Many entities → many entities|Students ↔ Courses|
+| Relationship  | Meaning                         | Real-World Example |
+| ------------- | ------------------------------- | ------------------ |
+| `@OneToOne`   | One entity → exactly one entity | Student ↔ Address  |
+| `@OneToMany`  | One entity → many entities      | School → Students  |
+| `@ManyToOne`  | Many entities → one entity      | Students → School  |
+| `@ManyToMany` | Many entities → many entities   | Students ↔ Courses |
 
 ---
 

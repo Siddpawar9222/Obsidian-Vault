@@ -1,4 +1,7 @@
-# 🧠 Step 1: Entity structure
+
+---
+
+#  Step 1: Entity structure
 
 ### Employee entity
 
@@ -34,7 +37,7 @@ public class Department {
 
 ---
 
-# 🧠 Step 2: What you want
+#  Step 2: What you want
 
 👉 “Give me all employees whose departmentId = 10”
 
@@ -56,14 +59,14 @@ employee.getDepartment().getDepartmentId()
 
 ---
 
-# 🧠 Step 4: Convert to Spring Data JPA
+#  Step 4: Convert to Spring Data JPA
 
 Spring Data cannot understand `. (dot)`
 So we use `_`
 
 ---
 
-## ✅ Correct method
+## Correct method
 
 ```java
 List<Employee> findByDepartment_DepartmentId(Integer departmentId);
@@ -71,7 +74,7 @@ List<Employee> findByDepartment_DepartmentId(Integer departmentId);
 
 ---
 
-# 🔥 What `_` means here
+#  What `_` means here
 
 ```text
 department_departmentId
@@ -138,7 +141,7 @@ department_departmentId
 
 ---
 
-# 🧪 More examples (very useful)
+# More examples (very useful)
 
 ---
 
@@ -172,7 +175,7 @@ employee.getName()
 
 ---
 
-# 🧠 Real-world example
+#  Real-world example
 
 Think like company:
 
@@ -188,7 +191,7 @@ employee.department.departmentId = IT
 
 ---
 
-# 💡 Golden rule (remember this)
+#  Golden rule (remember this)
 
 👉 If field is object:
 
@@ -199,7 +202,7 @@ object.childField
 
 ---
 
-# 🚀 Final understanding (one line)
+#  Final understanding (one line)
 
 👉 `_` in Spring Data = `.` in Java
 

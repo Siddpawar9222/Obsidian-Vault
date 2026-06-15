@@ -26,18 +26,18 @@ Now let’s break it properly 👇
 
 ### JPA vs Hibernate
 
-|JPA|Hibernate|
-|---|---|
-|Specification (rules)|Implementation (actual code)|
-|Defines **WHAT methods exist**|Decides **HOW they work internally**|
-|Does NOT give classes|Gives real classes|
-|Vendor-independent|Vendor-specific|
+| JPA                            | Hibernate                            |
+| ------------------------------ | ------------------------------------ |
+| Specification (rules)          | Implementation (actual code)         |
+| Defines **WHAT methods exist** | Decides **HOW they work internally** |
+| Does NOT give classes          | Gives real classes                   |
+| Vendor-independent             | Vendor-specific                      |
 
 👉 JPA does **not care** how Hibernate internally works.
 
 ---
 
-## 2️⃣ Timeline (this clears confusion instantly 🧠)
+## 2️⃣ Timeline (![[hibernate.png]]this clears confusion instantly 🧠)
 
 ### 📅 History
 
@@ -194,12 +194,12 @@ Perfect answer 💯
 
 ## 🔟 When should YOU use what?
 
-|Situation|Use|
-|---|---|
-|Normal project|JPA (EntityManager / Repository)|
-|Portability|JPA|
-|Hibernate-specific feature|Session|
-|Spring Boot app|Spring Data JPA|
+| Situation                  | Use                              |
+| -------------------------- | -------------------------------- |
+| Normal project             | JPA (EntityManager / Repository) |
+| Portability                | JPA                              |
+| Hibernate-specific feature | Session                          |
+| Spring Boot app            | Spring Data JPA                  |
 
 👉 **90% cases → JPA**  
 👉 **10% cases → Hibernate native**
@@ -211,14 +211,3 @@ Perfect answer 💯
 > **JPA defines rules, Hibernate follows rules but keeps its own engine.**
 
 ---
-
-If you want next, I can explain:
-
-- 🔹 **Why Spring Data JPA hides EntityManager**
-    
-- 🔹 **Hibernate Session vs EntityManager (deep)**
-    
-- 🔹 **Why Criteria API is hated 😄**
-    
-
-Just tell me 👍

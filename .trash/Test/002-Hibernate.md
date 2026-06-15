@@ -5,9 +5,9 @@
 
 ## SessionFactory: Interface
 
-The `SessionFactory` is a heavyweight, thread-safe Hibernate object responsible for managing Hibernate’s overall persistence configuration and creating `Session` objects.
+The `SessionFactory` is a <font color="#ffc000">heavyweight, thread-safe Hibernate object</font> responsible for managing Hibernate’s overall persistence configuration and creating `Session` objects.
 
-It is typically created once per database configuration in an application.
+It is typically created <font color="#ffc000">once per database configuration in an application.</font>
 
 ### Responsibilities of SessionFactory
 
@@ -15,7 +15,7 @@ It is typically created once per database configuration in an application.
 * Managing entity metadata and mappings.
 * Integrating with datasource/connection pools.
 * Creating and managing `Session` instances.
-* Managing second-level cache configuration.
+* Managing [[First and Second Level Caching | Second-Level]] cache configuration.
 * Providing Hibernate infrastructure services.
 
 ### Important Notes
@@ -35,14 +35,14 @@ Because of this, applications usually create only one `SessionFactory` per datab
 
 # Session: Interface
 
-A `Session` in Hibernate represents a single persistence context and acts as the primary interface for interacting with the database.
+A `Session` in Hibernate represents a <font color="#ffc000">single persistence context</font> and acts as the primary interface for interacting with the database.
 
 It is a lightweight, short-lived, and non-thread-safe object created by the `SessionFactory`.
 
 ### Responsibilities of Session
 
 * Performing CRUD operations on entities.
-* Managing entity lifecycle states.
+* Managing entity [[005-JPA-Entity-Life-Cycle| lifecycle]] states.
 * Tracking changes using dirty checking.
 * Managing the first-level cache.
 * Synchronizing changes with the database during flush/commit operations.
@@ -57,7 +57,7 @@ It is a lightweight, short-lived, and non-thread-safe object created by the `Ses
 
 # Configuration: Class
 
-The `Configuration` class in Hibernate is used to configure Hibernate settings and register entity mappings before creating the `SessionFactory`.
+The `Configuration` class in Hibernate is used to c<font color="#ffc000">onfigure Hibernate settings and register entity mappings</font> before creating the `SessionFactory`.
 
 It loads:
 
@@ -78,7 +78,7 @@ configuration.configure("hibernate.cfg.xml");
 
 # Properties: Class
 
-`Properties` in Hibernate are key-value configuration settings used to define Hibernate behavior.
+`Properties` in Hibernate are <font color="#ffc000">key-value configuration</font> settings used to define Hibernate behavior.
 
 Examples include:
 
@@ -224,7 +224,7 @@ try (FileInputStream fis =
 
 # Transactions in Hibernate
 
-Transactions group multiple database operations into a single unit of work.
+<font color="#ffc000">Transactions  group multiple database operations into a single unit of work.</font>
 
 Hibernate transactions help maintain ACID properties:
 
@@ -266,7 +266,7 @@ try {
 
 # Single Session and Multiple Transactions
 
-A single Hibernate `Session` can contain multiple transactions, but only one transaction can be active at a time.
+<font color="#ffc000">A single Hibernate `Session` can contain multiple transactions, but only one transaction can be active at a time.</font>
 
 ### Lifecycle
 

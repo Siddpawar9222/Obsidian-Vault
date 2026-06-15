@@ -209,7 +209,7 @@ em.close();
 
 ---
 
-## 🧠 One-line mental model (remember this)
+## 🧠 One-line mental model 
 
 > **JPA flow = Config → Factory → Manager → Transaction → Entity → DB**
 
