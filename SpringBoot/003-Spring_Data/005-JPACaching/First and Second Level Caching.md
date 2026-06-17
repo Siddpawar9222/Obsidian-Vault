@@ -70,3 +70,5 @@
 | **Enabled By Default** | Yes                        | No                                  |
 | **Configuration**      | No configuration needed    | Requires configuration and provider |
 | **Data Sharing**       | Not shared across sessions | Shared across sessions              |
+
+---
