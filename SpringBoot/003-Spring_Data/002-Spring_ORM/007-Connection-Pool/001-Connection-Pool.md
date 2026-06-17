@@ -39,7 +39,7 @@ Creating a database connection is **very expensive**.
 
 When MySQL/PostgreSQL receives a new connection:
 
-1. Open TCP socket
+1. [[TCP-Handshack|Open TCP socket]]
     
 2. Authenticate user
     
@@ -549,5 +549,8 @@ reuse them across thousands of requests.
 ```
 
 ---
+Note : 
+Connection available in HikariCP  is 
+TCP socket : The endpoint of a two-way, connection-oriented communication link between two programs running on a network.
 
-
+---
