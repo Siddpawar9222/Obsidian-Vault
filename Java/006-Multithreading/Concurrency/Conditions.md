@@ -1,23 +1,22 @@
-# Conditions & Producer-Consumer
 
 ---
 
-## 2. The Producer-Consumer Problem
+## 1. The Producer-Consumer Problem
 
-This is the most classic problem in concurrency. Understand this and you understand conditions completely.
+The Producer-Consumer problem is the classic concurrency design problem. Understanding it helps you master threads and condition-based signaling.
 
-### 2.1 What is the Problem?
+### 1.1 What is the Problem?
 
-Two types of threads share a common buffer (queue):
+Two types of threads share a fixed-size, common buffer:
 
-| Thread | What it does | Problem when... |
+| Thread | Action | Blocked When... |
 |---|---|---|
-| Producer | Creates items and puts them in the buffer | Buffer is **FULL** — cannot add more |
-| Consumer | Takes items from the buffer and processes them | Buffer is **EMPTY** — nothing to take |
+| **Producer** | Creates items and puts them in the buffer | Buffer is **FULL** (must wait for space) |
+| **Consumer** | Takes items from the buffer and processes them | Buffer is **EMPTY** (must wait for items) |
 
-### 2.2 The Flow
+### 1.2 The Flow
 
-```
+```text
   Producer                  Buffer (size = 3)          Consumer
   --------                  -----------------          --------
   put(item1)  -->           [ item1 ]
@@ -30,167 +29,124 @@ Two types of threads share a common buffer (queue):
   (Woken up, continues)
 ```
 
-**Key Rules:**
-1. Producer must WAIT if buffer is FULL
-2. Consumer must WAIT if buffer is EMPTY
-3. After adding an item, Producer must SIGNAL the Consumer
-4. After removing an item, Consumer must SIGNAL the Producer
+**Core Synchronization Rules:**
+1. **Producer** must block/wait if the buffer is **full**.
+2. **Consumer** must block/wait if the buffer is **empty**.
+3. After adding an item, the **Producer** must signal/notify the Consumer.
+4. After removing an item, the **Consumer** must signal/notify the Producer.
 
 ---
 
-## 3. Approach 1 — `synchronized + wait() / notify()`
+## 2. Approach 1: `synchronized` + `wait()` / `notifyAll()`
 
-This is the **oldest approach** in Java. Every object has a built-in monitor lock. You can call `wait()` to release the lock and sleep, and `notify()` to wake another sleeping thread.
+This is the traditional, monitor-based approach built into every Java object since JDK 1.0.
 
-### 3.1 Key Methods
+### 2.1 Key Methods
 
-| Method | What it does |
+| Method | Description |
 |---|---|
-| `wait()` | Releases the lock and puts current thread to sleep. Thread waits until `notify()` is called. |
-| `notify()` | Wakes up ONE random thread that is waiting on this object's monitor. |
-| `notifyAll()` | Wakes up ALL threads waiting on this object. Safer — use this by default. |
+| `wait()` | Releases the lock and puts the thread to sleep until notified. |
+| `notify()` | Wakes up a single arbitrary thread waiting on the object's monitor. |
+| `notifyAll()` | Wakes up all threads waiting on the object's monitor (safer; preferred by default). |
 
-> **CRITICAL:** `wait()`, `notify()`, `notifyAll()` MUST be called inside a `synchronized` block. If not, Java throws `IllegalMonitorStateException`.
+> [!danger] CRITICAL
+> `wait()`, `notify()`, and `notifyAll()` must only be called from inside a `synchronized` block/method. Otherwise, Java throws `IllegalMonitorStateException`.
 
-> **CRITICAL — Always use `while`, never `if`:**
+> [!warning] Always Use `while`, Never `if`
 > ```java
-> // WRONG
+> // ❌ WRONG (spurious wakeup can bypass the check)
 > if (buffer.isEmpty()) wait();
->
-> // CORRECT
+> 
+> // ✅ CORRECT (thread re-checks the condition after waking up)
 > while (buffer.isEmpty()) wait();
 > ```
-> A thread can wake up **spuriously** (without being notified) due to OS behavior. With `if`, it may proceed even when the condition is still false. With `while`, it re-checks after waking up. Always safe.
+> A thread can wake up **spuriously** (without a signal). Always wrap `wait()` in a `while` loop to recheck the condition.
 
-### 3.2 Full Code
+### 2.2 Complete Implementation
+
+Here is a self-contained, copy-pasteable implementation using lambdas for the threads:
 
 ```java
 import java.util.LinkedList;
 import java.util.Queue;
 
-// SharedBuffer.java
-// This is the shared resource between Producer and Consumer.
-// Think of it as the kitchen counter in a restaurant.
-public class SharedBuffer {
+public class ProducerConsumerWaitNotify {
+    private static class SharedBuffer {
+        private final Queue<Integer> buffer = new LinkedList<>();
+        private final int capacity;
 
-    private final Queue<Integer> buffer = new LinkedList<>();
-    // buffer holds the items. LinkedList works as a FIFO queue.
-
-    private final int capacity;
-    // Maximum number of items buffer can hold at one time.
-
-    public SharedBuffer(int capacity) {
-        this.capacity = capacity;
-    }
-
-    // Called by the Producer thread
-    public synchronized void produce(int item) throws InterruptedException {
-
-        // Step 1: If buffer is full, wait.
-        // Use 'while' NOT 'if' — protects against spurious wakeups.
-        while (buffer.size() == capacity) {
-            System.out.println("[Producer] Buffer FULL. Waiting...");
-            wait(); // Releases the lock and sleeps
+        public SharedBuffer(int capacity) {
+            this.capacity = capacity;
         }
 
-        // Step 2: Buffer has space. Add the item.
-        buffer.add(item);
-        System.out.println("[Producer] Produced: " + item + " | Buffer size: " + buffer.size());
-
-        // Step 3: Notify Consumer that new item is available.
-        notifyAll(); // Wake up all waiting threads (Consumer in this case)
-    }
-
-    // Called by the Consumer thread
-    public synchronized int consume() throws InterruptedException {
-
-        // Step 1: If buffer is empty, wait.
-        while (buffer.isEmpty()) {
-            System.out.println("[Consumer] Buffer EMPTY. Waiting...");
-            wait(); // Releases the lock and sleeps
-        }
-
-        // Step 2: Buffer has items. Remove the oldest item (FIFO).
-        int item = buffer.poll();
-        System.out.println("[Consumer] Consumed: " + item + " | Buffer size: " + buffer.size());
-
-        // Step 3: Notify Producer that space is available.
-        notifyAll(); // Wake up all waiting threads (Producer in this case)
-
-        return item;
-    }
-}
-```
-
-```java
-// Producer.java
-// Produces items 1 to 10 and puts them in the shared buffer.
-public class Producer implements Runnable {
-
-    private final SharedBuffer buffer;
-
-    public Producer(SharedBuffer buffer) {
-        this.buffer = buffer;
-    }
-
-    @Override
-    public void run() {
-        for (int i = 1; i <= 10; i++) {
-            try {
-                buffer.produce(i);        // Try to add item to buffer
-                Thread.sleep(100);         // Simulate some work/delay
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Best practice: restore interrupt flag
+        // Called by the Producer thread
+        public synchronized void produce(int item) throws InterruptedException {
+            // Step 1: Wait if buffer is full (while loop protects against spurious wakeups)
+            while (buffer.size() == capacity) {
+                System.out.println("[Producer] Buffer FULL. Waiting...");
+                wait(); // Releases the monitor lock and sleeps
             }
+
+            // Step 2: Add the item
+            buffer.add(item);
+            System.out.println("[Producer] Produced: " + item + " | Buffer size: " + buffer.size());
+
+            // Step 3: Wake up waiting threads (Consumers)
+            notifyAll();
         }
-    }
-}
-```
 
-```java
-// Consumer.java
-// Consumes 10 items from the shared buffer.
-public class Consumer implements Runnable {
-
-    private final SharedBuffer buffer;
-
-    public Consumer(SharedBuffer buffer) {
-        this.buffer = buffer;
-    }
-
-    @Override
-    public void run() {
-        for (int i = 0; i < 10; i++) {
-            try {
-                int item = buffer.consume();  // Try to take item from buffer
-                Thread.sleep(200);             // Consumer is slower than producer
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+        // Called by the Consumer thread
+        public synchronized int consume() throws InterruptedException {
+            // Step 1: Wait if buffer is empty
+            while (buffer.isEmpty()) {
+                System.out.println("[Consumer] Buffer EMPTY. Waiting...");
+                wait(); // Releases the monitor lock and sleeps
             }
+
+            // Step 2: Retrieve the item
+            int item = buffer.poll();
+            System.out.println("[Consumer] Consumed: " + item + " | Buffer size: " + buffer.size());
+
+            // Step 3: Wake up waiting threads (Producers)
+            notifyAll();
+            return item;
         }
     }
-}
-```
 
-```java
-// Main.java — Entry point
-public class Main {
     public static void main(String[] args) {
+        SharedBuffer buffer = new SharedBuffer(3); // Capacity = 3
 
-        SharedBuffer buffer = new SharedBuffer(3); // Max 3 items
+        Thread producer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    buffer.produce(i);
+                    Thread.sleep(100); // Simulate production speed
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "Producer");
 
-        Thread producerThread = new Thread(new Producer(buffer), "Producer");
-        Thread consumerThread = new Thread(new Consumer(buffer), "Consumer");
+        Thread consumer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    buffer.consume();
+                    Thread.sleep(200); // Simulate consumer being slower
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "Consumer");
 
-        producerThread.start(); // Producer starts adding items
-        consumerThread.start(); // Consumer starts taking items
+        producer.start();
+        consumer.start();
     }
 }
 ```
 
-### 3.3 Sample Output
+### 2.3 Sample Output
 
-```
+```text
 [Producer] Produced: 1 | Buffer size: 1
 [Producer] Produced: 2 | Buffer size: 2
 [Producer] Produced: 3 | Buffer size: 3
@@ -201,38 +157,31 @@ public class Main {
 ...
 ```
 
-What happened step by step:
-1. Producer fills buffer to max (3)
-2. Producer hits `wait()` — releases lock and sleeps
-3. Consumer takes an item — calls `notifyAll()` — Producer wakes up
-4. Producer adds next item — calls `notifyAll()` — Consumer wakes up
-5. This dance continues until all 10 items are processed
-
 ---
 
-## 4. Approach 2 — `ReentrantLock + Condition` (Modern Way)
+## 3. Approach 2: `ReentrantLock` + `Condition` (Modern Way)
 
-With `synchronized + wait/notify`, you have **ONE wait set** for the lock. So when you call `notifyAll()`, it wakes ALL threads — including those waiting for a different condition. This is wasteful.
+Traditional `wait()`/`notifyAll()` uses a single, shared wait set per lock. This means `notifyAll()` wakes *all* waiting threads (both other producers and consumers), which leads to excessive CPU context switching and re-evaluation of loop conditions.
 
-`ReentrantLock + Condition` gives you **separate wait sets** for different conditions. You can wake ONLY producers or ONLY consumers. Much more precise.
+`ReentrantLock` with `Condition` resolves this by allowing **multiple, separate wait sets** on a single lock.
 
-### 4.1 How Condition Works
+### 3.1 How Condition Works
 
 ```java
 ReentrantLock lock = new ReentrantLock();
 
-// Two separate condition queues
-Condition notFull  = lock.newCondition(); // Producer waits here when buffer is full
-Condition notEmpty = lock.newCondition(); // Consumer waits here when buffer is empty
+// Separate condition queues
+Condition notFull  = lock.newCondition();  // Producers sleep here when full
+Condition notEmpty = lock.newCondition();  // Consumers sleep here when empty
 ```
 
-| Method | Equivalent to | Meaning |
+| `Condition` Method | Equivalent `Object` Method | Meaning |
 |---|---|---|
-| `condition.await()` | `wait()` | Release lock, sleep on this condition |
-| `condition.signal()` | `notify()` | Wake ONE thread waiting on this condition |
-| `condition.signalAll()` | `notifyAll()` | Wake ALL threads waiting on this condition |
+| `condition.await()` | `wait()` | Releases lock and sleeps on this specific condition |
+| `condition.signal()` | `notify()` | Wakes up **one** thread waiting on this condition |
+| `condition.signalAll()` | `notifyAll()` | Wakes up **all** threads waiting on this condition |
 
-### 4.2 Full Code
+### 3.2 Complete Implementation
 
 ```java
 import java.util.LinkedList;
@@ -240,203 +189,192 @@ import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-// SharedBufferWithCondition.java
-public class SharedBufferWithCondition {
+public class ProducerConsumerCondition {
+    private static class SharedBuffer {
+        private final Queue<Integer> buffer = new LinkedList<>();
+        private final int capacity;
 
-    private final Queue<Integer> buffer = new LinkedList<>();
-    private final int capacity;
+        private final ReentrantLock lock = new ReentrantLock();
+        // Two separate condition queues for precise signaling
+        private final Condition notFull = lock.newCondition();
+        private final Condition notEmpty = lock.newCondition();
 
-    // One lock controls access to the buffer
-    private final ReentrantLock lock = new ReentrantLock();
+        public SharedBuffer(int capacity) {
+            this.capacity = capacity;
+        }
 
-    // Two separate condition queues — very precise signaling
-    private final Condition notFull  = lock.newCondition(); // Producer sleeps here
-    private final Condition notEmpty = lock.newCondition(); // Consumer sleeps here
+        public void produce(int item) throws InterruptedException {
+            lock.lock(); // Acquire lock explicitly
+            try {
+                while (buffer.size() == capacity) {
+                    System.out.println("[Producer] Buffer FULL. Waiting on notFull...");
+                    notFull.await(); // Sleep on notFull condition (releases lock)
+                }
 
-    public SharedBufferWithCondition(int capacity) {
-        this.capacity = capacity;
-    }
+                buffer.add(item);
+                System.out.println("[Producer] Produced: " + item + " | Size: " + buffer.size());
 
-    // Called by Producer thread
-    public void produce(int item) throws InterruptedException {
-        lock.lock();      // Acquire the lock
-        try {
-            // Wait until there is space in the buffer
-            while (buffer.size() == capacity) {
-                System.out.println("[Producer] Buffer FULL. Waiting on notFull...");
-                notFull.await(); // Sleep on notFull condition (releases lock)
+                // Signal ONLY consumers waiting on notEmpty
+                notEmpty.signal();
+            } finally {
+                lock.unlock(); // Always unlock in finally block
             }
+        }
 
-            // Space is available — add the item
-            buffer.add(item);
-            System.out.println("[Producer] Produced: " + item + " | Size: " + buffer.size());
+        public int consume() throws InterruptedException {
+            lock.lock();
+            try {
+                while (buffer.isEmpty()) {
+                    System.out.println("[Consumer] Buffer EMPTY. Waiting on notEmpty...");
+                    notEmpty.await(); // Sleep on notEmpty condition (releases lock)
+                }
 
-            // Signal ONLY the consumer — no need to wake up other producers
-            notEmpty.signal(); // 'Buffer is not empty anymore — Consumer can proceed'
+                int item = buffer.poll();
+                System.out.println("[Consumer] Consumed: " + item + " | Size: " + buffer.size());
 
-        } finally {
-            lock.unlock(); // ALWAYS unlock in finally block
+                // Signal ONLY producers waiting on notFull
+                notFull.signal();
+                return item;
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
-    // Called by Consumer thread
-    public int consume() throws InterruptedException {
-        lock.lock();
-        try {
-            // Wait until there is at least one item
-            while (buffer.isEmpty()) {
-                System.out.println("[Consumer] Buffer EMPTY. Waiting on notEmpty...");
-                notEmpty.await(); // Sleep on notEmpty condition (releases lock)
+    public static void main(String[] args) {
+        SharedBuffer buffer = new SharedBuffer(3);
+
+        Thread producer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    buffer.produce(i);
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
+        }, "Producer");
 
-            // Item available — remove it
-            int item = buffer.poll();
-            System.out.println("[Consumer] Consumed: " + item + " | Size: " + buffer.size());
+        Thread consumer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    buffer.consume();
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "Consumer");
 
-            // Signal ONLY the producer — buffer now has space
-            notFull.signal(); // 'Buffer is not full anymore — Producer can proceed'
-
-            return item;
-
-        } finally {
-            lock.unlock();
-        }
+        producer.start();
+        consumer.start();
     }
 }
 ```
 
-**Why this is better than `wait/notifyAll`:**
-
-With `wait/notifyAll`: If you have 5 producers and 5 consumers all waiting, `notifyAll()` wakes up ALL 10 threads. 9 of them re-check and go back to sleep. Wasteful.
-
-With `Condition`: `notEmpty.signal()` wakes ONLY one sleeping consumer. `notFull.signal()` wakes ONLY one sleeping producer. Zero waste.
+**Why this is superior:**
+* With `wait()`/`notifyAll()`: Waking up 10 threads when only 1 can proceed is wasteful.
+* With `Condition`: `notEmpty.signal()` wakes up exactly one sleeping consumer thread, leaving other producers asleep. Zero wasted wakeups.
 
 ---
 
-## 5. Approach 3 — `BlockingQueue` (Industry Best Practice)
+## 4. Approach 3: `BlockingQueue` (Industry Best Practice)
 
-In real production code, you **almost never** write the wait/notify or Condition logic yourself. Java provides `BlockingQueue` — it handles ALL of this internally.
+In production, you **almost never** implement manual locking or condition checks. The JDK provides concurrent collections like `BlockingQueue` that encapsulate this complex logic inside clean, thread-safe, and highly optimized methods.
 
-### 5.1 What is BlockingQueue?
+### 4.1 What is BlockingQueue?
 
-- `put(item)` — blocks if queue is full (same as our produce + wait logic)
-- `take()` — blocks if queue is empty (same as our consume + wait logic)
-- All internal locking and signaling is handled for you
-- Thread-safe by design
+* `put(item)`: Blocks the producer thread automatically if the queue is full.
+* `take()`: Blocks the consumer thread automatically if the queue is empty.
+* All internal lock acquisitions, releases, and signal routines are managed for you.
 
-### 5.2 Common Implementations
+### 4.2 Common Implementations
 
-| Class | Use when... |
+| Class | Description |
 |---|---|
-| `ArrayBlockingQueue` | You need a fixed-size, bounded buffer. Most common choice. |
-| `LinkedBlockingQueue` | You want optionally bounded queue with high throughput. |
-| `SynchronousQueue` | No internal buffer. Producer directly hands off to Consumer. |
-| `PriorityBlockingQueue` | Items should be processed in priority order, not FIFO. |
+| `ArrayBlockingQueue` | Bounded queue backed by an array. Most common choice. |
+| `LinkedBlockingQueue` | Optionally bounded queue backed by linked nodes (higher throughput). |
+| `SynchronousQueue` | Zero-capacity handoff queue. Each put must wait for a take. |
+| `PriorityBlockingQueue` | Unbounded queue ordering elements using comparison logic. |
 
-### 5.3 Full Code
+### 4.3 Complete Implementation
+
+Notice how we no longer require a custom `SharedBuffer` class:
 
 ```java
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-// ProducerTask.java
-public class ProducerTask implements Runnable {
-
-    private final BlockingQueue<Integer> queue;
-
-    public ProducerTask(BlockingQueue<Integer> queue) {
-        this.queue = queue;
-    }
-
-    @Override
-    public void run() {
-        for (int i = 1; i <= 10; i++) {
-            try {
-                queue.put(i);  // Blocks automatically if queue is full. No extra code needed!
-                System.out.println("[Producer] Produced: " + i);
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-}
-
-// ConsumerTask.java
-public class ConsumerTask implements Runnable {
-
-    private final BlockingQueue<Integer> queue;
-
-    public ConsumerTask(BlockingQueue<Integer> queue) {
-        this.queue = queue;
-    }
-
-    @Override
-    public void run() {
-        for (int i = 0; i < 10; i++) {
-            try {
-                int item = queue.take(); // Blocks automatically if queue is empty. No extra code needed!
-                System.out.println("[Consumer] Consumed: " + item);
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-}
-
-// Main.java
-public class Main {
+public class ProducerConsumerBlockingQueue {
     public static void main(String[] args) {
-        // ArrayBlockingQueue with capacity 3
+        // ArrayBlockingQueue handles all locking and conditions internally
         BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(3);
 
-        new Thread(new ProducerTask(queue), "Producer").start();
-        new Thread(new ConsumerTask(queue), "Consumer").start();
+        Thread producer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    queue.put(i); // Blocks automatically if the queue is full
+                    System.out.println("[Producer] Produced: " + i);
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "Producer");
+
+        Thread consumer = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    int item = queue.take(); // Blocks automatically if the queue is empty
+                    System.out.println("[Consumer] Consumed: " + item);
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, "Consumer");
+
+        producer.start();
+        consumer.start();
     }
 }
 ```
 
-> The entire `SharedBuffer` class with 30+ lines of locking code is gone. `BlockingQueue` replaces it with just `queue.put()` and `queue.take()`. This is why production code uses `BlockingQueue`.
-
 ---
 
-## 6. Comparison of All Three Approaches
+## 5. Comparison of the Approaches
 
-| Feature | synchronized + wait/notify | ReentrantLock + Condition | BlockingQueue |
+| Feature | `synchronized` + `wait`/`notify` | `ReentrantLock` + `Condition` | `BlockingQueue` |
 |---|---|---|---|
-| Ease of use | Medium | Medium | Very Easy |
-| Precision of wakeup | Low (wakes all) | High (separate queues) | High (internal) |
-| Code you write | Most code | Moderate code | Almost none |
-| Timed wait support | `wait(timeout)` | `await(time, unit)` | `poll(time, unit)` |
-| When to use | Legacy code only | Custom complex flows | Production — always |
-| Risk of bugs | High (spurious wake) | Low (while + await) | Very Low |
+| **Complexity** | Medium | Medium | Extremely Low |
+| **Wakeup Overhead** | High (wakes all threads) | Low (wakes targeted thread group) | Low (optimized internally) |
+| **Boilerplate Code** | High | High | Low / None |
+| **Timed Wait Support** | `wait(timeout)` | `await(timeout, unit)` | `offer(e, timeout, unit)` / `poll(timeout, unit)` |
+| **Bug Likelihood** | High (spurious wakeups, misses) | Medium (forgetting unlock) | Very Low |
+| **Recommendation** | Legacy code only | Custom, highly complex flows | Standard production code |
 
 ---
 
-## 7. Common Bugs and How to Avoid Them
+## 6. Common Bugs & How to Avoid Them
 
-| Bug | Why it happens | Fix |
+| Bug | Danger / Why it occurs | Fix |
 |---|---|---|
-| Using `if` instead of `while` | Thread wakes up but condition may still be false (spurious wakeup) | Always use `while` loop around `wait`/`await` |
-| Forgetting to unlock in `finally` | If exception occurs, lock is never released — deadlock! | Always use `try { ... } finally { lock.unlock(); }` |
-| Calling `wait()` outside `synchronized` | Throws `IllegalMonitorStateException` | Always call inside `synchronized` block |
-| `notify()` instead of `notifyAll()` | Only one thread wakes — wrong one may wake up | Use `notifyAll()` with wait/notify; `signal()` is fine with Condition |
-| Not handling `InterruptedException` | Thread silently swallows interrupt, may hang forever | Always restore interrupt flag: `Thread.currentThread().interrupt()` |
+| **Using `if` instead of `while`** | Spurious wakeups cause the thread to proceed while the condition is still false. | Always check the condition inside a `while` loop. |
+| **Forgetting to unlock** | If an exception occurs before unlocking, a deadlock happens. | Always release locks in a `finally` block. |
+| **Calling outside lock** | JVM throws `IllegalMonitorStateException` or `IllegalMonitorStateException`. | Ensure `wait`/`notify` is within `synchronized`, and `await`/`signal` is inside `lock()`. |
+| **`notify()` instead of `notifyAll()`** | Can cause a deadlock if the wrong thread (another producer instead of a consumer) is woken. | Prefer `notifyAll()` for monitor objects. `signal()` is safe with discrete conditions. |
+| **Swallowing `InterruptedException`** | Thread loses its cancel/interrupted state. | Always restore the interrupt status with `Thread.currentThread().interrupt()`. |
 
 ---
 
-## 10. Cheat Sheet — When to Use What
+## 7. Cheat Sheet: When to Use What
 
-| Situation | Use This |
+| Scenario | Recommendation |
 |---|---|
-| Simple bounded buffer, production code | `BlockingQueue` (`ArrayBlockingQueue`) |
-| Need separate wakeup queues for producers/consumers | `ReentrantLock + Condition` |
-| Working with legacy/old Java code | `synchronized + wait/notifyAll` |
-| Producer directly hands off to single consumer | `SynchronousQueue` |
-| Priority-based processing (e.g., VIP tickets first) | `PriorityBlockingQueue` |
-| Background task queue in Spring Boot | `BlockingQueue` + `@PostConstruct` worker thread |
+| Standard producer-consumer workflow | Use `ArrayBlockingQueue` or `LinkedBlockingQueue` |
+| Need a direct handoff from one thread to another | Use `SynchronousQueue` |
+| Priority-based task execution (e.g., execution of VIP jobs first) | Use `PriorityBlockingQueue` |
+| Highly custom, multi-conditioned state updates | Use `ReentrantLock` + `Condition` |
+| Interacting with legacy APIs or old systems | Use `synchronized` + `wait` / `notifyAll` |
 
 ---
-
-*Java Concurrency Series — Conditions & Producer-Consumer | Siddhesh's Notes*
