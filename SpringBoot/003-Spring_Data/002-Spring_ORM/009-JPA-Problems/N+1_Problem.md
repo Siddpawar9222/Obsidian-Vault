@@ -1,10 +1,3 @@
-# N+1 Query Problem — Hibernate & Spring Boot
-
-> **Complete guide with Order & OrderItem examples**
-
----
-
-
 
 ---
 
@@ -19,16 +12,16 @@ A naive approach would be:
 
 So if you have 500 orders, you fire: **1 + 500 = 501 queries.**
 
-> ⚠️ This pattern is called the **N+1 Problem**. Instead of 1 smart query, you fire N+1 small queries. On a large table, this kills performance.
+> ⚠️ This pattern is called the **N+1 Problem**.<font color="#ffc000"> Instead of 1 smart query, you fire N+1 small queries. On a large table, this kills performance.</font>
 
 ### Real-world impact
 
-| Orders in DB | Queries Fired | Problem Level           |
-|-------------|---------------|-------------------------|
-| 10          | 11            | Barely noticeable       |
-| 100         | 101           | Noticeable slowness     |
-| 1,000       | 1,001         | Serious performance issue |
-| 10,000      | 10,001        | App becomes unusable    |
+| Orders in DB | Queries Fired | Problem Level             |
+| ------------ | ------------- | ------------------------- |
+| 10           | 11            | Barely noticeable         |
+| 100          | 101           | Noticeable slowness       |
+| 1,000        | 1,001         | Serious performance issue |
+| 10,000       | 10,001        | App becomes unusable      |
 
 ---
 
@@ -524,12 +517,12 @@ public Page<OrderResponseDto> getAllOrders(Specification<Order> spec, Pageable p
 
 ### Summary — What Applies Where
 
-| Method | Has Collections in DTO? | Fix |
-|--------|------------------------|-----|
-| `findById(id)` | No | `@EntityGraph` with single-valued paths |
-| `findAll(spec)` | No | `@EntityGraph` override for Specification variant |
-| `findAll(spec, pageable)` | No | `@EntityGraph` override — safe |
-| `findAll(spec, pageable)` | Yes | Two-query pattern — paginate first, load collections second |
+| Method                    | Has Collections in DTO? | Fix                                                         |
+| ------------------------- | ----------------------- | ----------------------------------------------------------- |
+| `findById(id)`            | No                      | `@EntityGraph` with single-valued paths                     |
+| `findAll(spec)`           | No                      | `@EntityGraph` override for Specification variant           |
+| `findAll(spec, pageable)` | No                      | `@EntityGraph` override — safe                              |
+| `findAll(spec, pageable)` | Yes                     | Two-query pattern — paginate first, load collections second |
 
 ---
 
@@ -666,32 +659,7 @@ OrderResponseDto returned — clean!
 
 ---
 
-### 6.4 Two Modes — FETCH vs LOAD
-
-`@EntityGraph` has a `type` attribute you rarely see but should know:
-
-```java
-// Default mode — FETCH graph
-@EntityGraph(attributePaths = {"items"}, type = EntityGraph.EntityGraphType.FETCH)
-
-// Alternative — LOAD graph
-@EntityGraph(attributePaths = {"items"}, type = EntityGraph.EntityGraphType.LOAD)
-```
-
-| Mode | Paths You Listed | Paths You Did NOT List |
-|------|-----------------|------------------------|
-| **FETCH** (default) | Loaded eagerly | Forced LAZY regardless of entity config |
-| **LOAD** | Loaded eagerly | Respect entity's own `FetchType` setting |
-
-So if your `Order` entity has `FetchType.EAGER` on some field, and you use `FETCH` graph without listing that field — it will be loaded **lazily anyway**. `FETCH` overrides everything.
-
-`LOAD` is safer when you have a mix of EAGER/LAZY on your entity and you only want to add specific paths on top.
-
-> ✅ In production, **always use the default `FETCH` mode** and be explicit about what you need. Avoid relying on `EAGER` on entities — it leads to over-fetching.
-
----
-
-### 6.5 What @EntityGraph Does NOT Do
+### 6.4 What @EntityGraph Does NOT Do
 
 - **Does NOT cache across requests** — every call runs a fresh JOIN query. It is a per-query instruction, not a persistent cache.
 
@@ -714,49 +682,9 @@ Example of explicit nested paths:
 ```
 
 ---
-
-## 7. FetchType.EAGER vs @EntityGraph
-
-### FetchType.EAGER — Global Rule
-
-`EAGER` set on the entity affects **every single query, everywhere, forever**.
-
-```java
-// Order.java — EAGER set on entity
-@OneToMany(fetch = FetchType.EAGER)  // ← affects ALL queries
-private List<OrderItem> items;
-
-// Now EVERY query on Order loads items — whether you need them or not:
-orderRepository.findById(id);          // loads items — you needed it ✔
-orderRepository.findByCustomerId();    // loads items — you didn't need it ✘
-orderRepository.existsById(id);        // loads items — wasteful ✘
-orderRepository.count();               // loads items — pointless ✘
-```
-
-### @EntityGraph — Per-Method Rule
-
-Only the specific method gets the JOIN. Everything else stays lean.
-
-```java
-// Entity stays LAZY — safe default
-@OneToMany(fetch = FetchType.LAZY)
-private List<OrderItem> items;
-
-// Only THIS method joins items
-@EntityGraph(attributePaths = {"items"})
-Optional<Order> findById(Long id);
-
-// Result:
-orderRepository.findById(id);          // loads items — you asked for it ✔
-orderRepository.findByCustomerId();    // does NOT load items — lean ✔
-orderRepository.existsById(id);        // does NOT load items — lean ✔
-orderRepository.count();               // does NOT load items — lean ✔
-```
-
-> ✅ **One-line summary:** `FetchType.EAGER` is a blunt hammer — hits every query. `@EntityGraph` is a scalpel — only cuts where you aim it. **Always keep entities `LAZY` by default** and use `@EntityGraph` surgically where needed.
+### 6.5 [[EntityGraph-FETCHvsLOAD | Two Modes — FETCH vs LOAD]]
 
 ---
-
 ## 8. Production Checklist
 
 Enable SQL logging during development to catch N+1 early:
