@@ -1,4 +1,3 @@
-# Java Multithreading: Synchronization & Memory Visibility
 
 ---
 
@@ -278,7 +277,7 @@ if (statusFlag == true) { // Volatile Read
 
 ---
 
-## 6. Cheatsheet & Summary
+Java Concurrency Series — Synchronization & Visibility | Siddhesh's Notes## 6. Cheatsheet & Summary
 
 | Concept | What it is | Symptom of Failure | Solution |
 |---|---|---|---|
@@ -291,4 +290,3 @@ if (statusFlag == true) { // Volatile Read
 
 ---
 
-*Java Concurrency Series — Synchronization & Visibility | Siddhesh's Notes*

@@ -1,0 +1,9 @@
+# Ignore specific directories
+
+.obsidian/
+.trash/
+Devtools.md/
+OneNote/
+Others/
+copilot/
+# SystemDesign/

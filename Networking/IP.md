@@ -434,9 +434,9 @@ Jio IP Block: 49.36.0.0/14
 
 ## ✅ Summary
 
-|Question|Answer|
-|---|---|
-|Does Jio use subnets?|Yes|
-|Why does Jio use subnets?|To manage IPs efficiently and avoid conflicts|
-|Do you get IP from Jio subnet?|Yes, your public IP comes from one of Jio’s subnets|
-|What about private IPs?|Your router or hotspot gives you a private IP (like 192.168.x.x)|
+| Question                       | Answer                                                           |
+| ------------------------------ | ---------------------------------------------------------------- |
+| Does Jio use subnets?          | Yes                                                              |
+| Why does Jio use subnets?      | To manage IPs efficiently and avoid conflicts                    |
+| Do you get IP from Jio subnet? | Yes, your public IP comes from one of Jio’s subnets              |
+| What about private IPs?        | Your router or hotspot gives you a private IP (like 192.168.x.x) |
