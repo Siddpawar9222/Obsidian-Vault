@@ -3,7 +3,7 @@
 
 # What is LiveLock?
 
-A **LiveLock** is a concurrency problem where **multiple threads are not blocked**, but they **keep changing their state in response to each other**, so **none of them can make progress**.
+A **LiveLock** is a condition where **multiple threads are not blocked**, but they **keep changing their state in response to each other**, so **none of them can make progress**.
 
 Think of it as:
 
