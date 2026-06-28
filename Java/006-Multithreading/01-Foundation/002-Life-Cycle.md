@@ -275,7 +275,7 @@ The thread sleeps.
 
 After timeout
 
-it automatically returns to
+<font color="#ffc000">it automatically returns to</font>
 
 ```
 RUNNABLE
