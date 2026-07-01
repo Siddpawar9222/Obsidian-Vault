@@ -294,3 +294,268 @@ That is enough 👍
 ✔ Very efficient for large n
 
 ---
+
+
+
+
+
+
+---
+
+# Let's calculate the actual work
+
+Suppose
+
+```text
+n = 100
+```
+
+Outer loop runs until
+
+```text
+√100 = 10
+```
+
+So values of `i` are
+
+```text
+2,3,4,5,6,7,8,9,10
+```
+
+Now count the inner loop iterations.
+
+---
+
+## When i = 2
+
+```java
+4,6,8,10,..
+```
+
+About
+
+```text
+100 / 2 = 50 iterations
+```
+
+---
+
+## When i = 3
+
+```java
+9,12,15…
+```
+
+About
+
+```text
+100 / 3 = 33 iterations
+```
+
+---
+
+## When i = 4
+
+Skipped because already marked.
+
+---
+
+## When i = 5
+
+About
+
+```text
+100 / 5 = 20 iterations
+```
+
+---
+
+## When i = 7
+
+About
+
+```text
+100 / 7 ≈ 14 iterations
+```
+
+---
+
+Notice something.
+
+The work is
+
+```text
+50
+33
+20
+14
+9
+…
+```
+
+It is **decreasing** every time.
+
+So we don't multiply by √n.
+
+Instead, we **add** the work done in each iteration.
+
+---
+
+# Actual calculation
+
+Total work is
+
+```text
+n/2
++
+n/3
++
+n/5
++
+n/7
++
+…
+```
+
+Factor out `n`:
+
+```text
+n × (1/2 + 1/3 + 1/5 + 1/7 + …)
+```
+
+This is where
+
+```text
+O(n log log n)
+```
+
+comes from.
+
+---
+
+# So where did √n go?
+
+The √n is already hidden inside the summation.
+
+The outer loop simply determines **how many different values of `i` we consider**.
+
+But for each `i`, the amount of work is different.
+
+Mathematically we write
+
+```text
+Total Work
+=
+Σ (n / i)
+```
+
+where
+
+```text
+i = 2 to √n
+```
+
+Notice that √n is already the limit of the summation.
+
+It is **not multiplied separately**.
+
+---
+
+# Think of it like this
+
+Suppose you have these tasks:
+
+```text
+Task 1 : 50 seconds
+Task 2 : 33 seconds
+Task 3 : 20 seconds
+Task 4 : 14 seconds
+Task 5 : 9 seconds
+```
+
+Would you calculate
+
+```text
+5 × 50 = 250 seconds
+```
+
+No.
+
+You calculate
+
+```text
+50 + 33 + 20 + 14 + 9
+```
+
+Exactly the same thing happens here.
+
+---
+
+# Why don't we include all numbers up to √n?
+
+Notice this code:
+
+```java
+if (temp[i]) {
+    …
+}
+```
+
+The inner loop only executes for **prime numbers**.
+
+So instead of
+
+```text
+n/2 + n/3 + n/4 + n/5 + n/6 + …
+```
+
+we actually have
+
+```text
+n/2 + n/3 + n/5 + n/7 + n/11 + …
+```
+
+This sum over reciprocals of primes is a famous mathematical result:
+
+```text
+1/2 + 1/3 + 1/5 + 1/7 + …
+≈ log log n
+```
+
+Therefore,
+
+```text
+Total = n log log n
+```
+
+---
+
+# Visual intuition
+
+Imagine the outer loop as assigning different amounts of work:
+
+```text
+i = 2   → ██████████████████████████ (50)
+i = 3   → ████████████████           (33)
+i = 5   → ██████████                 (20)
+i = 7   → ███████                    (14)
+i = 11  → ████                       (9)
+i = 13  → ███                        (7)
+…
+```
+
+The bars get shorter and shorter.
+
+So we **sum the bar lengths**, not multiply the number of bars by the longest bar.
+
+---
+
+# Interview takeaway
+
+If an interviewer asks:
+
+> **"Where did the √n go?"**
+
+A good answer is:
+
+> The outer loop only sets the range of values for `i`; it does not mean each iteration performs the same amount of work. The work for each `i` is approximately `n/i`, so the total work is the summation `Σ(n/i)` over prime values of `i` up to `√n`. This simplifies to `n × Σ(1/p)`, and the sum of reciprocals of primes grows like `log log n`. Hence, the overall time complexity is **O(n log log n)**, not **O(n√n)**.
