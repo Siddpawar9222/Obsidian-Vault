@@ -1,7 +1,6 @@
 
 
 ---
-
 ## 🔶 What is CIDR?
 
 **CIDR** stands for **Classless Inter-Domain Routing**. It is a method used to **efficiently allocate IP addresses** and **manage routing** in computer networks.
@@ -351,11 +350,11 @@ Imagine a colony:
 
 ## 🔄 Quick Summary:
 
-|Term|Used Where|Visible On Internet?|Given By|
-|---|---|---|---|
-|Local IP|Inside one device|❌ No|Automatically|
-|Private IP|In local network|❌ No|Router/Mobile|
-|Public IP|On the internet|✅ Yes|ISP (like Jio)|
+| Term       | Used Where        | Visible On Internet? | Given By       |
+| ---------- | ----------------- | -------------------- | -------------- |
+| Local IP   | Inside one device | ❌ No                 | Automatically  |
+| Private IP | In local network  | ❌ No                 | Router/Mobile  |
+| Public IP  | On the internet   | ✅ Yes                | ISP (like Jio) |
 
 ---
 
