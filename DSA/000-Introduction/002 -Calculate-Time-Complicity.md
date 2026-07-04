@@ -1,15 +1,5 @@
 
-
-
--
-# What is Time Complexity?
-
-Time Complexity measures **how the running time of an algorithm grows as the input size (`n`) increases**.
-
-It **does not measure actual execution time (seconds)**. Instead, it measures **how the number of operations increases**.
-
 ---
-
 # How to Calculate Time Complexity
 
 There are **two common approaches**.
@@ -376,7 +366,7 @@ n × n
 O(n²)
 ```
 
-> **Always use the worst-case complexity of the operation inside the loop unless the question specifies otherwise.**
+> **Always use the worst-case complexity of the operation inside the loop unless the question specifies otherwise.<font color="#ffc000"> Even if one operation take worst complicity we need to consider it</font>**
 
 ---
 
@@ -408,6 +398,7 @@ n × n
 O(n²)
 ```
 
+
 ---
 
 ## Use Summation When
@@ -431,8 +422,11 @@ for (int i = 1; i <= n; i++) {
 ```
 1 + 2 + … + n
 ```
+- Observation Rule Here : 
+  In above example for i = 16 , j calculation is 16 which  is worst , hence we can directly consider  n × n = O(n²)
 
 ---
+
 
 # Worst Case Time Complexity
 
@@ -783,63 +777,5 @@ Whenever you see code, ask yourself:
 - Ignore constants and lower-order terms.
     
 - Write the final answer using **Big-O notation**.
-
----
-
-# Golden Rules ⭐
-
-### Rule 1
-
-> Never assume **nested loops = O(n²)**.
-
----
-
-### Rule 2
-
-If every outer iteration performs the same work,
-
-```
-Multiply
-```
-
----
-
-### Rule 3
-
-If the work changes every iteration,
-
-```
-Write the Summation first.
-```
-
----
-
-### Rule 4
-
-If an operation inside a loop is itself **O(n)** in the worst case, include that cost in the calculation.
-
-Example
-
-```java
-for (int i = 0; i < n; i++) {
-
-    linearSearch(arr);
-
-}
-```
-
-```
-n × O(n)
-
-=
-
-O(n²)
-```
-
----
-
-### Rule 5
-
-Big-O represents the **Worst Case Time Complexity** unless the question explicitly asks for Best Case or Average Case.
 
 ---
