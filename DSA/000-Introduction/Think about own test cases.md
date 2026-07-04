@@ -197,6 +197,3 @@ Same idea — you’re predicting all possible real-world situations.
 |5️⃣ Pattern|Does it follow the expected pattern?|Logic clarity|
 
 ---
-
-Would you like me to give you a **“Test Case Thinking Template”** (like a small checklist you can apply to _any_ LeetCode problem, not just this one)?  
-It’ll help you plan your test cases in less than 2 minutes every time.

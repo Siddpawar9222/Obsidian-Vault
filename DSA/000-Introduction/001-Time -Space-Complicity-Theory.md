@@ -334,7 +334,5 @@ This makes it much easier to compare algorithms.
 | **O (Big-O)**     | Upper bound (Worst Case)   |
 | **Ω (Big-Omega)** | Lower bound (Best Case)    |
 | **Θ (Big-Theta)** | Tight Bound (Exact Growth) |
-
-In interviews and industry, **Big-O notation** is the most commonly used because it helps estimate the maximum growth of an algorithm as the input size increases.
-
+![[time-complicity.png]]
 ---
