@@ -1,7 +1,6 @@
 
 ----
 
-
 | Problem Name                                                                                                                                        | Comment                                                    |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)                                                        | Gives idea of prefix sum , late prefix sum                 |
@@ -12,7 +11,5 @@
 | Subarrays with equal 1s and 0s                                                                                                                      |                                                            |
 | [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/)                                                                            |                                                            |
 | Longest Span with same Sum in two Binary arrays                                                                                                     |                                                            |
-| Sliding widow                                                                                                                                       |                                                            |
-| Count distinct elements in every window                                                                                                             |                                                            |
-|                                                                                                                                                     |                                                            |
+
 
