@@ -1,13 +1,15 @@
 
 ---
 
-| Problem Name                                                                                                                                                          | Comment |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| https://www.geeksforgeeks.org/problems/repeating-character-first-appearance-leftmost/1<br>https://www.geeksforgeeks.org/problems/non-repeating-character-1587115620/1 |         |
-| how many smaller character to left                                                                                                                                    |         |
-| Permutation and combination                                                                                                                                           |         |
-| rank permuation                                                                                                                                                       |         |
-| https://www.geeksforgeeks.org/problems/rank-the-permutations2229/1                                                                                                    |         |
-| [3577. Count the Number of Computer Unlocking Permutations](https://leetcode.com/problems/count-the-number-of-computer-unlocking-permutations/)                       |         |
-| Palindromic check                                                                                                                                                     |         |
-|                                                                                                                                                                       |         |
+| Sr. No. | Problem Name                                                                                                                                                                                                                           | Comment                                               |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| 1       | [Leftmost Repeating Character](https://www.geeksforgeeks.org/problems/repeating-character-first-appearance-leftmost/1)<br>[First Non-Repeating Character](https://www.geeksforgeeks.org/problems/non-repeating-character-1587115620/1) |                                                       |
+| 2       | How many smaller characters to the left                                                                                                                                                                                                |                                                       |
+|         |                                                                                                                                                                                                                                        |                                                       |
+|         | <font color="#ffc000">Permutations & Combinations</font>                                                                                                                                                                               |                                                       |
+| 3       | [Rank the Permutations](https://www.geeksforgeeks.org/problems/rank-the-permutations2229/1)                                                                                                                                            |                                                       |
+| 4       | [3577. Count the Number of Computer Unlocking Permutations](https://leetcode.com/problems/count-the-number-of-computer-unlocking-permutations/)                                                                                        | Good Problem to understand permuatation in real world |
+|         |                                                                                                                                                                                                                                        |                                                       |
+|         | <font color="#ffc000">Palindromic Check</font>                                                                                                                                                                                         |                                                       |
+| 5       | Palindromic check                                                                                                                                                                                                                      |                                                       |
+
