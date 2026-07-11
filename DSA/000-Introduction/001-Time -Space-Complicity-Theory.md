@@ -1,5 +1,3 @@
-
-
 ---
 
 # Algorithm Analysis: Time Complexity, Space Complexity & Asymptotic Notation
@@ -15,7 +13,6 @@ When we write an algorithm, our first question is usually:
 A beginner might think we can simply run the program and measure:
 
 - Execution time (seconds)
-    
 - Memory usage (MB)
 
 However, this approach has a major problem.
@@ -38,13 +35,9 @@ Only the hardware changed.
 Similarly, actual memory usage can also differ because of:
 
 - 32-bit vs 64-bit architecture
-    
 - JVM implementation
-    
 - Object alignment
-    
 - Pointer/reference size
-    
 - Operating System
 
 So measuring actual execution time or memory usage **does not give a fair comparison between algorithms.**
@@ -54,7 +47,6 @@ Instead, computer scientists wanted a way to compare algorithms **independent of
 This led to:
 
 - **Time Complexity**
-    
 - **Space Complexity**
 
 These measure **how the work grows** as the input size grows, not the exact execution time or memory used.
@@ -219,7 +211,6 @@ Yes, for **actual memory usage**.
 For example, references may be:
 
 - 32-bit JVM → around 4 bytes
-    
 - 64-bit JVM → around 8 bytes (or 4 bytes with compressed references)
 
 So actual memory used may differ.
@@ -334,5 +325,6 @@ This makes it much easier to compare algorithms.
 | **O (Big-O)**     | Upper bound (Worst Case)   |
 | **Ω (Big-Omega)** | Lower bound (Best Case)    |
 | **Θ (Big-Theta)** | Tight Bound (Exact Growth) |
+
 ![[time-complicity.png]]
 ---
