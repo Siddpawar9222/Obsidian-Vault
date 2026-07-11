@@ -84,3 +84,6 @@ Ctrl + Alt + O
 ```text
 Ctrl + Alt + U
 ```
+
+TODO : 
+Set redo shortcut to intellij. Also see how we can set to visual studio (custom keymap)
