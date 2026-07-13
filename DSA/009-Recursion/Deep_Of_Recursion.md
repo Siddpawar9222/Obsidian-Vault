@@ -129,3 +129,236 @@ This gives each thread a 2MB stack instead of default (e.g., 1MB).
 Be careful — setting this too high may crash your system or reduce the number of threads you can create.
 
 ---
+
+## What is tail recursion : 
+**Tail recursion** is a type of recursion where the **recursive call is the last operation performed by the function**. This means there is no additional work left to do after the recursive call returns.
+
+### Example of Tail Recursion
+
+```python
+def factorial(n, result=1):
+    if n == 0:
+        return result
+    return factorial(n - 1, result * n)
+```
+
+**How it works:**
+
+* `factorial(5, 1)`
+* `factorial(4, 5)`
+* `factorial(3, 20)`
+* `factorial(2, 60)`
+* `factorial(1, 120)`
+* `factorial(0, 120)` → returns `120`
+
+Notice that the recursive call is the **last statement** in the function.
+
+---
+
+### Example of Non-Tail Recursion
+
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+```
+
+Here, after `factorial(n - 1)` returns, the function still needs to multiply the result by `n`. Since work remains after the recursive call, this is **not** tail recursion.
+
+---
+
+### Advantages of Tail Recursion
+
+* Can be optimized by some programming language compilers/interpreters into a loop (**Tail Call Optimization (TCO)**).
+* Uses constant stack space when TCO is supported.
+* Helps avoid stack overflow for deep recursion.
+
+### Note
+
+Languages like **Scheme**, **Scala**, and some functional languages support tail call optimization. **Python does not perform tail call optimization**, so tail-recursive functions still consume stack space just like other recursive functions.
+
+**In simple terms:**
+
+> A recursive function is **tail recursive** if the recursive call is the **last thing the function does** before returning.
+
+
+
+
+The short answer is:
+
+> **Java supports writing tail-recursive functions, but the JVM does NOT perform Tail Call Optimization (TCO).**
+
+So, although you can write tail recursion in Java, **it does not provide the main benefit** (constant stack usage).
+
+---
+
+## Example in Java
+
+### Tail Recursive Function
+
+```java
+public class Main {
+
+    static int factorial(int n, int result) {
+        if (n == 0) {
+            return result;
+        }
+
+        return factorial(n - 1, result * n);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(factorial(5, 1));
+    }
+}
+```
+
+Notice that:
+
+```java
+return factorial(n - 1, result * n);
+```
+
+is the **last statement**.
+
+There is nothing left to execute after the recursive call returns.
+
+---
+
+### Non-Tail Recursive Function
+
+```java
+public class Main {
+
+    static int factorial(int n) {
+        if (n == 0) {
+            return 1;
+        }
+
+        return n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(factorial(5));
+    }
+}
+```
+
+Here,
+
+```java
+return n * factorial(n - 1);
+```
+
+is **not** tail recursion because after `factorial(n - 1)` returns, Java still has to perform:
+
+```
+result = n * returnedValue;
+```
+
+So every recursive call must remain on the stack.
+
+---
+
+# Why doesn't Java optimize tail recursion?
+
+The JVM specification does **not require** tail call optimization.
+
+The designers of Java chose:
+
+* predictable stack traces
+* easier debugging
+* better exception handling
+
+over automatically converting tail recursion into loops.
+
+Therefore each recursive call creates a **new stack frame**, even if it is tail recursive.
+
+---
+
+## What happens internally?
+
+Suppose:
+
+```java
+factorial(100000, 1);
+```
+
+Even though it's tail recursive:
+
+```
+factorial(100000)
+    ↓
+factorial(99999)
+    ↓
+factorial(99998)
+    ↓
+...
+```
+
+The JVM creates **100,000 stack frames**.
+
+Eventually you'll get:
+
+```
+Exception in thread "main"
+java.lang.StackOverflowError
+```
+
+---
+
+## Languages that optimize tail recursion
+
+These languages perform Tail Call Optimization (TCO):
+
+* Scala (with `@tailrec` when applicable)
+* Scheme
+* Clojure (limited via `recur`)
+* Haskell
+* F#
+
+Java does **not**.
+
+---
+
+## In production Java applications
+
+In Java (including Spring Boot projects), developers generally **prefer loops over recursion** for problems that may recurse deeply.
+
+For example, instead of:
+
+```java
+sum(n);
+```
+
+they write:
+
+```java
+int sum = 0;
+
+for (int i = 1; i <= n; i++) {
+    sum += i;
+}
+```
+
+because:
+
+* ✅ no risk of `StackOverflowError`
+* ✅ constant memory usage
+* ✅ often faster
+* ✅ easier for the JVM to optimize (JIT)
+
+---
+
+### Summary
+
+| Feature                               | Java                  |
+| ------------------------------------- | --------------------- |
+| Can write tail-recursive methods?     | ✅ Yes                 |
+| JVM performs Tail Call Optimization?  | ❌ No                  |
+| Tail recursion uses constant stack?   | ❌ No                  |
+| Risk of `StackOverflowError`?         | ✅ Yes                 |
+| Preferred approach for deep recursion | ✅ Use loops/iteration |
+
+So in Java, **tail recursion is mainly a coding style, not a performance optimization**, because the JVM does not eliminate the recursive stack frames.
