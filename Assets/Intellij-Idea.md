@@ -84,3 +84,8 @@ Ctrl + Alt + O
 ```text
 Ctrl + Alt + U
 ```
+
+
+Issue : 
+Building project when Intellij window minimized 
+Run → Edit Configurations--> Remove on frame deactivate 
