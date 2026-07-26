@@ -225,41 +225,20 @@ An attacker utilizes a botnet (thousands of infected computers) to flood your se
 
 When building a stateless application using JWTs, how you store the token in the browser dictates which attacks you are vulnerable to.
 
-### What is a Cookie?
-A cookie is a key-value pair that a server tells the browser to store via the `Set-Cookie` header. Once saved, the browser **automatically attaches** this cookie to every subsequent HTTP request to that same domain.
-
-```text
-Server Response: Set-Cookie: jwt=token123
-Browser: Stores cookie
-Subsequent Request: Sends Cookie: jwt=token123 automatically
-```
-
----
+For a core explanation of how cookies work, see [[002-Cookies#What is a Cookie?]].
 
 ### Key Cookie Security Attributes
-You can secure cookies by attaching the following attributes:
-
-* **`HttpOnly`**: Blocks JavaScript (`document.cookie`) from reading the cookie. This protects the token from XSS theft.
-* **`Secure`**: Enforces that the cookie is only sent over encrypted HTTPS connections.
-* **`SameSite`**: Restricts when cookies are sent on cross-site requests:
-  * `Strict`: The cookie is never sent on cross-site requests (even clicking a link from an email to your site will exclude the cookie).
-  * `Lax` (Default in modern browsers): The cookie is excluded on background cross-site requests (like image loads or forms triggered by third-party sites) but is sent during top-level navigations.
-  * `None`: The cookie is sent on all cross-site requests (requires the `Secure` flag).
-
----
+You can secure cookies by attaching specific attributes (`HttpOnly`, `Secure`, `SameSite`). For details on these attributes, see [[002-Cookies#Cookie Attributes]].
 
 ### The Storage Trade-Off: LocalStorage vs. HttpOnly Cookies
-
-| Feature | JWT in `localStorage` + Header | JWT in `HttpOnly` Cookie |
-| :--- | :--- | :--- |
-| **XSS Vulnerability** | 🔴 **High** - Injected JS can instantly read and steal the token. | 🟢 **Low** - JavaScript cannot access the token, preventing theft. |
-| **CSRF Vulnerability** | 🟢 **None** - Malicious sites cannot read local storage or add custom auth headers. | 🔴 **Real** - The browser auto-attaches cookies, requiring CSRF defenses. |
-| **Mobile Integration** | 🟢 **Easy** - Fits native headers naturally. | 🟡 **Complex** - Mobile apps do not have a default cookie container. |
-| **CORS Setup** | 🟢 **Simple** - Standard header verification. | 🟡 **Complex** - Requires matching credentials configurations. |
+The storage choice determines whether you are vulnerable to **XSS** or **CSRF**:
+* **`localStorage`**: Vulnerable to XSS (injected JS can read the storage), but immune to CSRF (cookies aren't used, and JS must attach custom auth headers). See [[002-Cookies#Cookies vs LocalStorage]].
+* **`HttpOnly` Cookies**: Protected against XSS (JS cannot read the cookie), but vulnerable to CSRF (browser auto-attaches cookies). 
 
 ### Which is Best?
 For a **browser-based SPA (React/Angular) talking to its own backend**, the recommended industry standard is:
 > **Store the JWT in an `HttpOnly` + `Secure` + `SameSite=Lax` Cookie, and re-enable CSRF protection.**
+
 XSS is highly common; keeping tokens out of `localStorage` protects you from token theft. The resulting CSRF vulnerability is easily fixed using a standard CSRF token pattern.
 
 ---
@@ -289,7 +268,7 @@ config.setAllowCredentials(true); // Required to accept cross-domain cookies
 ```
 
 ### 4. The Domain Attribute
-By default, a cookie is restricted to the exact domain that set it. You can broaden this to include subdomains by setting the `Domain` attribute:
+By default, a cookie is restricted to the exact domain that set it. You can broaden this to include subdomains by setting the `Domain` attribute (see [[002-Cookies#Domain]]):
 ```http
 Set-Cookie: jwt=...; Domain=myproject.com
 ```
@@ -366,3 +345,7 @@ To secure your production Spring Boot application, verify that your architecture
 9. **Security Headers**: Enforce CSP, HSTS, and frame options.
 10. **Locked Down Actuators**: Restrict actuator access to internal health checks only, and never expose stack traces to client environments.
 11. **Logging & Monitoring**: Log authentication failures, monitor metrics, and utilize dependency checking tools in your CI/CD pipeline.
+
+---
+
+

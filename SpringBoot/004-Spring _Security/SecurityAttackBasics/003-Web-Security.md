@@ -20,41 +20,21 @@ Without the Same-Origin Policy, JavaScript code running in **Tab 2** (`evil.com`
 ---
 
 ### What Defines an "Origin"?
-An origin is defined by three components:
-1. **Protocol** (e.g., `http` vs. `https`)
-2. **Domain** (e.g., `example.com` vs. `api.example.com`)
-3. **Port** (e.g., `:80`, `:443`, `:8080`)
-
-All three must match exactly for two URLs to share the same origin.
-
-| URL Compared to `https://example.com` | Same Origin? | Reason for Decision |
-| :--- | :---: | :--- |
-| `https://example.com/profile` | ✅ Yes | Same protocol, domain, and default port |
-| `https://example.com:443` | ✅ Yes | Same protocol, domain, and explicit port |
-| `http://example.com` | ❌ No | Different protocol (`http` vs `https`) |
-| `https://api.example.com` | ❌ No | Different domain (subdomain `api.` is different) |
-| `https://example.com:8080` | ❌ No | Different port (`8080` vs default `443`) |
+An origin is defined by three components: **Protocol**, **Domain (Host)**, and **Port**. For a detailed explanation, comparisons, and examples of Same-Origin vs. Cross-Origin, refer to [[Origin-Site]].
 
 ---
 
 ### Accessing Cookies and LocalStorage
-By default, JavaScript from one origin cannot read another origin's browser storage:
-
-| Storage Type | Can Site B (`evil.com`) read Site A's data? |
-| :--- | :---: |
-| **`localStorage`** | ❌ No (Isolated by origin) |
-| **`sessionStorage`** | ❌ No (Isolated by origin and tab) |
-| **Standard Cookies** | ❌ No (Isolated by domain/path) |
-| **`HttpOnly` Cookies** | ❌ No (Even JavaScript on Site A cannot read it) |
+By default, JavaScript from one origin cannot read another origin's browser storage. For detailed comparisons of features, size, and security profiles, see [[002-Cookies#Cookies vs LocalStorage]] and [[002-Cookies#Cookies vs SessionStorage]].
 
 #### Special Case: Shared Parent Domains
-If a cookie is created with `Domain=.example.com`, both `app.example.com` and `admin.example.com` subdomains will automatically send that cookie with HTTP requests to the server. However, whether JavaScript can read it using `document.cookie` still depends on safety flags like `HttpOnly`.
+If a cookie is created with a broader domain attribute, subdomains will automatically send that cookie with HTTP requests to the server. See [[002-Cookies#Domain]] for details.
 
 #### Special Case: XSS (Cross-Site Scripting) Attacks
 If an attacker finds a vulnerability in Site A and injects malicious JavaScript into it, that script runs under **Site A's origin**. The browser thinks it is legitimate, so it **can** read non-`HttpOnly` cookies and local storage. This is why securing your site against XSS is critical.
 
 #### Special Case: `HttpOnly` Cookies
-Setting the `HttpOnly` flag on a cookie ensures that it is completely hidden from the browser's JavaScript API (e.g., `document.cookie` returns nothing). It is only managed and sent automatically by the browser's networking layer during HTTP requests. This prevents hackers from stealing session IDs using XSS.
+Setting the `HttpOnly` flag on a cookie ensures that it is completely hidden from the browser's JavaScript API (e.g., `document.cookie` returns nothing). For more details, see [[002-Cookies#HttpOnly Cookie]].
 
 ---
 
@@ -211,10 +191,7 @@ This is a very common point of confusion. You might think: *"If I set CORS to on
 * The server compares the submitted token with the session token and rejects requests without a match.
 
 #### 2. SameSite Cookie Attribute
-Modern browsers support the `SameSite` cookie attribute to prevent automatic cookie sending on cross-site requests:
-* **`SameSite=Strict`**: The cookie is never sent on cross-site requests (e.g., clicking a link from an email to the bank will not send the session cookie).
-* **`SameSite=Lax` (Default in modern browsers)**: The cookie is not sent on cross-state subrequests (like images or forms triggered by `evil.com`), but is sent when a user navigates to the target site. This blocks most CSRF attacks.
-* **`SameSite=None`**: The cookie is sent on all cross-origin requests (requires the `Secure` flag).
+Modern browsers support the `SameSite` cookie attribute to prevent automatic cookie sending on cross-site requests. For a full breakdown of the `Strict`, `Lax`, and `None` modes, see [[002-Cookies#SameSite Modes]].
 
 #### 3. Custom Headers
 Adding custom headers (like `Authorization: Bearer <JWT>`) to API requests protects you because custom headers trigger preflight checks and cannot be sent via standard HTML forms. Additionally, malicious sites cannot steal or read JWTs stored in JavaScript memory/localStorage due to SOP.
