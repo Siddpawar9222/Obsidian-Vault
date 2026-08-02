@@ -7,28 +7,10 @@
       "key": "ArrowLeft"
     }
   ],
-  "app:go-back": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
-      ],
-      "key": "ArrowLeft"
-    }
-  ],
   "workspace:next-tab": [
     {
       "modifiers": [
         "Alt"
-      ],
-      "key": "ArrowRight"
-    }
-  ],
-  "app:go-forward": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
       ],
       "key": "ArrowRight"
     }
@@ -83,14 +65,6 @@
         "Alt"
       ],
       "key": "1"
-    }
-  ],
-  "editor:delete-paragraph": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "Y"
     }
   ],
   "editor:go-to-line": [
