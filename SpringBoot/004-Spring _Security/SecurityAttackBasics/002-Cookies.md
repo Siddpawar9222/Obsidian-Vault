@@ -655,13 +655,13 @@ User Information
 
 # Cookies vs LocalStorage
 
-|Feature|Cookie|LocalStorage|
-|---|---|---|
-|Size|~4 KB|~5-10 MB|
-|Automatically sent|✅ Yes|❌ No|
-|HttpOnly support|✅ Yes|❌ No|
-|Accessible by JavaScript|Optional|Always|
-|Better for Authentication|✅ Yes|❌ Usually No|
+| Feature                   | Cookie   | LocalStorage |
+| ------------------------- | -------- | ------------ |
+| Size                      | ~4 KB    | ~5-10 MB     |
+| Automatically sent        | ✅ Yes    | ❌ No         |
+| HttpOnly support          | ✅ Yes    | ❌ No         |
+| Accessible by JavaScript  | Optional | Always       |
+| Better for Authentication | ✅ Yes    | ❌ Usually No |
 
 ---
 

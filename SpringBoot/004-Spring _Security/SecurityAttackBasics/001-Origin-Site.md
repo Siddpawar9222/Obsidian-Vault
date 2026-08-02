@@ -432,10 +432,10 @@ Backend
 https://api.microsoft.com
 ```
 
-|Check|Result|
-|---|---|
-|Same Origin?|❌ No|
-|Same Site?|✅ Yes|
+| Check        | Result |
+| ------------ | ------ |
+| Same Origin? | ❌ No   |
+| Same Site?   | ✅ Yes  |
 
 Therefore:
 
