@@ -1,10 +1,10 @@
 [
   "editing-toolbar",
   "obsidian-linter",
-  "git-file-explorer-colors",
   "customjs",
   "simple-code-formatter",
   "iconic",
   "open-tab-settings",
-  "obsidian-git"
+  "obsidian-git",
+  "git-file-explorer-colors"
 ]

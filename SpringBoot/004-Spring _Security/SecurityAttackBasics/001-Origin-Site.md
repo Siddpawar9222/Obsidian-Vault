@@ -444,6 +444,7 @@ Therefore:
 - **SameSite cookies** see them as **same-site**, so `SameSite=Lax` or `Strict` can still work.
     
 
+
 ---
 
 
