@@ -21,4 +21,4 @@ Thank you for taking the time to review my notes. Your feedback and contribution
 
 ---
 
-Happy learning! Test mobile 
+Happy learning!
