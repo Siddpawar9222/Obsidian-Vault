@@ -1,8 +1,0 @@
-.open-tab-settings-is-preview {
-    font-style: italic;
-}
-
-/* Not sure why this isn't the default... */
-.open-tab-settings-settings-tab .setting-item.is-disabled {
-    opacity: 50%;
-}
