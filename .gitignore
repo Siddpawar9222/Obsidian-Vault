@@ -1,10 +1,6 @@
 # Ignore specific directories
 
-# Track .obsidian settings, but ignore workspace files that change constantly
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache/
-
+.obsidian/
 .trash/
 Devtools.md/
 OneNote/
