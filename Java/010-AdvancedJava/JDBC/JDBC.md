@@ -1,18 +1,6 @@
 
 ---
 
-
-## 1️⃣ What is JDBC (Java Database Connectivity)?
-
-JDBC is an **API** that allows a **Java program to talk to a database**.
-
-👉 Example (Real world):  
-Java program = Customer  
-Database = Shop  
-JDBC = Language used to talk with shopkeeper
-
----
-
 ## 2️⃣ Important JDBC Interfaces
 
 ### 🔹 Driver
