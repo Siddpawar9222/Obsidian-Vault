@@ -26,8 +26,8 @@ const taskBlock = `
 - [ ] Day 30 — Revise [[${currentNoteTitle}|${cleanName}]] #dsa-revision 📅 ${day30}
 `;
 
-// 4. Append directly to Revision/DSA Revision Log.md
-const logFilePath = "Revision/DSA Revision Log.md";
+// 4. Append directly to DSA/012-Revison/DSA Revision Log.md
+const logFilePath = "DSA/012-Revison/DSA Revision Log.md";
 let logFile = app.vault.getAbstractFileByPath(logFilePath);
 
 if (!logFile) {
