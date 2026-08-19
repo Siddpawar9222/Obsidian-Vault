@@ -1,3 +1,24 @@
+<style>
+.task-list-item.is-checked,
+.task-list-item.is-checked .task-list-item-text,
+.task-list-item.is-checked a,
+.task-list-item:has(input[type="checkbox"]:checked),
+.task-list-item:has(input[type="checkbox"]:checked) .task-list-item-text,
+.task-list-item:has(input[type="checkbox"]:checked) a,
+li[data-task-status="x"],
+li[data-task-status="x"] .task-list-item-text,
+li[data-task-status="x"] a,
+.tasks-list-container li[data-task-status="x"],
+.tasks-list-container li[data-task-status="x"] .task-list-item-text,
+.tasks-list-container li[data-task-status="x"] a,
+.tasks-list-container li.is-checked .task-list-item-text,
+.tasks-list-container li.is-checked a {
+    text-decoration: line-through !important;
+    -webkit-text-decoration-line: line-through !important;
+    opacity: 0.65;
+}
+</style>
+
 <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 50%, rgba(236, 72, 153, 0.15) 100%); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; border: 1px solid rgba(168, 85, 247, 0.3);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
     <div>
@@ -9,20 +30,19 @@
 
 ---
 
-> [!danger]+ 🔴 Due Today
+> [!danger]+ 🔴 Due / Completed Today
 > ```tasks
-> not done
 > #dsa-revision
-> due today
+> (due today) OR (done today)
 > hide toolbar
 > hide postpone button
 > hide edit button
 > hide backlinks
+> hide done date
 > ```
 
 > [!warning]+ ⚠️ Overdue Tasks
 > ```tasks
-> not done
 > #dsa-revision
 > due before today
 > sort by due asc
@@ -30,11 +50,11 @@
 > hide postpone button
 > hide edit button
 > hide backlinks
+> hide done date
 > ```
 
 > [!info]+ 🟡 Upcoming Revision (Next 7 Days)
 > ```tasks
-> not done
 > #dsa-revision
 > due after today
 > due before in 8 days
@@ -43,11 +63,11 @@
 > hide postpone button
 > hide edit button
 > hide backlinks
+> hide done date
 > ```
 
 > [!example]+ 📅 Complete Revision Timeline
 > ```tasks
-> not done
 > #dsa-revision
 > due after today
 > sort by due asc
@@ -56,6 +76,7 @@
 > hide postpone button
 > hide edit button
 > hide backlinks
+> hide done date
 > ```
 
 ---
