@@ -85,7 +85,19 @@ Ctrl + Alt + O
 Ctrl + Alt + U
 ```
 
+---
+
+
+## To highlight your currently open file in the IntelliJ Project tool window : 
+
+```text
+Alt + F1
+```
+---
 
 Issue : 
 Building project when Intellij window minimized 
 Run → Edit Configurations--> Remove on frame deactivate 
+
+
+
