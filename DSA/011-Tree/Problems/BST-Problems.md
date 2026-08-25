@@ -8,7 +8,44 @@
 | **Construction BST**                                                                                                                                                                                                                                                                                                                                                                                                                               |                                |
 | [108. Convert Sorted Array to Binary Search Tree OR Construct Binary Search Tree from Inorder Traversal](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)<br>[1008. Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)<br>[Construct BST from Postorder](https://www.geeksforgeeks.org/problems/construct-bst-from-post-order/1) | Gives Idea  about construction |
 |                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                |
-|                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                |
+| [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)                                                                                                                                                                                                                                                                                                                                                                   |                                |
 |                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                |
 
 
+AVL trees are not important to implement on LeetCode, but understanding their core concept (self-balancing and rotations) is moderately important for advanced data structures and conceptual interviews. [[1](https://www.reddit.com/r/leetcode/comments/1ewerha/are_all_types_of_trees_important/#:~:text=Which%20makes%20the%20below%20datastructures%20way%20easier,same%20way%20hashmaps/sets/arrays%20have%20their%20uses\)%2C%20the), [2](https://www.instagram.com/p/DZh0JYTCGuK/#:~:text=%F0%9F%8C%B3%20What%20is%20an%20AVL%20Tree?%20An,%E2%9A%A1%20When%20the%20tree%20becomes%20unbalanced%2C%20A)]
+
+  
+
+Why AVL Implementation Doesn't Matter for LeetCode
+
+- No Direct Problems: LeetCode has almost zero problems that require you to code an AVL tree insertion, deletion, or rotation from scratch.
+- Built-in Libraries: Standard self-balancing structures (like / in C++ or / in Java) are implemented using Red-Black trees under the hood, and LeetCode allows you to use these directly.
+- Complexity: Writing full rotation logic (LL, RR, LR, RL) takes over 50–100 lines of error-prone code, which does not fit standard interview time limits. [[2](https://www.instagram.com/p/DZh0JYTCGuK/#:~:text=%F0%9F%8C%B3%20What%20is%20an%20AVL%20Tree?%20An,%E2%9A%A1%20When%20the%20tree%20becomes%20unbalanced%2C%20A), [3](https://www.codeintuition.io/blogs/avl-tree-explained#:~:text=AVL%20tree%20Enforce%20stricter%20balance%20than%20Red%2DBlack,Lookups%20are%20faster%20because%20the%20tree%20is)]
+
+Why the Concept Still Matters
+
+- Avoiding Skewed Trees: A basic Binary Search Tree (BST) can degrade into a linked list with O(N) operations if data arrives sorted. Knowing AVL trees teaches you _why_ balance is needed to guarantee $O(\log N)$ performance.
+- Advanced Interview Questions: FAANG-tier system design or hard tree problems sometimes touch upon how balanced trees maintain height.
+- Core BST Fundamentals: You still need to master standard BST properties, order statistics, and tree traversals, which form the foundation of AVL logic. [[7](https://www.geeksforgeeks.org/dsa/introduction-to-avl-tree/#:~:text=Advantages%20of%20AVL%20Tree:%20*%20AVL%20trees,for%20search%2C%20insert%20and%20delete.%20*%20As), [8](https://leetcode.com/discuss/interview-question/5915635/DP-or-Greedy-or-String-or-Graph-or-Tree-or-BinarySearch-or-SlidingWindow-or-Sorting-or-Prefix-Sum-Topic-Wise/#:~:text=2.%20Binary%20Search%20Tree%20\(BST\)%20Operations.%20Problem,child%20nodes%20are%20smaller%2C%20and%20right%20chil), [9](https://www.linkedin.com/posts/farhad-seyfullazada-6a212b202_leetcode-algorithms-datastructuresandalgorithms-activity-7212334970961309696-g6Ca#:~:text=Farhad%20Seyfullazada's%20Post%20Farhad%20Seyfullazada%20Software%20Engineer,all%20the%20values%20on%20the%20right%20side)]
+
+Would you like a list of the top 10 essential BST problems on LeetCode that you should focus on instead of AVL implementation?  
+
+_AI responses may include mistakes._
+
+[1] [https://www.reddit.com/r/leetcode/comments/1ewerha/are_all_types_of_trees_important/](https://www.reddit.com/r/leetcode/comments/1ewerha/are_all_types_of_trees_important/#:~:text=Which%20makes%20the%20below%20datastructures%20way%20easier,same%20way%20hashmaps/sets/arrays%20have%20their%20uses\)%2C%20the)
+
+[2] [https://www.instagram.com/p/DZh0JYTCGuK/](https://www.instagram.com/p/DZh0JYTCGuK/#:~:text=%F0%9F%8C%B3%20What%20is%20an%20AVL%20Tree?%20An,%E2%9A%A1%20When%20the%20tree%20becomes%20unbalanced%2C%20A)
+
+[3] [https://www.codeintuition.io/blogs/avl-tree-explained](https://www.codeintuition.io/blogs/avl-tree-explained#:~:text=AVL%20tree%20Enforce%20stricter%20balance%20than%20Red%2DBlack,Lookups%20are%20faster%20because%20the%20tree%20is)
+
+[4] [https://herovired.com/learning-hub/blogs/avl-tree](https://herovired.com/learning-hub/blogs/avl-tree#:~:text=Below%20are%20the%20key%20characteristics%20of%20AVL,AVL%20tree%20has%20at%20most%20two%20children.)
+
+[5] [https://www.youtube.com/watch?v=CVA85JuJEn0](https://www.youtube.com/watch?v=CVA85JuJEn0#:~:text=but%20in%20this%20video%20we're%20doing%20the,this%20video%20I'm%20going%20to%20talk%20about)
+
+[6] [https://cs.stackexchange.com/questions/95654/is-every-avl-tree-a-bst-or-just-bt](https://cs.stackexchange.com/questions/95654/is-every-avl-tree-a-bst-or-just-bt#:~:text=2%20Answers%20also%20note%20that%20every%20binary,at%20most%20two%20child\)%20so%20therefore%20e)
+
+[7] [https://www.geeksforgeeks.org/dsa/introduction-to-avl-tree/](https://www.geeksforgeeks.org/dsa/introduction-to-avl-tree/#:~:text=Advantages%20of%20AVL%20Tree:%20*%20AVL%20trees,for%20search%2C%20insert%20and%20delete.%20*%20As)
+
+[8] [https://leetcode.com/discuss/interview-question/5915635/DP-or-Greedy-or-String-or-Graph-or-Tree-or-BinarySearch-or-SlidingWindow-or-Sorting-or-Prefix-Sum-Topic-Wise/](https://leetcode.com/discuss/interview-question/5915635/DP-or-Greedy-or-String-or-Graph-or-Tree-or-BinarySearch-or-SlidingWindow-or-Sorting-or-Prefix-Sum-Topic-Wise/#:~:text=2.%20Binary%20Search%20Tree%20\(BST\)%20Operations.%20Problem,child%20nodes%20are%20smaller%2C%20and%20right%20chil)
+
+[9] [https://www.linkedin.com/posts/farhad-seyfullazada-6a212b202_leetcode-algorithms-datastructuresandalgorithms-activity-7212334970961309696-g6Ca](https://www.linkedin.com/posts/farhad-seyfullazada-6a212b202_leetcode-algorithms-datastructuresandalgorithms-activity-7212334970961309696-g6Ca#:~:text=Farhad%20Seyfullazada's%20Post%20Farhad%20Seyfullazada%20Software%20Engineer,all%20the%20values%20on%20the%20right%20side)
