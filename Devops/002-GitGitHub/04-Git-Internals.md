@@ -1,4 +1,4 @@
-# 04 - Git Internals
+# Git Internals
 
 ---
 

@@ -1,4 +1,4 @@
-# 07 - Remote Repositories
+# Remote Repositories
 
 ---
 

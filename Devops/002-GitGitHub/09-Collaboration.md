@@ -1,4 +1,4 @@
-# 09 - Collaboration
+# Collaboration
 
 ---
 

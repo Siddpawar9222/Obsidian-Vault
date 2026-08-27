@@ -1,4 +1,4 @@
-# 06 - Merging
+# Merging
 
 ---
 
@@ -243,12 +243,12 @@ Esc → :wq → Enter
 
 **Four possible outcomes of `git merge`:**
 
-| Outcome | What happens |
-|---|---|
-| **Fast-forward** | main pointer moves forward, no commit, no Vim |
-| **Merge commit needed** | Git creates a merge commit, Vim opens for the message |
-| **Merge conflict** | Git pauses, you fix conflicts, then `git add` + `git commit` |
-| **Already up to date** | Nothing to do — the branch already has all the changes |
+| Outcome                 | What happens                                                 |
+| ----------------------- | ------------------------------------------------------------ |
+| **Fast-forward**        | main pointer moves forward, no commit, no Vim                |
+| **Merge commit needed** | Git creates a merge commit, Vim opens for the message        |
+| **Merge conflict**      | Git pauses, you fix conflicts, then `git add` + `git commit` |
+| **Already up to date**  | Nothing to do — the branch already has all the changes       |
 
 ---
 

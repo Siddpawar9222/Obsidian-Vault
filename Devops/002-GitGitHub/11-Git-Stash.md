@@ -1,4 +1,4 @@
-# 11 - Git Stash
+# Git Stash
 
 ---
 

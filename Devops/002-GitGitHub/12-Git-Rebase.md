@@ -1,4 +1,4 @@
-# 12 - Git Rebase
+# Git Rebase
 
 ---
 

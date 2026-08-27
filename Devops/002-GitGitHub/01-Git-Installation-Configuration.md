@@ -1,4 +1,4 @@
-# 01 - Git Installation & Configuration
+# Git Installation & Configuration
 
 ---
 

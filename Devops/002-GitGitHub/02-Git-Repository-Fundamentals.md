@@ -1,4 +1,4 @@
-# 02 - Git Repository Fundamentals
+# Git Repository Fundamentals
 
 ---
 

@@ -1,4 +1,4 @@
-# 08 - GitHub Fundamentals
+# GitHub Fundamentals
 
 ---
 
@@ -63,22 +63,18 @@ A good README should include:
 - **Contributing** — how others can help
 - **License** — what others can do with your code
 
-```markdown
+**Example structure:**
+
+```
 # My Project
 
 A brief description of what this project does.
 
 ## Installation
-
-```bash
-npm install
-```
+    npm install
 
 ## Usage
-
-```bash
-npm start
-```
+    npm start
 ```
 
 GitHub automatically renders `README.md` as a nicely formatted page.

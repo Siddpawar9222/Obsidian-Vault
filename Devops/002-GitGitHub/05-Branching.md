@@ -1,4 +1,4 @@
-# 05 - Branching
+# Branching
 
 ---
 

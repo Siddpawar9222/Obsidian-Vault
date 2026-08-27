@@ -1,4 +1,4 @@
-# 03 - Basic Git Workflow
+# Basic Git Workflow
 
 ---
 
@@ -237,20 +237,20 @@ git log --oneline
 
 ## Quick Reference
 
-| Command | What it does |
-|---|---|
-| `git status` | Show the state of your working directory and staging area |
-| `git add <file>` | Stage a specific file |
-| `git add .` | Stage all changes |
-| `git commit -m "msg"` | Save staged changes as a commit |
-| `git commit -a -m "msg"` | Stage + commit tracked files in one step |
-| `git commit --amend` | Edit the last commit |
-| `git log` | View full commit history |
-| `git log --oneline --graph` | View history as a compact tree |
-| `git diff` | Working directory vs staging area |
-| `git diff --staged` | Staging area vs last commit |
-| `git show` | Show details of the last commit |
-| `git rm <file>` | Delete a file and stop tracking it |
-| `git rm --cached <file>` | Stop tracking a file but keep it locally |
-| `git mv old new` | Rename or move a file |
+| Command                     | What it does                                              |
+| --------------------------- | --------------------------------------------------------- |
+| `git status`                | Show the state of your working directory and staging area |
+| `git add <file>`            | Stage a specific file                                     |
+| `git add .`                 | Stage all changes                                         |
+| `git commit -m "msg"`       | Save staged changes as a commit                           |
+| `git commit -a -m "msg"`    | Stage + commit tracked files in one step                  |
+| `git commit --amend`        | Edit the last commit                                      |
+| `git log`                   | View full commit history                                  |
+| `git log --oneline --graph` | View history as a compact tree                            |
+| `git diff`                  | Working directory vs staging area                         |
+| `git diff --staged`         | Staging area vs last commit                               |
+| `git show`                  | Show details of the last commit                           |
+| `git rm <file>`             | Delete a file and stop tracking it                        |
+| `git rm --cached <file>`    | Stop tracking a file but keep it locally                  |
+| `git mv old new`            | Rename or move a file                                     |
 

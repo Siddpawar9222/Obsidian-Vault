@@ -1,4 +1,4 @@
-# 10 - Undoing Changes
+# Undoing Changes
 
 ---
 
@@ -235,13 +235,13 @@ Always run `git clean -n` first to preview what will be deleted.
 
 ## Reset vs Revert — Key Difference
 
-| | `git reset` | `git revert` |
-|---|---|---|
-| What it does | Moves the branch pointer backward | Creates a new commit that undoes a commit |
-| History | **Rewrites** history (commits disappear) | **Preserves** history (commits stay) |
-| Safe for shared branches? | ❌ No — breaks others' history | ✅ Yes — adds a new commit |
-| Requires force push? | ✅ Yes (if already pushed) | ❌ No |
-| Recovery possible? | Via `git reflog` only | Always recoverable |
+|                           | `git reset`                              | `git revert`                              |
+| ------------------------- | ---------------------------------------- | ----------------------------------------- |
+| What it does              | Moves the branch pointer backward        | Creates a new commit that undoes a commit |
+| History                   | **Rewrites** history (commits disappear) | **Preserves** history (commits stay)      |
+| Safe for shared branches? | ❌ No — breaks others' history            | ✅ Yes — adds a new commit                 |
+| Requires force push?      | ✅ Yes (if already pushed)                | ❌ No                                      |
+| Recovery possible?        | Via `git reflog` only                    | Always recoverable                        |
 
 ### Mental model
 
