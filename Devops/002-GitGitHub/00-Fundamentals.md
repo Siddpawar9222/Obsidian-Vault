@@ -1,4 +1,4 @@
-# 00 - Fundamentals
+# Fundamentals
 
 ---
 
