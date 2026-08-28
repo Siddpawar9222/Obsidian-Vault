@@ -85,31 +85,6 @@ echo $SHELL    # check your current shell
 +-----------------------------+
 ```
 
----
-
-## Why Linux Matters for Developers
-
-As a Java / backend engineer, you'll use Linux for:
-- Docker & Kubernetes
-- AWS EC2 / cloud servers
-- Jenkins CI/CD pipelines
-- Reading and debugging logs
-- Deploying Spring Boot applications
-
-```bash
-kubectl get pods | grep auth     # daily real industry usage
-```
 
 ---
-
-## Final Mental Model
-
-```
-You → Terminal → Shell → Kernel → Hardware
-```
-
-Shell is your **remote control of Linux**.
-
----
-
 

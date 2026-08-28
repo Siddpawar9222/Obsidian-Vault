@@ -1,0 +1,3 @@
+- Browser find out ip , port using dns
+- serilize it to byte so request can send over the network. 
+- serilized byte data send by OS(os has seperate system related to newtwork(OS TCP/IP stack))

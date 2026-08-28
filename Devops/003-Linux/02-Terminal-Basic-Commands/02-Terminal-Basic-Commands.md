@@ -263,13 +263,3 @@ Combine: `dw` = delete word, `d$` = delete to end of line
 
 ---
 
-### Start With These (Don't memorize everything at once)
-
-- `i`, `Esc`
-- `:wq`
-- `dd`, `yy`, `p`
-- `/search`
-- `u`
-
-Use daily → you'll get fast naturally.
-
