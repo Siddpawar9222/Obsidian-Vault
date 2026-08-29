@@ -10,7 +10,7 @@ Welcome to my personal learning notes! This repository contains a collection of 
 
 ## Contributing
 
-Your contributions are welcome! Here’s how you can help:
+Your contributions are welcome! Here's how you can help:
 
 1. **Raise an Issue:** If you spot any mistakes or have suggestions, please raise an issue detailing the problem or enhancement.
 2. **Fork and Create a Pull Request:** If you want to directly contribute, fork this repository, make your changes, and create a pull request. Please ensure your changes are well-documented.
@@ -21,4 +21,4 @@ Thank you for taking the time to review my notes. Your feedback and contribution
 
 ---
 
-Happy learning!
+Happy learning! Testing New Plugin
