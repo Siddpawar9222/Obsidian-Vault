@@ -1,4 +1,4 @@
-﻿Common problem solving patterns 
+Common problem solving patterns 
 
 1. Fast and Slow Pointer
 2. Merge intervals
