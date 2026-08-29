@@ -8,5 +8,5 @@
     "task-strikethrough"
   ],
   "baseFontSizeAction": true,
-  "showRibbon": true
+  "showRibbon": false
 }

@@ -137,5 +137,14 @@
       ],
       "key": "ArrowDown"
     }
+  ],
+  "editor:delete-paragraph": [],
+  "app:delete-file": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "Delete"
+    }
   ]
 }
