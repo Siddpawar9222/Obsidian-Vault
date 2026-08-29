@@ -1,0 +1,12 @@
+{
+  "accentColor": "",
+  "baseFontSize": 16,
+  "theme": "system",
+  "cssTheme": "Things",
+  "enabledCssSnippets": [
+    "width",
+    "task-strikethrough"
+  ],
+  "baseFontSizeAction": true,
+  "showRibbon": true
+}

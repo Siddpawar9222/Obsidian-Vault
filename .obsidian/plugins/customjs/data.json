@@ -1,0 +1,9 @@
+{
+  "jsFiles": ".obsidian/js/scripts/setZoom.js",
+  "jsFolder": "",
+  "startupScriptNames": [
+    "setStartupZoom"
+  ],
+  "registeredInvocableScriptNames": [],
+  "rerunStartupScriptsOnFileChange": true
+}

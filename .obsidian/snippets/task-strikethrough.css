@@ -1,0 +1,23 @@
+/* Enable strikethrough for completed tasks (overrides theme overrides like Things theme) */
+.task-list-item.is-checked,
+.task-list-item.is-checked .task-list-item-text,
+.task-list-item.is-checked a,
+.task-list-item:has(input[type="checkbox"]:checked),
+.task-list-item:has(input[type="checkbox"]:checked) .task-list-item-text,
+.task-list-item:has(input[type="checkbox"]:checked) a,
+li[data-task-status="x"],
+li[data-task-status="x"] .task-list-item-text,
+li[data-task-status="x"] a,
+.tasks-list-container li[data-task-status="x"],
+.tasks-list-container li[data-task-status="x"] .task-list-item-text,
+.tasks-list-container li[data-task-status="x"] a,
+.tasks-list-container li.is-checked,
+.tasks-list-container li.is-checked .task-list-item-text,
+.tasks-list-container li.is-checked a,
+.markdown-rendered ul li.task-list-item.is-checked,
+.markdown-rendered ul li.task-list-item.is-checked .task-list-item-text,
+.markdown-rendered ul li.task-list-item.is-checked a {
+    text-decoration: line-through !important;
+    -webkit-text-decoration-line: line-through !important;
+    opacity: 0.65;
+}

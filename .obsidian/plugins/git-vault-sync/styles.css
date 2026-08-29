@@ -1,0 +1,309 @@
+/* GitSync styles */
+
+.gitsync-status-bar {
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.gitsync-status-icon {
+	display: inline-flex;
+	align-items: center;
+}
+
+.gitsync-status-icon .svg-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.gitsync-status-text:empty {
+	display: none;
+}
+
+.gitsync-status-bar--syncing {
+	color: var(--text-accent);
+}
+
+.gitsync-status-bar--syncing .gitsync-status-icon .svg-icon {
+	animation: gitsync-spin 1s linear infinite;
+}
+
+.gitsync-status-bar--error {
+	color: var(--text-error);
+}
+
+@keyframes gitsync-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.gitsync-conflict-editor {
+	width: 100%;
+	min-height: 160px;
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-small);
+	white-space: pre-wrap;
+}
+
+/* Conflict modal: scrollable file list above a pinned footer so the
+   Resolve/Cancel buttons stay reachable on small (mobile) screens. */
+.gitsync-conflict-modal .modal-content {
+	display: flex;
+	flex-direction: column;
+	max-height: 80vh;
+}
+
+.gitsync-conflict-body {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 0;
+}
+
+.gitsync-conflict-footer {
+	flex: 0 0 auto;
+	border-top: 1px solid var(--background-modifier-border);
+	padding-top: 8px;
+	margin-top: 8px;
+}
+
+/* Wizard: one conflict per step. The progress line + intro stay pinned at the
+   top of the scrollable body; each file lives in its own step card. */
+.gitsync-conflict-progress {
+	margin: 0 0 4px;
+	font-weight: 600;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.gitsync-conflict-intro {
+	margin-top: 0;
+}
+
+/* Navigation buttons (Back / Next / Resolve) span the footer width so they're
+   easy touch targets and the primary action is unmissable on a phone. */
+.gitsync-wizard-nav {
+	display: flex;
+	gap: 8px;
+}
+
+.gitsync-wizard-nav button {
+	flex: 1 1 0;
+}
+
+/* On narrow (phone) widths the wizard shows one file at a time, so the editor
+   can take a comfortable chunk of the (keyboard-bounded) modal height. */
+@media (max-width: 600px) {
+	.gitsync-conflict-editor {
+		min-height: 30vh;
+	}
+}
+
+.gitsync-conflict-preview {
+	max-height: 240px;
+	overflow: auto;
+	font-size: var(--font-ui-smaller);
+	background: var(--background-secondary);
+	padding: 8px;
+	border-radius: 6px;
+}
+
+.gitsync-hidden {
+	display: none;
+}
+
+/* Stack a setting's control full-width below its label (used for the
+   excluded-files editor, which is awkward in the narrow right column). */
+.gitsync-setting-stacked {
+	display: block;
+}
+
+.gitsync-setting-stacked .setting-item-info {
+	margin-bottom: 8px;
+}
+
+.gitsync-setting-stacked .setting-item-control {
+	width: 100%;
+	justify-content: flex-start;
+}
+
+.gitsync-exclude-textarea {
+	width: 100%;
+	min-height: 180px;
+	resize: vertical;
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+}
+
+.gitsync-setting-hint {
+	margin: -4px 0 18px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.4;
+}
+
+.gitsync-review-list {
+	max-height: 50vh;
+	overflow-y: auto;
+	margin: 8px 0;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+}
+
+.gitsync-review-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	cursor: pointer;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.gitsync-review-row:last-child {
+	border-bottom: none;
+}
+
+.gitsync-review-row:hover {
+	background: var(--background-modifier-hover);
+}
+
+.gitsync-review-path {
+	font-size: var(--font-ui-small);
+	word-break: break-all;
+}
+
+.gitsync-badge {
+	flex: 0 0 auto;
+	width: 18px;
+	text-align: center;
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+	font-weight: bold;
+	border-radius: 3px;
+	color: var(--text-on-accent);
+}
+
+.gitsync-badge--added {
+	background: var(--color-green);
+}
+
+.gitsync-badge--modified {
+	background: var(--color-yellow);
+	color: var(--text-normal);
+}
+
+.gitsync-badge--deleted {
+	background: var(--color-red);
+}
+
+/* Inline validation feedback under a settings field. */
+.gitsync-setting-hint {
+	margin-top: 4px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+
+.gitsync-setting-error {
+	margin-top: 4px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-error);
+}
+
+/* Token field + inline Authorize button share one settings row. Let the input
+   flex to fill the available width while the button keeps its intrinsic size,
+   so the field never collapses to nothing next to the button. */
+.gitsync-token-input {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* --- Mobile: bigger touch targets and tighter settings --- */
+@media (max-width: 600px) {
+	.gitsync-review-row {
+		padding: 11px 10px;
+		gap: 12px;
+	}
+
+	.gitsync-review-row input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+	}
+
+	.gitsync-badge {
+		width: 22px;
+	}
+
+	.gitsync-exclude-textarea {
+		min-height: 120px;
+	}
+
+	/* Keep the token input from collapsing when the Authorize button shares
+	   the (narrower) mobile settings row. */
+	.gitsync-token-input {
+		min-width: 6em;
+	}
+}
+
+/* On mobile the conflict modal is height-bounded to the keyboard-free area
+   (see mobile-keyboard.ts). Lay it out as a flex column so its content fills
+   that box and the scroll lives inside the file card — the pinned footer
+   (Resolve / navigation) then always stays on screen, never under the
+   keyboard. */
+body.is-mobile .gitsync-conflict-modal {
+	display: flex;
+	flex-direction: column;
+}
+
+body.is-mobile .gitsync-conflict-modal .modal-content {
+	flex: 1 1 auto;
+	min-height: 0;
+	max-height: none;
+}
+
+body.is-mobile .gitsync-review-row {
+	padding: 11px 10px;
+	gap: 12px;
+}
+
+body.is-mobile .gitsync-review-row input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+}
+
+body.is-mobile .gitsync-exclude-textarea {
+	min-height: 120px;
+}
+
+/* --- Tablet settings layout fix ---
+   On Android/iPad tablets Obsidian renders the settings tab in the desktop
+   "split-view" modal while the body still carries `is-mobile`. That keeps
+   `.setting-item` rows in the wide (row) layout, where Obsidian's mobile rule
+   lets the control grow to fill the row. Our token field (`gitsync-token-input`,
+   `flex: 1 1 auto`) then consumes the row and starves the name/description
+   column down to a sliver, so the long token description wraps into a tall
+   vertical strip and balloons that one card's height. Phones don't hit this:
+   the rows already stack (name above control), so the control never competes
+   with the info column.
+
+   Fix: force our settings rows into that same stacked (column) layout — name on
+   top, control full-width below — which is the known-good phone layout. Scoped
+   to `is-mobile` (so it covers the tablet regardless of whether Obsidian sets
+   `is-tablet`, and is a no-op on phones, which already look like this) and to
+   our own tab so other plugins' settings are untouched. */
+body.is-mobile .gitsync-settings .setting-item {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+body.is-mobile .gitsync-settings .setting-item-info {
+	margin-bottom: 8px;
+}
+
+body.is-mobile .gitsync-settings .setting-item-control {
+	width: 100%;
+	justify-content: flex-start;
+}
