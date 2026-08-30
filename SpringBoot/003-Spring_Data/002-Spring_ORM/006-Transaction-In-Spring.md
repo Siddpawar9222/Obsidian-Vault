@@ -561,3 +561,6 @@ public Response registerQuizUser(HttpServletRequest request, UserDto userDto) { 
 
 
 ---
+
+## Refer following articles : 
+[stop-misusing-transactional-5-patterns-that-prevent-locks-deadlocks-and-rollback-surprises-e6ed0ade1ff8](https://medium.com/@habib11wahid/stop-misusing-transactional-5-patterns-that-prevent-locks-deadlocks-and-rollback-surprises-e6ed0ade1ff8)
