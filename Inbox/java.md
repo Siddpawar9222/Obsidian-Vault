@@ -1,0 +1,3 @@
+- Chain Of responsibility(Spring security chain working on it)
+- Startegy Design Pattern
+- 
