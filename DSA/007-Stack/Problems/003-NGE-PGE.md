@@ -1,6 +1,8 @@
 
 ---
 
+## Monotonic Stack Based
+
 | Problem Name                                                                                                    | Comment |
 | --------------------------------------------------------------------------------------------------------------- | ------- |
 | [Next or Previous Greater Element](https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1)<br> |         |
