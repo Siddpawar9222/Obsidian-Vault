@@ -1,9 +1,4 @@
----
-tags:
-  - java
-  - dsa
-  - memory-management
-  - arrays
+
 ---
 
 # Array Memory Layout & 0-Based Indexing
@@ -20,7 +15,7 @@ tags:
 
 ## 1. Why Does Array Indexing Start at 0?
 
-Array indices do not represent ordinal counters ("1st item", "2nd item"); they represent **memory offsets** (the distance / number of elements away from the starting memory address).
+Array indices do not represent ordinal counters ("1st item", "2nd item"); they represent **memory offsets** (<font color="#ffc000">the distance / number of elements away from the starting memory address</font>).
 
 ### The Math Behind Memory Access
 The memory address of any element is computed using:
@@ -68,9 +63,6 @@ Both pointers and references locate data in memory, but they differ fundamentall
 | **Safety / Risk**           | High risk (memory corruption, buffer overflow)  | Safe (only risk is `NullPointerException`)           |
 | **Control Level**           | Developer                                       | JVM                                                  |
 
-> [!TIP] **Mental Analogy: TV Remote**
-> - **Pointer (C/C++)**: You possess the remote and can tune into raw radio frequencies. You can tune into invalid channels or corrupt signals.
-> - **Reference (Java)**: You have a remote pre-programmed with channel buttons. You press a button and JVM tunes it safely; you cannot navigate to unassigned frequencies.
 
 ![[pointer_vs_reference.png]]
 
@@ -86,7 +78,8 @@ marks (Stack) ───► [ Object Header (Class Metadata + Length) | marks[0] 
 
 1. **Array Header**: Contains JVM metadata, such as array component type (`int`) and array length (`5`).
 2. **Contiguous Elements**: The elements sit directly after the header in contiguous order.
-3. **Garbage Collection (GC)**: 
+3. **Index Element** : <font color="#ffc000">Check Array object metaspace, check length and access first element and calculate index element.</font>
+4. **Garbage Collection (GC)**: 
    - An array is allocated as **one single heap object**.
    - GC tracks whole objects, not individual elements.
    - As long as `marks` is reachable, the entire array object and all its elements remain in memory.
