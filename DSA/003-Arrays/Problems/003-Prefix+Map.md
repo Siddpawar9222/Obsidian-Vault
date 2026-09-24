@@ -4,6 +4,7 @@
 | Problem Name                                                                                                                                        | Comment                                                    |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)                                                        | Gives idea of prefix sum , late prefix sum                 |
+| [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)                                                            | [[152-MaximumProductSubarray\|Explaination]]               |
 | [1. Two Sum](https://leetcode.com/problems/two-sum/)                                                                                                |                                                            |
 | [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)                                                                  |                                                            |
 | [974. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/)                                                    |                                                            |

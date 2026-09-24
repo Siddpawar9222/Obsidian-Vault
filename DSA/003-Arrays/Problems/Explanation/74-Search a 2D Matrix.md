@@ -4,10 +4,6 @@
 
 ## Intuition
 
----
-
-
-
 
 ### Think of the matrix as a "virtual" 1D array
 
