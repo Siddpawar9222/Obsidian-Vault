@@ -9,7 +9,7 @@
 | [986. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/)                               | Understood overlapping condition, How to calculate Intersection of two overlapping conditions                       |
 | [452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | Understood overlapping and intersection condition combination                                                       |
 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)                                   | Sort by end, question noting but calcuating maximum  non-overlapping  intervals.                                    |
-| [1288. Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals/)                                    |  Sort by end. Good question to understand all interval pattern combined                                             |
+| [1288. Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals/)                                    | Sort by end. Good question to understand all interval pattern combined                                              |
 | [Minimum Platforms<br>](https://www.geeksforgeeks.org/problems/minimum-platforms-1587115620/1)                               | Needed to sort arr by start and end as well, indirectly needed to calculate place where maximum overlapping happens |
 |                                                                                                                              |                                                                                                                     |
 
