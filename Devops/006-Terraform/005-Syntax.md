@@ -1,28 +1,20 @@
-
-
----
-
-# 📒 Terraform Syntax & Referencing Notes
+# 005 — Terraform Syntax & Referencing
 
 ## 1. Basic Block Structure
 
-Every Terraform block has the same general format:
+Every block in Terraform follows this general pattern:
 
 ```hcl
-<block_type> "<provider>_<resource_type>" "<name>" {
+<block_type> "<provider_resource_type>" "<name>" {
   # arguments = values
 }
 ```
 
-- **`block_type`** → what kind of thing (resource, data, variable, etc.)
-    
-- **`provider_resource_type`** → AWS, Azure, GCP, etc. resource type
-    
-- **`name`** → your local name (used for referencing)
-    
+- **`block_type`** — what kind of block it is (`resource`, `data`, `variable`, etc.)
+- **`provider_resource_type`** — the cloud resource type (e.g., `aws_instance`, `aws_s3_bucket`)
+- **`name`** — your local name for this block (used to reference it elsewhere)
 
-✅ Example:
-
+**Example:**
 ```hcl
 resource "aws_instance" "my_ec2" {
   ami           = "ami-xxxx"
@@ -34,37 +26,35 @@ resource "aws_instance" "my_ec2" {
 
 ## 2. Common Block Types
 
-| Block Type | Prefix when referencing | Purpose                            |
-| ---------- | ----------------------- | ---------------------------------- |
-| `resource` | `aws_instance.my_ec2`   | Create/manage infrastructure       |
-| `data`     | `data.aws_vpc.default`  | Fetch existing info from cloud     |
-| `variable` | `var.instance_type`     | Input values for flexibility       |
-| `output`   | `output.public_ip`      | Show values after apply            |
-| `locals`   | `local.project_name`    | Store calculated values            |
-| `module`   | `module.vpc`            | Reusable group of resources        |
-| `provider` | N/A                     | Defines which cloud/service to use |
+| Block Type | How to Reference It | Purpose |
+|---|---|---|
+| `resource` | `aws_instance.my_ec2` | Create/manage infrastructure |
+| `data` | `data.aws_vpc.default` | Fetch existing info from cloud |
+| `variable` | `var.instance_type` | Input values for flexibility |
+| `output` | `output.public_ip` | Show values after apply |
+| `locals` | `local.project_name` | Store calculated/reused values |
+| `module` | `module.vpc` | Reusable group of resources |
+| `provider` | N/A (not referenced) | Defines which cloud/service to use |
 
 ---
 
-## 3. Key Referencing Rules
+## 3. Referencing Rules
 
-### 🔹 Resource Reference
+### Resource Reference
 
-- For resources Terraform creates:
-    
+For resources that **Terraform creates**, just use: `<resource_type>.<name>.<attribute>`
 
 ```hcl
 vpc_security_group_ids = [aws_security_group.my_sg.id]
 ```
 
-👉 No prefix needed, just provider + resource type + name.
+No prefix needed — Terraform knows you created this.
 
 ---
 
-### 🔹 Data Source Reference
+### Data Source Reference
 
-- For resources that already exist (fetched from provider):
-    
+For resources that **already exist** in the cloud, you must use the `data.` prefix:
 
 ```hcl
 data "aws_vpc" "default" {
@@ -74,21 +64,23 @@ data "aws_vpc" "default" {
 vpc_id = data.aws_vpc.default.id
 ```
 
-👉 Must use `data.` prefix, otherwise Terraform thinks you want to create a new one.
+> Without `data.`, Terraform would think you want to *create* a new VPC instead of fetching the existing one.
 
 ---
 
-### 🔹 Variables
+### Variable Reference
 
 ```hcl
-variable "instance_type" { default = "t2.micro" }
+variable "instance_type" {
+  default = "t2.micro"
+}
 
 instance_type = var.instance_type
 ```
 
 ---
 
-### 🔹 Locals
+### Locals Reference
 
 ```hcl
 locals {
@@ -102,7 +94,7 @@ tags = {
 
 ---
 
-### 🔹 Modules
+### Module Reference
 
 ```hcl
 module "vpc" {
@@ -115,37 +107,22 @@ vpc_id = module.vpc.vpc_id
 
 ---
 
-## 4. Why `data.` is Needed?
+## 4. Why Does `data.` Matter?
 
-- **`resource`** = You own it, Terraform creates it → `aws_security_group.my_sg.id`
-    
-- **`data`** = You only read it, AWS already created it → `data.aws_vpc.default.id`
-    
+| Scenario | What Terraform Does |
+|---|---|
+| `aws_security_group.my_sg.id` | Refers to a resource **Terraform owns and created** |
+| `data.aws_vpc.default.id` | Refers to a resource **already in AWS, just read by Terraform** |
 
-👉 Without `data.`, Terraform can’t know if you mean “create new” or “fetch existing.”
-
----
-
-## 5. Real-World Analogy
-
-- **Resource** → Buying a new car → “my car id”
-    
-- **Data** → Borrowing a friend’s car → “data from friend’s car id”
-    
-
-Both are cars, but **ownership matters**.
+> **Analogy:** `resource` = your own car. `data` = borrowing a friend's car. Both are cars, but *ownership* matters.
 
 ---
 
-## 6. Useful Commands in Syntax Flow
+## 5. Core Commands (Quick Reference)
 
-- `terraform init` → Download provider plugins
-    
-- `terraform plan` → See what will be created/changed
-    
-- `terraform apply` → Actually create infra
-    
-- `terraform destroy` → Delete infra
-    
-
----
+| Command | What it Does |
+|---|---|
+| `terraform init` | Downloads provider plugins, sets up working directory |
+| `terraform plan` | Shows what will be created, changed, or destroyed |
+| `terraform apply` | Creates or updates the actual infrastructure |
+| `terraform destroy` | Deletes all Terraform-managed resources |

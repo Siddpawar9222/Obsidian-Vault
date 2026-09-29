@@ -1,82 +1,58 @@
+# 002 — Terraform vs Ansible
 
+## The Core Difference in One Line
 
---- 
-
-
-
-## ⚔️ Terraform vs Ansible
-
-### 🔹 Terraform (IaC → Infrastructure as Code)
-
-- Purpose → **Provisioning Infrastructure** (create servers, databases, networks, load balancers, etc.).
-    
-- Works in a **declarative way** → you tell Terraform _what you want_ (final state), and Terraform figures out _how to get there_.
-    
-- Example:
-    
-    - You say → "I want 2 EC2 instances with Nginx installed."
-        
-    - Terraform checks the current state and makes changes only if needed.
-        
-
-➡️ **Think of Terraform like an Architect** 🏗️ → it designs and builds the house (infrastructure).
+- **Terraform** = **Build** the infrastructure (create servers, networks, databases)
+- **Ansible** = **Configure** the infrastructure (install software, set up the server)
 
 ---
 
-### 🔹 Ansible (CFM → Configuration Management)
+## Terraform — Infrastructure as Code (IaC)
 
-- Purpose → **Configure and Manage** already existing infrastructure.
-    
-- Works in a **procedural way** (though it supports declarative too) → you write step-by-step instructions for configuration.
-    
-- Example:
-    
-    - You say → "On this EC2, install Nginx, set Java version to 17, update system packages."
-        
-    - Ansible executes each step on the server.
-        
+- **Purpose:** Provisioning infrastructure — creating EC2 instances, VPCs, S3 buckets, load balancers, etc.
+- **Approach:** **Declarative** — you tell Terraform *what you want*, and it figures out *how to get there*.
+- **Example:** "I want 2 EC2 instances." → Terraform checks the current state and creates them if they don't exist.
 
-➡️ **Think of Ansible like an Interior Designer** 🛋️ → it decorates and configures the house (server setup).
+> Think of Terraform like an **Architect** 🏗️ — it designs and builds the house (infrastructure).
 
 ---
 
-### 🔑 Key Differences
+## Ansible — Configuration Management (CFM)
 
-|Feature|Terraform 🏗️ (IaC)|Ansible ⚙️ (CFM)|
+- **Purpose:** Configure and manage *already existing* infrastructure.
+- **Approach:** **Procedural** — you write step-by-step instructions.
+- **Example:** "On this EC2, install Nginx, set Java to version 17, update system packages." → Ansible runs those steps one by one.
+
+> Think of Ansible like an **Interior Designer** 🛋️ — it decorates and sets up the house (server config).
+
+---
+
+## Key Differences
+
+| Feature | Terraform 🏗️ | Ansible ⚙️ |
 |---|---|---|
-|**Main Use**|Create infrastructure (VMs, networks)|Configure infrastructure (software, patches)|
-|**Approach**|Declarative → define final state|Procedural (step-by-step tasks)|
-|**State Management**|Keeps track of state (terraform.tfstate)|No state file, just executes tasks|
-|**Example**|Create 3 EC2s with load balancer|Install Nginx on those EC2s|
-|**Best For**|Infrastructure provisioning|Configuration + app deployment|
+| **Main Use** | Create infrastructure (VMs, networks) | Configure infrastructure (software, patches) |
+| **Approach** | Declarative — define final state | Procedural — step-by-step tasks |
+| **State Tracking** | Yes — keeps a `terraform.tfstate` file | No — just executes tasks each time |
+| **Example** | Create 3 EC2s with a load balancer | Install Nginx on those EC2s |
+| **Best For** | Infrastructure provisioning | Configuration + app deployment |
 
 ---
 
-✅ **Together**:
+## Using Them Together (Best Practice)
 
-- Use **Terraform** to create servers.
-    
-- Use **Ansible** to install software and configure them.
-    
+The most common real-world workflow:
 
-👉 Example:
+1. **Terraform** → creates 2 AWS EC2 servers
+2. **Ansible** → installs Docker + deploys your Spring Boot app inside those servers
 
-1. Terraform → creates 2 AWS EC2 servers.
-    
-2. Ansible → installs Docker + deploys your Spring Boot app inside the servers.
-    
+This way, infrastructure and configuration are cleanly separated.
 
 ---
 
+## Can Terraform Do Configuration Too?
 
-### 🔹 1. Using **Terraform only**
-
-- Terraform has something called **provisioners** (like `remote-exec`, `file`).
-    
-- You can write a script to install Nginx when the EC2 instance is created.
-    
-
-Example (simple idea, not full code):
+Yes, Terraform has **provisioners** (`remote-exec`, `file`) that can run scripts after a resource is created.
 
 ```hcl
 resource "aws_instance" "web" {
@@ -92,26 +68,13 @@ resource "aws_instance" "web" {
 }
 ```
 
-⚠️ But: using provisioners in Terraform is not recommended for big setups, because Terraform’s main job is **infrastructure**, not software installation.
+> ⚠️ Using provisioners in Terraform is **not recommended** for large setups. Terraform's main job is infrastructure, not software installation. Use Ansible for that.
 
 ---
 
-### 🔹 2. Using **Terraform + Ansible (better way)**
+## When to Use What
 
-- Terraform → creates the EC2 instances.
-    
-- Ansible → connects to those EC2s and installs Nginx, sets Java version, configures apps, etc.
-    
-- This way → you separate **infra** and **configuration** cleanly.
-    
-
----
-
-👉 **Real-world practice**:
-
-- Small demo / POC → You can use Terraform alone to create EC2 + install Nginx.
-    
-- Production → Use Terraform for infra + Ansible (or Chef/Puppet) for configuration.
-    
-
----
+| Scenario | Tool |
+|---|---|
+| Small demo / POC | Terraform alone (create EC2 + install Nginx) |
+| Production setup | Terraform for infra + Ansible (or Chef/Puppet) for config |
