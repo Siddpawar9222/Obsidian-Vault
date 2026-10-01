@@ -2,7 +2,7 @@
 
 ---
 
-### 🧠 Sorting Algorithms Summary Table (Forever Memory Table)
+### 🧠 Sorting Algorithms Summary Table
 
 |**Algorithm**|**Real-World Analogy**|**Best Case**|**Average Case**|**Worst Case**|**Space**|**Advantages**|**Disadvantages**|
 |---|---|---|---|---|---|---|---|
@@ -29,11 +29,3 @@
 |**Heap-based Sort**|Heap Sort|Uses binary heap structure to pick max/min repeatedly.|
 
 ---
-
-
-
-
----
-
-Would you like me to make a **visual version of this table** (like a color-coded cheat sheet image you can save or print)?  
-It’ll help you revise much faster visually.
