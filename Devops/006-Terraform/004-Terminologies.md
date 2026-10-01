@@ -1,4 +1,4 @@
-# 004 — Terraform Terminologies
+1# 004 — Terraform Terminologies
 
 These are the core building blocks you'll see in every Terraform project. Learn these and the rest becomes easy.
 

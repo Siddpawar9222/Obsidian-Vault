@@ -3,7 +3,7 @@
 
 | Problem Name                                                                                                                                        | Comment                                                    |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [303. Range S[1. Two Sum](https://leetcode.com/problems/two-sum/)um Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)    | Gives idea of prefix sum , late prefix sum                 |
+| [303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)                                                        | Gives idea of prefix sum , late prefix sum                 |
 | [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)                                                            | [[152-MaximumProductSubarray\|Explaination]]               |
 | [1. Two Sum](https://leetcode.com/problems/two-sum/)                                                                                                |                                                            |
 | [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)                                                                  |                                                            |
@@ -12,5 +12,3 @@
 | Subarrays with equal 1s and 0s                                                                                                                      |                                                            |
 | [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/)                                                                            |                                                            |
 | Longest Span with same Sum in two Binary arrays                                                                                                     |                                                            |
-
-
