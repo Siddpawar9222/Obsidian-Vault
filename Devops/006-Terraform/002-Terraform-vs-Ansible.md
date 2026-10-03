@@ -1,4 +1,4 @@
-# 002 — Terraform vs Ansible
+# Terraform vs Ansible
 
 ## The Core Difference in One Line
 

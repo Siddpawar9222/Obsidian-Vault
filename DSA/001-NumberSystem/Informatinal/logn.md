@@ -4,24 +4,24 @@
 
 ### Core Definition
 
-\[
+$$
 \boxed{\log_b(n)=x \iff b^x=n}
-\]
+$$
 
 **Meaning:**  
 `log₍b₎(n)` tells you **"what power of `b` gives `n`?"**
 
 Example:
 
-\[
+$$
 \log_2(8)=3
-\]
+$$
 
 because:
 
-\[
+$$
 2^3=8
-\]
+$$
 
 ---
 
@@ -37,17 +37,17 @@ because:
 
 When you see:
 
-\[
+$$
 \boxed{O(\log n)}
-\]
+$$
 
 it normally means **`O(log₂ n)` conceptually**.
 
 The exact base doesn't matter for Big-O:
 
-\[
+$$
 O(\log_2 n)=O(\log_{10}n)=O(\ln n)
-\]
+$$
 
 because changing the base only introduces a constant multiplier.
 
@@ -87,9 +87,9 @@ Number of divisions = **10**
 
 Therefore:
 
-\[
+$$
 \log_2(1024)=10
-\]
+$$
 
 ### DSA intuition
 
@@ -111,9 +111,9 @@ For a positive integer `n`:
 
 ### Decimal digits
 
-\[
+$$
 \boxed{\text{digits}=\lfloor\log_{10}(n)\rfloor+1}
-\]
+$$
 
 Example:
 
@@ -146,9 +146,9 @@ The powers of 10 tell us the digit ranges.
 
 For a positive integer `n`:
 
-\[
+$$
 \boxed{\text{bits}=\lfloor\log_2(n)\rfloor+1}
-\]
+$$
 
 Example:
 
@@ -160,17 +160,17 @@ n = 13
 
 Therefore:
 
-\[
+$$
 \lfloor\log_2(13)\rfloor+1
-\]
+$$
 
-\[
+$$
 =3+1
-\]
+$$
 
-\[
+$$
 =\boxed{4\text{ bits}}
-\]
+$$
 
 ---
 

@@ -1,8 +1,4 @@
-1# 004 — Terraform Terminologies
-
-These are the core building blocks you'll see in every Terraform project. Learn these and the rest becomes easy.
-
----
+# Terraform Terminologies
 
 ## 1. Provider
 
@@ -14,7 +10,6 @@ provider "aws" {
 }
 ```
 
-> **Analogy:** Like a printer driver — without it, your computer can't talk to the printer.
 
 ---
 
@@ -29,7 +24,6 @@ resource "aws_instance" "my_ec2" {
 }
 ```
 
-> **Analogy:** The actual "thing" you want to build — like a house, a car, or an EC2 instance.
 
 ---
 
@@ -43,8 +37,6 @@ data "aws_vpc" "default" {
 }
 ```
 
-> **Analogy:** Like reading Google Maps to find existing roads — you're not building a new road, just looking at what's already there.
-
 ---
 
 ## 4. Variable (`variable`)
@@ -56,8 +48,6 @@ variable "instance_type" {
   default = "t2.micro"
 }
 ```
-
-> **Analogy:** Ingredients in a recipe — you can swap "1 spoon of sugar" with "2 spoons" without rewriting the whole recipe.
 
 ---
 
@@ -71,8 +61,6 @@ output "public_ip" {
 }
 ```
 
-> **Analogy:** Like a receipt after shopping — it shows what you got.
-
 ---
 
 ## 6. State
@@ -82,15 +70,11 @@ Terraform keeps track of all the resources it has created in a file called `terr
 - **Purpose:** Knows what already exists → avoids creating duplicates.
 - Without it, Terraform would have no memory of what it created.
 
-> **Analogy:** A to-do checklist that marks what's already done.
-
 ---
 
 ## 7. Plan
 
 `terraform plan` shows you **what Terraform will do** before it actually does anything. No changes are made.
-
-> **Analogy:** A blueprint review before construction starts.
 
 ---
 
@@ -98,23 +82,17 @@ Terraform keeps track of all the resources it has created in a file called `terr
 
 `terraform apply` actually **provisions (creates) the infrastructure** as defined in your `.tf` files.
 
-> **Analogy:** Construction workers building from the approved blueprint.
-
 ---
 
 ## 9. Destroy
 
 `terraform destroy` **deletes all the resources** that Terraform created.
 
-> **Analogy:** Bulldozers demolishing the building you constructed.
-
 ---
 
 ## 10. Module
 
 A **module** is a reusable group of resources — like a function in programming. Instead of writing the same resource blocks over and over, you package them into a module and call it wherever needed.
-
-> **Analogy:** Instead of writing a cake recipe from scratch every time, you reuse the same cookbook recipe.
 
 ---
 
@@ -126,15 +104,11 @@ A **module** is a reusable group of resources — like a function in programming
 vpc_id = data.aws_vpc.default.id
 ```
 
-> **Analogy:** Like saying "use the address from Google Maps" instead of typing it manually.
-
 ---
 
 ## 12. Backend
 
 A **backend** defines *where* the state file is stored — locally on your machine, or remotely in S3, Azure Blob, GCS, Terraform Cloud, etc.
-
-> **Analogy:** Storing your receipts in a safe deposit box instead of carrying them in your pocket.
 
 ---
 
@@ -144,18 +118,16 @@ A **provisioner** runs scripts or commands on a resource *after* it is created.
 
 Example: Use `remote-exec` to install Nginx on a newly created EC2.
 
-> **Analogy:** Moving into a new house and arranging the furniture.
-
 ---
 
 ## 14. Workspace
 
 A **workspace** is an isolated state environment. You can have separate workspaces for `dev`, `test`, and `prod` — each with its own state.
 
-> **Analogy:** Separate apartments in the same building — same structure, different occupants.
-
 ---
 
 ## Quick Reference: Most Used in AWS Projects
 
 `provider` → `resource` → `data` → `variable` → `output` → `state` → `plan` → `apply`
+
+---

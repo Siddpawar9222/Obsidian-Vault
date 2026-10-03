@@ -1,4 +1,4 @@
-# 005 — Terraform Syntax & Referencing
+#  Terraform Syntax & Referencing
 
 ## 1. Basic Block Structure
 
@@ -109,10 +109,10 @@ vpc_id = module.vpc.vpc_id
 
 ## 4. Why Does `data.` Matter?
 
-| Scenario | What Terraform Does |
-|---|---|
-| `aws_security_group.my_sg.id` | Refers to a resource **Terraform owns and created** |
-| `data.aws_vpc.default.id` | Refers to a resource **already in AWS, just read by Terraform** |
+| Scenario                      | What Terraform Does                                             |
+| ----------------------------- | --------------------------------------------------------------- |
+| `aws_security_group.my_sg.id` | Refers to a resource **Terraform owns and created**             |
+| `data.aws_vpc.default.id`     | Refers to a resource **already in AWS, just read by Terraform** |
 
 > **Analogy:** `resource` = your own car. `data` = borrowing a friend's car. Both are cars, but *ownership* matters.
 

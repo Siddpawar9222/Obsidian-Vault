@@ -1,4 +1,5 @@
-# 001 — Introduction to Terraform
+
+# Introduction to Terraform
 
 ## What Problem Existed Before Terraform?
 
@@ -6,13 +7,13 @@ Before Terraform, setting up cloud infrastructure (like EC2, VPC, S3 on AWS) was
 
 ### Problems with that approach
 
-| Problem | Explanation |
-|---|---|
-| Manual errors | One wrong click in AWS Console can break things |
-| No repeatability | You can't easily reuse your setup — you have to repeat steps every time |
-| Hard to remember | Complex configs are hard to remember or share with teammates |
-| No version control | You can't track changes like you do with code (`git diff`, `git log`) |
-| Hard to test | You can't safely test infrastructure changes before applying them |
+| Problem            | Explanation                                                             |
+| ------------------ | ----------------------------------------------------------------------- |
+| Manual errors      | One wrong click in AWS Console can break things                         |
+| No repeatability   | You can't easily reuse your setup — you have to repeat steps every time |
+| Hard to remember   | Complex configs are hard to remember or share with teammates            |
+| No version control | You can't track changes like you do with code (`git diff`, `git log`)   |
+| Hard to test       | You can't safely test infrastructure changes before applying them       |
 
 ---
 
@@ -28,13 +29,13 @@ Think of it as a **blueprint for the cloud — written in code**.
 
 ## What Problems Does Terraform Solve?
 
-| Terraform Feature | What it Gives You |
-|---|---|
-| Repeatability | Recreate the same infrastructure 1000 times (dev, staging, prod) |
-| Version Control | Track and roll back changes using Git |
-| Automation | Just run `terraform apply` — everything gets created |
-| Consistency | Same config always gives the same result — no manual mistakes |
-| Collaboration | Teams can share and review infrastructure like they do for code |
+| Terraform Feature | What it Gives You                                                |
+| ----------------- | ---------------------------------------------------------------- |
+| Repeatability     | Recreate the same infrastructure 1000 times (dev, staging, prod) |
+| Version Control   | Track and roll back changes using Git                            |
+| Automation        | Just run `terraform apply` — everything gets created             |
+| Consistency       | Same config always gives the same result — no manual mistakes    |
+| Collaboration     | Teams can share and review infrastructure like they do for code  |
 
 ---
 
