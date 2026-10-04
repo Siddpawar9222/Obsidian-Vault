@@ -1,4 +1,4 @@
-# 010 — Variables in Depth
+# Variables
 
 Variables in Terraform let you avoid hardcoding values. The workflow is:
 1. **Declare** variables in `variables.tf` (define the "slots")
@@ -111,9 +111,9 @@ If the same variable is set in multiple places, Terraform uses this priority ord
 
 ## Quick Summary
 
-| File | Role |
-|---|---|
-| `variables.tf` | Define the input slots (name, type, description, default) |
-| `main.tf` | Use variables with `var.<name>` |
-| `terraform.tfvars` | Fill in the actual values |
-| CLI `-var` flag | Override values at runtime |
+| File               | Role                                                      |
+| ------------------ | --------------------------------------------------------- |
+| `variables.tf`     | Define the input slots (name, type, description, default) |
+| `main.tf`          | Use variables with `var.<name>`                           |
+| `terraform.tfvars` | Fill in the actual values                                 |
+| CLI `-var` flag    | Override values at runtime                                |

@@ -1,4 +1,4 @@
-# 009 — Remote State Setup (S3 + DynamoDB)
+# Remote State Setup (S3 + DynamoDB)
 
 ## Why Remote State?
 
@@ -115,25 +115,67 @@ Terraform will ask if you want to migrate your local state to the remote backend
 When you run `terraform apply`:
 1. Terraform **creates a lock** in DynamoDB (`LockID` entry).
 2. If another person tries to run `terraform apply` at the same time, they'll see:
-   ```
+   ```text
    Error: Error acquiring the state lock
    ```
 3. Once the first run completes, the lock is **released** automatically.
 
 This prevents two people from corrupting the state at the same time.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor DevA as 👨‍💻 Developer A
+    actor DevB as 👩‍💻 Developer B
+    participant DDB as 🔒 DynamoDB (terraform-locks)
+    participant S3 as 🪣 S3 Bucket (terraform.tfstate)
+    participant AWS as ☁️ AWS Cloud Resources
+
+    DevA->>DDB: terraform apply (Request Lock)
+    DDB-->>DevA: Lock Acquired (LockID saved) ✅
+
+    Note over DevB,DDB: Developer B runs apply concurrently
+    DevB->>DDB: terraform apply (Request Lock)
+    DDB-->>DevB: ❌ Error: Error acquiring state lock!
+
+    DevA->>S3: Read current state
+    DevA->>AWS: Create / Modify Resources
+    DevA->>S3: Write updated state
+    DevA->>DDB: Release Lock (Delete LockID) 🔓
+    DDB-->>DevA: Lock Released ✅
+```
+
 ---
 
 ## How It All Fits Together
 
 ```mermaid
-flowchart TD
-    A["Bootstrap Project\n(local state)"] -->|creates| B["S3 Bucket\n(state storage)"]
-    A -->|creates| C["DynamoDB Table\n(state locking)"]
+flowchart LR
+    subgraph LOCAL["💻 Projects / Workstations"]
+        direction TB
+        B["1️⃣ Bootstrap Project<br>(Runs once with local state)"]
+        M["2️⃣ Main Terraform Project<br>(Team runs plan / apply)"]
+    end
 
-    D["Main Terraform Project"] -->|backend points to| B
-    D -->|locks via| C
-    D -->|creates infrastructure| E["EC2, VPC, SG, etc."]
+    subgraph BACKEND["☁️ AWS Remote State Backend"]
+        direction TB
+        DDB[("🔒 DynamoDB Table<br>terraform-locks<br>(State Locking)")]
+        S3[("🪣 S3 Bucket<br>terraform-state-siddhesh<br>(Encrypted State Storage)")]
+    end
+
+    subgraph TARGET["🚀 Target AWS Infrastructure"]
+        direction TB
+        INFRA["Managed Resources<br>(EC2, VPC, Subnets, SG)"]
+    end
+
+    %% Phase 1: One-Time Bootstrap Setup
+    B ==>|"Creates (Step 1 & 2)"| S3
+    B ==>|"Creates (Step 1 & 2)"| DDB
+
+    %% Phase 2: Ongoing Team Workflow
+    M -->|"1. Acquires Lock"| DDB
+    M -->|"2. Reads / Writes State"| S3
+    M -->|"3. Provisions / Updates"| INFRA
 ```
 
 ---

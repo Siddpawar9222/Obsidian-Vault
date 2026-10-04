@@ -1,4 +1,4 @@
-# 008 — State Management
+# State Management
 
 ## What is Terraform State?
 
@@ -33,9 +33,9 @@ Without the state file, Terraform would have no idea what's already running in y
 
 ## Where is State Stored?
 
-| Mode | Description |
-|---|---|
-| **Local (default)** | Stored in your project folder — good for learning and solo work |
+| Mode                               | Description                                                                         |
+| ---------------------------------- | ----------------------------------------------------------------------------------- |
+| **Local (default)**                | Stored in your project folder — good for learning and solo work                     |
 | **Remote (recommended for teams)** | Stored in AWS S3, Azure Blob, GCS, or Terraform Cloud — safe for team collaboration |
 
 With remote state, multiple developers can work without overwriting each other's state, and the file is backed up securely.

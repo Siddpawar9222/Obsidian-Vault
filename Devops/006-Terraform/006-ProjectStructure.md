@@ -1,4 +1,4 @@
-# 006 — Terraform Project Structure
+# Terraform Project Structure
 
 ## Standard Folder Layout
 

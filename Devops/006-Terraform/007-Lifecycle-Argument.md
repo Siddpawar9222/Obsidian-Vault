@@ -1,4 +1,4 @@
-# 007 — Lifecycle & Meta-Arguments
+# Lifecycle & Meta-Arguments
 
 Terraform gives you **meta-arguments** — special options inside resource blocks — to control *how* and *when* resources are created, updated, or destroyed.
 
@@ -8,7 +8,6 @@ Terraform gives you **meta-arguments** — special options inside resource block
 
 By default, Terraform automatically figures out the order to create resources. But sometimes it can't detect the relationship. `depends_on` lets you **explicitly tell Terraform**: create this resource only after that one.
 
-> **Analogy:** You can't move into a house before it's built. The move depends on the build.
 
 ```hcl
 resource "aws_security_group" "my_sg" {
@@ -38,7 +37,6 @@ Even though the SG is already referenced in `vpc_security_group_ids`, complex se
 
 Instead of copying the same resource block 5 times, just use `count`.
 
-> **Analogy:** Order 3 pizzas by changing the count — not by writing the order 3 separate times.
 
 ```hcl
 resource "aws_instance" "web" {
@@ -62,8 +60,6 @@ resource "aws_instance" "web" {
 ## 3. `for_each` — Create Multiple Named Resources
 
 Use `for_each` when you want resources with **distinct names** (not just numbers), using a map or set.
-
-> **Analogy:** Naming your kids Alice and Bob — instead of calling them Child-1 and Child-2.
 
 ```hcl
 variable "instances" {
@@ -240,8 +236,8 @@ server_public_ips = {
 
 ## Key Difference: `count` vs `for_each`
 
-| | `count` | `for_each` |
-|---|---|---|
-| **Output type** | List `["ip1", "ip2"]` | Map `{ "app1" = "ip1", "app2" = "ip2" }` |
-| **Access style** | `resource[0]`, `resource[1]` | `resource["app1"]`, `resource["app2"]` |
-| **Best for** | Identical resources you number | Named resources with different configs |
+|                  | `count`                        | `for_each`                               |
+| ---------------- | ------------------------------ | ---------------------------------------- |
+| **Output type**  | List `["ip1", "ip2"]`          | Map `{ "app1" = "ip1", "app2" = "ip2" }` |
+| **Access style** | `resource[0]`, `resource[1]`   | `resource["app1"]`, `resource["app2"]`   |
+| **Best for**     | Identical resources you number | Named resources with different configs   |

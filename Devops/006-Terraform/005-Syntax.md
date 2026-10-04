@@ -120,9 +120,9 @@ vpc_id = module.vpc.vpc_id
 
 ## 5. Core Commands (Quick Reference)
 
-| Command | What it Does |
-|---|---|
-| `terraform init` | Downloads provider plugins, sets up working directory |
-| `terraform plan` | Shows what will be created, changed, or destroyed |
-| `terraform apply` | Creates or updates the actual infrastructure |
-| `terraform destroy` | Deletes all Terraform-managed resources |
+| Command             | What it Does                                          |
+| ------------------- | ----------------------------------------------------- |
+| `terraform init`    | Downloads provider plugins, sets up working directory |
+| `terraform plan`    | Shows what will be created, changed, or destroyed     |
+| `terraform apply`   | Creates or updates the actual infrastructure          |
+| `terraform destroy` | Deletes all Terraform-managed resources               |
