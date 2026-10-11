@@ -1561,3 +1561,703 @@ select.dash-qa-select {
 		display: none;
 	}
 }
+
+
+
+/* ============================================================
+   Aurora Dashboard — Beautiful Custom Widgets Styling
+   ============================================================ */
+
+@keyframes dash-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+@keyframes dash-pulse-soft {
+	0%, 100% { transform: scale(1); opacity: 1; }
+	50% { transform: scale(1.1); opacity: 0.85; }
+}
+
+@keyframes dash-sound-dance {
+	0% { height: 4px; }
+	100% { height: 16px; }
+}
+
+/* ---- Weather Widget ---- */
+.widget-weather {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-weather-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding: 14px 16px;
+	background: linear-gradient(135deg, color-mix(in srgb, var(--dash-accent) 9%, var(--background-secondary)), var(--background-secondary));
+	border-radius: inherit;
+}
+.dash-weather-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 2px;
+}
+.dash-weather-loc-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--text-normal);
+}
+.dash-weather-loc-icon svg {
+	width: 14px;
+	height: 14px;
+	color: var(--dash-accent);
+}
+.dash-weather-refresh-btn {
+	cursor: pointer;
+	opacity: 0.6;
+	display: flex;
+	align-items: center;
+	transition: opacity 0.2s, transform 0.2s;
+}
+.dash-weather-refresh-btn:hover {
+	opacity: 1;
+}
+.dash-weather-refresh-btn.is-spinning svg {
+	animation: dash-spin 0.8s linear infinite;
+}
+.dash-weather-refresh-btn svg {
+	width: 14px;
+	height: 14px;
+}
+.dash-weather-main {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin: 2px 0;
+}
+.dash-weather-icon svg {
+	width: 36px;
+	height: 36px;
+	color: var(--dash-accent);
+	filter: drop-shadow(0 2px 8px color-mix(in srgb, var(--dash-accent) 35%, transparent));
+}
+.dash-weather-temp-group {
+	display: flex;
+	flex-direction: column;
+}
+.dash-weather-temp {
+	font-size: clamp(24px, 3.2vw, 32px);
+	font-weight: 800;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	color: var(--text-normal);
+}
+.dash-weather-desc {
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--text-muted);
+}
+.dash-weather-details {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+	margin-top: 4px;
+}
+.dash-weather-pill {
+	font-size: 11px;
+	font-weight: 500;
+	padding: 2px 7px;
+	background: var(--background-modifier-hover);
+	border-radius: 6px;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+/* ---- Greeting & Compass Widget ---- */
+.widget-greeting {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-greeting-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	padding: 14px 20px;
+	background: linear-gradient(135deg, color-mix(in srgb, var(--dash-accent) 15%, var(--background-secondary)), color-mix(in srgb, var(--dash-accent) 4%, var(--background-primary)));
+	border: 1px solid color-mix(in srgb, var(--dash-accent) 22%, transparent);
+	border-radius: inherit;
+	gap: 16px;
+}
+.dash-greeting-left {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	min-width: 0;
+	flex: 1;
+}
+.dash-greeting-title-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.dash-greeting-icon svg {
+	width: 22px;
+	height: 22px;
+	color: var(--dash-accent);
+	animation: dash-pulse-soft 3s ease-in-out infinite;
+}
+.dash-greeting-title {
+	font-size: clamp(17px, 2.2vw, 22px);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	color: var(--text-normal);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.dash-greeting-subtitle {
+	font-size: 12.5px;
+	font-weight: 500;
+	color: var(--text-muted);
+	font-style: italic;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.dash-greeting-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 6px;
+	flex-shrink: 0;
+}
+.dash-greeting-date-chip {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 11.5px;
+	font-weight: 600;
+	color: var(--text-muted);
+	background: var(--background-primary);
+	padding: 3px 8px;
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-border);
+}
+.dash-greeting-date-icon svg {
+	width: 13px;
+	height: 13px;
+}
+.dash-greeting-focus-group {
+	display: flex;
+	gap: 5px;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+.dash-focus-chip {
+	font-size: 11px;
+	font-weight: 600;
+	padding: 3px 8px;
+	border-radius: 12px;
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	color: var(--text-muted);
+	cursor: pointer;
+	transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dash-focus-chip:hover {
+	color: var(--text-normal);
+	border-color: var(--dash-accent);
+	transform: translateY(-1px);
+}
+.dash-focus-chip.is-active {
+	background: var(--dash-accent);
+	color: #ffffff;
+	border-color: var(--dash-accent);
+	box-shadow: 0 2px 8px color-mix(in srgb, var(--dash-accent) 45%, transparent);
+}
+
+/* ---- Sticky Note Widget ---- */
+.widget-stickynote {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-sticky-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 12px 14px;
+	border-radius: inherit;
+	transition: background 0.3s ease, border-color 0.3s ease;
+}
+.dash-sticky-card.dash-sticky-amber {
+	background: color-mix(in srgb, #f59e0b 11%, var(--background-secondary));
+	border: 1px solid color-mix(in srgb, #f59e0b 28%, transparent);
+}
+.dash-sticky-card.dash-sticky-rose {
+	background: color-mix(in srgb, #f43f5e 11%, var(--background-secondary));
+	border: 1px solid color-mix(in srgb, #f43f5e 28%, transparent);
+}
+.dash-sticky-card.dash-sticky-emerald {
+	background: color-mix(in srgb, #10b981 11%, var(--background-secondary));
+	border: 1px solid color-mix(in srgb, #10b981 28%, transparent);
+}
+.dash-sticky-card.dash-sticky-sky {
+	background: color-mix(in srgb, #0ea5e9 11%, var(--background-secondary));
+	border: 1px solid color-mix(in srgb, #0ea5e9 28%, transparent);
+}
+.dash-sticky-card.dash-sticky-purple {
+	background: color-mix(in srgb, #8b5cf6 11%, var(--background-secondary));
+	border: 1px solid color-mix(in srgb, #8b5cf6 28%, transparent);
+}
+.dash-sticky-card.dash-sticky-slate {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+}
+
+.dash-sticky-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 6px;
+	padding-bottom: 6px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.dash-sticky-colors {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+.dash-color-dot {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: transform 0.15s;
+}
+.dash-color-dot.dot-amber { background: #f59e0b; }
+.dash-color-dot.dot-rose { background: #f43f5e; }
+.dash-color-dot.dot-emerald { background: #10b981; }
+.dash-color-dot.dot-sky { background: #0ea5e9; }
+.dash-color-dot.dot-purple { background: #8b5cf6; }
+.dash-color-dot.dot-slate { background: #64748b; }
+.dash-color-dot.is-selected {
+	transform: scale(1.3);
+	box-shadow: 0 0 0 2px var(--background-secondary), 0 0 0 3px currentColor;
+}
+.dash-sticky-actions {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+}
+.dash-sticky-btn {
+	cursor: pointer;
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	transition: all 0.15s;
+}
+.dash-sticky-btn:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+.dash-sticky-btn svg {
+	width: 13px;
+	height: 13px;
+}
+.dash-sticky-textarea {
+	flex: 1;
+	width: 100%;
+	border: none;
+	background: transparent;
+	resize: none;
+	font-family: inherit;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--text-normal);
+	outline: none;
+	padding: 2px 0;
+}
+.dash-sticky-foot {
+	font-size: 11px;
+	color: var(--text-faint);
+	margin-top: 4px;
+	text-align: right;
+}
+
+/* ---- Hydration Widget ---- */
+.widget-water {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-water-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding: 12px 14px;
+	background: linear-gradient(135deg, color-mix(in srgb, #0ea5e9 10%, var(--background-secondary)), var(--background-secondary));
+	border-radius: inherit;
+}
+.dash-water-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.dash-water-val {
+	font-size: 14.5px;
+	font-weight: 700;
+	color: var(--text-normal);
+}
+.dash-water-badge {
+	font-size: 11px;
+	font-weight: 700;
+	padding: 2px 7px;
+	border-radius: 10px;
+	background: color-mix(in srgb, #0ea5e9 20%, transparent);
+	color: #0ea5e9;
+}
+.dash-water-badge.is-complete {
+	background: color-mix(in srgb, #10b981 25%, transparent);
+	color: #10b981;
+}
+.dash-water-track {
+	width: 100%;
+	height: 9px;
+	background: var(--background-modifier-border);
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 6px 0;
+}
+.dash-water-bar {
+	height: 100%;
+	width: 0%;
+	background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+	border-radius: 5px;
+	transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dash-water-bar.is-complete {
+	background: linear-gradient(90deg, #10b981, #34d399);
+}
+.dash-water-buttons {
+	display: flex;
+	gap: 5px;
+}
+.dash-water-btn {
+	flex: 1;
+	padding: 3px 5px;
+	font-size: 11px;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 6px;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	color: var(--text-normal);
+	cursor: pointer;
+	transition: all 0.15s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.dash-water-btn:hover {
+	border-color: #0ea5e9;
+	color: #0ea5e9;
+}
+.dash-water-btn.dash-water-btn-sub {
+	flex: 0 0 30px;
+	color: var(--text-muted);
+}
+.dash-water-btn svg {
+	width: 13px;
+	height: 13px;
+}
+
+/* ---- Focus Soundscapes Widget ---- */
+.widget-soundscapes {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-sound-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding: 12px 14px;
+	background: linear-gradient(135deg, color-mix(in srgb, var(--dash-accent) 8%, var(--background-secondary)), var(--background-secondary));
+	border-radius: inherit;
+}
+.dash-sound-top {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+}
+.dash-sound-play-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s;
+	flex-shrink: 0;
+}
+.dash-sound-play-btn:hover {
+	border-color: var(--dash-accent);
+	transform: scale(1.05);
+}
+.dash-sound-play-btn.is-playing {
+	background: var(--dash-accent);
+	border-color: var(--dash-accent);
+	color: #ffffff;
+	box-shadow: 0 0 10px color-mix(in srgb, var(--dash-accent) 50%, transparent);
+}
+.dash-sound-play-btn svg {
+	width: 15px;
+	height: 15px;
+}
+.dash-sound-select {
+	flex: 1;
+	font-size: 11.5px;
+	font-weight: 500;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 4px 6px;
+	color: var(--text-normal);
+	cursor: pointer;
+	outline: none;
+}
+.dash-sound-wave {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	height: 16px;
+	margin: 2px 0;
+}
+.dash-sound-bar {
+	width: 3px;
+	height: 4px;
+	background: var(--background-modifier-border);
+	border-radius: 2px;
+	transition: height 0.2s;
+}
+.dash-sound-wave.is-active .dash-sound-bar {
+	background: var(--dash-accent);
+	animation: dash-sound-dance 1.1s ease-in-out infinite alternate;
+}
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(1) { animation-delay: 0.1s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(2) { animation-delay: 0.3s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(3) { animation-delay: 0.5s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(4) { animation-delay: 0.2s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(5) { animation-delay: 0.6s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(6) { animation-delay: 0.4s; }
+.dash-sound-wave.is-active .dash-sound-bar:nth-child(7) { animation-delay: 0.15s; }
+
+.dash-sound-vol-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.dash-sound-vol-icon svg {
+	width: 13px;
+	height: 13px;
+	color: var(--text-muted);
+}
+.dash-sound-slider {
+	flex: 1;
+	accent-color: var(--dash-accent);
+	cursor: pointer;
+	height: 4px;
+}
+.dash-sound-vol-label {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-muted);
+	min-width: 28px;
+	text-align: right;
+}
+
+/* ---- Affirmation Widget ---- */
+.widget-affirmation {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-affirm-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding: 12px 14px;
+	background: linear-gradient(135deg, color-mix(in srgb, #8b5cf6 9%, var(--background-secondary)), var(--background-secondary));
+	border-radius: inherit;
+}
+.dash-affirm-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 2px;
+}
+.dash-affirm-tag {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--dash-accent);
+	background: color-mix(in srgb, var(--dash-accent) 14%, transparent);
+	padding: 2px 6px;
+	border-radius: 6px;
+}
+.dash-affirm-actions {
+	display: flex;
+	gap: 4px;
+}
+.dash-affirm-btn {
+	cursor: pointer;
+	padding: 2px 4px;
+	border-radius: 4px;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	transition: all 0.15s;
+}
+.dash-affirm-btn:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+.dash-affirm-btn svg {
+	width: 13px;
+	height: 13px;
+}
+.dash-affirm-text {
+	font-size: 12.5px;
+	font-weight: 500;
+	font-style: italic;
+	line-height: 1.45;
+	color: var(--text-normal);
+	margin: 3px 0;
+	transition: opacity 0.15s ease;
+}
+.dash-affirm-text.is-fading {
+	opacity: 0;
+}
+.dash-affirm-author {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-muted);
+	text-align: right;
+}
+
+/* ---- Reading & Study Tracker Widget ---- */
+.widget-reading {
+	padding: 0 !important;
+	height: 100%;
+}
+.dash-read-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding: 12px 14px;
+	background: linear-gradient(135deg, color-mix(in srgb, #f59e0b 8%, var(--background-secondary)), var(--background-secondary));
+	border-radius: inherit;
+}
+.dash-read-header {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+.dash-read-icon svg {
+	width: 18px;
+	height: 18px;
+	color: #f59e0b;
+	margin-top: 1px;
+	flex-shrink: 0;
+}
+.dash-read-info {
+	flex: 1;
+	min-width: 0;
+}
+.dash-read-title {
+	font-size: 12.5px;
+	font-weight: 700;
+	color: var(--text-normal);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.dash-read-author {
+	font-size: 10.5px;
+	font-weight: 500;
+	color: var(--text-muted);
+}
+.dash-read-stats {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 2px 0;
+}
+.dash-read-pages {
+	font-size: 13.5px;
+	font-weight: 700;
+	color: var(--text-normal);
+}
+.dash-read-pct {
+	font-size: 11.5px;
+	font-weight: 700;
+	color: #f59e0b;
+}
+.dash-read-track {
+	width: 100%;
+	height: 8px;
+	background: var(--background-modifier-border);
+	border-radius: 4px;
+	overflow: hidden;
+	margin: 3px 0;
+}
+.dash-read-bar {
+	height: 100%;
+	width: 0%;
+	background: linear-gradient(90deg, #f59e0b, #fbbf24);
+	border-radius: 4px;
+	transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dash-read-sub {
+	font-size: 10.5px;
+	font-weight: 500;
+	color: var(--text-faint);
+	margin-bottom: 4px;
+}
+.dash-read-buttons {
+	display: flex;
+	gap: 4px;
+}
+.dash-read-btn {
+	flex: 1;
+	padding: 3px;
+	font-size: 10.5px;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 5px;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	color: var(--text-normal);
+	cursor: pointer;
+	transition: all 0.15s;
+}
+.dash-read-btn:hover {
+	border-color: #f59e0b;
+	color: #f59e0b;
+}

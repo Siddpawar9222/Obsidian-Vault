@@ -9,7 +9,867 @@ var ut=Object.defineProperty;var oe=Object.getOwnPropertyDescriptor;var re=Objec
 `))}catch(h){console.error("Aurora Dashboard: could not update that task.",h),new I.Notice("Could not update that task.");return}s.refresh()}},d=async c=>{if(!c)return;let l=e();try{let h=i.app.vault.getAbstractFileByPath(l),p=h instanceof I.TFile?h:await i.app.vault.create(l,""),y=await i.app.vault.read(p);await i.app.vault.modify(p,(y?y+`
 `:"")+"- [ ] "+c)}catch(h){console.error("Aurora Dashboard: could not add that task.",h),new I.Notice("Could not add that task.");return}s.refresh()};return n(),{}}},Le={type:"capture",name:"Quick capture",description:"Capture a thought straight to your inbox",icon:"send",defaultSize:{w:4,h:2},render(s){let i=s.body,t=i.createEl("textarea",{cls:"dash-capture-input",attr:{placeholder:"Capture a thought\u2026  (Enter saves, Shift+Enter new line)"}}),e=i.createDiv("dash-capture-foot"),n=s.plugin.settings.captureTarget==="daily"?"today's note":s.plugin.settings.inboxFile;e.createDiv("dash-capture-hint").setText("\u2192 "+n);let a=e.createDiv("dash-btn dash-btn-accent");(0,I.setIcon)(a,"send"),a.appendText(" Capture");let o=async()=>{let r=t.value.trim();if(r)try{await s.plugin.captureText(r),t.value=""}catch(d){}};return a.addEventListener("click",()=>void o()),t.addEventListener("keydown",r=>{r.key==="Enter"&&!r.shiftKey&&(r.preventDefault(),o())}),{}}},Fe={type:"search",name:"Search",description:"Run a global vault search",icon:"search",defaultSize:{w:3,h:2},render(s){let i=s.body.createEl("input",{cls:"dash-search-input",attr:{placeholder:"Search your vault\u2026  (Enter)"}});return i.addEventListener("keydown",t=>{if(t.key==="Enter"){let e=i.value.trim();e&&s.plugin.openSearch(e)}}),{}}};w(Ee);w(Ae);w(We);w(Le);w(Fe);var B=require("obsidian");var Ce={type:"pomodoro",name:"Pomodoro",description:"A focus timer with an animated ring",icon:"timer",defaultSize:{w:3,h:2},defaultSettings:{focus:25,break:5},settings:[{key:"focus",label:"Focus length (min)",type:"number",min:1,max:120},{key:"break",label:"Break length (min)",type:"number",min:1,max:60}],render(s){var W,R;let i=s.inst.settings,t=Math.max(1,Number((W=i.focus)!=null?W:25)||25),e=Math.max(1,Number((R=i.break)!=null?R:5)||5),n="focus",a=t*60,o=a,r=!1,d=0,c=s.body.createDiv("dash-pomo-ring"),l="http://www.w3.org/2000/svg",h=document.createElementNS(l,"svg");h.setAttribute("viewBox","0 0 120 120"),h.setAttribute("class","dash-pomo-svg");let p=M=>{let L=document.createElementNS(l,"circle");return L.setAttribute("cx","60"),L.setAttribute("cy","60"),L.setAttribute("r","54"),L.setAttribute("class",M),L},y=p("dash-ring-track"),u=p("dash-ring-bar");h.append(y,u),c.appendChild(h);let g=2*Math.PI*54;y.setAttribute("stroke-dasharray",String(g)),u.setAttribute("stroke-dasharray",String(g));let f=c.createDiv("dash-pomo-time"),b=s.body.createDiv("dash-pomo-phase"),m=s.body.createDiv("dash-pomo-controls"),v=m.createDiv("dash-btn dash-btn-accent"),D=m.createDiv("dash-btn");(0,B.setIcon)(v,"play"),(0,B.setIcon)(D,"rotate-ccw");let T=()=>{let M=Math.floor(a/60),L=a%60;f.setText(`${A(M)}:${A(L)}`),b.setText(n==="focus"?"Focus":"Break");let G=o>0?a/o:0;u.setAttribute("stroke-dashoffset",String(g*(1-G)))},C=()=>{!r||a<=0||(a--,T(),a<=0&&(n==="focus"?(n="break",a=e*60,o=a,new B.Notice("Focus session complete \u2014 take a break")):(n="focus",a=t*60,o=a,new B.Notice("Break over \u2014 back to focus")),T()))};return v.addEventListener("click",()=>{r=!r,(0,B.setIcon)(v,r?"pause":"play"),r?(d&&window.clearInterval(d),d=window.setInterval(C,1e3)):window.clearInterval(d)}),D.addEventListener("click",()=>{r=!1,window.clearInterval(d),(0,B.setIcon)(v,"play"),a=(n==="focus"?t:e)*60,o=a,T()}),T(),{dispose:()=>window.clearInterval(d)}}},Pe={type:"quote",name:"Quote",description:"A rotating dose of inspiration",icon:"quote",defaultSize:{w:5,h:2},render(s){let i=s.body.createDiv("dash-quote-text"),t=s.body.createDiv("dash-quote-author"),e=Math.floor(Math.random()*ot.length),n=()=>{i.setText(ot[e].text),t.setText("\u2014 "+ot[e].author)};n();let a=window.setInterval(()=>{e=(e+1)%ot.length,n()},15e3);return{dispose:()=>window.clearInterval(a)}}},ot=[{text:"Simplicity is the ultimate sophistication.",author:"Leonardo da Vinci"},{text:"The best way to predict the future is to invent it.",author:"Alan Kay"},{text:"Small deeds done are better than great deeds planned.",author:"Peter Marshall"},{text:"Focus is a matter of deciding what things you're not going to do.",author:"John Carmack"},{text:"A goal without a plan is just a wish.",author:"Antoine de Saint-Exup\xE9ry"},{text:"It always seems impossible until it's done.",author:"Nelson Mandela"},{text:"The future depends on what you do today.",author:"Mahatma Gandhi"},{text:"Done is better than perfect.",author:"Sheryl Sandberg"},{text:"Start where you are. Use what you have. Do what you can.",author:"Arthur Ashe"},{text:"Consistency trumps intensity.",author:"James Clear"},{text:"You miss 100% of the shots you don't take.",author:"Wayne Gretzky"},{text:"Make it work, make it right, make it fast.",author:"Kent Beck"}];w(Ce);w(Pe);var Ie=864e5;function Ne(s){let i=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s.trim());if(!i)return null;let t=Number(i[1]),e=Number(i[2]),n=Number(i[3]),a=new Date(t,e-1,n);return a.getFullYear()!==t||a.getMonth()!==e-1||a.getDate()!==n||Number.isNaN(a.getTime())?null:a}function qt(s){return new Date(s.getFullYear(),s.getMonth(),s.getDate())}var He={type:"deadline",name:"Deadline",description:"Countdown to a date you set",icon:"hourglass",defaultSize:{w:3,h:2},defaultSettings:{date:"",label:""},settings:[{key:"date",label:"Deadline date",type:"text",placeholder:"YYYY-MM-DD"},{key:"label",label:"Label",type:"text",placeholder:"e.g. Launch"}],render(s){let i=s.inst.settings,t=s.body.createDiv("dash-deadline-days"),e=s.body.createDiv("dash-deadline-sub"),n=s.body.createDiv("dash-deadline-date"),a=()=>{let r=typeof i.date=="string"?i.date:"",d=Ne(r);if(!d){t.setText("\u2014"),e.setText("Set a date in settings"),n.setText(""),t.removeClass("overdue");return}let c=Math.round((qt(d).getTime()-qt(new Date).getTime())/Ie),l=typeof i.label=="string"&&i.label.trim()?i.label.trim():"Deadline";t.removeClass("overdue"),c>0?(t.setText(String(c)),e.setText(c===1?"day left":"days left")):c===0?(t.setText("0"),e.setText("today")):(t.setText(String(-c)),e.setText(-c===1?"day overdue":"days overdue"),t.addClass("overdue")),n.setText(`${l} \xB7 ${d.toLocaleDateString(void 0,{month:"short",day:"numeric",year:"numeric"})}`)};a();let o=window.setInterval(a,6e4);return{dispose:()=>window.clearInterval(o)}}};w(He);var zt=require("obsidian");var $e={type:"random",name:"Random note",description:"Open a random note from your vault",icon:"shuffle",defaultSize:{w:3,h:2},render(s){let i=s.body.createDiv("dash-random-btn"),t=i.createDiv("dash-random-icon");(0,zt.setIcon)(t,"shuffle");let e=i.createDiv("dash-random-label");return e.setText("Random note"),i.addEventListener("click",()=>{let n=s.plugin.app.vault.getMarkdownFiles();if(!n.length){i.addClass("dash-random-empty"),e.setText("No notes yet");return}s.plugin.openFile(n[Math.floor(Math.random()*n.length)])}),{}}};w($e);var $=require("obsidian");var Kt=new Map;async function Re(s,i){let t=s.vault.getMarkdownFiles().sort((n,a)=>a.stat.mtime-n.stat.mtime).slice(0,i),e=[];for(let n of t){let a=n.path,o=null,r=Kt.get(a);if(r&&r.mtime===n.stat.mtime)o=r.items;else{try{o=it(await s.vault.read(n))}catch(d){console.error("Aurora Dashboard: could not read tasks from",n.path,d),o=[]}Kt.set(a,{mtime:n.stat.mtime,items:o})}for(let d of o)e.push({file:n,line:d.line,text:d.text,done:d.done})}return e}var Ye={type:"vaulttasks",name:"All tasks",description:"Every open task across your vault",icon:"list-checks",defaultSize:{w:5,h:4},defaultSettings:{count:25,groupBy:"Note",showDone:!1,maxFiles:200},settings:[{key:"count",label:"Max tasks shown",type:"number",min:5,max:200},{key:"groupBy",label:"Group by",type:"select",options:["Note","Flat"]},{key:"showDone",label:"Show completed",type:"toggle"},{key:"maxFiles",label:"Files scanned",type:"number",min:10,max:2e3}],render(s){var p,y;let i=s.body,t=s.inst.settings,e=Math.max(5,Math.min(200,Number((p=t.count)!=null?p:25)||25)),n=String(t.groupBy||"Note"),a=!!t.showDone,o=Math.max(10,Math.min(2e3,Number((y=t.maxFiles)!=null?y:200)||200));i.createDiv("dash-empty").setText("Loading tasks\u2026"),r();async function r(){let u=[];try{u=await Re(s.plugin.app,o)}catch(g){}d(u)}function d(u){i.empty();let g=u.filter(v=>!v.done),f=u.filter(v=>v.done),b=i.createDiv("dash-list"),m=0;if(n.toLowerCase()==="flat"){for(let v of g){if(m>=e)break;c(b,v,!0),m++}if(a&&f.length){b.createDiv("dash-divider").setText(`Completed (${f.length})`);for(let v of f){if(m>=e)break;c(b,v,!0),m++}}}else{let v=new Map;for(let D of g){let T=v.get(D.file.path);T||(T={file:D.file,tasks:[]},v.set(D.file.path,T)),T.tasks.push(D)}for(let D of v.values()){if(m>=e)break;let T=b.createDiv("dash-group-header"),C=T.createDiv("dash-list-icon");(0,$.setIcon)(C,"file-text"),T.createDiv("dash-group-name").setText(D.file.basename),T.createDiv("dash-group-count").setText(String(D.tasks.length)),T.addEventListener("click",()=>s.plugin.openFile(D.file));for(let W of D.tasks){if(m>=e)break;c(b,W,!1),m++}}if(a&&f.length){b.createDiv("dash-divider").setText(`Completed (${f.length})`);for(let D of f){if(m>=e)break;c(b,D,!0),m++}}}b.childElementCount||b.createDiv("dash-empty").setText(f.length>0?"All caught up \u2014 nothing open":"No tasks in your vault yet")}function c(u,g,f){let b=u.createDiv("dash-list-row"),m=b.createDiv("dash-check"+(g.done?" is-checked":""));(0,$.setIcon)(m,g.done?"check-circle":"circle"),m.addEventListener("click",v=>{v.stopPropagation(),l(g)}),b.createDiv("dash-list-name"+(g.done?" is-done":"")).setText(g.text),f&&b.createDiv("dash-list-meta").setText(g.file.basename),b.addEventListener("click",()=>void h(g))}async function l(u){let g=u.file;if(!(!(g instanceof $.TFile)||g.extension!=="md"))try{let f=(await s.plugin.app.vault.read(g)).split(`
 `),b=u.line>=0&&X(f[u.line],u.text)?u.line:st(f,u.text,u.line);if(b<0)return;f[b]=at(f[b]),await s.plugin.app.vault.modify(g,f.join(`
-`)),s.refresh()}catch(f){console.error("Aurora Dashboard: could not update that task.",f),new $.Notice("Could not update that task.")}}async function h(u){let g=u.file;if(g instanceof $.TFile)try{let f=s.plugin.app.workspace.getLeaf(!1);await f.openFile(g);let b=f.view;b instanceof $.MarkdownView&&(b.editor.setCursor({line:u.line,ch:0}),b.editor.scrollIntoView({from:{line:u.line,ch:0},to:{line:u.line+1,ch:0}},!0),b.editor.focus())}catch(f){console.error("Aurora Dashboard: could not open that task.",f)}}return{}}};w(Ye);var E=require("obsidian");var Oe={command:"terminal",note:"file-text",search:"search",today:"calendar",capture:"send",template:"file-plus"},dt={command:"Command",note:"Open note",search:"Search",today:"Today's note",capture:"Quick capture",template:"New note from template"};function _t(s){return{id:Math.random().toString(36).slice(2,9)+Date.now().toString(36),label:s==="command"?"Run command":dt[s].split(" ")[0],kind:s,target:""}}function ft(){return[{id:rt(),label:"Capture",kind:"capture",target:""},{id:rt(),label:"Search",kind:"search",target:""},{id:rt(),label:"Today",kind:"today",target:""}]}function rt(){return Math.random().toString(36).slice(2,9)+Date.now().toString(36)}function Be(s){return s==="command"||s==="note"||s==="search"||s==="today"||s==="capture"||s==="template"}function yt(s){if(!s||typeof s!="object")return _t("command");let i=s,t=Be(i.kind)?i.kind:"command";return{id:typeof i.id=="string"&&i.id!==""?i.id:rt(),label:typeof i.label=="string"&&i.label!==""?i.label:dt[t],kind:t,target:typeof i.target=="string"?i.target:""}}async function qe(s,i){var e;let t=s.app;switch(i.kind){case"capture":s.showQuickCapture();break;case"today":await s.openDay(new Date);break;case"search":await s.openSearch(i.target.trim());break;case"note":{let n=t.vault.getAbstractFileByPath(i.target.trim());n instanceof E.TFile?s.openFile(n):new E.Notice("Note not found: "+i.target);break}case"command":{let n=i.target.trim();if(!n){new E.Notice("No command selected.");break}try{let a=t.commands;await((e=a==null?void 0:a.executeCommandById)==null?void 0:e.call(a,n))}catch(a){new E.Notice("Couldn't run command: "+n)}break}case"template":{let n=t.vault.getAbstractFileByPath(i.target.trim());if(!(n instanceof E.TFile)){new E.Notice("Template not found: "+i.target);break}try{let a=await t.vault.read(n),o=new Date,r=`${o.getFullYear()}-${A(o.getMonth()+1)}-${A(o.getDate())}-${A(o.getHours())}${A(o.getMinutes())}${A(o.getSeconds())}`,d=n.path.lastIndexOf("/"),c=d>0?n.path.slice(0,d):"",l=(0,E.normalizePath)(c?`${c}/${r}.md`:`${r}.md`);for(let p=2;t.vault.getAbstractFileByPath(l);p++)l=(0,E.normalizePath)(c?`${c}/${r}-${p}.md`:`${r}-${p}.md`);let h=await t.vault.create(l,a);s.openFile(h),new E.Notice("Created "+h.basename)}catch(a){new E.Notice("Couldn't create note from template.")}break}}}var ze={type:"quickactions",name:"Quick actions",description:"Configurable buttons that run commands, open notes, or insert templates",icon:"zap",defaultSize:{w:3,h:2},defaultSettings:{actions:ft()},openSettings(s,i){new vt(s.app,s,i).open()},render(s){var e;let i=(Array.isArray(s.inst.settings.actions)?s.inst.settings.actions:ft()).map(yt),t=s.body.createDiv("dash-quick-grid");if(!i.length)return t.createDiv("dash-empty").setText("No quick actions \u2014 edit in settings"),{};for(let n of i){let a=t.createDiv("dash-quick-btn"),o=a.createDiv("dash-quick-icon");(0,E.setIcon)(o,(e=Oe[n.kind])!=null?e:"zap"),a.createDiv("dash-quick-label").setText(n.label),a.addEventListener("click",()=>void qe(s.plugin,n))}return{}}},vt=class extends E.Modal{constructor(i,t,e){super(i),this.plugin=t,this.inst=e;let n=Array.isArray(e.settings.actions)?e.settings.actions:ft();this.actions=n.map(yt)}onOpen(){this.titleEl.setText("Quick actions \u2014 settings"),this.render()}render(){let{contentEl:i}=this;i.empty();let t=i.createDiv("dash-qa-list");for(let e of this.actions)this.renderRow(t,e);this.actions.length||t.createDiv("dash-empty").setText("No actions yet \u2014 add one."),i.createDiv("dash-modal-foot",e=>{let n=e.createDiv("dash-btn dash-btn-accent");(0,E.setIcon)(n,"plus"),n.appendText(" Add action"),n.addEventListener("click",()=>{this.actions.push(_t("command")),this.persist(),this.render()});let a=e.createDiv("dash-btn dash-btn-ghost");a.appendText("Done"),a.addEventListener("click",()=>void this.commit())})}renderRow(i,t){let e=i.createDiv("dash-qa-row"),n=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Label"}});n.value=t.label,n.addEventListener("input",()=>t.label=n.value);let a=e.createEl("select",{cls:"dash-qa-select"});for(let c of Object.keys(dt)){let l=a.createEl("option");l.value=c,l.text=dt[c],c===t.kind&&(l.selected=!0)}a.addEventListener("change",()=>{t.kind=a.value,this.render()});let o=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:this.placeholderFor(t.kind)}});o.value=t.target,o.addEventListener("input",()=>t.target=o.value);let r=t.kind==="command"||t.kind==="note"||t.kind==="search"||t.kind==="template";o.style.display=r?"":"none",t.kind==="command"&&this.fillCommandDataslist(o);let d=e.createDiv("dash-btn dash-btn-danger");(0,E.setIcon)(d,"x"),d.setAttr("aria-label","Remove action"),d.addEventListener("click",()=>{this.actions=this.actions.filter(c=>c.id!==t.id),this.persist(),this.render()})}placeholderFor(i){switch(i){case"command":return"Command id (e.g. app:new-note)";case"note":return"Note path (e.g. Projects/Plan.md)";case"search":return"Search query";case"template":return"Template path (e.g. Templates/Weekly.md)";default:return""}}fillCommandDataslist(i){var a,o;let t=this.app.commands,e="dash-qa-commands",n=document.getElementById(e);if(n||(n=document.body.createEl("datalist",{attr:{id:e}})),!n.childElementCount){let r=(o=(a=t==null?void 0:t.listCommands)==null?void 0:a.call(t))!=null?o:[];for(let d of r)n.createEl("option",{value:d.id,text:d.name})}i.setAttribute("list",e)}onClose(){this.persist(),this.contentEl.empty()}async persist(){this.inst.settings.actions=this.actions.map(yt),await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){await this.persist(),this.close()}};w(ze);var N=require("obsidian");function Vt(s){let i=s.settings.pins;return Array.isArray(i)?i.filter(t=>typeof t=="string"):[]}var Ke={type:"pinned",name:"Pinned",description:"Your favorite notes, one click away",icon:"pin",defaultSize:{w:4,h:3},defaultSettings:{pins:[]},openSettings(s,i){new bt(s.app,s,i).open()},render(s){let i=s.body.createDiv("dash-list"),t=0;for(let e of Vt(s.inst)){let n=s.plugin.app.vault.getAbstractFileByPath(e);if(!(n instanceof N.TFile))continue;t++;let a=i.createDiv("dash-list-row"),o=a.createDiv("dash-list-icon");(0,N.setIcon)(o,"file-text"),a.createDiv("dash-list-name").setText(n.basename);let r=e.lastIndexOf("/");a.createDiv("dash-list-meta").setText(r>0?e.slice(0,r):"root"),a.addEventListener("click",()=>s.plugin.openFile(n))}return t||i.createDiv("dash-empty").setText("No pinned notes \u2014 edit to add some"),{}}},bt=class extends N.Modal{constructor(t,e,n){super(t);this.input=null;this.plugin=e,this.inst=n,this.pins=[...Vt(n)]}onOpen(){this.titleEl.setText("Pinned notes \u2014 choose notes"),this.render()}onClose(){let t=this.input?this.input.value.trim():"";t&&!this.pins.includes(t)&&this.addPath(t),this.contentEl.empty()}render(){let{contentEl:t}=this;t.empty();let e=t.createDiv("dash-qa-row"),n=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Note path (start typing to search)\u2026",list:"dash-pinned-notes"}});this.input=n;let a=e.createDiv("dash-btn dash-btn-accent");(0,N.setIcon)(a,"plus"),a.addEventListener("click",()=>this.submit(n));let o=()=>this.submit(n);n.addEventListener("keydown",h=>{h.key==="Enter"&&(h.preventDefault(),o())});let r=t.createEl("datalist",{attr:{id:"dash-pinned-notes"}}),d=this.plugin.app.vault.getMarkdownFiles(),c=new Set(this.pins);for(let h of d)c.has(h.path)||r.createEl("option",{value:h.path});let l=t.createDiv("dash-qa-list");this.pins.length||l.createDiv("dash-empty").setText("Nothing pinned yet.");for(let h of this.pins){let p=l.createDiv("dash-qa-row"),y=p.createDiv("dash-qa-name");y.setText(h),y.setAttr("title",h);let u=p.createDiv("dash-btn dash-btn-danger");(0,N.setIcon)(u,"x"),u.setAttr("aria-label","Unpin"),u.addEventListener("click",()=>{this.removePath(h),this.render()})}t.createDiv("dash-modal-foot",h=>{let p=h.createDiv("dash-btn dash-btn-accent");p.setText("Done"),p.addEventListener("click",()=>this.commit())}),n.focus()}submit(t){let e=t.value.trim();e&&(this.addPath(e),t.value="",this.render())}addPath(t){if(t){if(this.pins.includes(t)){new N.Notice("Already pinned");return}if(!(this.plugin.app.vault.getAbstractFileByPath(t)instanceof N.TFile)){new N.Notice("Note not found");return}this.pins.push(t),new N.Notice("Pinned "+t),this.persist()}}removePath(t){this.pins=this.pins.filter(e=>e!==t),this.persist()}async persist(){this.inst.settings.pins=[...this.pins],await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}commit(){this.close()}};w(Ke);var Gt=require("obsidian");function jt(s){var e;let i=(e=s.metadataCache.resolvedLinks)!=null?e:{},t=new Map;for(let[n,a]of Object.entries(i))for(let o of Object.keys(a)){if(o===n)continue;let r=t.get(o);r||(r=new Set,t.set(o,r)),r.add(n)}return t}function Qt(s,i,t,e,n){let a=s.createDiv("dash-list-row"),o=a.createDiv("dash-list-icon");(0,Gt.setIcon)(o,"file-text"),a.createDiv("dash-list-name").setText(i.basename),a.createDiv("dash-list-meta").setText(t),a.setAttr("title",e),a.addEventListener("click",()=>n(i))}var _e={type:"popular",name:"Popular notes",description:"Your most-linked notes",icon:"link-2",defaultSize:{w:4,h:3},defaultSettings:{count:8},settings:[{key:"count",label:"Max notes shown",type:"number",min:3,max:20}],render(s){var o;let i=s.plugin.app,t=Math.max(3,Math.min(20,Number((o=s.inst.settings.count)!=null?o:8)||8)),e=jt(i),n=i.vault.getMarkdownFiles().map(r=>{var d,c;return{f:r,n:(c=(d=e.get(r.path))==null?void 0:d.size)!=null?c:0}}).filter(r=>r.n>0).sort((r,d)=>d.n-r.n||d.f.stat.mtime-r.f.stat.mtime).slice(0,t),a=s.body.createDiv("dash-list");if(!n.length)return a.createDiv("dash-empty").setText("No backlinks yet \u2014 link your notes!"),{};for(let{f:r,n:d}of n)Qt(a,r,`${d}\u21A9`,`${r.basename} \u2014 linked from ${d} note${d===1?"":"s"}`,c=>s.plugin.openFile(c));return{}}},Ve={type:"orphans",name:"Orphan notes",description:"Notes nobody links to",icon:"unlink",defaultSize:{w:4,h:3},defaultSettings:{count:12},settings:[{key:"count",label:"Max notes shown",type:"number",min:3,max:30}],render(s){var o;let i=s.plugin.app,t=Math.max(3,Math.min(30,Number((o=s.inst.settings.count)!=null?o:12)||12)),e=jt(i),n=i.vault.getMarkdownFiles().filter(r=>{var d,c;return((c=(d=e.get(r.path))==null?void 0:d.size)!=null?c:0)===0}).sort((r,d)=>d.stat.mtime-r.stat.mtime).slice(0,t),a=s.body.createDiv("dash-list");if(!n.length)return a.createDiv("dash-empty").setText("No orphan notes \u2014 everything is connected!"),{};a.createDiv("dash-divider").setText(n.length===t?"Orphans \xB7 newest first":`Orphans \xB7 ${n.length} shown`);for(let r of n)Qt(a,r,"",r.path,d=>s.plugin.openFile(d));return{}}};w(_e);w(Ve);var J=require("obsidian");var wt=12,Ge={type:"backlinks",name:"Backlinks",description:"Notes that link to the note you're viewing",icon:"corner-up-left",defaultSize:{w:4,h:3},render(s){var a,o,r;let i=s.plugin.app;(()=>{var y;let d=s.body;d.empty();let c=i.workspace.getActiveFile?i.workspace.getActiveFile():null,l=d.createDiv("dash-list");if(!(c instanceof J.TFile)||c.extension!=="md"){l.createDiv("dash-empty").setText("Open a note to see its backlinks");return}l.createDiv("dash-divider").setText(`In \u201C${c.basename}\u201D`);let h=(y=i.metadataCache.resolvedLinks)!=null?y:{},p=[];for(let[u,g]of Object.entries(h))u!==c.path&&g[c.path]&&p.push(u);if(p.sort(),!p.length){l.createDiv("dash-empty").setText("No backlinks yet");return}for(let u of p.slice(0,wt)){let g=i.vault.getAbstractFileByPath(u);if(!(g instanceof J.TFile))continue;let f=l.createDiv("dash-list-row"),b=f.createDiv("dash-list-icon");(0,J.setIcon)(b,"file-text"),f.createDiv("dash-list-name").setText(g.basename),f.createDiv("dash-list-meta").setText(u),f.addEventListener("click",()=>s.plugin.openFile(g))}p.length>wt&&l.createDiv("dash-empty").setText(`\u2026and ${p.length-wt} more`)})();let e=()=>s.refresh(),n=()=>s.refresh();return i.workspace.on("active-leaf-change",e),(o=(a=i.metadataCache)==null?void 0:a.on)==null||o.call(a,"changed",n),(r=s.onDispose)==null||r.call(s,()=>{var d,c,l,h;(c=(d=i.workspace).off)==null||c.call(d,"active-leaf-change",e),(h=(l=i.metadataCache)==null?void 0:l.off)==null||h.call(l,"changed",n)}),{}}};w(Ge);var Xt="http://www.w3.org/2000/svg",je=864e5;function Dt(s,i){let t=s.createDiv("dash-prog-ring"),e=document.createElementNS(Xt,"svg");e.setAttribute("viewBox","0 0 120 120"),e.setAttribute("class","dash-prog-svg");let n=c=>{let l=document.createElementNS(Xt,"circle");return l.setAttribute("cx","60"),l.setAttribute("cy","60"),l.setAttribute("r","52"),l.setAttribute("class",c),l},a=n("dash-ring-track"),o=n("dash-ring-bar");e.append(a,o),t.appendChild(e);let r=2*Math.PI*52;a.setAttribute("stroke-dasharray",String(r)),o.setAttribute("stroke-dasharray",String(r));let d=t.createDiv("dash-prog-val");return t.createDiv("dash-prog-label").setText(i),c=>{let l=Math.max(0,Math.min(1,c));d.setText(String(Math.round(l*100))+"%"),o.setAttribute("stroke-dashoffset",String(r*(1-l)))}}function Qe(s){return s%4===0&&s%100!==0||s%400===0}var Xe={type:"progress",name:"Progress",description:"How much of the day, month and year has passed",icon:"gauge",defaultSize:{w:4,h:2},render(s){let i=s.body.createDiv("dash-prog-row"),t=Dt(i,"Day"),e=Dt(i,"Month"),n=Dt(i,"Year"),a=()=>{let r=new Date,d=new Date(r.getFullYear(),r.getMonth(),r.getDate()),c=new Date(r.getFullYear(),r.getMonth(),r.getDate()+1);t((r.getTime()-d.getTime())/(c.getTime()-d.getTime()));let l=new Date(r.getFullYear(),r.getMonth()+1,0).getDate();e(r.getDate()/l);let h=new Date(r.getFullYear(),0,1),p=Math.round((d.getTime()-h.getTime())/je)+1,y=Qe(r.getFullYear())?366:365;n(p/y)};a();let o=window.setInterval(a,6e4);return{dispose:()=>window.clearInterval(o)}}};w(Xe);var Jt=800,Je=365*30;function q(s,i){let t=new Date(s);return t.setDate(t.getDate()+i),t}function Ue(s,i){let t=1/0;for(let a of s.vault.getMarkdownFiles()){let o=a.stat.ctime||a.stat.mtime||0,r=a.stat.mtime||a.stat.ctime||0,d=Math.min(o||1/0,r||1/0);d<t&&(t=d)}if(!Number.isFinite(t))return q(i,-Jt);let e=new Date(t);e.setHours(0,0,0,0);let n=q(i,-Je);return e<n?n:e}var Ze={type:"streak",name:"Daily streak",description:"Consecutive days you've written a daily note",icon:"calendar-check",defaultSize:{w:4,h:2},render(s){let i=s.plugin,t=d=>i.noteExistsFor(d),e=s.body.createDiv("dash-streak-num"),n=s.body.createDiv("dash-streak-sub");(()=>{let d=new Date,c=d;t(c)||(c=q(c,-1));let l=0;for(;t(c);)l++,c=q(c,-1);let h=0,p=0,y=Ue(i.app,d);for(let m=new Date(y);m<=d;m=q(m,1))t(m)?(p++,p>h&&(h=p)):p=0;let u=0,g=q(d,-6);for(let m=new Date(g);m<=d;m=q(m,1))t(m)&&u++;let f=tn(t,d);e.setText(String(l)),n.setText(l===1?"day streak":"days streak");let b=s.body.createDiv("dash-hm-stats");kt(b,`Best \xB7 ${h}d`,"Longest run on record"),kt(b,`This week \xB7 ${u}/7`,"Daily notes in the last 7 days"),f&&kt(b,`Last \xB7 ${k(f)}`,"Most recent daily note")})();let o=k(new Date),r=window.setInterval(()=>{let d=k(new Date);d!==o&&(o=d,s.refresh())},3e4);return{dispose:()=>window.clearInterval(r)}}};function kt(s,i,t){let e=s.createDiv("dash-hm-chip");e.setText(i),e.setAttr("title",t)}function tn(s,i){for(let t=0;t<=Jt;t++){let e=q(i,-t);if(s(e))return e}return null}w(Ze);var z=require("obsidian");var en=/^\d{4}-\d{2}-\d{2}$/,nn=["Su","Mo","Tu","We","Th","Fr","Sa"];function sn(s){return"legacy-"+(s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"habit")}function Zt(s){let i=s.settings.habits;if(!Array.isArray(i))return[];let t=[],e=new Set;for(let n of i){if(!n||typeof n!="object")continue;let a=n,o=typeof a.name=="string"&&a.name.trim()!==""?a.name.trim():"Habit",r=typeof a.id=="string"&&a.id!==""?a.id:sn(o);if(e.has(r)){let d=2;for(;e.has(r+"-"+d);)d++;r=r+"-"+d}e.add(r),t.push({id:r,name:o})}return t}function te(s){let i=s.settings.log;if(!i||typeof i!="object"||Array.isArray(i))return{};let t={};for(let[e,n]of Object.entries(i)){if(!Array.isArray(n))continue;let a=n.filter(o=>typeof o=="string"&&en.test(o));a.length&&(t[e]=a)}return t}function ee(s){let i=Math.round(Number(s.settings.days));return Number.isFinite(i)?Math.max(7,Math.min(31,i)):14}function Tt(s,i){let t=new Date(s);return t.setDate(t.getDate()+i),t}function an(s,i){let t=i;s.has(k(t))||(t=Tt(t,-1));let e=0;for(;s.has(k(t));)e++,t=Tt(t,-1);return e}var on={type:"habits",name:"Habits",description:"Track daily habits on a rolling grid",icon:"target",defaultSize:{w:6,h:4},defaultSettings:{days:14,habits:[],log:{}},openSettings(s,i){new xt(s.app,s,i).open()},render(s){var u,g,f,b;let i=s.inst,t=s.body,e=Zt(i),n=ee(i),a=te(i),o=new Date;if(!e.length)return t.createDiv("dash-empty").setText("No habits yet \u2014 open widget settings to add some"),{};let r=[];for(let m=n-1;m>=0;m--)r.push(Tt(o,-m));let d=t.createDiv("dash-habits-chips"),c=0;for(let m of e)((u=a[m.id])!=null?u:[]).includes(k(o))&&c++;Ut(d,`Today ${c}/${e.length}`,"Habits completed today");let l=e.length*n,h=0;for(let m of e)h+=((g=a[m.id])!=null?g:[]).filter(v=>r.some(D=>k(D)===v)).length;l>0&&Ut(d,`${Math.round(h/l*100)}% this window`,"Share of the shown days completed");let p=t.createDiv("dash-habits-grid");p.style.gridTemplateColumns=`minmax(0, 1fr) repeat(${n}, 18px) 34px`,p.createDiv("dash-habit-hname").setText("Habit");for(let m of r){let v=p.createDiv("dash-habit-hcell"+(k(m)===k(o)?" is-today":""));v.createDiv("dash-habit-wd").setText(nn[m.getDay()]),v.createDiv("dash-habit-dn").setText(String(m.getDate())),v.setAttr("title",m.toLocaleDateString(void 0,{weekday:"long",month:"long",day:"numeric"}))}p.createDiv("dash-habit-hcell");for(let m of e){let v=new Set((f=a[m.id])!=null?f:[]),D=p.createDiv("dash-habit-name"),T=D.createDiv("dash-habit-name-text");T.setText(m.name),T.setAttr("title",m.name);let C=an(v,o);if(C>0){let M=D.createDiv("dash-habit-fire");(0,z.setIcon)(M,"flame"),M.appendText(String(C)),M.setAttr("title",`${C}-day current streak`)}for(let M of r){let L=k(M),G=v.has(L),et=p.createDiv("dash-habit-cell"+(G?" is-done":"")+(L===k(o)?" is-today":""));et.setAttr("data-hid",m.id),et.setAttr("data-date",L),et.setAttr("title",`${M.toLocaleDateString(void 0,{weekday:"short",month:"short",day:"numeric"})} \xB7 ${G?"done \u2014 click to undo":"not done \u2014 click to mark done"}`),et.addEventListener("click",()=>void y(m.id,L))}let W=p.createDiv("dash-habit-sum"),R=((b=a[m.id])!=null?b:[]).filter(M=>r.some(L=>k(L)===M)).length;W.setText(`${R}/${n}`),W.setAttr("title",`Completed ${R} of the last ${n} days`)}async function y(m,v){var C;let D=(C=a[m])!=null?C:[],T=D.includes(v)?D.filter(W=>W!==v):[...D,v].sort();T.length?a[m]=T:delete a[m],i.settings.log=a,await s.plugin.saveSettings(),s.refresh()}return{}}};function Ut(s,i,t){let e=s.createDiv("dash-hm-chip");e.setText(i),e.setAttr("title",t)}function rn(s){let i=[],t=new Set;for(let e of s){let n=e.name.trim();!n||t.has(n)||(t.add(n),i.push({id:e.id,name:n}))}return i}var xt=class extends z.Modal{constructor(t,e,n){super(t);this.clearLog=!1;this.plugin=e,this.inst=n,this.habits=Zt(n),this.days=ee(n)}onOpen(){this.titleEl.setText("Habits \u2014 settings"),this.render()}render(){let{contentEl:t}=this;t.empty();let e=t.createDiv("dash-qa-row"),n=e.createDiv("dash-qa-name");n.setText("Days shown"),n.setAttr("title","How many trailing days each habit row shows");let a=e.createEl("input",{cls:"dash-qa-input dash-habit-days-input",attr:{type:"number",min:"7",max:"31",placeholder:"14"}});a.value=String(this.days),a.addEventListener("change",()=>{let h=Math.round(Number(a.value));this.days=Number.isFinite(h)?Math.max(7,Math.min(31,h)):14,a.value=String(this.days)});let o=t.createDiv("dash-qa-row"),r=o.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"New habit name\u2026 (Enter to add)"}}),d=o.createDiv("dash-btn dash-btn-accent");(0,z.setIcon)(d,"plus");let c=()=>{let h=r.value.trim();h&&(this.habits.push({id:Y(),name:h}),this.persist(),r.value="",this.render())};d.addEventListener("click",c),r.addEventListener("keydown",h=>{h.key==="Enter"&&(h.preventDefault(),c())});let l=t.createDiv("dash-qa-list");this.habits.length||l.createDiv("dash-empty").setText("No habits yet \u2014 add one above.");for(let h of this.habits){let p=l.createDiv("dash-qa-row"),y=p.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Habit name"}});y.value=h.name,y.addEventListener("input",()=>h.name=y.value);let u=p.createDiv("dash-btn dash-btn-danger");(0,z.setIcon)(u,"x"),u.setAttr("aria-label","Remove habit"),u.addEventListener("click",()=>{this.habits=this.habits.filter(g=>g.id!==h.id),this.persist(),this.render()})}t.createDiv("dash-modal-foot",h=>{let p=h.createDiv("dash-btn dash-btn-danger");p.setText("Clear history"),p.setAttr("aria-label","Erase all completion history for these habits"),p.addEventListener("click",()=>{this.clearLog=!0,new z.Notice("Habit history will be cleared when you close this window")});let y=h.createDiv("dash-btn dash-btn-accent");y.setText("Done"),y.addEventListener("click",()=>void this.commit())}),r.focus()}onClose(){this.persist(),this.contentEl.empty()}async persist(){this.inst.settings.days=this.days,this.inst.settings.habits=rn(this.habits);let t=new Set(this.inst.settings.habits.map(n=>n.id)),e=this.clearLog?{}:te(this.inst);for(let n of Object.keys(e))t.has(n)||delete e[n];this.inst.settings.log=e,await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){await this.persist(),this.close()}};w(on);var P=require("obsidian");function ne(s){let i=s.settings;return{mode:i.mode==="note"||i.mode==="markdown"?i.mode:"daily",path:typeof i.path=="string"?i.path:"",markdown:typeof i.markdown=="string"?i.markdown:"",scroll:i.scroll!==!1}}function dn(s){if(!s.startsWith("---"))return s;let i=/^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(\r?\n|$)/.exec(s);return!i||!/^[^\s:]+:/.test(i[1].replace(/^\s+/,""))?s:s.slice(i[0].length)}var cn={type:"embed",name:"Embed",description:"Render a note, today's daily note, or your own markdown",icon:"book-open",defaultSize:{w:6,h:4},min:{w:3,h:2},max:{w:12,h:12},defaultSettings:{mode:"daily",path:"",markdown:"",scroll:!0},openSettings(s,i){new St(s.app,s,i).open()},render(s){let i=ne(s.inst),t=new P.Component;t.load();let e=!1,n=s.body.createDiv("dash-embed"),a=n.createDiv("dash-embed-content markdown-rendered");i.scroll||a.addClass("is-clipped");let o=l=>{e||(a.empty(),a.removeClass("markdown-rendered"),a.createDiv("dash-empty").setText(l))},r=l=>{if(e)return;let h=n.createDiv("dash-embed-source"),p=h.createDiv("dash-list-icon");(0,P.setIcon)(p,"file-text"),h.createDiv("dash-embed-source-name").setText(l.basename),h.setAttr("aria-label","Open "+l.path),h.addEventListener("click",()=>s.plugin.openFile(l))},d=async()=>{if(i.mode==="markdown")return{markdown:i.markdown,path:"",file:null};let l=i.mode==="daily"?s.plugin.dailyNotePath(new Date):i.path;if(!l)return o("No note chosen \u2014 edit the widget to pick one."),null;let h=s.plugin.app.vault.getAbstractFileByPath(l);return h instanceof P.TFile?{markdown:h.extension==="md"?dn(await s.plugin.app.vault.read(h)):`![[${h.path}]]`,path:h.path,file:h}:(o(i.mode==="daily"?"No daily note for today yet \u2014 the calendar can create one.":"Not found: "+l),null)};return(async()=>{let l=null;try{l=await d()}catch(p){console.error("Aurora Dashboard: embed could not read its source.",p),o("Could not read that file.");return}if(e||!l)return;let h=l;if(!h.markdown.trim()){o("Nothing to show yet \u2014 the source is empty.");return}try{await P.MarkdownRenderer.render(s.plugin.app,h.markdown,a,h.path,t)}catch(p){console.error("Aurora Dashboard: embed failed to render.",p),o("Could not render this content.");return}e||h.file&&r(h.file)})(),{dispose:()=>{e=!0,t.unload()}}}},St=class extends P.Modal{constructor(i,t,e){var n;super(i),this.plugin=t,this.inst=e,this.draft=ne(e),this.title=(n=e.title)!=null?n:""}onOpen(){this.titleEl.setText("Embed \u2014 settings"),this.render()}render(){let{contentEl:i}=this;i.empty();let t=i.createDiv("dash-qa-row");t.createDiv("dash-qa-name").setText("Title");let e=t.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Embed",value:this.title}});e.addEventListener("input",()=>{this.title=e.value});let n=i.createDiv("dash-qa-row");n.createDiv("dash-qa-name").setText("Source");let a=n.createEl("select",{cls:"dash-qa-select dash-embed-select"});for(let[d,c]of[["note","A note"],["daily","Today's daily note"],["markdown","Inline markdown"]])a.createEl("option",{value:d}).setText(c);if(a.value=this.draft.mode,a.addEventListener("change",()=>{let d=a.value;this.draft.mode=d==="note"||d==="markdown"?d:"daily",this.render()}),this.draft.mode==="note"){let c=i.createDiv("dash-qa-row").createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Start typing to search\u2026",list:"dash-embed-files",value:this.draft.path}});c.addEventListener("input",()=>{this.draft.path=c.value});let l=i.createEl("datalist",{attr:{id:"dash-embed-files"}});for(let h of this.plugin.app.vault.getFiles())(h.extension==="md"||h.extension==="base")&&l.createEl("option",{value:h.path});c.focus()}else if(this.draft.mode==="markdown"){let d=i.createEl("textarea",{cls:"dash-qa-input dash-embed-md",attr:{placeholder:"Any markdown \u2014 tables, ```dataview, ```base, mermaid, ![[embeds]]\u2026"}});d.value=this.draft.markdown,d.addEventListener("input",()=>{this.draft.markdown=d.value}),d.focus()}let o=i.createDiv("dash-qa-row");o.createDiv("dash-qa-name").setText("Long content");let r=o.createEl("select",{cls:"dash-qa-select dash-embed-select"});r.createEl("option",{value:"scroll"}).setText("Scroll"),r.createEl("option",{value:"clip"}).setText("Clip"),r.value=this.draft.scroll?"scroll":"clip",r.addEventListener("change",()=>{this.draft.scroll=r.value!=="clip"}),i.createDiv("dash-modal-foot",d=>{let c=d.createDiv("dash-btn dash-btn-accent");c.setText("Done"),c.addEventListener("click",()=>void this.commit())})}async persist(){this.inst.title=this.title.trim()||void 0,this.inst.settings.mode=this.draft.mode,this.inst.settings.path=this.draft.path,this.inst.settings.markdown=this.draft.markdown,this.inst.settings.scroll=this.draft.scroll,await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){if(this.draft.mode==="note"){let i=this.draft.path.trim();if(i&&!(this.plugin.app.vault.getAbstractFileByPath(i)instanceof P.TFile)){new P.Notice("Note not found: "+i);return}this.draft.path=i}await this.persist(),this.close()}onClose(){if(this.draft.mode==="note"){let i=this.draft.path.trim(),t=i&&this.plugin.app.vault.getAbstractFileByPath(i)instanceof P.TFile;this.draft.path=t?i:typeof this.inst.settings.path=="string"?this.inst.settings.path:""}this.persist(),this.contentEl.empty()}};w(cn);var x=require("obsidian");var Mt=400;function j(s,i){let t=typeof s=="number"?s:Number(s);return Number.isFinite(t)?t:i}function ie(s,i){let t=Math.max(1,i),e=F(Math.round(j(s.w,4)),1,t),n=F(Math.round(j(s.h,2)),1,Mt),a=F(Math.round(j(s.x,0)),0,Math.max(0,t-e)),o=F(Math.round(j(s.y,0)),0,Math.max(0,Mt-n)),r=s.w!==e||s.h!==n||s.x!==a||s.y!==o;return s.w=e,s.h=n,s.x=a,s.y=o,r}function At(s,i){let t=!1;for(let e of s)ie(e,i)&&(t=!0);return t&&K(s,i),t}function Et(s){return s.collapsed?1:s.h}function ln(s,i){let t=Et(s),e=Et(i);return s.x<i.x+i.w&&s.x+s.w>i.x&&s.y<i.y+e&&s.y+t>i.y}function Q(s,i){return s.some(t=>t.uid!==i.uid&&ln(i,t))}function U(s){let i=1;for(let t of s)i=Math.max(i,t.y+Et(t));return i}function hn(s,i,t,e,n){if(t<0||e<0||t+i.w>n)return!1;let a={x:i.x,y:i.y};i.x=t,i.y=e;let o=!Q(s,i);return i.x=a.x,i.y=a.y,o}function ct(s,i,t,e,n){let a=Math.max(U(s),e)+6,o=null,r=1/0;for(let d=0;d<=a;d++)for(let c=0;c<n;c++)if(hn(s,i,c,d,n)){let l=(c-t)**2+(d-e)**2;l<r&&(r=l,o={x:c,y:d})}return o!=null?o:{x:F(t,0,Math.max(0,n-i.w)),y:a}}function Wt(s,i,t){let e=Math.max(1,t),n=F(Math.round(j(i.w,4)),1,e),a=F(Math.round(j(i.h,2)),1,Mt);for(let o=0;o<=U(s)+1;o++)for(let r=0;r<=e-n;r++){let d=pn({w:n,h:a},r,o);if(!Q(s,d))return{x:r,y:o}}return{x:0,y:U(s)+1}}function pn(s,i,t){return{type:"",uid:Y(),x:i,y:t,w:s.w,h:s.h,settings:{}}}function K(s,i){for(let t=0;t<s.length;t++){let e=s[t];ie(e,i);let n=0;for(;Q(s.slice(0,t),e)&&n<50;){let a=ct(s.slice(0,t),e,e.x,e.y+1,i);e.x=a.x,e.y=a.y,n++}}}function un(s){return s.map(i=>{var t;return{type:i.type,uid:Y(),x:i.x,y:i.y,w:i.w,h:i.h,settings:(t=i.settings)!=null?t:{},title:i.title}})}function lt(s=12){let i=un([{type:"clock",x:0,y:0,w:4,h:2},{type:"calendar",x:4,y:0,w:5,h:4},{type:"activity",x:9,y:0,w:3,h:4},{type:"stats",x:0,y:2,w:4,h:2},{type:"tasks",x:0,y:4,w:4,h:3},{type:"recent",x:4,y:4,w:5,h:3},{type:"tags",x:9,y:4,w:3,h:3},{type:"capture",x:0,y:7,w:4,h:2},{type:"pomodoro",x:4,y:7,w:3,h:2},{type:"quote",x:7,y:7,w:5,h:2},{type:"deadline",x:0,y:9,w:3,h:2},{type:"random",x:3,y:9,w:3,h:2},{type:"vaulttasks",x:6,y:9,w:6,h:4},{type:"search",x:0,y:11,w:3,h:2},{type:"quickactions",x:3,y:11,w:3,h:2},{type:"popular",x:0,y:13,w:4,h:3},{type:"orphans",x:4,y:13,w:4,h:3},{type:"backlinks",x:8,y:13,w:4,h:3},{type:"pinned",x:0,y:16,w:4,h:3},{type:"progress",x:4,y:16,w:4,h:2},{type:"streak",x:8,y:16,w:4,h:2},{type:"habits",x:0,y:19,w:6,h:4},{type:"embed",x:6,y:19,w:6,h:4}]),t=Math.max(1,Math.round(s));if(t!==12){let e=t/12;for(let n of i)n.w=F(Math.round(n.w*e),1,t),n.x=F(Math.round(n.x*e),0,Math.max(0,t-n.w));K(i,t)}return i}var _="aurora-dashboard-view",Z=class extends x.ItemView{constructor(t,e){super(t);this.handles=new Map;this.cleanups=[];this.editSnapshot=null;this.renderGen=0;this.dayKey="";this.plugin=e}getViewType(){return _}getDisplayText(){return"Aurora Dashboard"}getIcon(){return"layout-dashboard"}async onOpen(){this.render()}onClose(){return this.runCleanups(),this.disposeAll(),Promise.resolve()}runCleanups(){for(let t of this.cleanups)try{t()}catch(e){}this.cleanups=[]}disposeAll(){var t;for(let e of this.handles.values())try{(t=e.dispose)==null||t.call(e)}catch(n){}this.handles.clear()}render(){let{contentEl:t}=this;t.empty(),t.addClass("dash-view"),this.plugin.settings.accent?t.style.setProperty("--dash-accent",this.plugin.settings.accent):t.style.removeProperty("--dash-accent");let e=this.plugin.settings.editMode;e?t.addClass("editing"):t.removeClass("editing"),e&&!this.editSnapshot?this.editSnapshot=JSON.parse(JSON.stringify(this.plugin.settings.layout)):e||(this.editSnapshot=null),this.renderGen++,this.runCleanups(),this.disposeAll(),t.createDiv("dash-scroll",n=>{n.createDiv("dash-shell",a=>{this.buildControlBar(a),this.gridEl=a.createDiv("dash-grid"),this.applyGrid(),this.dropTarget=this.gridEl.createDiv("dash-drop-target"),this.buildWidgets()})}),this.watchForNewDay()}watchForNewDay(){this.dayKey=k(new Date);let t=window.setInterval(()=>{let e=k(new Date);e!==this.dayKey&&(this.dayKey=e,this.render())},1e3);this.cleanups.push(()=>window.clearInterval(t))}greeting(){let t=new Date().getHours();return t<5?"Burning the midnight oil":t<12?"Good morning":t<18?"Good afternoon":"Good evening"}buildControlBar(t){let e=t.createDiv("dash-control"),n=e.createDiv("dash-control-left"),a=n.createDiv("dash-logo");(0,x.setIcon)(a,"layout-dashboard");let o=n.createDiv("dash-brand");o.createDiv("dash-brand-title").setText("Aurora Dashboard"),o.createDiv("dash-brand-sub").setText(`${this.greeting()} \xB7 ${new Date().toLocaleDateString(void 0,{weekday:"long",month:"long",day:"numeric"})}`);let r=e.createDiv("dash-control-right"),d=r.createDiv("dash-chip dash-chip-time"),c=()=>d.setText(new Date().toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"}));c();let l=window.setInterval(c,1e3);this.cleanups.push(()=>window.clearInterval(l));let h=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(h,"search"),h.setAttr("aria-label","Search"),h.addEventListener("click",()=>void this.plugin.openSearch(""));let p=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(p,"send"),p.setAttr("aria-label","Quick capture"),p.addEventListener("click",()=>this.plugin.showQuickCapture());let y=this.plugin.settings.editMode,u=r.createDiv("dash-btn "+(y?"dash-btn-active":"dash-btn-ghost"));if((0,x.setIcon)(u,y?"check":"pencil"),u.setAttr("aria-label",y?"Done editing":"Edit layout"),u.addEventListener("click",()=>{this.plugin.settings.editMode=!this.plugin.settings.editMode,this.plugin.saveSettings(),this.render()}),y){let g=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(g,"x"),g.setAttr("aria-label","Cancel editing"),g.addEventListener("click",()=>{this.editSnapshot&&(this.plugin.settings.layout=this.editSnapshot),this.editSnapshot=null,this.plugin.settings.editMode=!1,this.plugin.saveSettings(),this.render()});let f=r.createDiv("dash-btn dash-btn-accent");(0,x.setIcon)(f,"plus"),f.setAttr("aria-label","Add widget"),f.addEventListener("click",()=>new Lt(this.app,this.plugin).open())}}applyGrid(){let t=this.plugin.settings;this.gridEl.style.setProperty("--dash-cols",String(t.columns)),this.gridEl.style.setProperty("--dash-row",t.rowHeight+"px"),this.gridEl.style.setProperty("--dash-gap",t.gap+"px")}buildWidgets(){for(let t of this.plugin.settings.layout)this.buildWidgetCard(t)}buildWidgetCard(t){let e=H(t.type);if(!e)return;let n=this.gridEl.createDiv({cls:"dash-widget",attr:{"data-uid":t.uid,"data-type":t.type}});e.noHeader&&n.addClass("no-header"),t.collapsed&&n.addClass("collapsed"),this.position(n,t),this.buildWidgetHeader(n,t,e);let a=n.createDiv("dash-widget-body widget-"+e.type);this.renderWidgetBody(a,t),this.plugin.settings.editMode&&(this.enableDrag(n,t),this.enableResize(n,t))}position(t,e){t.style.setProperty("--dash-cx",String(e.x+1)),t.style.setProperty("--dash-cy",String(e.y+1)),t.style.setProperty("--dash-cw",String(e.w)),t.style.setProperty("--dash-ch",String(e.collapsed?1:e.h))}buildWidgetHeader(t,e,n){let a=this.plugin.settings.editMode;if(n.noHeader&&!a)return;let o=t.createDiv("dash-widget-header"),r=o.createDiv("dash-grip");if((0,x.setIcon)(r,"grip-vertical"),!n.noHeader){let h=o.createDiv("dash-widget-icon");(0,x.setIcon)(h,n.icon),o.createDiv("dash-widget-title").setText(e.title||n.name);let p=o.createDiv("dash-widget-collapse");(0,x.setIcon)(p,e.collapsed?"chevron-right":"chevron-down"),p.setAttr("aria-label",e.collapsed?"Expand widget":"Collapse widget"),p.addEventListener("click",()=>{e.collapsed=!e.collapsed,e.collapsed||K(this.plugin.settings.layout,this.plugin.settings.columns),this.plugin.saveSettings(),this.render()})}let d=o.createDiv("dash-widget-actions");if(!a)return;let c=d.createDiv("dash-btn");(0,x.setIcon)(c,"settings-2"),c.setAttr("aria-label","Widget settings"),c.addEventListener("click",()=>this.openWidgetSettings(e));let l=d.createDiv("dash-btn dash-btn-danger");(0,x.setIcon)(l,"x"),l.setAttr("aria-label","Remove widget"),l.addEventListener("click",()=>{this.plugin.settings.layout=this.plugin.settings.layout.filter(h=>h.uid!==e.uid),this.plugin.saveSettings(),this.render()})}renderWidgetBody(t,e){var c;let n=H(e.type);if(!n)return;let a=this.handles.get(e.uid);try{(c=a==null?void 0:a.dispose)==null||c.call(a)}catch(l){}for(;t.firstChild;)t.removeChild(t.firstChild);let o=[],r={plugin:this.plugin,inst:e,body:t,refresh:()=>this.refreshWidget(e.uid),onDispose:l=>o.push(l)},d={};try{d=n.render(r)}catch(l){console.error("Dashboard widget failed to render:",e.type,l),t.createDiv("dash-widget-error").setText("This widget hit a snag \u2014 try again.")}this.handles.set(e.uid,{dispose:()=>{var l;for(let h of o.splice(0))try{h()}catch(p){}(l=d.dispose)==null||l.call(d)}})}refreshWidget(t){let e=this.gridEl.querySelector(`.dash-widget[data-uid="${t}"]`);if(!e)return;let n=e.querySelector(".dash-widget-body"),a=this.plugin.settings.layout.find(o=>o.uid===t);n&&a&&this.renderWidgetBody(n,a)}refreshActivityWidgets(){for(let t of["activity","stats","tasks","calendar","recent","vaulttasks","popular","orphans","backlinks","embed"])this.refreshAllOfType(t)}refreshAllOfType(t){this.gridEl.querySelectorAll(`.dash-widget[data-type="${t}"]`).forEach(e=>{let n=e.querySelector(".dash-widget-body"),a=this.plugin.settings.layout.find(o=>o.uid===e.getAttribute("data-uid"));n&&a&&this.renderWidgetBody(n,a)})}effColumns(){let t=this.gridEl?this.gridEl.getBoundingClientRect().width:0;return t>0&&t<720?1:this.plugin.settings.columns}cellAt(t,e){let n=this.plugin.settings,a=this.effColumns(),o=this.gridEl.getBoundingClientRect(),r=(o.width-n.gap*(a-1))/a,d=F(Math.floor((t-o.left)/(r+n.gap)),0,a-1),c=F(Math.floor((e-o.top)/(n.rowHeight+n.gap)),0,Math.max(U(n.layout)-1,0));return{x:d,y:c,cols:a}}showDropTarget(t){let e=this.plugin.settings,a=(this.gridEl.getBoundingClientRect().width-e.gap*(t.cols-1))/t.cols;this.dropTarget.style.left=t.x*(a+e.gap)+"px",this.dropTarget.style.top=t.y*(e.rowHeight+e.gap)+"px",this.dropTarget.style.width=a+"px",this.dropTarget.style.height=e.rowHeight+"px",this.dropTarget.addClass("is-visible")}hideDropTarget(){this.dropTarget.removeClass("is-visible")}beginGesture(t,e,n){t.preventDefault(),t.stopPropagation();let a=!1,o=()=>{document.removeEventListener("pointermove",e),document.removeEventListener("pointerup",r),document.removeEventListener("pointercancel",d)},r=()=>{a||(a=!0,o(),n(!0))},d=()=>{a||(a=!0,o(),n(!1))};document.addEventListener("pointermove",e),document.addEventListener("pointerup",r),document.addEventListener("pointercancel",d),this.cleanups.push(d)}enableDrag(t,e){let n=t.querySelector(".dash-grip");n&&n.addEventListener("pointerdown",a=>{let o=a.clientX,r=a.clientY,d=o,c=r,l=this.renderGen;t.addClass("is-dragging"),this.beginGesture(a,h=>{d=h.clientX,c=h.clientY,t.style.transform=`translate3d(${h.clientX-o}px, ${h.clientY-r}px, 0) scale(1.03)`,this.showDropTarget(this.cellAt(h.clientX,h.clientY))},h=>{if(t.removeClass("is-dragging"),t.style.removeProperty("transform"),this.hideDropTarget(),!h||l!==this.renderGen||!this.plugin.settings.editMode)return;let p=this.cellAt(d,c);this.placeInstance(e,p.x,p.y,p.cols)})})}placeInstance(t,e,n,a){let o=this.plugin.settings,r=o.layout;if(n=Math.max(n,0),a<=1){t.x=0,t.y=n,K(r,o.columns),this.plugin.saveSettings(),this.render();return}e=F(e,0,a-1);let d=r.find(c=>c.uid!==t.uid&&c.x===e&&c.y===n);if(d){let c=t.x,l=t.y;if(t.x=e,t.y=n,d.x=c,d.y=l,Q(r,t)||Q(r,d)){t.x=c,t.y=l,d.x=e,d.y=n;let h=ct(r,t,e,n,a);t.x=h.x,t.y=h.y}}else{let c=ct(r,t,e,n,a);t.x=c.x,t.y=c.y}K(r,o.columns),this.plugin.saveSettings(),this.render()}enableResize(t,e){var c,l,h,p,y;let n=H(e.type),a=(c=n==null?void 0:n.min)!=null?c:{w:2,h:2},o=(h=(l=n==null?void 0:n.max)==null?void 0:l.w)!=null?h:this.plugin.settings.columns,r=(y=(p=n==null?void 0:n.max)==null?void 0:p.h)!=null?y:8;t.createDiv("dash-resize").addEventListener("pointerdown",u=>{let g=this.plugin.settings,f=this.effColumns(),m=(this.gridEl.getBoundingClientRect().width-g.gap*(f-1))/f,v=g.rowHeight,D=e.w,T=e.h,C=u.clientX,W=u.clientY,R=this.renderGen;this.beginGesture(u,M=>{let L=Math.round((M.clientX-C)/(m+g.gap)),G=Math.round((M.clientY-W)/(v+g.gap));e.w=F(D+L,a.w,Math.min(o,f-e.x)),e.h=F(T+G,a.h,r),this.position(t,e)},M=>{!M||R!==this.renderGen||!this.plugin.settings.editMode||(K(this.plugin.settings.layout,this.plugin.settings.columns),this.plugin.saveSettings(),this.render())})})}openWidgetSettings(t){var n;let e=H(t.type);if(e){if(e.openSettings){e.openSettings(this.plugin,t);return}if(!((n=e==null?void 0:e.settings)!=null&&n.length)&&!t.title){new x.Notice("No settings for this widget.");return}new Ft(this.app,this.plugin,t).open()}}},Lt=class extends x.Modal{constructor(i,t){super(i),this.plugin=t}onOpen(){this.titleEl.setText("Add a widget");let i=this.contentEl.createDiv("dash-modal-list");for(let t of It()){let e=i.createDiv("dash-modal-row"),n=e.createDiv("dash-modal-icon");(0,x.setIcon)(n,t.icon);let a=e.createDiv("dash-modal-info");a.createDiv("dash-modal-name").setText(t.name),a.createDiv("dash-modal-desc").setText(t.description),e.addEventListener("click",()=>{this.plugin.addWidget(t.type),this.close()})}}onClose(){this.contentEl.empty()}},Ft=class extends x.Modal{constructor(i,t,e){super(i),this.plugin=t,this.inst=e}onOpen(){var a;let i=H(this.inst.type);this.titleEl.setText((this.inst.title||(i==null?void 0:i.name)||"Widget")+" \u2014 settings");let{contentEl:t}=this;if(t.empty(),!i)return;i.noHeader||new x.Setting(t).setName("Title").setDesc("Leave blank to use the default").addText(o=>{var r;o.setValue((r=this.inst.title)!=null?r:""),o.onChange(d=>{this.inst.title=d||void 0,this.commit()})});for(let o of(a=i.settings)!=null?a:[])this.addSetting(t,o);t.createDiv("dash-modal-gap");let n=t.createDiv("dash-modal-foot").createDiv("dash-btn dash-btn-accent");n.setText("Done"),n.addEventListener("click",()=>this.close())}addSetting(i,t){let e=new x.Setting(i).setName(t.label),n=()=>{this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)};t.type==="toggle"?e.addToggle(a=>a.setValue(!!this.inst.settings[t.key]).onChange(o=>{this.inst.settings[t.key]=o,n()})):t.type==="select"?e.addDropdown(a=>{var o,r,d,c;for(let l of(o=t.options)!=null?o:[])a.addOption(l,l);a.setValue(String((c=(d=this.inst.settings[t.key])!=null?d:(r=t.options)==null?void 0:r[0])!=null?c:"")).onChange(l=>{this.inst.settings[t.key]=l,n()})}):t.type==="number"?e.addText(a=>{var o;a.inputEl.type="number",a.setValue(String((o=this.inst.settings[t.key])!=null?o:"")),a.onChange(r=>{if(!r.trim())return;let d=parseFloat(r);if(!Number.isFinite(d))return;let c=d;t.min!==void 0&&(c=Math.max(t.min,c)),t.max!==void 0&&(c=Math.min(t.max,c)),this.inst.settings[t.key]=c,n()})}):e.addText(a=>{var o,r;a.setValue(String((o=this.inst.settings[t.key])!=null?o:"")),a.setPlaceholder((r=t.placeholder)!=null?r:""),a.onChange(d=>{this.inst.settings[t.key]=d,n()})})}commit(){this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}onClose(){this.contentEl.empty()}};var V={version:3,columns:12,rowHeight:88,gap:14,accent:"",editMode:!1,trackActivity:!0,dailyNoteFolder:"",dailyNoteFormat:"YYYY-MM-DD",captureTarget:"inbox",captureFolder:"",inboxFile:"Inbox.md",pomodoroFocus:25,pomodoroBreak:5,layout:[],orphans:[],activity:{}};var gn=500,mn="#7c3aed",pt=class extends S.Plugin{constructor(){super(...arguments);this.saveTimer=null;this.refreshTimer=null;this.selfWrites=new Map}async onload(){try{await this.loadSettings()}catch(t){console.error("Aurora Dashboard: settings could not be loaded, using defaults.",t),this.settings=Object.assign({},V,{layout:lt(),orphans:[],activity:{}})}this.registerView(_,t=>new Z(t,this)),this.addRibbonIcon("layout-dashboard","Open dashboard",()=>void this.activateView()),this.addCommand({id:"open-dashboard",name:"Open dashboard",callback:()=>void this.activateView()}),this.addCommand({id:"toggle-edit-mode",name:"Toggle dashboard edit mode",callback:()=>this.toggleEditMode()}),this.addCommand({id:"capture-to-inbox",name:"Capture to inbox",callback:()=>this.showQuickCapture()}),this.addSettingTab(new Pt(this.app,this)),this.registerEvent(this.app.vault.on("create",t=>this.onFileActivity(t))),this.registerEvent(this.app.vault.on("modify",t=>this.onFileActivity(t)))}onunload(){this.saveTimer!==null&&(window.clearTimeout(this.saveTimer),this.saveTimer=null),this.refreshTimer!==null&&(window.clearTimeout(this.refreshTimer),this.refreshTimer=null),this.saveSettings()}async loadSettings(){let t=await this.loadData(),e=ht(t)&&Array.isArray(t.layout);this.settings=Object.assign({},V,t!=null?t:{});let n=this.settings;n.columns=O(n.columns,12,8,16),n.rowHeight=O(n.rowHeight,88,60,140),n.gap=O(n.gap,14,8,28),n.accent=tt(n.accent,""),n.dailyNoteFolder=tt(n.dailyNoteFolder,""),n.dailyNoteFormat=tt(n.dailyNoteFormat,V.dailyNoteFormat),n.captureFolder=tt(n.captureFolder,""),n.inboxFile=tt(n.inboxFile,V.inboxFile),n.captureTarget=n.captureTarget==="daily"?"daily":"inbox",n.pomodoroFocus=O(n.pomodoroFocus,25,1,120),n.pomodoroBreak=O(n.pomodoroBreak,5,1,60),n.trackActivity=n.trackActivity!==!1,n.editMode=n.editMode===!0,n.version=O(n.version,0,0,1e3);let a={};if(ht(n.activity))for(let[l,h]of Object.entries(n.activity)){let p=Number(h);Number.isFinite(p)&&p>0&&(a[l]=Math.round(p))}n.activity=a,(!Array.isArray(n.layout)||n.layout.length===0&&!e)&&(n.layout=lt(n.columns)),n.orphans=Array.isArray(n.orphans)?n.orphans:[];let o=new Set,r=[],d=[];for(let l of n.layout)se(l)&&(this.adoptInstance(l,o)?r.push(l):d.push(l));let c=[...d];for(let l of n.orphans)se(l)&&(this.adoptInstance(l,o)?r.push(l):c.push(l));n.layout=r,n.orphans=c,c.length&&new S.Notice(`Aurora Dashboard: ${c.length} widget${c.length===1?"":"s"} kept aside \u2014 unknown type for this version.`),At(n.layout,n.columns)&&await this.saveSettings(),this.settings.version<2&&(this.addWidgetToLayout("habits"),this.settings.version=2,await this.saveSettings()),this.settings.version<3&&(this.addWidgetToLayout("embed"),this.settings.version=3,await this.saveSettings())}addWidgetToLayout(t){var a;let e=H(t);if(!e||this.settings.layout.some(o=>o.type===t))return;let n=Wt(this.settings.layout,e.defaultSize,this.settings.columns);this.settings.layout.push({type:t,uid:Y(),x:n.x,y:n.y,w:e.defaultSize.w,h:e.defaultSize.h,settings:{...(a=e.defaultSettings)!=null?a:{}}})}adoptInstance(t,e){let n=H(t.type);if(!n)return!1;(!t.uid||e.has(t.uid))&&(t.uid=Y()),e.add(t.uid);let a=ht(t.settings)?t.settings:{};return t.settings=n.defaultSettings?Object.assign({},n.defaultSettings,a):a,!0}async saveSettings(){await this.saveData(this.settings)}queueSave(){this.saveTimer!==null&&window.clearTimeout(this.saveTimer),this.saveTimer=window.setTimeout(()=>{this.saveTimer=null,this.saveSettings()},500)}forDashboard(t){for(let e of this.app.workspace.getLeavesOfType(_))e.view instanceof Z&&t(e.view)}rerenderDashboard(){this.forDashboard(t=>t.render())}async activateView(){let t=this.app.workspace.getLeavesOfType(_);if(t.length){await this.app.workspace.revealLeaf(t[0]);return}let e=this.app.workspace.getLeaf(!1);await e.setViewState({type:_,active:!0}),this.app.workspace.revealLeaf(e)}toggleEditMode(){this.settings.editMode=!this.settings.editMode,this.saveSettings(),this.rerenderDashboard()}openFile(t){t&&this.app.workspace.getLeaf(!1).openFile(t)}async openDay(t){let e=this.dailyNotePath(t),n=this.app.vault.getAbstractFileByPath(e);if(n instanceof S.TFile){await this.app.workspace.getLeaf(!1).openFile(n);return}try{await this.ensureFolder(ae(e)),this.markSelfWrite(e);let a=await this.app.vault.create(e,"");await this.app.workspace.getLeaf(!1).openFile(a)}catch(a){console.error("Aurora Dashboard: could not create the daily note.",e,a),new S.Notice("Could not create "+e+" \u2014 is the folder there?")}}async openSearch(t){await this.app.workspace.getLeaf("tab").setViewState({type:"search",state:{query:t}})}formatDate(t,e){return Nt(t,e)}dailyNotePath(t){let e=this.settings.dailyNoteFolder.trim(),n=this.formatDate(t,this.settings.dailyNoteFormat).trim();return n||(n=this.formatDate(t,V.dailyNoteFormat)),(0,S.normalizePath)(e?e+"/"+n+".md":n+".md")}noteExistsFor(t){return this.app.vault.getAbstractFileByPath(this.dailyNotePath(t))instanceof S.TFile}markSelfWrite(t){this.selfWrites.set(t,Date.now())}takeSelfWrite(t){let e=this.selfWrites.get(t);return e===void 0?!1:(this.selfWrites.delete(t),Date.now()-e<5e3)}onFileActivity(t){this.settings.trackActivity&&(!(t instanceof S.TFile)||t.extension!=="md"||this.takeSelfWrite(t.path)||this.recordActivity())}recordActivity(){var e;let t=k(new Date);this.settings.activity[t]=((e=this.settings.activity[t])!=null?e:0)+1,this.queueSave(),this.queueWidgetRefresh()}queueWidgetRefresh(){this.refreshTimer===null&&this.app.workspace.getLeavesOfType(_).length&&(this.refreshTimer=window.setTimeout(()=>{this.refreshTimer=null,this.refreshActivityWidgets()},gn))}refreshActivityWidgets(){this.forDashboard(t=>t.refreshActivityWidgets())}refreshWidget(t){this.forDashboard(e=>e.refreshWidget(t))}showQuickCapture(){new Ct(this.app,this).open()}async captureText(t){let e=this.settings;try{if(e.captureTarget==="inbox"){let n=(0,S.normalizePath)(e.captureFolder.trim());await this.ensureFolder(n);let a=(0,S.normalizePath)((n?n+"/":"")+fn(e.inboxFile));await this.appendTo(a,t)}else{let n=this.dailyNotePath(new Date);await this.ensureFolder(ae(n)),await this.appendTo(n,`### ${new Date().toLocaleTimeString()}
+`)),s.refresh()}catch(f){console.error("Aurora Dashboard: could not update that task.",f),new $.Notice("Could not update that task.")}}async function h(u){let g=u.file;if(g instanceof $.TFile)try{let f=s.plugin.app.workspace.getLeaf(!1);await f.openFile(g);let b=f.view;b instanceof $.MarkdownView&&(b.editor.setCursor({line:u.line,ch:0}),b.editor.scrollIntoView({from:{line:u.line,ch:0},to:{line:u.line+1,ch:0}},!0),b.editor.focus())}catch(f){console.error("Aurora Dashboard: could not open that task.",f)}}return{}}};w(Ye);var E=require("obsidian");var Oe={command:"terminal",note:"file-text",search:"search",today:"calendar",capture:"send",template:"file-plus"},dt={command:"Command",note:"Open note",search:"Search",today:"Today's note",capture:"Quick capture",template:"New note from template"};function _t(s){return{id:Math.random().toString(36).slice(2,9)+Date.now().toString(36),label:s==="command"?"Run command":dt[s].split(" ")[0],kind:s,target:""}}function ft(){return[{id:rt(),label:"Capture",kind:"capture",target:""},{id:rt(),label:"Search",kind:"search",target:""},{id:rt(),label:"Today",kind:"today",target:""}]}function rt(){return Math.random().toString(36).slice(2,9)+Date.now().toString(36)}function Be(s){return s==="command"||s==="note"||s==="search"||s==="today"||s==="capture"||s==="template"}function yt(s){if(!s||typeof s!="object")return _t("command");let i=s,t=Be(i.kind)?i.kind:"command";return{id:typeof i.id=="string"&&i.id!==""?i.id:rt(),label:typeof i.label=="string"&&i.label!==""?i.label:dt[t],kind:t,target:typeof i.target=="string"?i.target:""}}async function qe(s,i){var e;let t=s.app;switch(i.kind){case"capture":s.showQuickCapture();break;case"today":await s.openDay(new Date);break;case"search":await s.openSearch(i.target.trim());break;case"note":{let n=t.vault.getAbstractFileByPath(i.target.trim());n instanceof E.TFile?s.openFile(n):new E.Notice("Note not found: "+i.target);break}case"command":{let n=i.target.trim();if(!n){new E.Notice("No command selected.");break}try{let a=t.commands;await((e=a==null?void 0:a.executeCommandById)==null?void 0:e.call(a,n))}catch(a){new E.Notice("Couldn't run command: "+n)}break}case"template":{let n=t.vault.getAbstractFileByPath(i.target.trim());if(!(n instanceof E.TFile)){new E.Notice("Template not found: "+i.target);break}try{let a=await t.vault.read(n),o=new Date,r=`${o.getFullYear()}-${A(o.getMonth()+1)}-${A(o.getDate())}-${A(o.getHours())}${A(o.getMinutes())}${A(o.getSeconds())}`,d=n.path.lastIndexOf("/"),c=d>0?n.path.slice(0,d):"",l=(0,E.normalizePath)(c?`${c}/${r}.md`:`${r}.md`);for(let p=2;t.vault.getAbstractFileByPath(l);p++)l=(0,E.normalizePath)(c?`${c}/${r}-${p}.md`:`${r}-${p}.md`);let h=await t.vault.create(l,a);s.openFile(h),new E.Notice("Created "+h.basename)}catch(a){new E.Notice("Couldn't create note from template.")}break}}}var ze={type:"quickactions",name:"Quick actions",description:"Configurable buttons that run commands, open notes, or insert templates",icon:"zap",defaultSize:{w:3,h:2},defaultSettings:{actions:ft()},openSettings(s,i){new vt(s.app,s,i).open()},render(s){var e;let i=(Array.isArray(s.inst.settings.actions)?s.inst.settings.actions:ft()).map(yt),t=s.body.createDiv("dash-quick-grid");if(!i.length)return t.createDiv("dash-empty").setText("No quick actions \u2014 edit in settings"),{};for(let n of i){let a=t.createDiv("dash-quick-btn"),o=a.createDiv("dash-quick-icon");(0,E.setIcon)(o,(e=Oe[n.kind])!=null?e:"zap"),a.createDiv("dash-quick-label").setText(n.label),a.addEventListener("click",()=>void qe(s.plugin,n))}return{}}},vt=class extends E.Modal{constructor(i,t,e){super(i),this.plugin=t,this.inst=e;let n=Array.isArray(e.settings.actions)?e.settings.actions:ft();this.actions=n.map(yt)}onOpen(){this.titleEl.setText("Quick actions \u2014 settings"),this.render()}render(){let{contentEl:i}=this;i.empty();let t=i.createDiv("dash-qa-list");for(let e of this.actions)this.renderRow(t,e);this.actions.length||t.createDiv("dash-empty").setText("No actions yet \u2014 add one."),i.createDiv("dash-modal-foot",e=>{let n=e.createDiv("dash-btn dash-btn-accent");(0,E.setIcon)(n,"plus"),n.appendText(" Add action"),n.addEventListener("click",()=>{this.actions.push(_t("command")),this.persist(),this.render()});let a=e.createDiv("dash-btn dash-btn-ghost");a.appendText("Done"),a.addEventListener("click",()=>void this.commit())})}renderRow(i,t){let e=i.createDiv("dash-qa-row"),n=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Label"}});n.value=t.label,n.addEventListener("input",()=>t.label=n.value);let a=e.createEl("select",{cls:"dash-qa-select"});for(let c of Object.keys(dt)){let l=a.createEl("option");l.value=c,l.text=dt[c],c===t.kind&&(l.selected=!0)}a.addEventListener("change",()=>{t.kind=a.value,this.render()});let o=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:this.placeholderFor(t.kind)}});o.value=t.target,o.addEventListener("input",()=>t.target=o.value);let r=t.kind==="command"||t.kind==="note"||t.kind==="search"||t.kind==="template";o.style.display=r?"":"none",t.kind==="command"&&this.fillCommandDataslist(o);let d=e.createDiv("dash-btn dash-btn-danger");(0,E.setIcon)(d,"x"),d.setAttr("aria-label","Remove action"),d.addEventListener("click",()=>{this.actions=this.actions.filter(c=>c.id!==t.id),this.persist(),this.render()})}placeholderFor(i){switch(i){case"command":return"Command id (e.g. app:new-note)";case"note":return"Note path (e.g. Projects/Plan.md)";case"search":return"Search query";case"template":return"Template path (e.g. Templates/Weekly.md)";default:return""}}fillCommandDataslist(i){var a,o;let t=this.app.commands,e="dash-qa-commands",n=document.getElementById(e);if(n||(n=document.body.createEl("datalist",{attr:{id:e}})),!n.childElementCount){let r=(o=(a=t==null?void 0:t.listCommands)==null?void 0:a.call(t))!=null?o:[];for(let d of r)n.createEl("option",{value:d.id,text:d.name})}i.setAttribute("list",e)}onClose(){this.persist(),this.contentEl.empty()}async persist(){this.inst.settings.actions=this.actions.map(yt),await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){await this.persist(),this.close()}};w(ze);var N=require("obsidian");function Vt(s){let i=s.settings.pins;return Array.isArray(i)?i.filter(t=>typeof t=="string"):[]}var Ke={type:"pinned",name:"Pinned",description:"Your favorite notes, one click away",icon:"pin",defaultSize:{w:4,h:3},defaultSettings:{pins:[]},openSettings(s,i){new bt(s.app,s,i).open()},render(s){let i=s.body.createDiv("dash-list"),t=0;for(let e of Vt(s.inst)){let n=s.plugin.app.vault.getAbstractFileByPath(e);if(!(n instanceof N.TFile))continue;t++;let a=i.createDiv("dash-list-row"),o=a.createDiv("dash-list-icon");(0,N.setIcon)(o,"file-text"),a.createDiv("dash-list-name").setText(n.basename);let r=e.lastIndexOf("/");a.createDiv("dash-list-meta").setText(r>0?e.slice(0,r):"root"),a.addEventListener("click",()=>s.plugin.openFile(n))}return t||i.createDiv("dash-empty").setText("No pinned notes \u2014 edit to add some"),{}}},bt=class extends N.Modal{constructor(t,e,n){super(t);this.input=null;this.plugin=e,this.inst=n,this.pins=[...Vt(n)]}onOpen(){this.titleEl.setText("Pinned notes \u2014 choose notes"),this.render()}onClose(){let t=this.input?this.input.value.trim():"";t&&!this.pins.includes(t)&&this.addPath(t),this.contentEl.empty()}render(){let{contentEl:t}=this;t.empty();let e=t.createDiv("dash-qa-row"),n=e.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Note path (start typing to search)\u2026",list:"dash-pinned-notes"}});this.input=n;let a=e.createDiv("dash-btn dash-btn-accent");(0,N.setIcon)(a,"plus"),a.addEventListener("click",()=>this.submit(n));let o=()=>this.submit(n);n.addEventListener("keydown",h=>{h.key==="Enter"&&(h.preventDefault(),o())});let r=t.createEl("datalist",{attr:{id:"dash-pinned-notes"}}),d=this.plugin.app.vault.getMarkdownFiles(),c=new Set(this.pins);for(let h of d)c.has(h.path)||r.createEl("option",{value:h.path});let l=t.createDiv("dash-qa-list");this.pins.length||l.createDiv("dash-empty").setText("Nothing pinned yet.");for(let h of this.pins){let p=l.createDiv("dash-qa-row"),y=p.createDiv("dash-qa-name");y.setText(h),y.setAttr("title",h);let u=p.createDiv("dash-btn dash-btn-danger");(0,N.setIcon)(u,"x"),u.setAttr("aria-label","Unpin"),u.addEventListener("click",()=>{this.removePath(h),this.render()})}t.createDiv("dash-modal-foot",h=>{let p=h.createDiv("dash-btn dash-btn-accent");p.setText("Done"),p.addEventListener("click",()=>this.commit())}),n.focus()}submit(t){let e=t.value.trim();e&&(this.addPath(e),t.value="",this.render())}addPath(t){if(t){if(this.pins.includes(t)){new N.Notice("Already pinned");return}if(!(this.plugin.app.vault.getAbstractFileByPath(t)instanceof N.TFile)){new N.Notice("Note not found");return}this.pins.push(t),new N.Notice("Pinned "+t),this.persist()}}removePath(t){this.pins=this.pins.filter(e=>e!==t),this.persist()}async persist(){this.inst.settings.pins=[...this.pins],await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}commit(){this.close()}};w(Ke);var Gt=require("obsidian");function jt(s){var e;let i=(e=s.metadataCache.resolvedLinks)!=null?e:{},t=new Map;for(let[n,a]of Object.entries(i))for(let o of Object.keys(a)){if(o===n)continue;let r=t.get(o);r||(r=new Set,t.set(o,r)),r.add(n)}return t}function Qt(s,i,t,e,n){let a=s.createDiv("dash-list-row"),o=a.createDiv("dash-list-icon");(0,Gt.setIcon)(o,"file-text"),a.createDiv("dash-list-name").setText(i.basename),a.createDiv("dash-list-meta").setText(t),a.setAttr("title",e),a.addEventListener("click",()=>n(i))}var _e={type:"popular",name:"Popular notes",description:"Your most-linked notes",icon:"link-2",defaultSize:{w:4,h:3},defaultSettings:{count:8},settings:[{key:"count",label:"Max notes shown",type:"number",min:3,max:20}],render(s){var o;let i=s.plugin.app,t=Math.max(3,Math.min(20,Number((o=s.inst.settings.count)!=null?o:8)||8)),e=jt(i),n=i.vault.getMarkdownFiles().map(r=>{var d,c;return{f:r,n:(c=(d=e.get(r.path))==null?void 0:d.size)!=null?c:0}}).filter(r=>r.n>0).sort((r,d)=>d.n-r.n||d.f.stat.mtime-r.f.stat.mtime).slice(0,t),a=s.body.createDiv("dash-list");if(!n.length)return a.createDiv("dash-empty").setText("No backlinks yet \u2014 link your notes!"),{};for(let{f:r,n:d}of n)Qt(a,r,`${d}\u21A9`,`${r.basename} \u2014 linked from ${d} note${d===1?"":"s"}`,c=>s.plugin.openFile(c));return{}}},Ve={type:"orphans",name:"Orphan notes",description:"Notes nobody links to",icon:"unlink",defaultSize:{w:4,h:3},defaultSettings:{count:12},settings:[{key:"count",label:"Max notes shown",type:"number",min:3,max:30}],render(s){var o;let i=s.plugin.app,t=Math.max(3,Math.min(30,Number((o=s.inst.settings.count)!=null?o:12)||12)),e=jt(i),n=i.vault.getMarkdownFiles().filter(r=>{var d,c;return((c=(d=e.get(r.path))==null?void 0:d.size)!=null?c:0)===0}).sort((r,d)=>d.stat.mtime-r.stat.mtime).slice(0,t),a=s.body.createDiv("dash-list");if(!n.length)return a.createDiv("dash-empty").setText("No orphan notes \u2014 everything is connected!"),{};a.createDiv("dash-divider").setText(n.length===t?"Orphans \xB7 newest first":`Orphans \xB7 ${n.length} shown`);for(let r of n)Qt(a,r,"",r.path,d=>s.plugin.openFile(d));return{}}};w(_e);w(Ve);var J=require("obsidian");var wt=12,Ge={type:"backlinks",name:"Backlinks",description:"Notes that link to the note you're viewing",icon:"corner-up-left",defaultSize:{w:4,h:3},render(s){var a,o,r;let i=s.plugin.app;(()=>{var y;let d=s.body;d.empty();let c=i.workspace.getActiveFile?i.workspace.getActiveFile():null,l=d.createDiv("dash-list");if(!(c instanceof J.TFile)||c.extension!=="md"){l.createDiv("dash-empty").setText("Open a note to see its backlinks");return}l.createDiv("dash-divider").setText(`In \u201C${c.basename}\u201D`);let h=(y=i.metadataCache.resolvedLinks)!=null?y:{},p=[];for(let[u,g]of Object.entries(h))u!==c.path&&g[c.path]&&p.push(u);if(p.sort(),!p.length){l.createDiv("dash-empty").setText("No backlinks yet");return}for(let u of p.slice(0,wt)){let g=i.vault.getAbstractFileByPath(u);if(!(g instanceof J.TFile))continue;let f=l.createDiv("dash-list-row"),b=f.createDiv("dash-list-icon");(0,J.setIcon)(b,"file-text"),f.createDiv("dash-list-name").setText(g.basename),f.createDiv("dash-list-meta").setText(u),f.addEventListener("click",()=>s.plugin.openFile(g))}p.length>wt&&l.createDiv("dash-empty").setText(`\u2026and ${p.length-wt} more`)})();let e=()=>s.refresh(),n=()=>s.refresh();return i.workspace.on("active-leaf-change",e),(o=(a=i.metadataCache)==null?void 0:a.on)==null||o.call(a,"changed",n),(r=s.onDispose)==null||r.call(s,()=>{var d,c,l,h;(c=(d=i.workspace).off)==null||c.call(d,"active-leaf-change",e),(h=(l=i.metadataCache)==null?void 0:l.off)==null||h.call(l,"changed",n)}),{}}};w(Ge);var Xt="http://www.w3.org/2000/svg",je=864e5;function Dt(s,i){let t=s.createDiv("dash-prog-ring"),e=document.createElementNS(Xt,"svg");e.setAttribute("viewBox","0 0 120 120"),e.setAttribute("class","dash-prog-svg");let n=c=>{let l=document.createElementNS(Xt,"circle");return l.setAttribute("cx","60"),l.setAttribute("cy","60"),l.setAttribute("r","52"),l.setAttribute("class",c),l},a=n("dash-ring-track"),o=n("dash-ring-bar");e.append(a,o),t.appendChild(e);let r=2*Math.PI*52;a.setAttribute("stroke-dasharray",String(r)),o.setAttribute("stroke-dasharray",String(r));let d=t.createDiv("dash-prog-val");return t.createDiv("dash-prog-label").setText(i),c=>{let l=Math.max(0,Math.min(1,c));d.setText(String(Math.round(l*100))+"%"),o.setAttribute("stroke-dashoffset",String(r*(1-l)))}}function Qe(s){return s%4===0&&s%100!==0||s%400===0}var Xe={type:"progress",name:"Progress",description:"How much of the day, month and year has passed",icon:"gauge",defaultSize:{w:4,h:2},render(s){let i=s.body.createDiv("dash-prog-row"),t=Dt(i,"Day"),e=Dt(i,"Month"),n=Dt(i,"Year"),a=()=>{let r=new Date,d=new Date(r.getFullYear(),r.getMonth(),r.getDate()),c=new Date(r.getFullYear(),r.getMonth(),r.getDate()+1);t((r.getTime()-d.getTime())/(c.getTime()-d.getTime()));let l=new Date(r.getFullYear(),r.getMonth()+1,0).getDate();e(r.getDate()/l);let h=new Date(r.getFullYear(),0,1),p=Math.round((d.getTime()-h.getTime())/je)+1,y=Qe(r.getFullYear())?366:365;n(p/y)};a();let o=window.setInterval(a,6e4);return{dispose:()=>window.clearInterval(o)}}};w(Xe);var Jt=800,Je=365*30;function q(s,i){let t=new Date(s);return t.setDate(t.getDate()+i),t}function Ue(s,i){let t=1/0;for(let a of s.vault.getMarkdownFiles()){let o=a.stat.ctime||a.stat.mtime||0,r=a.stat.mtime||a.stat.ctime||0,d=Math.min(o||1/0,r||1/0);d<t&&(t=d)}if(!Number.isFinite(t))return q(i,-Jt);let e=new Date(t);e.setHours(0,0,0,0);let n=q(i,-Je);return e<n?n:e}var Ze={type:"streak",name:"Daily streak",description:"Consecutive days you've written a daily note",icon:"calendar-check",defaultSize:{w:4,h:2},render(s){let i=s.plugin,t=d=>i.noteExistsFor(d),e=s.body.createDiv("dash-streak-num"),n=s.body.createDiv("dash-streak-sub");(()=>{let d=new Date,c=d;t(c)||(c=q(c,-1));let l=0;for(;t(c);)l++,c=q(c,-1);let h=0,p=0,y=Ue(i.app,d);for(let m=new Date(y);m<=d;m=q(m,1))t(m)?(p++,p>h&&(h=p)):p=0;let u=0,g=q(d,-6);for(let m=new Date(g);m<=d;m=q(m,1))t(m)&&u++;let f=tn(t,d);e.setText(String(l)),n.setText(l===1?"day streak":"days streak");let b=s.body.createDiv("dash-hm-stats");kt(b,`Best \xB7 ${h}d`,"Longest run on record"),kt(b,`This week \xB7 ${u}/7`,"Daily notes in the last 7 days"),f&&kt(b,`Last \xB7 ${k(f)}`,"Most recent daily note")})();let o=k(new Date),r=window.setInterval(()=>{let d=k(new Date);d!==o&&(o=d,s.refresh())},3e4);return{dispose:()=>window.clearInterval(r)}}};function kt(s,i,t){let e=s.createDiv("dash-hm-chip");e.setText(i),e.setAttr("title",t)}function tn(s,i){for(let t=0;t<=Jt;t++){let e=q(i,-t);if(s(e))return e}return null}w(Ze);var z=require("obsidian");var en=/^\d{4}-\d{2}-\d{2}$/,nn=["Su","Mo","Tu","We","Th","Fr","Sa"];function sn(s){return"legacy-"+(s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"habit")}function Zt(s){let i=s.settings.habits;if(!Array.isArray(i))return[];let t=[],e=new Set;for(let n of i){if(!n||typeof n!="object")continue;let a=n,o=typeof a.name=="string"&&a.name.trim()!==""?a.name.trim():"Habit",r=typeof a.id=="string"&&a.id!==""?a.id:sn(o);if(e.has(r)){let d=2;for(;e.has(r+"-"+d);)d++;r=r+"-"+d}e.add(r),t.push({id:r,name:o})}return t}function te(s){let i=s.settings.log;if(!i||typeof i!="object"||Array.isArray(i))return{};let t={};for(let[e,n]of Object.entries(i)){if(!Array.isArray(n))continue;let a=n.filter(o=>typeof o=="string"&&en.test(o));a.length&&(t[e]=a)}return t}function ee(s){let i=Math.round(Number(s.settings.days));return Number.isFinite(i)?Math.max(7,Math.min(31,i)):14}function Tt(s,i){let t=new Date(s);return t.setDate(t.getDate()+i),t}function an(s,i){let t=i;s.has(k(t))||(t=Tt(t,-1));let e=0;for(;s.has(k(t));)e++,t=Tt(t,-1);return e}var on={type:"habits",name:"Habits",description:"Track daily habits on a rolling grid",icon:"target",defaultSize:{w:6,h:4},defaultSettings:{days:14,habits:[],log:{}},openSettings(s,i){new xt(s.app,s,i).open()},render(s){var u,g,f,b;let i=s.inst,t=s.body,e=Zt(i),n=ee(i),a=te(i),o=new Date;if(!e.length)return t.createDiv("dash-empty").setText("No habits yet \u2014 open widget settings to add some"),{};let r=[];for(let m=n-1;m>=0;m--)r.push(Tt(o,-m));let d=t.createDiv("dash-habits-chips"),c=0;for(let m of e)((u=a[m.id])!=null?u:[]).includes(k(o))&&c++;Ut(d,`Today ${c}/${e.length}`,"Habits completed today");let l=e.length*n,h=0;for(let m of e)h+=((g=a[m.id])!=null?g:[]).filter(v=>r.some(D=>k(D)===v)).length;l>0&&Ut(d,`${Math.round(h/l*100)}% this window`,"Share of the shown days completed");let p=t.createDiv("dash-habits-grid");p.style.gridTemplateColumns=`minmax(0, 1fr) repeat(${n}, 18px) 34px`,p.createDiv("dash-habit-hname").setText("Habit");for(let m of r){let v=p.createDiv("dash-habit-hcell"+(k(m)===k(o)?" is-today":""));v.createDiv("dash-habit-wd").setText(nn[m.getDay()]),v.createDiv("dash-habit-dn").setText(String(m.getDate())),v.setAttr("title",m.toLocaleDateString(void 0,{weekday:"long",month:"long",day:"numeric"}))}p.createDiv("dash-habit-hcell");for(let m of e){let v=new Set((f=a[m.id])!=null?f:[]),D=p.createDiv("dash-habit-name"),T=D.createDiv("dash-habit-name-text");T.setText(m.name),T.setAttr("title",m.name);let C=an(v,o);if(C>0){let M=D.createDiv("dash-habit-fire");(0,z.setIcon)(M,"flame"),M.appendText(String(C)),M.setAttr("title",`${C}-day current streak`)}for(let M of r){let L=k(M),G=v.has(L),et=p.createDiv("dash-habit-cell"+(G?" is-done":"")+(L===k(o)?" is-today":""));et.setAttr("data-hid",m.id),et.setAttr("data-date",L),et.setAttr("title",`${M.toLocaleDateString(void 0,{weekday:"short",month:"short",day:"numeric"})} \xB7 ${G?"done \u2014 click to undo":"not done \u2014 click to mark done"}`),et.addEventListener("click",()=>void y(m.id,L))}let W=p.createDiv("dash-habit-sum"),R=((b=a[m.id])!=null?b:[]).filter(M=>r.some(L=>k(L)===M)).length;W.setText(`${R}/${n}`),W.setAttr("title",`Completed ${R} of the last ${n} days`)}async function y(m,v){var C;let D=(C=a[m])!=null?C:[],T=D.includes(v)?D.filter(W=>W!==v):[...D,v].sort();T.length?a[m]=T:delete a[m],i.settings.log=a,await s.plugin.saveSettings(),s.refresh()}return{}}};function Ut(s,i,t){let e=s.createDiv("dash-hm-chip");e.setText(i),e.setAttr("title",t)}function rn(s){let i=[],t=new Set;for(let e of s){let n=e.name.trim();!n||t.has(n)||(t.add(n),i.push({id:e.id,name:n}))}return i}var xt=class extends z.Modal{constructor(t,e,n){super(t);this.clearLog=!1;this.plugin=e,this.inst=n,this.habits=Zt(n),this.days=ee(n)}onOpen(){this.titleEl.setText("Habits \u2014 settings"),this.render()}render(){let{contentEl:t}=this;t.empty();let e=t.createDiv("dash-qa-row"),n=e.createDiv("dash-qa-name");n.setText("Days shown"),n.setAttr("title","How many trailing days each habit row shows");let a=e.createEl("input",{cls:"dash-qa-input dash-habit-days-input",attr:{type:"number",min:"7",max:"31",placeholder:"14"}});a.value=String(this.days),a.addEventListener("change",()=>{let h=Math.round(Number(a.value));this.days=Number.isFinite(h)?Math.max(7,Math.min(31,h)):14,a.value=String(this.days)});let o=t.createDiv("dash-qa-row"),r=o.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"New habit name\u2026 (Enter to add)"}}),d=o.createDiv("dash-btn dash-btn-accent");(0,z.setIcon)(d,"plus");let c=()=>{let h=r.value.trim();h&&(this.habits.push({id:Y(),name:h}),this.persist(),r.value="",this.render())};d.addEventListener("click",c),r.addEventListener("keydown",h=>{h.key==="Enter"&&(h.preventDefault(),c())});let l=t.createDiv("dash-qa-list");this.habits.length||l.createDiv("dash-empty").setText("No habits yet \u2014 add one above.");for(let h of this.habits){let p=l.createDiv("dash-qa-row"),y=p.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Habit name"}});y.value=h.name,y.addEventListener("input",()=>h.name=y.value);let u=p.createDiv("dash-btn dash-btn-danger");(0,z.setIcon)(u,"x"),u.setAttr("aria-label","Remove habit"),u.addEventListener("click",()=>{this.habits=this.habits.filter(g=>g.id!==h.id),this.persist(),this.render()})}t.createDiv("dash-modal-foot",h=>{let p=h.createDiv("dash-btn dash-btn-danger");p.setText("Clear history"),p.setAttr("aria-label","Erase all completion history for these habits"),p.addEventListener("click",()=>{this.clearLog=!0,new z.Notice("Habit history will be cleared when you close this window")});let y=h.createDiv("dash-btn dash-btn-accent");y.setText("Done"),y.addEventListener("click",()=>void this.commit())}),r.focus()}onClose(){this.persist(),this.contentEl.empty()}async persist(){this.inst.settings.days=this.days,this.inst.settings.habits=rn(this.habits);let t=new Set(this.inst.settings.habits.map(n=>n.id)),e=this.clearLog?{}:te(this.inst);for(let n of Object.keys(e))t.has(n)||delete e[n];this.inst.settings.log=e,await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){await this.persist(),this.close()}};w(on);var P=require("obsidian");function ne(s){let i=s.settings;return{mode:i.mode==="note"||i.mode==="markdown"?i.mode:"daily",path:typeof i.path=="string"?i.path:"",markdown:typeof i.markdown=="string"?i.markdown:"",scroll:i.scroll!==!1}}function dn(s){if(!s.startsWith("---"))return s;let i=/^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(\r?\n|$)/.exec(s);return!i||!/^[^\s:]+:/.test(i[1].replace(/^\s+/,""))?s:s.slice(i[0].length)}var cn={type:"embed",name:"Embed",description:"Render a note, today's daily note, or your own markdown",icon:"book-open",defaultSize:{w:6,h:4},min:{w:3,h:2},max:{w:12,h:12},defaultSettings:{mode:"daily",path:"",markdown:"",scroll:!0},openSettings(s,i){new St(s.app,s,i).open()},render(s){let i=ne(s.inst),t=new P.Component;t.load();let e=!1,n=s.body.createDiv("dash-embed"),a=n.createDiv("dash-embed-content markdown-rendered");i.scroll||a.addClass("is-clipped");let o=l=>{e||(a.empty(),a.removeClass("markdown-rendered"),a.createDiv("dash-empty").setText(l))},r=l=>{if(e)return;let h=n.createDiv("dash-embed-source"),p=h.createDiv("dash-list-icon");(0,P.setIcon)(p,"file-text"),h.createDiv("dash-embed-source-name").setText(l.basename),h.setAttr("aria-label","Open "+l.path),h.addEventListener("click",()=>s.plugin.openFile(l))},d=async()=>{if(i.mode==="markdown")return{markdown:i.markdown,path:"",file:null};let l=i.mode==="daily"?s.plugin.dailyNotePath(new Date):i.path;if(!l)return o("No note chosen \u2014 edit the widget to pick one."),null;let h=s.plugin.app.vault.getAbstractFileByPath(l);return h instanceof P.TFile?{markdown:h.extension==="md"?dn(await s.plugin.app.vault.read(h)):`![[${h.path}]]`,path:h.path,file:h}:(o(i.mode==="daily"?"No daily note for today yet \u2014 the calendar can create one.":"Not found: "+l),null)};return(async()=>{let l=null;try{l=await d()}catch(p){console.error("Aurora Dashboard: embed could not read its source.",p),o("Could not read that file.");return}if(e||!l)return;let h=l;if(!h.markdown.trim()){o("Nothing to show yet \u2014 the source is empty.");return}try{await P.MarkdownRenderer.render(s.plugin.app,h.markdown,a,h.path,t)}catch(p){console.error("Aurora Dashboard: embed failed to render.",p),o("Could not render this content.");return}e||h.file&&r(h.file)})(),{dispose:()=>{e=!0,t.unload()}}}},St=class extends P.Modal{constructor(i,t,e){var n;super(i),this.plugin=t,this.inst=e,this.draft=ne(e),this.title=(n=e.title)!=null?n:""}onOpen(){this.titleEl.setText("Embed \u2014 settings"),this.render()}render(){let{contentEl:i}=this;i.empty();let t=i.createDiv("dash-qa-row");t.createDiv("dash-qa-name").setText("Title");let e=t.createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Embed",value:this.title}});e.addEventListener("input",()=>{this.title=e.value});let n=i.createDiv("dash-qa-row");n.createDiv("dash-qa-name").setText("Source");let a=n.createEl("select",{cls:"dash-qa-select dash-embed-select"});for(let[d,c]of[["note","A note"],["daily","Today's daily note"],["markdown","Inline markdown"]])a.createEl("option",{value:d}).setText(c);if(a.value=this.draft.mode,a.addEventListener("change",()=>{let d=a.value;this.draft.mode=d==="note"||d==="markdown"?d:"daily",this.render()}),this.draft.mode==="note"){let c=i.createDiv("dash-qa-row").createEl("input",{cls:"dash-qa-input",attr:{placeholder:"Start typing to search\u2026",list:"dash-embed-files",value:this.draft.path}});c.addEventListener("input",()=>{this.draft.path=c.value});let l=i.createEl("datalist",{attr:{id:"dash-embed-files"}});for(let h of this.plugin.app.vault.getFiles())(h.extension==="md"||h.extension==="base")&&l.createEl("option",{value:h.path});c.focus()}else if(this.draft.mode==="markdown"){let d=i.createEl("textarea",{cls:"dash-qa-input dash-embed-md",attr:{placeholder:"Any markdown \u2014 tables, ```dataview, ```base, mermaid, ![[embeds]]\u2026"}});d.value=this.draft.markdown,d.addEventListener("input",()=>{this.draft.markdown=d.value}),d.focus()}let o=i.createDiv("dash-qa-row");o.createDiv("dash-qa-name").setText("Long content");let r=o.createEl("select",{cls:"dash-qa-select dash-embed-select"});r.createEl("option",{value:"scroll"}).setText("Scroll"),r.createEl("option",{value:"clip"}).setText("Clip"),r.value=this.draft.scroll?"scroll":"clip",r.addEventListener("change",()=>{this.draft.scroll=r.value!=="clip"}),i.createDiv("dash-modal-foot",d=>{let c=d.createDiv("dash-btn dash-btn-accent");c.setText("Done"),c.addEventListener("click",()=>void this.commit())})}async persist(){this.inst.title=this.title.trim()||void 0,this.inst.settings.mode=this.draft.mode,this.inst.settings.path=this.draft.path,this.inst.settings.markdown=this.draft.markdown,this.inst.settings.scroll=this.draft.scroll,await this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}async commit(){if(this.draft.mode==="note"){let i=this.draft.path.trim();if(i&&!(this.plugin.app.vault.getAbstractFileByPath(i)instanceof P.TFile)){new P.Notice("Note not found: "+i);return}this.draft.path=i}await this.persist(),this.close()}onClose(){if(this.draft.mode==="note"){let i=this.draft.path.trim(),t=i&&this.plugin.app.vault.getAbstractFileByPath(i)instanceof P.TFile;this.draft.path=t?i:typeof this.inst.settings.path=="string"?this.inst.settings.path:""}this.persist(),this.contentEl.empty()}};w(cn);
+
+// ==========================================
+// Aurora Dashboard: Beautiful Custom Widgets
+// ==========================================
+var obs = require("obsidian");
+
+var WeatherWidget = {
+  type: "weather",
+  name: "Weather & Forecast",
+  description: "Live weather, temperatures, and conditions",
+  icon: "cloud-sun",
+  defaultSize: { w: 4, h: 2 },
+  min: { w: 3, h: 2 },
+  defaultSettings: {
+    city: "Pune",
+    units: "Celsius (°C)",
+    showDetails: true
+  },
+  settings: [
+    { key: "city", label: "City name", type: "text", placeholder: "e.g. Pune, London, New York" },
+    { key: "units", label: "Temperature unit", type: "select", options: ["Celsius (°C)", "Fahrenheit (°F)"] },
+    { key: "showDetails", label: "Show humidity & wind", type: "toggle" }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var city = (settings.city || "Pune").trim();
+    var isFahrenheit = settings.units === "Fahrenheit (°F)";
+    var showDetails = settings.showDetails !== false;
+
+    body.empty();
+    var card = body.createDiv("dash-weather-card");
+
+    var header = card.createDiv("dash-weather-header");
+    var locRow = header.createDiv("dash-weather-loc-row");
+    var locIcon = locRow.createDiv("dash-weather-loc-icon");
+    (0, obs.setIcon)(locIcon, "map-pin");
+    var locName = locRow.createDiv("dash-weather-loc-name");
+    locName.setText(city);
+
+    var refreshBtn = header.createDiv("dash-weather-refresh-btn");
+    (0, obs.setIcon)(refreshBtn, "refresh-cw");
+    refreshBtn.setAttr("aria-label", "Refresh weather");
+
+    var mainRow = card.createDiv("dash-weather-main");
+    var iconEl = mainRow.createDiv("dash-weather-icon");
+    (0, obs.setIcon)(iconEl, "cloud-sun");
+
+    var tempGroup = mainRow.createDiv("dash-weather-temp-group");
+    var tempEl = tempGroup.createDiv("dash-weather-temp");
+    tempEl.setText("--°");
+    var descEl = tempGroup.createDiv("dash-weather-desc");
+    descEl.setText("Loading...");
+
+    var detailsRow = null;
+    var feelsEl, humEl, windEl;
+    if (showDetails) {
+      detailsRow = card.createDiv("dash-weather-details");
+      feelsEl = detailsRow.createDiv("dash-weather-pill");
+      humEl = detailsRow.createDiv("dash-weather-pill");
+      windEl = detailsRow.createDiv("dash-weather-pill");
+    }
+
+    var weatherCodeMap = function(code) {
+      if (code === 0) return { desc: "Clear sky", icon: "sun" };
+      if ([1, 2, 3].indexOf(code) !== -1) return { desc: "Partly cloudy", icon: "cloud-sun" };
+      if ([45, 48].indexOf(code) !== -1) return { desc: "Foggy", icon: "cloud-fog" };
+      if ([51, 53, 55, 56, 57].indexOf(code) !== -1) return { desc: "Drizzle", icon: "cloud-drizzle" };
+      if ([61, 63, 65, 66, 67, 80, 81, 82].indexOf(code) !== -1) return { desc: "Rain", icon: "cloud-rain" };
+      if ([71, 73, 75, 77, 85, 86].indexOf(code) !== -1) return { desc: "Snow", icon: "cloud-snow" };
+      if ([95, 96, 99].indexOf(code) !== -1) return { desc: "Thunderstorm", icon: "cloud-lightning" };
+      return { desc: "Cloudy", icon: "cloud" };
+    };
+
+    var updateUI = function(data) {
+      locName.setText(data.cityName || city);
+      var tempUnit = isFahrenheit ? "°F" : "°C";
+      var tempVal = isFahrenheit ? Math.round(data.temp * 9 / 5 + 32) : Math.round(data.temp);
+      var feelsVal = isFahrenheit ? Math.round(data.feels * 9 / 5 + 32) : Math.round(data.feels);
+
+      tempEl.setText(tempVal + tempUnit);
+      var codeInfo = weatherCodeMap(data.weatherCode);
+      descEl.setText(codeInfo.desc);
+      (0, obs.setIcon)(iconEl, codeInfo.icon);
+
+      if (detailsRow) {
+        feelsEl.setText("Feels " + feelsVal + tempUnit);
+        humEl.setText("💧 " + data.humidity + "%");
+        windEl.setText("💨 " + data.wind + " km/h");
+      }
+    };
+
+    var fetchWeather = async function() {
+      refreshBtn.addClass("is-spinning");
+      try {
+        var geoData = null;
+        var geoUrl = "https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=en&format=json";
+        try {
+          if (typeof obs.requestUrl === "function") {
+            var geoRes = await obs.requestUrl({ url: geoUrl });
+            geoData = geoRes.json;
+          }
+        } catch (e) {}
+        if (!geoData) {
+          var res = await fetch(geoUrl);
+          geoData = await res.json();
+        }
+
+        if (!geoData || !geoData.results || !geoData.results.length) {
+          descEl.setText("City not found");
+          refreshBtn.removeClass("is-spinning");
+          return;
+        }
+
+        var match = geoData.results[0];
+        var lat = match.latitude;
+        var lon = match.longitude;
+        var foundCity = match.name;
+
+        var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m";
+        var wData = null;
+        try {
+          if (typeof obs.requestUrl === "function") {
+            var wRes = await obs.requestUrl({ url: weatherUrl });
+            wData = wRes.json;
+          }
+        } catch (e) {}
+        if (!wData) {
+          var res2 = await fetch(weatherUrl);
+          wData = await res2.json();
+        }
+
+        if (wData && wData.current) {
+          var payload = {
+            cityName: foundCity,
+            temp: wData.current.temperature_2m,
+            feels: wData.current.apparent_temperature,
+            humidity: wData.current.relative_humidity_2m,
+            weatherCode: wData.current.weather_code,
+            wind: wData.current.wind_speed_10m,
+            timestamp: Date.now()
+          };
+          if (inst && inst.settings) {
+            inst.settings._cache = payload;
+            if (plugin && plugin.saveSettings) plugin.saveSettings();
+          }
+          updateUI(payload);
+        }
+      } catch (err) {
+        if (inst && inst.settings && inst.settings._cache) {
+          updateUI(inst.settings._cache);
+        } else {
+          descEl.setText("Offline / Retry");
+        }
+      } finally {
+        refreshBtn.removeClass("is-spinning");
+      }
+    };
+
+    refreshBtn.addEventListener("click", function() { fetchWeather(); });
+
+    if (inst && inst.settings && inst.settings._cache && (Date.now() - (inst.settings._cache.timestamp || 0) < 20 * 60 * 1000)) {
+      updateUI(inst.settings._cache);
+    } else {
+      fetchWeather();
+    }
+
+    var timer = window.setInterval(fetchWeather, 30 * 60 * 1000);
+    return {
+      dispose: function() { window.clearInterval(timer); }
+    };
+  }
+};
+
+var GreetingWidget = {
+  type: "greeting",
+  name: "Greeting & Compass",
+  description: "Personalized greeting, daily energy, and focus mode",
+  icon: "sparkles",
+  noHeader: true,
+  defaultSize: { w: 8, h: 2 },
+  min: { w: 4, h: 2 },
+  defaultSettings: {
+    userName: "Siddhesh",
+    motto: "Small daily steps lead to massive breakthroughs.",
+    activeFocus: "⚡ Deep Work"
+  },
+  settings: [
+    { key: "userName", label: "Your name", type: "text", placeholder: "e.g. Siddhesh" },
+    { key: "motto", label: "Daily motto / mantra", type: "text", placeholder: "e.g. Keep building" }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var name = (settings.userName || "Siddhesh").trim();
+    var motto = settings.motto || "Small daily steps lead to massive breakthroughs.";
+
+    body.empty();
+    var card = body.createDiv("dash-greeting-card");
+
+    var left = card.createDiv("dash-greeting-left");
+    var right = card.createDiv("dash-greeting-right");
+
+    var now = new Date();
+    var hour = now.getHours();
+    var salutation = "Good morning";
+    var iconName = "sun";
+    if (hour >= 12 && hour < 17) {
+      salutation = "Good afternoon";
+      iconName = "sun-medium";
+    } else if (hour >= 17 && hour < 22) {
+      salutation = "Good evening";
+      iconName = "sunset";
+    } else if (hour >= 22 || hour < 5) {
+      salutation = "Night Owl mode";
+      iconName = "moon-star";
+    }
+
+    var titleRow = left.createDiv("dash-greeting-title-row");
+    var iconSpan = titleRow.createDiv("dash-greeting-icon");
+    (0, obs.setIcon)(iconSpan, iconName);
+    var titleText = titleRow.createDiv("dash-greeting-title");
+    titleText.setText(salutation + ", " + name);
+
+    var subText = left.createDiv("dash-greeting-subtitle");
+    subText.setText('"' + motto + '"');
+
+    var dateChip = right.createDiv("dash-greeting-date-chip");
+    var dateIcon = dateChip.createDiv("dash-greeting-date-icon");
+    (0, obs.setIcon)(dateIcon, "calendar");
+    var dateText = dateChip.createDiv("dash-greeting-date-text");
+    dateText.setText(now.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }));
+
+    var focusContainer = right.createDiv("dash-greeting-focus-group");
+    var chips = [
+      "⚡ Deep Work",
+      "💡 DSA & Logic",
+      "🏗️ System Design",
+      "🌱 Flow State"
+    ];
+
+    chips.forEach(function(chip) {
+      var btn = focusContainer.createDiv("dash-focus-chip");
+      btn.setText(chip);
+      if (chip === settings.activeFocus || (!settings.activeFocus && chip === "⚡ Deep Work")) {
+        btn.addClass("is-active");
+      }
+      btn.addEventListener("click", function() {
+        var allChips = focusContainer.children;
+        for (var i = 0; i < allChips.length; i++) {
+          allChips[i].removeClass("is-active");
+        }
+        btn.addClass("is-active");
+        if (inst && inst.settings) {
+          inst.settings.activeFocus = chip;
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+      });
+    });
+  }
+};
+
+var StickyNoteWidget = {
+  type: "stickynote",
+  name: "Sticky Note",
+  description: "A colorful scratchpad for ideas, thoughts, or quick lists",
+  icon: "sticky-note",
+  defaultSize: { w: 4, h: 3 },
+  min: { w: 3, h: 2 },
+  defaultSettings: {
+    text: "• Review System Design principles\n• Solve 2 DSA tree problems\n\n💡 Consistency > Intensity",
+    color: "amber"
+  },
+  settings: [
+    { key: "color", label: "Color theme", type: "select", options: ["amber", "rose", "emerald", "sky", "purple", "slate"] }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var currentColor = settings.color || "amber";
+
+    body.empty();
+    var note = body.createDiv("dash-sticky-card dash-sticky-" + currentColor);
+
+    var bar = note.createDiv("dash-sticky-bar");
+    var colorDots = bar.createDiv("dash-sticky-colors");
+    var colors = ["amber", "rose", "emerald", "sky", "purple", "slate"];
+    colors.forEach(function(c) {
+      var dot = colorDots.createDiv("dash-color-dot dot-" + c);
+      if (c === currentColor) dot.addClass("is-selected");
+      dot.addEventListener("click", function() {
+        colors.forEach(function(col) { note.removeClass("dash-sticky-" + col); });
+        note.addClass("dash-sticky-" + c);
+        var dots = colorDots.children;
+        for (var j = 0; j < dots.length; j++) {
+          dots[j].removeClass("is-selected");
+        }
+        dot.addClass("is-selected");
+        if (inst && inst.settings) {
+          inst.settings.color = c;
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+      });
+    });
+
+    var actions = bar.createDiv("dash-sticky-actions");
+    var addTaskBtn = actions.createDiv("dash-sticky-btn");
+    addTaskBtn.setText("+ [ ]");
+    addTaskBtn.setAttr("aria-label", "Insert task checkbox");
+
+    var copyBtn = actions.createDiv("dash-sticky-btn");
+    (0, obs.setIcon)(copyBtn, "copy");
+    copyBtn.setAttr("aria-label", "Copy note text");
+
+    var clearBtn = actions.createDiv("dash-sticky-btn");
+    (0, obs.setIcon)(clearBtn, "trash-2");
+    clearBtn.setAttr("aria-label", "Clear note");
+
+    var textarea = note.createEl("textarea", {
+      cls: "dash-sticky-textarea",
+      attr: { placeholder: "Write down a quick thought or task..." }
+    });
+    textarea.value = settings.text || "";
+
+    var foot = note.createDiv("dash-sticky-foot");
+    var updateStats = function() {
+      var val = textarea.value;
+      var words = val.trim() ? val.trim().split(/\s+/).length : 0;
+      foot.setText(words + " word" + (words === 1 ? "" : "s") + " • " + val.length + " chars");
+    };
+    updateStats();
+
+    var saveTimeout = null;
+    textarea.addEventListener("input", function() {
+      updateStats();
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(function() {
+        if (inst && inst.settings) {
+          inst.settings.text = textarea.value;
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+      }, 400);
+    });
+
+    addTaskBtn.addEventListener("click", function() {
+      var start = textarea.selectionStart || 0;
+      var end = textarea.selectionEnd || 0;
+      var val = textarea.value;
+      var prefix = (val.length === 0 || val.endsWith("\n")) ? "" : "\n";
+      var insert = prefix + "- [ ] ";
+      textarea.value = val.slice(0, start) + insert + val.slice(end);
+      textarea.focus();
+      textarea.setSelectionRange(start + insert.length, start + insert.length);
+      if (inst && inst.settings) {
+        inst.settings.text = textarea.value;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+      updateStats();
+    });
+
+    copyBtn.addEventListener("click", async function() {
+      try {
+        await navigator.clipboard.writeText(textarea.value);
+        new obs.Notice("Note copied to clipboard! 📋");
+      } catch (e) {
+        new obs.Notice("Failed to copy note.");
+      }
+    });
+
+    clearBtn.addEventListener("click", function() {
+      if (!textarea.value.trim() || confirm("Clear this sticky note?")) {
+        textarea.value = "";
+        if (inst && inst.settings) {
+          inst.settings.text = "";
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+        updateStats();
+      }
+    });
+
+    return {
+      dispose: function() {
+        if (saveTimeout) clearTimeout(saveTimeout);
+      }
+    };
+  }
+};
+
+var WaterWidget = {
+  type: "water",
+  name: "Hydration",
+  description: "Track daily water intake with animated fluid progress",
+  icon: "droplets",
+  defaultSize: { w: 3, h: 2 },
+  min: { w: 2, h: 2 },
+  defaultSettings: {
+    goal: 2000,
+    current: 1250,
+    date: ""
+  },
+  settings: [
+    { key: "goal", label: "Daily goal (ml)", type: "number", min: 500, max: 5000 }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var goal = Math.max(500, Number(settings.goal) || 2000);
+    var today = new Date().toISOString().slice(0, 10);
+
+    if (settings.date !== today) {
+      if (inst && inst.settings) {
+        inst.settings.date = today;
+        inst.settings.current = 0;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+    }
+
+    body.empty();
+    var card = body.createDiv("dash-water-card");
+
+    var top = card.createDiv("dash-water-top");
+    var valText = top.createDiv("dash-water-val");
+    var pctBadge = top.createDiv("dash-water-badge");
+
+    var progressTrack = card.createDiv("dash-water-track");
+    var progressBar = progressTrack.createDiv("dash-water-bar");
+
+    var btnRow = card.createDiv("dash-water-buttons");
+    var add250 = btnRow.createDiv("dash-water-btn");
+    add250.setText("+250ml");
+    var add500 = btnRow.createDiv("dash-water-btn");
+    add500.setText("+500ml");
+    var sub250 = btnRow.createDiv("dash-water-btn dash-water-btn-sub");
+    sub250.setText("-250");
+    var resetBtn = btnRow.createDiv("dash-water-btn dash-water-btn-sub");
+    (0, obs.setIcon)(resetBtn, "rotate-ccw");
+    resetBtn.setAttr("aria-label", "Reset water");
+
+    var updateDisplay = function() {
+      var current = Math.max(0, Number(inst.settings.current) || 0);
+      var pct = Math.min(100, Math.round((current / goal) * 100));
+      valText.setText(current + " / " + goal + " ml");
+      pctBadge.setText(pct + "%");
+      progressBar.style.width = pct + "%";
+      if (pct >= 100) {
+        pctBadge.addClass("is-complete");
+        progressBar.addClass("is-complete");
+      } else {
+        pctBadge.removeClass("is-complete");
+        progressBar.removeClass("is-complete");
+      }
+    };
+
+    var modifyWater = function(delta) {
+      var cur = Math.max(0, Number(inst.settings.current) || 0);
+      cur = Math.max(0, cur + delta);
+      if (inst && inst.settings) {
+        inst.settings.current = cur;
+        inst.settings.date = today;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+      updateDisplay();
+      if (cur >= goal && cur - delta < goal) {
+        new obs.Notice("🎉 Hydration goal achieved! Stay refreshed.");
+      }
+    };
+
+    add250.addEventListener("click", function() { modifyWater(250); });
+    add500.addEventListener("click", function() { modifyWater(500); });
+    sub250.addEventListener("click", function() { modifyWater(-250); });
+    resetBtn.addEventListener("click", function() {
+      if (inst && inst.settings) {
+        inst.settings.current = 0;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+      updateDisplay();
+    });
+
+    updateDisplay();
+  }
+};
+
+var SoundscapesWidget = {
+  type: "soundscapes",
+  name: "Focus Soundscapes",
+  description: "Offline soothing ambient noise generator (Rain, Waves, Fire, Brown Noise)",
+  icon: "headphones",
+  defaultSize: { w: 3, h: 2 },
+  min: { w: 3, h: 2 },
+  defaultSettings: {
+    sound: "Rain",
+    volume: 60
+  },
+  settings: [
+    { key: "sound", label: "Ambient sound", type: "select", options: ["Rain", "Ocean Waves", "Campfire", "Brown Noise", "White Noise"] },
+    { key: "volume", label: "Default volume (%)", type: "number", min: 5, max: 100 }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var isPlaying = false;
+    var audioCtx = null;
+    var gainNode = null;
+    var sourceNode = null;
+
+    body.empty();
+    var card = body.createDiv("dash-sound-card");
+
+    var topRow = card.createDiv("dash-sound-top");
+    var playBtn = topRow.createDiv("dash-sound-play-btn");
+    var playIcon = playBtn.createDiv("dash-sound-play-icon");
+    (0, obs.setIcon)(playIcon, "play");
+
+    var soundSelect = topRow.createEl("select", { cls: "dash-sound-select" });
+    ["Rain", "Ocean Waves", "Campfire", "Brown Noise", "White Noise"].forEach(function(s) {
+      var opt = soundSelect.createEl("option", { value: s, text: s });
+      if (s === (settings.sound || "Rain")) opt.selected = true;
+    });
+
+    var waveEl = card.createDiv("dash-sound-wave");
+    for (var i = 0; i < 7; i++) {
+      waveEl.createDiv("dash-sound-bar");
+    }
+
+    var volRow = card.createDiv("dash-sound-vol-row");
+    var volIcon = volRow.createDiv("dash-sound-vol-icon");
+    (0, obs.setIcon)(volIcon, "volume-2");
+
+    var volSlider = volRow.createEl("input", {
+      cls: "dash-sound-slider",
+      attr: { type: "range", min: "0", max: "100", value: String(settings.volume || 60) }
+    });
+    var volLabel = volRow.createDiv("dash-sound-vol-label");
+    volLabel.setText((settings.volume || 60) + "%");
+
+    var setVol = function(v) {
+      var volPct = Math.max(0, Math.min(100, Number(v) || 0));
+      volLabel.setText(volPct + "%");
+      if (gainNode && audioCtx) {
+        gainNode.gain.setValueAtTime((volPct / 100) * 0.35, audioCtx.currentTime);
+      }
+      if (inst && inst.settings) {
+        inst.settings.volume = volPct;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+    };
+
+    volSlider.addEventListener("input", function(e) { setVol(e.target.value); });
+
+    var createSound = function(type) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+
+        gainNode = audioCtx.createGain();
+        var vol = (Number((inst && inst.settings && inst.settings.volume) || 60) / 100) * 0.35;
+        gainNode.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gainNode.connect(audioCtx.destination);
+
+        var bufferSize = audioCtx.sampleRate * 3;
+        var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        var data = buffer.getChannelData(0);
+
+        if (type === "White Noise") {
+          for (var j = 0; j < bufferSize; j++) {
+            data[j] = Math.random() * 2 - 1;
+          }
+        } else if (type === "Brown Noise" || type === "Ocean Waves") {
+          var lastOut = 0.0;
+          for (var j = 0; j < bufferSize; j++) {
+            var white = Math.random() * 2 - 1;
+            data[j] = (lastOut + 0.02 * white) / 1.02;
+            lastOut = data[j];
+            data[j] *= 3.5;
+          }
+        } else if (type === "Rain") {
+          var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+          for (var j = 0; j < bufferSize; j++) {
+            var white2 = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white2 * 0.0555179;
+            b1 = 0.99332 * b1 + white2 * 0.0750759;
+            b2 = 0.96900 * b2 + white2 * 0.1538520;
+            b3 = 0.86650 * b3 + white2 * 0.3104856;
+            b4 = 0.55000 * b4 + white2 * 0.5329522;
+            b5 = -0.7616 * b5 - white2 * 0.0168980;
+            data[j] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white2 * 0.5362) * 0.22;
+            b6 = white2 * 0.115926;
+          }
+        } else if (type === "Campfire") {
+          var lastOut2 = 0.0;
+          for (var j = 0; j < bufferSize; j++) {
+            var white3 = Math.random() * 2 - 1;
+            var sample = (lastOut2 + 0.03 * white3) / 1.02;
+            lastOut2 = sample;
+            if (Math.random() < 0.0004) {
+              sample += (Math.random() * 2 - 1) * 1.8;
+            }
+            data[j] = sample * 2.5;
+          }
+        }
+
+        sourceNode = audioCtx.createBufferSource();
+        sourceNode.buffer = buffer;
+        sourceNode.loop = true;
+
+        if (type === "Ocean Waves") {
+          var filter = audioCtx.createBiquadFilter();
+          filter.type = "lowpass";
+          filter.frequency.value = 450;
+
+          var lfo = audioCtx.createOscillator();
+          lfo.frequency.value = 0.12;
+          var lfoGain = audioCtx.createGain();
+          lfoGain.gain.value = 0.25;
+
+          lfo.connect(lfoGain);
+          sourceNode.connect(filter);
+          filter.connect(gainNode);
+          lfo.start();
+        } else if (type === "Rain") {
+          var filter2 = audioCtx.createBiquadFilter();
+          filter2.type = "lowpass";
+          filter2.frequency.value = 850;
+          sourceNode.connect(filter2);
+          filter2.connect(gainNode);
+        } else {
+          sourceNode.connect(gainNode);
+        }
+
+        sourceNode.start();
+      } catch (e) {
+        console.error("Audio error:", e);
+      }
+    };
+
+    var stopSound = function() {
+      try {
+        if (sourceNode) {
+          sourceNode.stop();
+          sourceNode.disconnect();
+          sourceNode = null;
+        }
+        if (gainNode) {
+          gainNode.disconnect();
+          gainNode = null;
+        }
+        if (audioCtx) {
+          audioCtx.close();
+          audioCtx = null;
+        }
+      } catch (e) {}
+    };
+
+    var togglePlay = function() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playBtn.addClass("is-playing");
+        (0, obs.setIcon)(playIcon, "pause");
+        waveEl.addClass("is-active");
+        createSound(soundSelect.value);
+      } else {
+        playBtn.removeClass("is-playing");
+        (0, obs.setIcon)(playIcon, "play");
+        waveEl.removeClass("is-active");
+        stopSound();
+      }
+    };
+
+    playBtn.addEventListener("click", togglePlay);
+
+    soundSelect.addEventListener("change", function() {
+      if (inst && inst.settings) {
+        inst.settings.sound = soundSelect.value;
+        if (plugin && plugin.saveSettings) plugin.saveSettings();
+      }
+      if (isPlaying) {
+        stopSound();
+        createSound(soundSelect.value);
+      }
+    });
+
+    return {
+      dispose: function() {
+        stopSound();
+      }
+    };
+  }
+};
+
+var AffirmationWidget = {
+  type: "affirmation",
+  name: "Daily Affirmation",
+  description: "Uplifting affirmations and Stoic insights for focus & resilience",
+  icon: "compass",
+  defaultSize: { w: 4, h: 2 },
+  min: { w: 3, h: 2 },
+  defaultSettings: {
+    index: 0
+  },
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var items = [
+      { text: "Simplicity is prerequisite for reliability. Decouple and refine.", cat: "Mastery", author: "Edsger W. Dijkstra" },
+      { text: "Small daily improvements compounded over time produce staggering results.", cat: "Focus", author: "Atomic Habits" },
+      { text: "The impediment to action advances action. What stands in the way becomes the way.", cat: "Stoic", author: "Marcus Aurelius" },
+      { text: "First make it work, then make it right, then make it fast.", cat: "Engineering", author: "Kent Beck" },
+      { text: "Deep work is a superpower. Guard your attention with fierce discipline.", cat: "Flow", author: "Cal Newport" },
+      { text: "You have power over your mind — not external events. Realize this, and find your strength.", cat: "Stoic", author: "Marcus Aurelius" },
+      { text: "Clear writing is clear thinking. Write down your architecture before coding.", cat: "Clarity", author: "Engineering Mindset" },
+      { text: "Do not fear mistakes; fear only the lack of learning from them.", cat: "Growth", author: "John Wooden" },
+      { text: "Consistency beats intensity every single day.", cat: "Habit", author: "Daily Mantra" },
+      { text: "Code elegance lies in removing everything that does not serve a clear purpose.", cat: "Engineering", author: "Design Principles" },
+      { text: "Be like water making its way through cracks. Adapt, iterate, conquer.", cat: "Resilience", author: "Bruce Lee" },
+      { text: "One problem solved, one module crafted, one step forward at a time.", cat: "Focus", author: "Focus Daily" }
+    ];
+
+    body.empty();
+    var card = body.createDiv("dash-affirm-card");
+
+    var idx = Number((inst && inst.settings && inst.settings.index) || 0);
+    if (idx >= items.length || idx < 0) idx = 0;
+
+    var topRow = card.createDiv("dash-affirm-top");
+    var tag = topRow.createDiv("dash-affirm-tag");
+    var actions = topRow.createDiv("dash-affirm-actions");
+
+    var copyBtn = actions.createDiv("dash-affirm-btn");
+    (0, obs.setIcon)(copyBtn, "copy");
+    copyBtn.setAttr("aria-label", "Copy affirmation");
+
+    var nextBtn = actions.createDiv("dash-affirm-btn");
+    (0, obs.setIcon)(nextBtn, "shuffle");
+    nextBtn.setAttr("aria-label", "Next affirmation");
+
+    var textEl = card.createDiv("dash-affirm-text");
+    var authorEl = card.createDiv("dash-affirm-author");
+
+    var renderItem = function(i) {
+      var cur = items[i];
+      tag.setText(cur.cat);
+      textEl.setText("“" + cur.text + "”");
+      authorEl.setText("— " + cur.author);
+    };
+
+    renderItem(idx);
+
+    nextBtn.addEventListener("click", function() {
+      textEl.addClass("is-fading");
+      setTimeout(function() {
+        idx = (idx + 1) % items.length;
+        if (inst && inst.settings) {
+          inst.settings.index = idx;
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+        renderItem(idx);
+        textEl.removeClass("is-fading");
+      }, 150);
+    });
+
+    copyBtn.addEventListener("click", async function() {
+      var cur = items[idx];
+      try {
+        await navigator.clipboard.writeText('"' + cur.text + '" — ' + cur.author);
+        new obs.Notice("Affirmation copied! ✨");
+      } catch (e) {
+        new obs.Notice("Failed to copy affirmation.");
+      }
+    });
+  }
+};
+
+var ReadingWidget = {
+  type: "reading",
+  name: "Reading & Study",
+  description: "Visual tracker for books, DSA practice, or study courses",
+  icon: "book-open",
+  defaultSize: { w: 3, h: 3 },
+  min: { w: 3, h: 2 },
+  defaultSettings: {
+    title: "Designing Data-Intensive Applications",
+    author: "Martin Kleppmann",
+    current: 185,
+    total: 560
+  },
+  settings: [
+    { key: "title", label: "Title / Topic", type: "text" },
+    { key: "author", label: "Author / Platform", type: "text" },
+    { key: "current", label: "Current page / problem", type: "number" },
+    { key: "total", label: "Total pages / problems", type: "number" }
+  ],
+  render(ctx) {
+    var body = ctx.body, inst = ctx.inst, plugin = ctx.plugin;
+    var settings = (inst && inst.settings) || {};
+    var title = settings.title || "Designing Data-Intensive Applications";
+    var author = settings.author || "Martin Kleppmann";
+    var current = Math.max(0, Number(settings.current) || 0);
+    var total = Math.max(1, Number(settings.total) || 100);
+
+    body.empty();
+    var card = body.createDiv("dash-read-card");
+
+    var header = card.createDiv("dash-read-header");
+    var bookIcon = header.createDiv("dash-read-icon");
+    (0, obs.setIcon)(bookIcon, "book-open");
+    var info = header.createDiv("dash-read-info");
+    var titleEl = info.createDiv("dash-read-title");
+    titleEl.setText(title);
+    var authorEl = info.createDiv("dash-read-author");
+    authorEl.setText(author);
+
+    var statsRow = card.createDiv("dash-read-stats");
+    var pct = Math.min(100, Math.round((current / total) * 100));
+    var pagesText = statsRow.createDiv("dash-read-pages");
+    pagesText.setText(current + " / " + total);
+    var pctBadge = statsRow.createDiv("dash-read-pct");
+    pctBadge.setText(pct + "%");
+
+    var track = card.createDiv("dash-read-track");
+    var bar = track.createDiv("dash-read-bar");
+    bar.style.width = pct + "%";
+
+    var sub = card.createDiv("dash-read-sub");
+    var remaining = Math.max(0, total - current);
+    sub.setText(remaining === 0 ? "🎉 Completed!" : (remaining + " remaining"));
+
+    var btnRow = card.createDiv("dash-read-buttons");
+    var bumps = [
+      { label: "+5", val: 5 },
+      { label: "+10", val: 10 },
+      { label: "+25", val: 25 },
+      { label: "-5", val: -5 }
+    ];
+
+    bumps.forEach(function(b) {
+      var btn = btnRow.createDiv("dash-read-btn");
+      btn.setText(b.label);
+      btn.addEventListener("click", function() {
+        var cur = Math.max(0, Math.min(total, (Number(inst.settings.current) || 0) + b.val));
+        if (inst && inst.settings) {
+          inst.settings.current = cur;
+          if (plugin && plugin.saveSettings) plugin.saveSettings();
+        }
+        ctx.refresh();
+      });
+    });
+  }
+};
+
+w(WeatherWidget);
+w(GreetingWidget);
+w(StickyNoteWidget);
+w(WaterWidget);
+w(SoundscapesWidget);
+w(AffirmationWidget);
+w(ReadingWidget);
+var x=require("obsidian");var Mt=400;function j(s,i){let t=typeof s=="number"?s:Number(s);return Number.isFinite(t)?t:i}function ie(s,i){let t=Math.max(1,i),e=F(Math.round(j(s.w,4)),1,t),n=F(Math.round(j(s.h,2)),1,Mt),a=F(Math.round(j(s.x,0)),0,Math.max(0,t-e)),o=F(Math.round(j(s.y,0)),0,Math.max(0,Mt-n)),r=s.w!==e||s.h!==n||s.x!==a||s.y!==o;return s.w=e,s.h=n,s.x=a,s.y=o,r}function At(s,i){let t=!1;for(let e of s)ie(e,i)&&(t=!0);return t&&K(s,i),t}function Et(s){return s.collapsed?1:s.h}function ln(s,i){let t=Et(s),e=Et(i);return s.x<i.x+i.w&&s.x+s.w>i.x&&s.y<i.y+e&&s.y+t>i.y}function Q(s,i){return s.some(t=>t.uid!==i.uid&&ln(i,t))}function U(s){let i=1;for(let t of s)i=Math.max(i,t.y+Et(t));return i}function hn(s,i,t,e,n){if(t<0||e<0||t+i.w>n)return!1;let a={x:i.x,y:i.y};i.x=t,i.y=e;let o=!Q(s,i);return i.x=a.x,i.y=a.y,o}function ct(s,i,t,e,n){let a=Math.max(U(s),e)+6,o=null,r=1/0;for(let d=0;d<=a;d++)for(let c=0;c<n;c++)if(hn(s,i,c,d,n)){let l=(c-t)**2+(d-e)**2;l<r&&(r=l,o={x:c,y:d})}return o!=null?o:{x:F(t,0,Math.max(0,n-i.w)),y:a}}function Wt(s,i,t){let e=Math.max(1,t),n=F(Math.round(j(i.w,4)),1,e),a=F(Math.round(j(i.h,2)),1,Mt);for(let o=0;o<=U(s)+1;o++)for(let r=0;r<=e-n;r++){let d=pn({w:n,h:a},r,o);if(!Q(s,d))return{x:r,y:o}}return{x:0,y:U(s)+1}}function pn(s,i,t){return{type:"",uid:Y(),x:i,y:t,w:s.w,h:s.h,settings:{}}}function K(s,i){for(let t=0;t<s.length;t++){let e=s[t];ie(e,i);let n=0;for(;Q(s.slice(0,t),e)&&n<50;){let a=ct(s.slice(0,t),e,e.x,e.y+1,i);e.x=a.x,e.y=a.y,n++}}}function un(s){return s.map(i=>{var t;return{type:i.type,uid:Y(),x:i.x,y:i.y,w:i.w,h:i.h,settings:(t=i.settings)!=null?t:{},title:i.title}})}function lt(s=12){let i=un([{"type":"greeting","x":0,"y":0,"w":8,"h":2},{"type":"weather","x":8,"y":0,"w":4,"h":2},{"type":"clock","x":0,"y":2,"w":3,"h":2},{"type":"pomodoro","x":3,"y":2,"w":3,"h":2},{"type":"soundscapes","x":6,"y":2,"w":3,"h":2},{"type":"water","x":9,"y":2,"w":3,"h":2},{"type":"calendar","x":0,"y":4,"w":4,"h":4},{"type":"activity","x":4,"y":4,"w":4,"h":4},{"type":"stickynote","x":8,"y":4,"w":4,"h":4},{"type":"vaulttasks","x":0,"y":8,"w":5,"h":4},{"type":"habits","x":5,"y":8,"w":4,"h":4},{"type":"reading","x":9,"y":8,"w":3,"h":4},{"type":"quickactions","x":0,"y":12,"w":4,"h":2},{"type":"affirmation","x":4,"y":12,"w":5,"h":2},{"type":"stats","x":9,"y":12,"w":3,"h":2},{"type":"recent","x":0,"y":14,"w":4,"h":3},{"type":"pinned","x":4,"y":14,"w":4,"h":3},{"type":"tags","x":8,"y":14,"w":4,"h":3}]),t=Math.max(1,Math.round(s));if(t!==12){let e=t/12;for(let n of i)n.w=F(Math.round(n.w*e),1,t),n.x=F(Math.round(n.x*e),0,Math.max(0,t-n.w));K(i,t)}return i}var _="aurora-dashboard-view",Z=class extends x.ItemView{constructor(t,e){super(t);this.handles=new Map;this.cleanups=[];this.editSnapshot=null;this.renderGen=0;this.dayKey="";this.plugin=e}getViewType(){return _}getDisplayText(){return"Aurora Dashboard"}getIcon(){return"layout-dashboard"}async onOpen(){this.render()}onClose(){return this.runCleanups(),this.disposeAll(),Promise.resolve()}runCleanups(){for(let t of this.cleanups)try{t()}catch(e){}this.cleanups=[]}disposeAll(){var t;for(let e of this.handles.values())try{(t=e.dispose)==null||t.call(e)}catch(n){}this.handles.clear()}render(){let{contentEl:t}=this;t.empty(),t.addClass("dash-view"),this.plugin.settings.accent?t.style.setProperty("--dash-accent",this.plugin.settings.accent):t.style.removeProperty("--dash-accent");let e=this.plugin.settings.editMode;e?t.addClass("editing"):t.removeClass("editing"),e&&!this.editSnapshot?this.editSnapshot=JSON.parse(JSON.stringify(this.plugin.settings.layout)):e||(this.editSnapshot=null),this.renderGen++,this.runCleanups(),this.disposeAll(),t.createDiv("dash-scroll",n=>{n.createDiv("dash-shell",a=>{this.buildControlBar(a),this.gridEl=a.createDiv("dash-grid"),this.applyGrid(),this.dropTarget=this.gridEl.createDiv("dash-drop-target"),this.buildWidgets()})}),this.watchForNewDay()}watchForNewDay(){this.dayKey=k(new Date);let t=window.setInterval(()=>{let e=k(new Date);e!==this.dayKey&&(this.dayKey=e,this.render())},1e3);this.cleanups.push(()=>window.clearInterval(t))}greeting(){let t=new Date().getHours();return t<5?"Burning the midnight oil":t<12?"Good morning":t<18?"Good afternoon":"Good evening"}buildControlBar(t){let e=t.createDiv("dash-control"),n=e.createDiv("dash-control-left"),a=n.createDiv("dash-logo");(0,x.setIcon)(a,"layout-dashboard");let o=n.createDiv("dash-brand");o.createDiv("dash-brand-title").setText("Aurora Dashboard"),o.createDiv("dash-brand-sub").setText(`${this.greeting()} \xB7 ${new Date().toLocaleDateString(void 0,{weekday:"long",month:"long",day:"numeric"})}`);let r=e.createDiv("dash-control-right"),d=r.createDiv("dash-chip dash-chip-time"),c=()=>d.setText(new Date().toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"}));c();let l=window.setInterval(c,1e3);this.cleanups.push(()=>window.clearInterval(l));let h=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(h,"search"),h.setAttr("aria-label","Search"),h.addEventListener("click",()=>void this.plugin.openSearch(""));let p=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(p,"send"),p.setAttr("aria-label","Quick capture"),p.addEventListener("click",()=>this.plugin.showQuickCapture());let y=this.plugin.settings.editMode,u=r.createDiv("dash-btn "+(y?"dash-btn-active":"dash-btn-ghost"));if((0,x.setIcon)(u,y?"check":"pencil"),u.setAttr("aria-label",y?"Done editing":"Edit layout"),u.addEventListener("click",()=>{this.plugin.settings.editMode=!this.plugin.settings.editMode,this.plugin.saveSettings(),this.render()}),y){let g=r.createDiv("dash-btn dash-btn-ghost");(0,x.setIcon)(g,"x"),g.setAttr("aria-label","Cancel editing"),g.addEventListener("click",()=>{this.editSnapshot&&(this.plugin.settings.layout=this.editSnapshot),this.editSnapshot=null,this.plugin.settings.editMode=!1,this.plugin.saveSettings(),this.render()});let f=r.createDiv("dash-btn dash-btn-accent");(0,x.setIcon)(f,"plus"),f.setAttr("aria-label","Add widget"),f.addEventListener("click",()=>new Lt(this.app,this.plugin).open())}}applyGrid(){let t=this.plugin.settings;this.gridEl.style.setProperty("--dash-cols",String(t.columns)),this.gridEl.style.setProperty("--dash-row",t.rowHeight+"px"),this.gridEl.style.setProperty("--dash-gap",t.gap+"px")}buildWidgets(){for(let t of this.plugin.settings.layout)this.buildWidgetCard(t)}buildWidgetCard(t){let e=H(t.type);if(!e)return;let n=this.gridEl.createDiv({cls:"dash-widget",attr:{"data-uid":t.uid,"data-type":t.type}});e.noHeader&&n.addClass("no-header"),t.collapsed&&n.addClass("collapsed"),this.position(n,t),this.buildWidgetHeader(n,t,e);let a=n.createDiv("dash-widget-body widget-"+e.type);this.renderWidgetBody(a,t),this.plugin.settings.editMode&&(this.enableDrag(n,t),this.enableResize(n,t))}position(t,e){t.style.setProperty("--dash-cx",String(e.x+1)),t.style.setProperty("--dash-cy",String(e.y+1)),t.style.setProperty("--dash-cw",String(e.w)),t.style.setProperty("--dash-ch",String(e.collapsed?1:e.h))}buildWidgetHeader(t,e,n){let a=this.plugin.settings.editMode;if(n.noHeader&&!a)return;let o=t.createDiv("dash-widget-header"),r=o.createDiv("dash-grip");if((0,x.setIcon)(r,"grip-vertical"),!n.noHeader){let h=o.createDiv("dash-widget-icon");(0,x.setIcon)(h,n.icon),o.createDiv("dash-widget-title").setText(e.title||n.name);let p=o.createDiv("dash-widget-collapse");(0,x.setIcon)(p,e.collapsed?"chevron-right":"chevron-down"),p.setAttr("aria-label",e.collapsed?"Expand widget":"Collapse widget"),p.addEventListener("click",()=>{e.collapsed=!e.collapsed,e.collapsed||K(this.plugin.settings.layout,this.plugin.settings.columns),this.plugin.saveSettings(),this.render()})}let d=o.createDiv("dash-widget-actions");if(!a)return;let c=d.createDiv("dash-btn");(0,x.setIcon)(c,"settings-2"),c.setAttr("aria-label","Widget settings"),c.addEventListener("click",()=>this.openWidgetSettings(e));let l=d.createDiv("dash-btn dash-btn-danger");(0,x.setIcon)(l,"x"),l.setAttr("aria-label","Remove widget"),l.addEventListener("click",()=>{this.plugin.settings.layout=this.plugin.settings.layout.filter(h=>h.uid!==e.uid),this.plugin.saveSettings(),this.render()})}renderWidgetBody(t,e){var c;let n=H(e.type);if(!n)return;let a=this.handles.get(e.uid);try{(c=a==null?void 0:a.dispose)==null||c.call(a)}catch(l){}for(;t.firstChild;)t.removeChild(t.firstChild);let o=[],r={plugin:this.plugin,inst:e,body:t,refresh:()=>this.refreshWidget(e.uid),onDispose:l=>o.push(l)},d={};try{d=n.render(r)}catch(l){console.error("Dashboard widget failed to render:",e.type,l),t.createDiv("dash-widget-error").setText("This widget hit a snag \u2014 try again.")}this.handles.set(e.uid,{dispose:()=>{var l;for(let h of o.splice(0))try{h()}catch(p){}(l=d.dispose)==null||l.call(d)}})}refreshWidget(t){let e=this.gridEl.querySelector(`.dash-widget[data-uid="${t}"]`);if(!e)return;let n=e.querySelector(".dash-widget-body"),a=this.plugin.settings.layout.find(o=>o.uid===t);n&&a&&this.renderWidgetBody(n,a)}refreshActivityWidgets(){for(let t of["activity","stats","tasks","calendar","recent","vaulttasks","popular","orphans","backlinks","embed"])this.refreshAllOfType(t)}refreshAllOfType(t){this.gridEl.querySelectorAll(`.dash-widget[data-type="${t}"]`).forEach(e=>{let n=e.querySelector(".dash-widget-body"),a=this.plugin.settings.layout.find(o=>o.uid===e.getAttribute("data-uid"));n&&a&&this.renderWidgetBody(n,a)})}effColumns(){let t=this.gridEl?this.gridEl.getBoundingClientRect().width:0;return t>0&&t<720?1:this.plugin.settings.columns}cellAt(t,e){let n=this.plugin.settings,a=this.effColumns(),o=this.gridEl.getBoundingClientRect(),r=(o.width-n.gap*(a-1))/a,d=F(Math.floor((t-o.left)/(r+n.gap)),0,a-1),c=F(Math.floor((e-o.top)/(n.rowHeight+n.gap)),0,Math.max(U(n.layout)-1,0));return{x:d,y:c,cols:a}}showDropTarget(t){let e=this.plugin.settings,a=(this.gridEl.getBoundingClientRect().width-e.gap*(t.cols-1))/t.cols;this.dropTarget.style.left=t.x*(a+e.gap)+"px",this.dropTarget.style.top=t.y*(e.rowHeight+e.gap)+"px",this.dropTarget.style.width=a+"px",this.dropTarget.style.height=e.rowHeight+"px",this.dropTarget.addClass("is-visible")}hideDropTarget(){this.dropTarget.removeClass("is-visible")}beginGesture(t,e,n){t.preventDefault(),t.stopPropagation();let a=!1,o=()=>{document.removeEventListener("pointermove",e),document.removeEventListener("pointerup",r),document.removeEventListener("pointercancel",d)},r=()=>{a||(a=!0,o(),n(!0))},d=()=>{a||(a=!0,o(),n(!1))};document.addEventListener("pointermove",e),document.addEventListener("pointerup",r),document.addEventListener("pointercancel",d),this.cleanups.push(d)}enableDrag(t,e){let n=t.querySelector(".dash-grip");n&&n.addEventListener("pointerdown",a=>{let o=a.clientX,r=a.clientY,d=o,c=r,l=this.renderGen;t.addClass("is-dragging"),this.beginGesture(a,h=>{d=h.clientX,c=h.clientY,t.style.transform=`translate3d(${h.clientX-o}px, ${h.clientY-r}px, 0) scale(1.03)`,this.showDropTarget(this.cellAt(h.clientX,h.clientY))},h=>{if(t.removeClass("is-dragging"),t.style.removeProperty("transform"),this.hideDropTarget(),!h||l!==this.renderGen||!this.plugin.settings.editMode)return;let p=this.cellAt(d,c);this.placeInstance(e,p.x,p.y,p.cols)})})}placeInstance(t,e,n,a){let o=this.plugin.settings,r=o.layout;if(n=Math.max(n,0),a<=1){t.x=0,t.y=n,K(r,o.columns),this.plugin.saveSettings(),this.render();return}e=F(e,0,a-1);let d=r.find(c=>c.uid!==t.uid&&c.x===e&&c.y===n);if(d){let c=t.x,l=t.y;if(t.x=e,t.y=n,d.x=c,d.y=l,Q(r,t)||Q(r,d)){t.x=c,t.y=l,d.x=e,d.y=n;let h=ct(r,t,e,n,a);t.x=h.x,t.y=h.y}}else{let c=ct(r,t,e,n,a);t.x=c.x,t.y=c.y}K(r,o.columns),this.plugin.saveSettings(),this.render()}enableResize(t,e){var c,l,h,p,y;let n=H(e.type),a=(c=n==null?void 0:n.min)!=null?c:{w:2,h:2},o=(h=(l=n==null?void 0:n.max)==null?void 0:l.w)!=null?h:this.plugin.settings.columns,r=(y=(p=n==null?void 0:n.max)==null?void 0:p.h)!=null?y:8;t.createDiv("dash-resize").addEventListener("pointerdown",u=>{let g=this.plugin.settings,f=this.effColumns(),m=(this.gridEl.getBoundingClientRect().width-g.gap*(f-1))/f,v=g.rowHeight,D=e.w,T=e.h,C=u.clientX,W=u.clientY,R=this.renderGen;this.beginGesture(u,M=>{let L=Math.round((M.clientX-C)/(m+g.gap)),G=Math.round((M.clientY-W)/(v+g.gap));e.w=F(D+L,a.w,Math.min(o,f-e.x)),e.h=F(T+G,a.h,r),this.position(t,e)},M=>{!M||R!==this.renderGen||!this.plugin.settings.editMode||(K(this.plugin.settings.layout,this.plugin.settings.columns),this.plugin.saveSettings(),this.render())})})}openWidgetSettings(t){var n;let e=H(t.type);if(e){if(e.openSettings){e.openSettings(this.plugin,t);return}if(!((n=e==null?void 0:e.settings)!=null&&n.length)&&!t.title){new x.Notice("No settings for this widget.");return}new Ft(this.app,this.plugin,t).open()}}},Lt=class extends x.Modal{constructor(i,t){super(i),this.plugin=t}onOpen(){this.titleEl.setText("Add a widget");let i=this.contentEl.createDiv("dash-modal-list");for(let t of It()){let e=i.createDiv("dash-modal-row"),n=e.createDiv("dash-modal-icon");(0,x.setIcon)(n,t.icon);let a=e.createDiv("dash-modal-info");a.createDiv("dash-modal-name").setText(t.name),a.createDiv("dash-modal-desc").setText(t.description),e.addEventListener("click",()=>{this.plugin.addWidget(t.type),this.close()})}}onClose(){this.contentEl.empty()}},Ft=class extends x.Modal{constructor(i,t,e){super(i),this.plugin=t,this.inst=e}onOpen(){var a;let i=H(this.inst.type);this.titleEl.setText((this.inst.title||(i==null?void 0:i.name)||"Widget")+" \u2014 settings");let{contentEl:t}=this;if(t.empty(),!i)return;i.noHeader||new x.Setting(t).setName("Title").setDesc("Leave blank to use the default").addText(o=>{var r;o.setValue((r=this.inst.title)!=null?r:""),o.onChange(d=>{this.inst.title=d||void 0,this.commit()})});for(let o of(a=i.settings)!=null?a:[])this.addSetting(t,o);t.createDiv("dash-modal-gap");let n=t.createDiv("dash-modal-foot").createDiv("dash-btn dash-btn-accent");n.setText("Done"),n.addEventListener("click",()=>this.close())}addSetting(i,t){let e=new x.Setting(i).setName(t.label),n=()=>{this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)};t.type==="toggle"?e.addToggle(a=>a.setValue(!!this.inst.settings[t.key]).onChange(o=>{this.inst.settings[t.key]=o,n()})):t.type==="select"?e.addDropdown(a=>{var o,r,d,c;for(let l of(o=t.options)!=null?o:[])a.addOption(l,l);a.setValue(String((c=(d=this.inst.settings[t.key])!=null?d:(r=t.options)==null?void 0:r[0])!=null?c:"")).onChange(l=>{this.inst.settings[t.key]=l,n()})}):t.type==="number"?e.addText(a=>{var o;a.inputEl.type="number",a.setValue(String((o=this.inst.settings[t.key])!=null?o:"")),a.onChange(r=>{if(!r.trim())return;let d=parseFloat(r);if(!Number.isFinite(d))return;let c=d;t.min!==void 0&&(c=Math.max(t.min,c)),t.max!==void 0&&(c=Math.min(t.max,c)),this.inst.settings[t.key]=c,n()})}):e.addText(a=>{var o,r;a.setValue(String((o=this.inst.settings[t.key])!=null?o:"")),a.setPlaceholder((r=t.placeholder)!=null?r:""),a.onChange(d=>{this.inst.settings[t.key]=d,n()})})}commit(){this.plugin.saveSettings(),this.plugin.refreshWidget(this.inst.uid)}onClose(){this.contentEl.empty()}};var V={version:3,columns:12,rowHeight:88,gap:14,accent:"",editMode:!1,trackActivity:!0,dailyNoteFolder:"",dailyNoteFormat:"YYYY-MM-DD",captureTarget:"inbox",captureFolder:"",inboxFile:"Inbox.md",pomodoroFocus:25,pomodoroBreak:5,layout:[],orphans:[],activity:{}};var gn=500,mn="#7c3aed",pt=class extends S.Plugin{constructor(){super(...arguments);this.saveTimer=null;this.refreshTimer=null;this.selfWrites=new Map}async onload(){try{await this.loadSettings()}catch(t){console.error("Aurora Dashboard: settings could not be loaded, using defaults.",t),this.settings=Object.assign({},V,{layout:lt(),orphans:[],activity:{}})}this.registerView(_,t=>new Z(t,this)),this.addRibbonIcon("layout-dashboard","Open dashboard",()=>void this.activateView()),this.addCommand({id:"open-dashboard",name:"Open dashboard",callback:()=>void this.activateView()}),this.addCommand({id:"toggle-edit-mode",name:"Toggle dashboard edit mode",callback:()=>this.toggleEditMode()}),this.addCommand({id:"capture-to-inbox",name:"Capture to inbox",callback:()=>this.showQuickCapture()}),this.addSettingTab(new Pt(this.app,this)),this.registerEvent(this.app.vault.on("create",t=>this.onFileActivity(t))),this.registerEvent(this.app.vault.on("modify",t=>this.onFileActivity(t)))}onunload(){this.saveTimer!==null&&(window.clearTimeout(this.saveTimer),this.saveTimer=null),this.refreshTimer!==null&&(window.clearTimeout(this.refreshTimer),this.refreshTimer=null),this.saveSettings()}async loadSettings(){let t=await this.loadData(),e=ht(t)&&Array.isArray(t.layout);this.settings=Object.assign({},V,t!=null?t:{});let n=this.settings;n.columns=O(n.columns,12,8,16),n.rowHeight=O(n.rowHeight,88,60,140),n.gap=O(n.gap,14,8,28),n.accent=tt(n.accent,""),n.dailyNoteFolder=tt(n.dailyNoteFolder,""),n.dailyNoteFormat=tt(n.dailyNoteFormat,V.dailyNoteFormat),n.captureFolder=tt(n.captureFolder,""),n.inboxFile=tt(n.inboxFile,V.inboxFile),n.captureTarget=n.captureTarget==="daily"?"daily":"inbox",n.pomodoroFocus=O(n.pomodoroFocus,25,1,120),n.pomodoroBreak=O(n.pomodoroBreak,5,1,60),n.trackActivity=n.trackActivity!==!1,n.editMode=n.editMode===!0,n.version=O(n.version,0,0,1e3);let a={};if(ht(n.activity))for(let[l,h]of Object.entries(n.activity)){let p=Number(h);Number.isFinite(p)&&p>0&&(a[l]=Math.round(p))}n.activity=a,(!Array.isArray(n.layout)||n.layout.length===0&&!e)&&(n.layout=lt(n.columns)),n.orphans=Array.isArray(n.orphans)?n.orphans:[];let o=new Set,r=[],d=[];for(let l of n.layout)se(l)&&(this.adoptInstance(l,o)?r.push(l):d.push(l));let c=[...d];for(let l of n.orphans)se(l)&&(this.adoptInstance(l,o)?r.push(l):c.push(l));n.layout=r,n.orphans=c,c.length&&new S.Notice(`Aurora Dashboard: ${c.length} widget${c.length===1?"":"s"} kept aside \u2014 unknown type for this version.`),At(n.layout,n.columns)&&await this.saveSettings(),this.settings.version<2&&(this.addWidgetToLayout("habits"),this.settings.version=2,await this.saveSettings()),this.settings.version<3&&(this.addWidgetToLayout("embed"),this.settings.version=3,await this.saveSettings())}addWidgetToLayout(t){var a;let e=H(t);if(!e||this.settings.layout.some(o=>o.type===t))return;let n=Wt(this.settings.layout,e.defaultSize,this.settings.columns);this.settings.layout.push({type:t,uid:Y(),x:n.x,y:n.y,w:e.defaultSize.w,h:e.defaultSize.h,settings:{...(a=e.defaultSettings)!=null?a:{}}})}adoptInstance(t,e){let n=H(t.type);if(!n)return!1;(!t.uid||e.has(t.uid))&&(t.uid=Y()),e.add(t.uid);let a=ht(t.settings)?t.settings:{};return t.settings=n.defaultSettings?Object.assign({},n.defaultSettings,a):a,!0}async saveSettings(){await this.saveData(this.settings)}queueSave(){this.saveTimer!==null&&window.clearTimeout(this.saveTimer),this.saveTimer=window.setTimeout(()=>{this.saveTimer=null,this.saveSettings()},500)}forDashboard(t){for(let e of this.app.workspace.getLeavesOfType(_))e.view instanceof Z&&t(e.view)}rerenderDashboard(){this.forDashboard(t=>t.render())}async activateView(){let t=this.app.workspace.getLeavesOfType(_);if(t.length){await this.app.workspace.revealLeaf(t[0]);return}let e=this.app.workspace.getLeaf(!1);await e.setViewState({type:_,active:!0}),this.app.workspace.revealLeaf(e)}toggleEditMode(){this.settings.editMode=!this.settings.editMode,this.saveSettings(),this.rerenderDashboard()}openFile(t){t&&this.app.workspace.getLeaf(!1).openFile(t)}async openDay(t){let e=this.dailyNotePath(t),n=this.app.vault.getAbstractFileByPath(e);if(n instanceof S.TFile){await this.app.workspace.getLeaf(!1).openFile(n);return}try{await this.ensureFolder(ae(e)),this.markSelfWrite(e);let a=await this.app.vault.create(e,"");await this.app.workspace.getLeaf(!1).openFile(a)}catch(a){console.error("Aurora Dashboard: could not create the daily note.",e,a),new S.Notice("Could not create "+e+" \u2014 is the folder there?")}}async openSearch(t){await this.app.workspace.getLeaf("tab").setViewState({type:"search",state:{query:t}})}formatDate(t,e){return Nt(t,e)}dailyNotePath(t){let e=this.settings.dailyNoteFolder.trim(),n=this.formatDate(t,this.settings.dailyNoteFormat).trim();return n||(n=this.formatDate(t,V.dailyNoteFormat)),(0,S.normalizePath)(e?e+"/"+n+".md":n+".md")}noteExistsFor(t){return this.app.vault.getAbstractFileByPath(this.dailyNotePath(t))instanceof S.TFile}markSelfWrite(t){this.selfWrites.set(t,Date.now())}takeSelfWrite(t){let e=this.selfWrites.get(t);return e===void 0?!1:(this.selfWrites.delete(t),Date.now()-e<5e3)}onFileActivity(t){this.settings.trackActivity&&(!(t instanceof S.TFile)||t.extension!=="md"||this.takeSelfWrite(t.path)||this.recordActivity())}recordActivity(){var e;let t=k(new Date);this.settings.activity[t]=((e=this.settings.activity[t])!=null?e:0)+1,this.queueSave(),this.queueWidgetRefresh()}queueWidgetRefresh(){this.refreshTimer===null&&this.app.workspace.getLeavesOfType(_).length&&(this.refreshTimer=window.setTimeout(()=>{this.refreshTimer=null,this.refreshActivityWidgets()},gn))}refreshActivityWidgets(){this.forDashboard(t=>t.refreshActivityWidgets())}refreshWidget(t){this.forDashboard(e=>e.refreshWidget(t))}showQuickCapture(){new Ct(this.app,this).open()}async captureText(t){let e=this.settings;try{if(e.captureTarget==="inbox"){let n=(0,S.normalizePath)(e.captureFolder.trim());await this.ensureFolder(n);let a=(0,S.normalizePath)((n?n+"/":"")+fn(e.inboxFile));await this.appendTo(a,t)}else{let n=this.dailyNotePath(new Date);await this.ensureFolder(ae(n)),await this.appendTo(n,`### ${new Date().toLocaleTimeString()}
 ${t}`)}}catch(n){throw console.error("Aurora Dashboard: capture failed.",n),new S.Notice("Could not save that capture \u2014 see the developer console."),n}new S.Notice("Captured")}async ensureFolder(t){let e=(0,S.normalizePath)(t.trim());if(!e||e==="."||e==="/")return;let n="";for(let a of e.split("/").filter(Boolean))if(n=n?n+"/"+a:a,!this.app.vault.getAbstractFileByPath(n))try{await this.app.vault.createFolder(n)}catch(o){if(!this.app.vault.getAbstractFileByPath(n))throw console.error("Aurora Dashboard: could not create folder",n,o),o}}async appendTo(t,e){let n=this.app.vault.getAbstractFileByPath(t);if(n instanceof S.TFile){let o=(await this.app.vault.read(n)).replace(/\s+$/,"")+`
 
 `+e;this.markSelfWrite(t),await this.app.vault.modify(n,o)}else this.markSelfWrite(t),await this.app.vault.create(t,e)}addWidget(t){var d;let e=H(t);if(!e)return;let n=e.defaultSize,a=Wt(this.settings.layout,n,this.settings.columns),o={...(d=e.defaultSettings)!=null?d:{}};t==="pomodoro"&&(o.focus=this.settings.pomodoroFocus,o.break=this.settings.pomodoroBreak);let r={type:t,uid:Y(),x:a.x,y:a.y,w:n.w,h:n.h,settings:o};this.settings.layout.push(r),this.saveSettings(),this.rerenderDashboard()}},Ct=class extends S.Modal{constructor(i,t){super(i),this.plugin=t}onOpen(){this.titleEl.setText("Quick capture");let i=this.contentEl.createEl("textarea",{cls:"dash-capture-input dash-modal-capture",attr:{placeholder:"Capture a thought\u2026"}}),t=this.contentEl.createDiv("dash-modal-foot"),e=this.plugin.settings.captureTarget==="daily"?"today's note":this.plugin.settings.inboxFile;t.createDiv("dash-capture-hint").setText("\u2192 "+e);let n=t.createDiv("dash-btn dash-btn-accent");n.setText("Capture");let a=async()=>{let o=i.value.trim();if(o)try{await this.plugin.captureText(o),this.close()}catch(r){}};n.addEventListener("click",()=>void a()),i.addEventListener("keydown",o=>{o.key==="Enter"&&(o.ctrlKey||o.metaKey)&&(o.preventDefault(),a())}),i.focus()}onClose(){this.contentEl.empty()}},Pt=class extends S.PluginSettingTab{constructor(i,t){super(i,t),this.plugin=t}getControlValue(i){return i==="accent"?this.plugin.settings.accent||yn():this.plugin.settings[i]}setControlValue(i,t){let e=this.plugin.settings,n=t;i==="columns"?n=O(t,e.columns,8,16):i==="rowHeight"?n=O(t,e.rowHeight,60,140):i==="gap"&&(n=O(t,e.gap,8,28));let a=super.setControlValue(i,n);return i==="captureTarget"&&this.refreshDomState(),i==="columns"&&(At(e.layout,e.columns),this.plugin.saveSettings(),this.plugin.rerenderDashboard()),a}getSettingDefinitions(){let i=this.plugin.settings;return[{type:"group",heading:"Layout",items:[{name:"Columns",desc:"Number of grid columns. More columns means finer-grained widget sizing.",control:{type:"slider",key:"columns",min:8,max:16,step:1}},{name:"Row height",control:{type:"slider",key:"rowHeight",min:60,max:140,step:4}},{name:"Gap",desc:"Spacing between widgets.",control:{type:"slider",key:"gap",min:8,max:28,step:2}},{name:"Edit mode",desc:"Show widget handles for dragging, resizing and removing.",control:{type:"toggle",key:"editMode"}},{name:"Reset layout",action:()=>{i.layout=lt(i.columns),this.plugin.saveSettings(),this.plugin.rerenderDashboard()}}]},{type:"group",heading:"Appearance",items:[{name:"Accent color",desc:"Used for highlights, charts and progress.",control:{type:"color",key:"accent"}},{name:"Reset to theme accent",action:()=>{i.accent="",this.plugin.saveSettings(),this.plugin.rerenderDashboard(),this.update()}},{name:"Accent presets",desc:"One-click options.",render:t=>{let e=t.controlEl.createDiv("dash-accent-presets");for(let n of["#7c3aed","#0ea5e9","#10b981","#f59e0b","#ef4444","#ec4899","#14b8a6","#6366f1"]){let a=e.createDiv("dash-accent-swatch");a.style.setProperty("--dash-accent",n),a.setAttr("aria-label",n),a.addEventListener("click",()=>{i.accent=n,this.plugin.saveSettings(),this.plugin.rerenderDashboard(),this.update()})}}}]},{type:"group",heading:"Activity",items:[{name:"Track activity",desc:"Record note edits to power the heatmap, streaks and stats.",control:{type:"toggle",key:"trackActivity"}},{name:"Clear data",action:()=>{i.activity={},this.plugin.saveSettings(),this.plugin.rerenderDashboard()}}]},{type:"group",heading:"Daily notes",items:[{name:"Daily note folder",desc:"Optional folder for daily notes (blank = vault root).",control:{type:"text",key:"dailyNoteFolder",placeholder:"e.g. Daily"}},{name:"Daily note format",desc:"Tokens: YYYY, YY, MMMM, MMM, MM, DD, dd, dddd, ddd. A format may contain folders (e.g. YYYY/MM/DD).",control:{type:"text",key:"dailyNoteFormat",placeholder:"YYYY-MM-DD"}}]},{type:"group",heading:"Capture",items:[{name:"Capture target",control:{type:"dropdown",key:"captureTarget",options:{inbox:"Inbox file",daily:"Today's daily note"}}},{name:"Capture folder",desc:"Optional folder for the inbox file.",control:{type:"text",key:"captureFolder",placeholder:"e.g. Inbox"},visible:()=>i.captureTarget==="inbox"},{name:"Inbox file",control:{type:"text",key:"inboxFile",placeholder:"Inbox.md"},visible:()=>i.captureTarget==="inbox"}]},{type:"group",heading:"Pomodoro",items:[{name:"Focus length",desc:"Default work interval (min) for new Pomodoro widgets. Existing widgets keep their own value.",control:{type:"number",key:"pomodoroFocus",min:1,max:120,placeholder:"25"}},{name:"Break length",desc:"Default break (min) for new Pomodoro widgets. Existing widgets keep their own value.",control:{type:"number",key:"pomodoroBreak",min:1,max:60,placeholder:"5"}}]}]}};function ht(s){return typeof s=="object"&&s!==null&&!Array.isArray(s)}function se(s){return ht(s)&&typeof s.type=="string"}function O(s,i,t,e){let n=typeof s=="number"?s:Number(s);return Number.isFinite(n)?Math.max(t,Math.min(e,Math.round(n))):i}function tt(s,i){return typeof s=="string"?s:i}function ae(s){let i=s.lastIndexOf("/");return i>0?s.slice(0,i):""}function fn(s){let i=s.trim();return i?/\.(md|markdown)$/i.test(i)?i:i+".md":V.inboxFile}function yn(){try{let s=getComputedStyle(document.body).getPropertyValue("--interactive-accent").trim();if(/^#[0-9a-f]{3,8}$/i.test(s)||/^rgba?\(/i.test(s))return s}catch(s){}return mn}

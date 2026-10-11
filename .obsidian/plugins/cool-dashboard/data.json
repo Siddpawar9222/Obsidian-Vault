@@ -3,7 +3,7 @@
   "columns": 12,
   "rowHeight": 88,
   "gap": 14,
-  "accent": "",
+  "accent": "#7c3aed",
   "editMode": false,
   "trackActivity": true,
   "dailyNoteFolder": "",
@@ -15,11 +15,37 @@
   "pomodoroBreak": 5,
   "layout": [
     {
-      "type": "clock",
-      "uid": "sv5ehd2mv42z0dz",
+      "type": "greeting",
+      "uid": "qocket4mv43kkz1",
       "x": 0,
       "y": 0,
+      "w": 8,
+      "h": 2,
+      "settings": {
+        "userName": "Siddhesh",
+        "motto": "Small daily steps lead to massive breakthroughs.",
+        "activeFocus": "⚡ Deep Work"
+      }
+    },
+    {
+      "type": "weather",
+      "uid": "53g4fy9mv43kkz1",
+      "x": 8,
+      "y": 0,
       "w": 4,
+      "h": 2,
+      "settings": {
+        "city": "Pune",
+        "units": "Celsius (°C)",
+        "showDetails": true
+      }
+    },
+    {
+      "type": "clock",
+      "uid": "owz5kfumv43kkz1",
+      "x": 0,
+      "y": 2,
+      "w": 3,
       "h": 2,
       "settings": {
         "showSeconds": true,
@@ -27,77 +53,10 @@
       }
     },
     {
-      "type": "calendar",
-      "uid": "yt1kbezmv42z0dz",
-      "x": 4,
-      "y": 0,
-      "w": 5,
-      "h": 4,
-      "settings": {
-        "startMonday": true
-      }
-    },
-    {
-      "type": "activity",
-      "uid": "gnue8gjmv42z0dz",
-      "x": 9,
-      "y": 0,
-      "w": 3,
-      "h": 4,
-      "settings": {
-        "weeks": 14
-      }
-    },
-    {
-      "type": "stats",
-      "uid": "wqppip6mv42z0dz",
-      "x": 0,
-      "y": 2,
-      "w": 4,
-      "h": 2,
-      "settings": {}
-    },
-    {
-      "type": "tasks",
-      "uid": "kj3f8u2mv42z0dz",
-      "x": 0,
-      "y": 4,
-      "w": 4,
-      "h": 3,
-      "settings": {}
-    },
-    {
-      "type": "recent",
-      "uid": "zkp5x22mv42z0dz",
-      "x": 4,
-      "y": 4,
-      "w": 5,
-      "h": 3,
-      "settings": {}
-    },
-    {
-      "type": "tags",
-      "uid": "d2b5vi8mv42z0dz",
-      "x": 9,
-      "y": 4,
-      "w": 3,
-      "h": 3,
-      "settings": {}
-    },
-    {
-      "type": "capture",
-      "uid": "jhn0xzpmv42z0dz",
-      "x": 0,
-      "y": 7,
-      "w": 4,
-      "h": 2,
-      "settings": {}
-    },
-    {
       "type": "pomodoro",
-      "uid": "82tmf8amv42z0dz",
-      "x": 4,
-      "y": 7,
+      "uid": "sjn4t4vmv43kkz1",
+      "x": 3,
+      "y": 2,
       "w": 3,
       "h": 2,
       "settings": {
@@ -106,41 +65,70 @@
       }
     },
     {
-      "type": "quote",
-      "uid": "mbprhs8mv42z0dz",
-      "x": 7,
-      "y": 7,
-      "w": 5,
-      "h": 2,
-      "settings": {}
-    },
-    {
-      "type": "deadline",
-      "uid": "jw2wkkhmv42z0dz",
-      "x": 0,
-      "y": 9,
+      "type": "soundscapes",
+      "uid": "o1f9s0ymv43kkz1",
+      "x": 6,
+      "y": 2,
       "w": 3,
       "h": 2,
       "settings": {
-        "date": "",
-        "label": ""
+        "sound": "Rain",
+        "volume": 60
       }
     },
     {
-      "type": "random",
-      "uid": "karyzu1mv42z0dz",
-      "x": 3,
-      "y": 9,
+      "type": "water",
+      "uid": "2887k4gmv43kkz1",
+      "x": 9,
+      "y": 2,
       "w": 3,
       "h": 2,
-      "settings": {}
+      "settings": {
+        "goal": 2000,
+        "current": 1250,
+        "date": "2026-10-11"
+      }
+    },
+    {
+      "type": "calendar",
+      "uid": "vw1xsrnmv43kkz1",
+      "x": 0,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "settings": {
+        "startMonday": true
+      }
+    },
+    {
+      "type": "activity",
+      "uid": "wvd2yjqmv43kkz1",
+      "x": 4,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "settings": {
+        "weeks": 14
+      }
+    },
+    {
+      "type": "stickynote",
+      "uid": "z63phj9mv43kkz1",
+      "x": 8,
+      "y": 4,
+      "w": 4,
+      "h": 4,
+      "settings": {
+        "text": "- [ ] Review Binary Trees & Dynamic Programming\n- [ ] System Design: Caching & Rate Limiting\n- [ ] Review Java Concurrency notes\n\n💡 Focus on core concepts. Consistency beats intensity!",
+        "color": "amber"
+      }
     },
     {
       "type": "vaulttasks",
-      "uid": "qhnfxelmv42z0dz",
-      "x": 6,
-      "y": 9,
-      "w": 6,
+      "uid": "jbt0llxmv43kkz2",
+      "x": 0,
+      "y": 8,
+      "w": 5,
       "h": 4,
       "settings": {
         "count": 25,
@@ -150,38 +138,69 @@
       }
     },
     {
-      "type": "search",
-      "uid": "6pjrcefmv42z0dz",
-      "x": 0,
-      "y": 11,
+      "type": "habits",
+      "uid": "7vpid3jmv43kkz2",
+      "x": 5,
+      "y": 8,
+      "w": 4,
+      "h": 4,
+      "settings": {
+        "days": 14,
+        "habits": [
+          {
+            "id": "kzkm9qimv43kkz2",
+            "name": "DSA Practice"
+          },
+          {
+            "id": "a7sj6x4mv43kkz2",
+            "name": "Read Tech Docs"
+          },
+          {
+            "id": "d2d6ukcmv43kkz2",
+            "name": "Deep Work (2h+)"
+          }
+        ],
+        "log": {}
+      }
+    },
+    {
+      "type": "reading",
+      "uid": "ofh6i2rmv43kkz2",
+      "x": 9,
+      "y": 8,
       "w": 3,
-      "h": 2,
-      "settings": {}
+      "h": 4,
+      "settings": {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "current": 185,
+        "total": 560
+      }
     },
     {
       "type": "quickactions",
-      "uid": "703d1q7mv42z0dz",
-      "x": 3,
-      "y": 11,
-      "w": 3,
+      "uid": "8gzus56mv43kkz2",
+      "x": 0,
+      "y": 12,
+      "w": 4,
       "h": 2,
       "settings": {
         "actions": [
           {
-            "id": "73r4oqgmv42z0dx",
-            "label": "Capture",
+            "id": "awkdlhimv43kkz2",
+            "label": "Quick Note",
             "kind": "capture",
             "target": ""
           },
           {
-            "id": "rdjm44zmv42z0dx",
-            "label": "Search",
+            "id": "thllw9imv43kkz4",
+            "label": "Search Vault",
             "kind": "search",
             "target": ""
           },
           {
-            "id": "v5axap5mv42z0dx",
-            "label": "Today",
+            "id": "oco7amhmv43kkz4",
+            "label": "Daily Note",
             "kind": "today",
             "target": ""
           }
@@ -189,41 +208,41 @@
       }
     },
     {
-      "type": "popular",
-      "uid": "1yw2srxmv42z0dz",
-      "x": 0,
-      "y": 13,
-      "w": 4,
-      "h": 3,
-      "settings": {
-        "count": 8
-      }
-    },
-    {
-      "type": "orphans",
-      "uid": "kweks34mv42z0dz",
+      "type": "affirmation",
+      "uid": "9dlujdgmv43kkz4",
       "x": 4,
-      "y": 13,
-      "w": 4,
-      "h": 3,
+      "y": 12,
+      "w": 5,
+      "h": 2,
       "settings": {
-        "count": 12
+        "index": 0
       }
     },
     {
-      "type": "backlinks",
-      "uid": "enutk06mv42z0dz",
-      "x": 8,
-      "y": 13,
-      "w": 4,
-      "h": 3,
+      "type": "stats",
+      "uid": "iyx0x73mv43kkz4",
+      "x": 9,
+      "y": 12,
+      "w": 3,
+      "h": 2,
       "settings": {}
     },
     {
-      "type": "pinned",
-      "uid": "o3ozfuimv42z0dz",
+      "type": "recent",
+      "uid": "2g2p3w7mv43kkz4",
       "x": 0,
-      "y": 16,
+      "y": 14,
+      "w": 4,
+      "h": 3,
+      "settings": {
+        "count": 6
+      }
+    },
+    {
+      "type": "pinned",
+      "uid": "ejvhy8qmv43kkz4",
+      "x": 4,
+      "y": 14,
       "w": 4,
       "h": 3,
       "settings": {
@@ -231,53 +250,19 @@
       }
     },
     {
-      "type": "progress",
-      "uid": "4nxdg38mv42z0dz",
-      "x": 4,
-      "y": 16,
-      "w": 4,
-      "h": 2,
-      "settings": {}
-    },
-    {
-      "type": "streak",
-      "uid": "xm2kc0ymv42z0dz",
+      "type": "tags",
+      "uid": "av792rbmv43kkz4",
       "x": 8,
-      "y": 16,
+      "y": 14,
       "w": 4,
-      "h": 2,
-      "settings": {}
-    },
-    {
-      "type": "habits",
-      "uid": "wtkzoremv42z0dz",
-      "x": 0,
-      "y": 19,
-      "w": 6,
-      "h": 4,
+      "h": 3,
       "settings": {
-        "days": 14,
-        "habits": [],
-        "log": {}
-      }
-    },
-    {
-      "type": "embed",
-      "uid": "5q0iplxmv42z0dz",
-      "x": 6,
-      "y": 19,
-      "w": 6,
-      "h": 4,
-      "settings": {
-        "mode": "daily",
-        "path": "",
-        "markdown": "",
-        "scroll": true
+        "count": 10
       }
     }
   ],
   "orphans": [],
   "activity": {
-    "2026-10-11": 451
+    "2026-10-11": 901
   }
 }
