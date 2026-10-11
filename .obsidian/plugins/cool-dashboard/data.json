@@ -1,0 +1,283 @@
+{
+  "version": 3,
+  "columns": 12,
+  "rowHeight": 88,
+  "gap": 14,
+  "accent": "",
+  "editMode": false,
+  "trackActivity": true,
+  "dailyNoteFolder": "",
+  "dailyNoteFormat": "YYYY-MM-DD",
+  "captureTarget": "inbox",
+  "captureFolder": "",
+  "inboxFile": "Inbox.md",
+  "pomodoroFocus": 25,
+  "pomodoroBreak": 5,
+  "layout": [
+    {
+      "type": "clock",
+      "uid": "sv5ehd2mv42z0dz",
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 2,
+      "settings": {
+        "showSeconds": true,
+        "format24": true
+      }
+    },
+    {
+      "type": "calendar",
+      "uid": "yt1kbezmv42z0dz",
+      "x": 4,
+      "y": 0,
+      "w": 5,
+      "h": 4,
+      "settings": {
+        "startMonday": true
+      }
+    },
+    {
+      "type": "activity",
+      "uid": "gnue8gjmv42z0dz",
+      "x": 9,
+      "y": 0,
+      "w": 3,
+      "h": 4,
+      "settings": {
+        "weeks": 14
+      }
+    },
+    {
+      "type": "stats",
+      "uid": "wqppip6mv42z0dz",
+      "x": 0,
+      "y": 2,
+      "w": 4,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "tasks",
+      "uid": "kj3f8u2mv42z0dz",
+      "x": 0,
+      "y": 4,
+      "w": 4,
+      "h": 3,
+      "settings": {}
+    },
+    {
+      "type": "recent",
+      "uid": "zkp5x22mv42z0dz",
+      "x": 4,
+      "y": 4,
+      "w": 5,
+      "h": 3,
+      "settings": {}
+    },
+    {
+      "type": "tags",
+      "uid": "d2b5vi8mv42z0dz",
+      "x": 9,
+      "y": 4,
+      "w": 3,
+      "h": 3,
+      "settings": {}
+    },
+    {
+      "type": "capture",
+      "uid": "jhn0xzpmv42z0dz",
+      "x": 0,
+      "y": 7,
+      "w": 4,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "pomodoro",
+      "uid": "82tmf8amv42z0dz",
+      "x": 4,
+      "y": 7,
+      "w": 3,
+      "h": 2,
+      "settings": {
+        "focus": 25,
+        "break": 5
+      }
+    },
+    {
+      "type": "quote",
+      "uid": "mbprhs8mv42z0dz",
+      "x": 7,
+      "y": 7,
+      "w": 5,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "deadline",
+      "uid": "jw2wkkhmv42z0dz",
+      "x": 0,
+      "y": 9,
+      "w": 3,
+      "h": 2,
+      "settings": {
+        "date": "",
+        "label": ""
+      }
+    },
+    {
+      "type": "random",
+      "uid": "karyzu1mv42z0dz",
+      "x": 3,
+      "y": 9,
+      "w": 3,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "vaulttasks",
+      "uid": "qhnfxelmv42z0dz",
+      "x": 6,
+      "y": 9,
+      "w": 6,
+      "h": 4,
+      "settings": {
+        "count": 25,
+        "groupBy": "Note",
+        "showDone": false,
+        "maxFiles": 200
+      }
+    },
+    {
+      "type": "search",
+      "uid": "6pjrcefmv42z0dz",
+      "x": 0,
+      "y": 11,
+      "w": 3,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "quickactions",
+      "uid": "703d1q7mv42z0dz",
+      "x": 3,
+      "y": 11,
+      "w": 3,
+      "h": 2,
+      "settings": {
+        "actions": [
+          {
+            "id": "73r4oqgmv42z0dx",
+            "label": "Capture",
+            "kind": "capture",
+            "target": ""
+          },
+          {
+            "id": "rdjm44zmv42z0dx",
+            "label": "Search",
+            "kind": "search",
+            "target": ""
+          },
+          {
+            "id": "v5axap5mv42z0dx",
+            "label": "Today",
+            "kind": "today",
+            "target": ""
+          }
+        ]
+      }
+    },
+    {
+      "type": "popular",
+      "uid": "1yw2srxmv42z0dz",
+      "x": 0,
+      "y": 13,
+      "w": 4,
+      "h": 3,
+      "settings": {
+        "count": 8
+      }
+    },
+    {
+      "type": "orphans",
+      "uid": "kweks34mv42z0dz",
+      "x": 4,
+      "y": 13,
+      "w": 4,
+      "h": 3,
+      "settings": {
+        "count": 12
+      }
+    },
+    {
+      "type": "backlinks",
+      "uid": "enutk06mv42z0dz",
+      "x": 8,
+      "y": 13,
+      "w": 4,
+      "h": 3,
+      "settings": {}
+    },
+    {
+      "type": "pinned",
+      "uid": "o3ozfuimv42z0dz",
+      "x": 0,
+      "y": 16,
+      "w": 4,
+      "h": 3,
+      "settings": {
+        "pins": []
+      }
+    },
+    {
+      "type": "progress",
+      "uid": "4nxdg38mv42z0dz",
+      "x": 4,
+      "y": 16,
+      "w": 4,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "streak",
+      "uid": "xm2kc0ymv42z0dz",
+      "x": 8,
+      "y": 16,
+      "w": 4,
+      "h": 2,
+      "settings": {}
+    },
+    {
+      "type": "habits",
+      "uid": "wtkzoremv42z0dz",
+      "x": 0,
+      "y": 19,
+      "w": 6,
+      "h": 4,
+      "settings": {
+        "days": 14,
+        "habits": [],
+        "log": {}
+      }
+    },
+    {
+      "type": "embed",
+      "uid": "5q0iplxmv42z0dz",
+      "x": 6,
+      "y": 19,
+      "w": 6,
+      "h": 4,
+      "settings": {
+        "mode": "daily",
+        "path": "",
+        "markdown": "",
+        "scroll": true
+      }
+    }
+  ],
+  "orphans": [],
+  "activity": {
+    "2026-10-11": 451
+  }
+}

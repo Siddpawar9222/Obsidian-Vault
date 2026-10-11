@@ -81,7 +81,6 @@ Check power of 2
 A power of 2 contains exactly one set bit. 
 
 
-
 ```
 
 1     = 0001
