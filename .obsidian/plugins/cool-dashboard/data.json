@@ -24,7 +24,7 @@
       "settings": {
         "userName": "Siddhesh",
         "motto": "Small daily steps lead to massive breakthroughs.",
-        "activeFocus": "⚡ Deep Work"
+        "activeFocus": "🌱 Flow State"
       }
     },
     {
@@ -37,7 +37,16 @@
       "settings": {
         "city": "Pune",
         "units": "Celsius (°C)",
-        "showDetails": true
+        "showDetails": true,
+        "_cache": {
+          "cityName": "Pune",
+          "temp": 27.2,
+          "feels": 28.4,
+          "humidity": 48,
+          "weatherCode": 0,
+          "wind": 3.2,
+          "timestamp": 1791740011326
+        }
       }
     },
     {
@@ -62,7 +71,8 @@
       "settings": {
         "focus": 25,
         "break": 5
-      }
+      },
+      "collapsed": false
     },
     {
       "type": "soundscapes",
@@ -72,8 +82,8 @@
       "w": 3,
       "h": 2,
       "settings": {
-        "sound": "Rain",
-        "volume": 60
+        "sound": "White Noise",
+        "volume": 58
       }
     },
     {
@@ -119,8 +129,8 @@
       "w": 4,
       "h": 4,
       "settings": {
-        "text": "- [ ] Review Binary Trees & Dynamic Programming\n- [ ] System Design: Caching & Rate Limiting\n- [ ] Review Java Concurrency notes\n\n💡 Focus on core concepts. Consistency beats intensity!",
-        "color": "amber"
+        "text": "- [ ] Review Binary Trees & Dynamic Programming\n- [ ] System Design: Caching & Rate Limiting\n- [ ] Review Java Concurrency notes\n\n💡 Focus on core concepts. Consistency beats intensity!\n- [ ] ",
+        "color": "slate"
       }
     },
     {
@@ -135,7 +145,8 @@
         "groupBy": "Note",
         "showDone": false,
         "maxFiles": 200
-      }
+      },
+      "collapsed": false
     },
     {
       "type": "habits",
@@ -160,7 +171,17 @@
             "name": "Deep Work (2h+)"
           }
         ],
-        "log": {}
+        "log": {
+          "kzkm9qimv43kkz2": [
+            "2026-10-11"
+          ],
+          "a7sj6x4mv43kkz2": [
+            "2026-10-11"
+          ],
+          "d2d6ukcmv43kkz2": [
+            "2026-10-11"
+          ]
+        }
       }
     },
     {
@@ -215,7 +236,7 @@
       "w": 5,
       "h": 2,
       "settings": {
-        "index": 0
+        "index": 1
       }
     },
     {
@@ -263,6 +284,7 @@
   ],
   "orphans": [],
   "activity": {
-    "2026-10-11": 901
+    "2026-10-11": 901,
+    "2026-10-12": 450
   }
 }
