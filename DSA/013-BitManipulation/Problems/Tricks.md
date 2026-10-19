@@ -6,7 +6,7 @@
    ```java
    if ((n & 1) == 1) {
     // odd
-}
+   }
    ```
 
 Remove the lowest set bit 
@@ -94,3 +94,14 @@ Hence if we reset righmost set bit entire binart will be zero
 
 n > 0 && (n & (n - 1)) == 0
 ```
+
+
+Divide Trick : 
+
+```java
+6 = 110  → 2 set bits
+3 = 11   → 2 set bits
+```
+
+Observe : When we divide number by 2. It shift right by 1 
+
