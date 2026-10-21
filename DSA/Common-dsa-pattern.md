@@ -23,3 +23,7 @@ Common problem solving patterns
 
 
 String pattern need to cover : 
+KMP String matching algorithm
+https://youtu.be/qases-9gOpk?si=CfMLxRVXC7w_C-1A
+https://www.youtube.com/playlist?list=PLKlHRcGrQWjM
+
