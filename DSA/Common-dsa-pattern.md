@@ -20,3 +20,6 @@ Common problem solving patterns
 18. Topological Sort (Graphs)
 19. Monotonic Stack
 20. Backtracking
+
+
+String pattern need to cover : 
