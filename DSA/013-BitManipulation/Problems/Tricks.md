@@ -50,6 +50,7 @@ x ^ x ^ x = x
 a ^ b ^ a = b
 ```
 
+[268. Missing Number](https://leetcode.com/problems/missing-number/)
 
  NOT  : 
 
