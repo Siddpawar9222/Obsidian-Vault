@@ -21,11 +21,11 @@
 
 ### 🧩 Tip to Remember Easily
 
-|**Type**|**Examples**|**Key Idea**|
-|---|---|---|
-|**Simple Comparison Sorts**|Selection, Insertion, Bubble|Compare and swap manually like human sorting.|
-|**Divide & Conquer Sorts**|Merge, Quick|Break array, sort smaller parts, combine.|
-|**Special Case Sorts**|Cyclic, Counting, Radix, Bucket|Use math logic or counting — not comparison-based.|
-|**Heap-based Sort**|Heap Sort|Uses binary heap structure to pick max/min repeatedly.|
+| **Type**                    | **Examples**                    | **Key Idea**                                           |
+| --------------------------- | ------------------------------- | ------------------------------------------------------ |
+| **Simple Comparison Sorts** | Selection, Insertion, Bubble    | Compare and swap manually like human sorting.          |
+| **Divide & Conquer Sorts**  | Merge, Quick                    | Break array, sort smaller parts, combine.              |
+| **Special Case Sorts**      | Cyclic, Counting, Radix, Bucket | Use math logic or counting — not comparison-based.     |
+| **Heap-based Sort**         | Heap Sort                       | Uses binary heap structure to pick max/min repeatedly. |
 
 ---
