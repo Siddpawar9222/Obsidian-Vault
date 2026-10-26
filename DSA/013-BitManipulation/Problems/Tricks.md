@@ -40,6 +40,7 @@ n & -n
 0010000
 ```
 
+Used in Problem [260. Single Number III](https://leetcode.com/problems/single-number-iii/) where i needed to segregate two number using xor 
 
 - XOR properties  : Similar bit  gives 0 
 
@@ -51,7 +52,10 @@ a ^ b ^ a = b
 ```
 
 [136. Single Number](https://leetcode.com/problems/single-number/)
-[268. Missing Number](https://leetcode.com/problems/missing-number/)
+[268. Missing Number](https://leetcode.com/problems/missing-number/) 
+
+[137. Single Number II](https://leetcode.com/problems/single-number-ii/)
+[260. Single Number III](https://leetcode.com/problems/single-number-iii/)
 
  NOT  : 
 
