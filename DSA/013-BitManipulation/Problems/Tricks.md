@@ -55,7 +55,8 @@ a ^ b ^ a = b
 [268. Missing Number](https://leetcode.com/problems/missing-number/) 
 
 [137. Single Number II](https://leetcode.com/problems/single-number-ii/)
-[260. Single Number III](https://leetcode.com/problems/single-number-iii/)
+[260. Single Number III](https://leetcode.com/problems/single-number-iii/) 
+[1310. XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/)
 
  NOT  : 
 
