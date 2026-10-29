@@ -97,6 +97,10 @@ Bit position:
 - The `1` is located at **bit position 8** because $256 = 2^8$.
 - Even though `256` only requires 9 bits (positions 0 to 8), Java's `int` pads the remaining upper 23 bits with `0`s.
 
+
+> [!NOTE]
+> In an n-bit signed integer, the maximum positive value is \\(2^{n-1}-1\\), because one bit position contributes a negative weight in two's complement representation.  Dry run int a =  -128;  How does it store in memory using two's complement. MSB reserved for -ve number. 
+
 ---
 
 ## 4. Deep Dive: `char` Storage and Narrowing Casts
