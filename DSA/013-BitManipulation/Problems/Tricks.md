@@ -42,7 +42,7 @@ n & -n
 
 Used in Problem [260. Single Number III](https://leetcode.com/problems/single-number-iii/) where i needed to segregate two number using xor 
 
-- XOR properties  : Similar bit  gives 0 
+- <font color="#c0504d">XOR properties (IMP)</font>  : Similar bit  gives 0 
 
 ```java
 x ^ 0 = x
@@ -56,7 +56,12 @@ a ^ b ^ a = b
 
 [137. Single Number II](https://leetcode.com/problems/single-number-ii/)
 [260. Single Number III](https://leetcode.com/problems/single-number-iii/) 
-[1310. XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/)
+[1310. XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/) 
+
+Application : 
+Cancel repeated numbern/same number 
+Prefix sum(cancel past sum)
+[Hamming Distance](https://leetcode.com/problems/hamming-distance/) : two integers is the number of positions at which the corresponding bits are different.
 
  NOT  : 
 
