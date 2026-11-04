@@ -1,15 +1,5 @@
 # 008. Kafka KRaft: Architecture, Consensus & Operations
 
-> [!abstract] Summary
-> **KRaft = Kafka + Raft.** Modern Kafka manages its own cluster metadata using the Raft consensus algorithm, completely eliminating the external ZooKeeper dependency.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[007-Replication_and_Fault_Tolerance.md|← 007. Replication, High Availability & Fault Tolerance]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[009-End_to_End_Industrial_Example.md|009. End-to-End Industrial Example →]]
-
 ---
 
 ## 1. Basics: What Is Metadata?
@@ -263,9 +253,4 @@ bin/kafka-server-start.sh config/kraft/server.properties
 > Only in Dedicated Mode (3 controllers + 3 brokers). In Combined Mode, you only need 3 machines total.
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[007-Replication_and_Fault_Tolerance.md|← 007. Replication, High Availability & Fault Tolerance]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[009-End_to_End_Industrial_Example.md|009. End-to-End Industrial Example →]]
 

@@ -1,15 +1,4 @@
 # 003. Kafka Architecture & Internal Mechanics
-
-> [!abstract] Learning Goal
-> Understand how Kafka works under the hood: the core message flow, why Kafka chose the Consumer Pull model instead of Push, and the mechanical reasons behind Kafka's extreme throughput (Sequential I/O, OS Page Cache, and Zero-Copy).
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[002-Core_Terminologies.md|← 002. Core Terminologies & Data Model]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[004-Topics_and_Partitions.md|004. Topics, Partitions & Storage Topologies →]]
-
 ---
 
 ## 1. High-Level Kafka Architecture
@@ -154,9 +143,4 @@ Kafka Data Path (With Zero-Copy):
 - Consumers pull entire compressed batches over the wire and only decompress them upon arrival.
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[002-Core_Terminologies.md|← 002. Core Terminologies & Data Model]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[004-Topics_and_Partitions.md|004. Topics, Partitions & Storage Topologies →]]
 

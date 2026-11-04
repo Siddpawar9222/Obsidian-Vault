@@ -1,14 +1,5 @@
 # 011. Quick Revision Sheet & Interview Self-Assessment
 
-> [!abstract] Purpose
-> High-yield revision tables, the 5 critical architectural confusions to avoid, and self-assessment interview questions for rapid revision before interviews or system design reviews.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[010-Kafka_CLI_Commands.md|← 010. Essential Kafka CLI Operations]]
-- **Syllabus & Master Tracker:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-
 ---
 
 ## 1. High-Yield Revision Matrix
@@ -78,8 +69,4 @@ Test your readiness before an interview or system design review:
 - [ ] Why must you always use an odd number of KRaft controllers (e.g. 3 or 5)?
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[010-Kafka_CLI_Commands.md|← 010. Essential Kafka CLI Operations]]
-- **Syllabus & Master Tracker:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
 

@@ -1,15 +1,4 @@
 # 004. Topics, Partitions & Storage Topologies
-
-> [!abstract] Learning Goal
-> Understand topics, partitions, brokers, and clusters. Learn why partitions are Kafka's fundamental unit of parallelism and storage distribution, and understand single-broker vs multi-broker topologies.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[003-Kafka_Architecture_and_Internals.md|← 003. Kafka Architecture & Internal Mechanics]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[005-Producer_Partitioning_and_Ordering.md|005. Producer Partitioning & Ordering →]]
-
 ---
 
 ## 1. What Is a Kafka Topic?
@@ -156,9 +145,3 @@ Understanding the difference between data distribution and redundancy:
 > - **Replication** (covered in Note 007) copies the data to guarantee high availability!
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[003-Kafka_Architecture_and_Internals.md|← 003. Kafka Architecture & Internal Mechanics]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[005-Producer_Partitioning_and_Ordering.md|005. Producer Partitioning & Ordering →]]
-

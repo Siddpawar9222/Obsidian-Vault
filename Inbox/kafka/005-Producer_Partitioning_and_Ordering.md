@@ -1,15 +1,5 @@
 # 005. Producer Partitioning Mechanics & Message Ordering
 
-> [!abstract] Learning Goal
-> Learn how Kafka determines which partition receives a message. Master key-based routing, hashing algorithms, sticky partitioning, explicit partition assignment, and how to guarantee strict business ordering per entity.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[004-Topics_and_Partitions.md|← 004. Topics, Partitions & Storage Topologies]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[006-Consumers_and_Consumer_Groups.md|006. Consumers, Consumer Groups & Load Balancing →]]
-
 ---
 
 ## 1. How Does Kafka Choose a Partition?
@@ -131,10 +121,4 @@ kafkaTemplate.send("orders", 1, "ORD-101", "Order Created");
 2. **Global ordering across partitions does NOT exist:** Message at Offset 5 in P0 might have occurred before or after Offset 5 in P1.
 3. **Entity ordering is solved by Keys:** If you need strict ordering per customer or per order, assign that entity ID as the Key.
 
----
-
-## 🧭 Navigation
-- **Previous Note:** [[004-Topics_and_Partitions.md|← 004. Topics, Partitions & Storage Topologies]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[006-Consumers_and_Consumer_Groups.md|006. Consumers, Consumer Groups & Load Balancing →]]
 

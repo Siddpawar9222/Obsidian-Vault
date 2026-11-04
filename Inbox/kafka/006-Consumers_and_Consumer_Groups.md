@@ -1,15 +1,5 @@
 # 006. Consumers, Consumer Groups & Load Balancing
 
-> [!abstract] Learning Goal
-> Understand how consumers read from Kafka, how Consumer Groups distribute partitions across instances, the fundamental 1-to-1 partition assignment rule, and how multiple consumer groups independently consume the same topic.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[005-Producer_Partitioning_and_Ordering.md|← 005. Producer Partitioning & Ordering]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[007-Replication_and_Fault_Tolerance.md|007. Replication, High Availability & Fault Tolerance →]]
-
 ---
 
 ## 1. Producer vs Consumer Roles
@@ -147,9 +137,4 @@ __consumer_offsets records:
 4. **On Restart:** If the consumer crashes and a new instance spins up, Kafka checks `__consumer_offsets` and starts the new consumer right from **Offset 46**!
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[005-Producer_Partitioning_and_Ordering.md|← 005. Producer Partitioning & Ordering]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[007-Replication_and_Fault_Tolerance.md|007. Replication, High Availability & Fault Tolerance →]]
 
