@@ -1,15 +1,5 @@
 # 010. Essential Kafka CLI Operations & Administration
 
-> [!abstract] Learning Goal
-> Master the essential Kafka command-line scripts: creating, describing, and altering topics, publishing messages with keys from the terminal, consuming records from offsets, and formatting KRaft storage.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[009-End_to_End_Industrial_Example.md|← 009. End-to-End Industrial Example]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[011-Quick_Revision_and_Interview_Guide.md|011. Quick Revision & Interview Guide →]]
-
 ---
 
 ## 1. Topic Management (`kafka-topics.sh`)
@@ -197,9 +187,4 @@ bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic
 ```
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[009-End_to_End_Industrial_Example.md|← 009. End-to-End Industrial Example]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[011-Quick_Revision_and_Interview_Guide.md|011. Quick Revision & Interview Guide →]]
 

@@ -1,15 +1,5 @@
 # 007. Replication, High Availability & Fault Tolerance
 
-> [!abstract] Learning Goal
-> Learn how Kafka survives server hardware crashes without losing data. Understand partition replication, Leader vs Follower replicas, Replication Factor (RF), In-Sync Replicas (ISR), and the difference between Data and Metadata fault tolerance.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[006-Consumers_and_Consumer_Groups.md|← 006. Consumers, Consumer Groups & Load Balancing]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[008-KRaft_and_Cluster_Consensus.md|008. Kafka KRaft: Architecture, Consensus & Operations →]]
-
 ---
 
 ## 1. Partitioning vs Replication
@@ -171,9 +161,4 @@ A resilient Kafka cluster has **two separate fault-tolerance mechanisms**:
 - **Metadata Fault Tolerance:** The KRaft Controller Quorum protects cluster state, metadata, and partition leadership information.
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[006-Consumers_and_Consumer_Groups.md|← 006. Consumers, Consumer Groups & Load Balancing]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[008-KRaft_and_Cluster_Consensus.md|008. Kafka KRaft: Architecture, Consensus & Operations →]]
 

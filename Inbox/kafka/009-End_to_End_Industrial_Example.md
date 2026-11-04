@@ -1,15 +1,5 @@
 # 009. End-to-End Industrial Microservices Walkthrough
 
-> [!abstract] Learning Goal
-> Connect all foundational concepts—producers, key partitioning, brokers, replication, consumer groups, offsets, and failover recovery—by tracing an end-to-end industrial e-commerce order lifecycle.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[008-KRaft_and_Cluster_Consensus.md|← 008. Kafka KRaft: Architecture, Consensus & Operations]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[010-Kafka_CLI_Commands.md|010. Essential Kafka CLI Operations →]]
-
 ---
 
 ## 1. The Industrial Scenario: E-Commerce System
@@ -128,9 +118,4 @@ Whenever you design, review, or debug a distributed Kafka pipeline, always ask:
    - Prevents race conditions by ensuring related entity events land on the exact same partition.
 
 ---
-
-## 🧭 Navigation
-- **Previous Note:** [[008-KRaft_and_Cluster_Consensus.md|← 008. Kafka KRaft: Architecture, Consensus & Operations]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[010-Kafka_CLI_Commands.md|010. Essential Kafka CLI Operations →]]
 

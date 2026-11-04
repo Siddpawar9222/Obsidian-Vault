@@ -1,14 +1,5 @@
 # 001. Introduction to Apache Kafka & Problem Statement
 
-> [!abstract] Learning Goal
-> Understand why Apache Kafka exists, the architectural problems of direct synchronous REST communication in microservices, and how distributed event streaming provides loose coupling, durability, and fault tolerance.
-
----
-
-## 🧭 Navigation
-- **Syllabus & Progress Tracker:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[002-Core_Terminologies.md|002. Core Terminologies & Data Model →]]
-
 ---
 
 ## 1. What Is Apache Kafka?
@@ -106,8 +97,4 @@ Order Service ---> Publishes OrderCreated Event ---> Kafka Broker (Durable Log)
 - **Real-Time Analytics & Fraud Detection:** Immediate analysis of financial transactions.
 
 ---
-
-## 🧭 Navigation
-- **Syllabus & Progress Tracker:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[002-Core_Terminologies.md|002. Core Terminologies & Data Model →]]
 

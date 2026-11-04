@@ -1,19 +1,9 @@
-
 ---
-
-## DB Console Path
-
-```text
-C:\Users\Siddhesh\AppData\Roaming\JetBrains\IntelliJIdea2023.1\consoles\db
-```
-
----
-
-# IntelliJ Shortcuts (Windows)
+# VS Code shortcut in Intellij Idea using Vs code keymap Plugin
 
 ## Navigation
 
-### Go to previous/next location in current file
+### Go to previous/next location
 
 ```text
 Alt + Left Arrow
@@ -23,8 +13,8 @@ Alt + Right Arrow
 ### Go to previous/next tab
 
 ```text
-Ctrl + Alt + Left Arrow
-Ctrl + Alt + Right Arrow
+Ctrl + Page Up
+Ctrl + Page Down
 ```
 
 ### Go to top/bottom of file
@@ -34,6 +24,19 @@ Ctrl + Home
 Ctrl + End
 ```
 
+### Switch between recently used editor tabs
+
+```text
+Ctrl + Tab
+Ctrl + Shift + Tab
+```
+
+
+# Use the integrated terminal:
+
+```text
+Ctrl + `
+```
 ---
 
 ## Editing
@@ -41,38 +44,39 @@ Ctrl + End
 ### Copy current line downward
 
 ```text
-Ctrl + D
+Shift + Alt + Down Arrow
 ```
 
 ### Move current line up/down
 
 ```text
-Shift + Alt + Up Arrow
-Shift + Alt + Down Arrow
+Alt + Up Arrow
+Alt + Down Arrow
 ```
 
 ### Rename variable and all its references
 
 ```text
-Shift + F6
+F2
 ```
 
 ### Reformat code
 
 ```text
-Ctrl + Alt + L
+Shift + Alt + F
 ```
 
 ### Extract variable from expression
 
 ```text
-Ctrl + Alt + V
+Ctrl + .
+Ctrl + ALt + V
 ```
 
 ### Remove unused Imports from file
 
 ```text
-Ctrl + Alt + O
+Shift + Alt + O
 ```
 
 ---
@@ -87,17 +91,20 @@ Ctrl + Alt + U
 
 ---
 
-
-## To highlight your currently open file in the IntelliJ Project tool window : 
+## To highlight your currently open file in the IntelliJ Project tool window :
 
 ```text
 Alt + F1
 ```
+
 ---
 
-Issue : 
-Building project when Intellij window minimized 
-Run → Edit Configurations--> Remove on frame deactivate 
+Issue :
+Building project when Intellij window minimized
+Run → Edit Configurations--> Remove on frame deactivate
 
+## DB Console Path
 
-
+```text
+C:\Users\Siddhesh\AppData\Roaming\JetBrains\IntelliJIdea2023.1\consoles\db
+```

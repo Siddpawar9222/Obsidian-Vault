@@ -1,15 +1,4 @@
 # 002. Core Terminologies & Data Model
-
-> [!abstract] Learning Goal
-> Master the essential vocabulary of Apache Kafka and understand the data model: Records, Keys, Values, Offsets, and partition-level offset tracking.
-
----
-
-## 🧭 Navigation
-- **Previous Note:** [[001-Introduction_and_Problem_Statement.md|← 001. Introduction & Problem Statement]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[003-Kafka_Architecture_and_Internals.md|003. Kafka Architecture & Internal Mechanics →]]
-
 ---
 
 ## 1. Important Kafka Terminologies
@@ -104,8 +93,4 @@ Partition 0 Log:
 
 ---
 
-## 🧭 Navigation
-- **Previous Note:** [[001-Introduction_and_Problem_Statement.md|← 001. Introduction & Problem Statement]]
-- **Syllabus:** [[syllabus.md|Apache Kafka Structural Syllabus & Roadmap]]
-- **Next Note:** [[003-Kafka_Architecture_and_Internals.md|003. Kafka Architecture & Internal Mechanics →]]
 
