@@ -21,12 +21,12 @@ When adding two binary digits, we have two components:
 1. **Sum bit**: What remains at the current position.
 2. **Carry bit**: What carries over to the next position to the left.
 
-| A | B | Normal Sum | Sum Bit (`A ^ B`) | Carry Bit (`A & B`) |
-| :-: | :-: | :-: | :-: | :-: |
-| 0 | 0 | 0 | **0** | **0** |
-| 0 | 1 | 1 | **1** | **0** |
-| 1 | 0 | 1 | **1** | **0** |
-| 1 | 1 | 2 (binary 10) | **0** | **1** |
+|  A  |  B  |  Normal Sum   | Sum Bit (`A ^ B`) | Carry Bit (`A & B`) |
+| :-: | :-: | :-----------: | :---------------: | :-----------------: |
+|  0  |  0  |       0       |       **0**       |        **0**        |
+|  0  |  1  |       1       |       **1**       |        **0**        |
+|  1  |  0  |       1       |       **1**       |        **0**        |
+|  1  |  1  | 2 (binary 10) |       **0**       |        **1**        |
 
 - **XOR (`^`)** acts as a **half-adder sum**: gives the sum without considering carries.
 - **AND (`&`)** detects where carries are generated (when both bits are `1`).
@@ -84,12 +84,12 @@ class Solution {
 ### Core Intuition
 Subtraction is identical in principle to addition, except we track **borrow** instead of carry.
 
-| A | B | Difference (`A ^ B`) | Borrow Needed (`~A & B`) |
-| :-: | :-: | :-: | :-: |
-| 0 | 0 | 0 | **0** |
-| 0 | 1 | 1 | **1** (0 cannot subtract 1 without borrowing) |
-| 1 | 0 | 1 | **0** |
-| 1 | 1 | 0 | **0** |
+|  A  |  B  | Difference (`A ^ B`) |           Borrow Needed (`~A & B`)            |
+| :-: | :-: | :------------------: | :-------------------------------------------: |
+|  0  |  0  |          0           |                     **0**                     |
+|  0  |  1  |          1           | **1** (0 cannot subtract 1 without borrowing) |
+|  1  |  0  |          1           |                     **0**                     |
+|  1  |  1  |          0           |                     **0**                     |
 
 - Borrow occurs only when $A = 0$ and $B = 1$.
 - Therefore: $\text{Borrow} = (\sim a \ \& \ b) \ll 1$.

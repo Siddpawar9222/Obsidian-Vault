@@ -6,13 +6,13 @@
 
 ## 🧭 Navigation
 
-| Action | Shortcut |
-| :--- | :--- |
-| **Go to previous / next location** | `Alt + Left Arrow` / `Alt + Right Arrow` |
-| **Go to previous / next tab** | `Ctrl + Page Up` / `Ctrl + Page Down` |
-| **Go to top / bottom of file** | `Ctrl + Home` / `Ctrl + End` |
-| **Switch between recent editor tabs** | `Ctrl + Tab` / `Ctrl + Shift + Tab` |
-| **Highlight file in Project tool window** | `Alt + F1` |
+| Action                                    | Shortcut                                 |
+| :---------------------------------------- | :--------------------------------------- |
+| **Go to previous / next location**        | `Alt + Left Arrow` / `Alt + Right Arrow` |
+| **Go to previous / next tab**             | `Ctrl + Page Up` / `Ctrl + Page Down`    |
+| **Go to top / bottom of file**            | `Ctrl + Home` / `Ctrl + End`             |
+| **Switch between recent editor tabs**     | `Ctrl + Tab` / `Ctrl + Shift + Tab`      |
+| **Highlight file in Project tool window** | `Alt + F1`                               |
 
 ---
 
@@ -31,10 +31,10 @@
 
 ## 💻 Terminal & Tools
 
-| Action | Shortcut |
-| :--- | :--- |
-| **Toggle integrated terminal** | `Ctrl + \`` |
-| **Open UML class diagram** | `Ctrl + Alt + U` |
+| Action                         | Shortcut         |
+| :----------------------------- | :--------------- |
+| **Toggle integrated terminal** | `Ctrl + \``      |
+| **Open UML class diagram**     | `Ctrl + Alt + U` |
 
 ---
 
