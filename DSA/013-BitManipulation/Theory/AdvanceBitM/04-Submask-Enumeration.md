@@ -1,11 +1,3 @@
----
-aliases:
-  - SubmaskEnumeration
-tags:
-  - dsa
-  - bit-manipulation
-  - submasks
----
 
 # Level 4: Submask Enumeration (Subsets of a Mask)
 

@@ -1,13 +1,3 @@
----
-aliases:
-  - AdvanceBitManipulation
-  - AdvanceBitM
-tags:
-  - dsa
-  - bit-manipulation
-  - algorithms
-  - revision
----
 
 # Advanced Bit Manipulation — Roadmap & Cheat Sheet
 

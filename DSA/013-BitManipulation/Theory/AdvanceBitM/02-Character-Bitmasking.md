@@ -1,12 +1,3 @@
----
-aliases:
-  - CharacterBitmasking
-  - StringBitmasking
-tags:
-  - dsa
-  - bit-manipulation
-  - strings
----
 
 # Level 2: Character & String Bitmasking
 

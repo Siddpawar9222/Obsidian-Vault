@@ -1,12 +1,3 @@
----
-aliases:
-  - BitmaskDP
-  - StateCompression
-tags:
-  - dsa
-  - bit-manipulation
-  - dynamic-programming
----
 
 # Level 5: State Compression & Intro to Bitmask DP (Conceptual Overview)
 
