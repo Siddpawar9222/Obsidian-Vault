@@ -27,6 +27,7 @@ Suppose your Order Service publishes events: `OrderCreated`, `OrderPaid`, `Order
 ## 2. What Is a Kafka Partition?
 
 A **Partition** is a single, append-only, ordered log file inside a topic.
+A log is simply a sequence of records stored one after another.
 
 Suppose the `orders` topic is configured with **3 partitions**:
 
