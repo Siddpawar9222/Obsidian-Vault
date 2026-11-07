@@ -3,28 +3,28 @@
 
 ## 1. Important Kafka Terminologies
 
-| Terminology | Meaning in Simple English | Real-world Analogy |
-|---|---|---|
-| **Event** | An immutable fact that something occurred in the business domain | "Customer placed order ORD-101" |
-| **Record / Message** | A unit of data published to Kafka (Key + Value + Metadata) | A single letter or parcel |
-| **Topic** | A named category or feed where records are stored | A file folder or a database table name |
-| **Partition** | An ordered, append-only log sequence within a topic | A ledger book or table shard |
-| **Offset** | A sequential integer assigned to each record in a partition | A page number or bookmark |
-| **Broker** | A running Kafka server instance | A post office building / node |
-| **Cluster** | Multiple Kafka brokers cooperating as a single distributed system | The complete postal network |
-| **Producer** | Application that creates and publishes records to topics | The sender |
-| **Consumer** | Application that reads and processes records from topics | The recipient / processor |
-| **Consumer Group** | A collection of consumers sharing the work of reading a topic | A team of workers sharing parcel processing |
-| **Key** | Optional value in a record used for routing and grouping | Order ID, Account ID, or Customer ID |
-| **Value** | The actual payload data of the event | The body of the message (JSON, Avro, Protobuf) |
-| **Replica** | A copy of a partition stored on a different broker | A duplicate backup copy of a ledger |
-| **Leader** | The single replica handling normal reads and writes for a partition | The active manager on duty |
-| **Follower** | A replica that copies data from the leader to stay synchronized | The standby assistant copying records |
-| **Replication Factor (RF)** | Total number of copies maintained for each partition | 3 means 1 leader + 2 followers |
-| **ISR (In-Sync Replicas)** | Set of replicas actively caught up with the leader | Up-to-date followers ready for failover |
-| **Retention Policy** | Configuration defining how long Kafka stores records (time or size) | "Keep records for 7 days or 100 GB" |
-| **Controller** | Broker elected to manage cluster metadata and broker failures | Cluster supervisor / coordinator |
-| **KRaft** | Kafka's built-in Raft consensus engine (replaces ZooKeeper) | Internal decentralized consensus |
+| Terminology                 | Meaning in Simple English                                           | Real-world Analogy                             |
+| --------------------------- | ------------------------------------------------------------------- | ---------------------------------------------- |
+| **Event**                   | An immutable fact that something occurred in the business domain    | "Customer placed order ORD-101"                |
+| **Record / Message**        | A unit of data published to Kafka (Key + Value + Metadata)          | A single letter or parcel                      |
+| **Topic**                   | A named category or feed where records are stored                   | A file folder or a database table name         |
+| **Partition**               | An ordered, append-only log sequence within a topic                 | A ledger book or table shard                   |
+| **Offset**                  | A sequential integer assigned to each record in a partition         | A page number or bookmark                      |
+| **Broker**                  | A running Kafka server instance                                     | A post office building / node                  |
+| **Cluster**                 | Multiple Kafka brokers cooperating as a single distributed system   | The complete postal network                    |
+| **Producer**                | Application that creates and publishes records to topics            | The sender                                     |
+| **Consumer**                | Application that reads and processes records from topics            | The recipient / processor                      |
+| **Consumer Group**          | A collection of consumers sharing the work of reading a topic       | A team of workers sharing parcel processing    |
+| **Key**                     | Optional value in a record used for routing and grouping            | Order ID, Account ID, or Customer ID           |
+| **Value**                   | The actual payload data of the event                                | The body of the message (JSON, Avro, Protobuf) |
+| **Replica**                 | A copy of a partition stored on a different broker                  | A duplicate backup copy of a ledger            |
+| **Leader**                  | The single replica handling normal reads and writes for a partition | The active manager on duty                     |
+| **Follower**                | A replica that copies data from the leader to stay synchronized     | The standby assistant copying records          |
+| **Replication Factor (RF)** | Total number of copies maintained for each partition                | 3 means 1 leader + 2 followers                 |
+| **ISR (In-Sync Replicas)**  | Set of replicas actively caught up with the leader                  | Up-to-date followers ready for failover        |
+| **Retention Policy**        | Configuration defining how long Kafka stores records (time or size) | "Keep records for 7 days or 100 GB"            |
+| **Controller**              | Broker elected to manage cluster metadata and broker failures       | Cluster supervisor / coordinator               |
+| **KRaft**                   | Kafka's built-in Raft consensus engine (replaces ZooKeeper)         | Internal decentralized consensus               |
 
 ---
 
