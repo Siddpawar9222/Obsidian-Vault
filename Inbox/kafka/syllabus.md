@@ -21,6 +21,7 @@
 | **[[009-End_to_End_Industrial_Example.md\|009. End-to-End Industrial Example]]** | E-commerce order lifecycle, broker & consumer failover | ✅ Covered |
 | **[[010-Kafka_CLI_Commands.md\|010. Essential Kafka CLI Operations]]** | Topic management, console producer/consumer with keys, storage CLI | ✅ Covered |
 | **[[011-Quick_Revision_and_Interview_Guide.md\|011. Quick Revision & Interview Guide]]** | 18 High-yield Q&As, 5 critical confusions, interview checklist | ✅ Covered |
+| **[[012-HandsOn_SpringBoot_Step_By_Step_Guide.md\|012. Hands-On Spring Boot Practical Guide]]** | Incremental step-by-step implementation: Partitions, Groups, DLT, EOS, Lag | 🚀 Practical Guide |
 
 ---
 

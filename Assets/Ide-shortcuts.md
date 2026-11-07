@@ -1,8 +1,6 @@
-# VS Code Shortcuts in IntelliJ IDEA (VS Code Keymap)
-
-> Cheatsheet for IntelliJ IDEA when using the **VS Code Keymap** plugin.
 
 ---
+###  Cheatsheet for IntelliJ IDEA when using the **VS Code Keymap** plugin.
 
 ## 🧭 Navigation
 
@@ -13,6 +11,8 @@
 | **Go to top / bottom of file**            | `Ctrl + Home` / `Ctrl + End`             |
 | **Switch between recent editor tabs**     | `Ctrl + Tab` / `Ctrl + Shift + Tab`      |
 | **Highlight file in Project tool window** | `Alt + F1`                               |
+|                                           |                                          |
+
 
 ---
 
