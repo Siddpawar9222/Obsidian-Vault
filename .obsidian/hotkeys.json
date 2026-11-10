@@ -2,6 +2,7 @@
   "workspace:previous-tab": [
     {
       "modifiers": [
+        "Mod",
         "Alt"
       ],
       "key": "ArrowLeft"
@@ -10,6 +11,7 @@
   "workspace:next-tab": [
     {
       "modifiers": [
+        "Mod",
         "Alt"
       ],
       "key": "ArrowRight"
@@ -21,25 +23,23 @@
         "Mod",
         "Shift"
       ],
-      "key": "A"
+      "key": "P"
     }
   ],
   "app:open-settings": [
     {
       "modifiers": [
-        "Mod",
-        "Alt"
+        "Mod"
       ],
-      "key": "S"
+      "key": ","
     }
   ],
   "switcher:open": [
     {
       "modifiers": [
-        "Mod",
-        "Shift"
+        "Mod"
       ],
-      "key": "N"
+      "key": "P"
     }
   ],
   "global-search:open": [
@@ -56,15 +56,15 @@
       "modifiers": [
         "Mod"
       ],
-      "key": "R"
+      "key": "H"
     }
   ],
   "app:toggle-left-sidebar": [
     {
       "modifiers": [
-        "Alt"
+        "Mod"
       ],
-      "key": "1"
+      "key": "B"
     }
   ],
   "editor:go-to-line": [
@@ -78,17 +78,19 @@
   "editor:fold-current": [
     {
       "modifiers": [
-        "Mod"
+        "Mod",
+        "Shift"
       ],
-      "key": "-"
+      "key": "["
     }
   ],
   "editor:unfold-current": [
     {
       "modifiers": [
-        "Mod"
+        "Mod",
+        "Shift"
       ],
-      "key": "="
+      "key": "]"
     }
   ],
   "editor:fold-all": [
@@ -97,7 +99,7 @@
         "Mod",
         "Shift"
       ],
-      "key": "-"
+      "key": "["
     }
   ],
   "editor:unfold-all": [
@@ -106,7 +108,7 @@
         "Mod",
         "Shift"
       ],
-      "key": "="
+      "key": "]"
     }
   ],
   "editor:toggle-comment": [
