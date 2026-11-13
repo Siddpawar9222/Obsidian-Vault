@@ -1,4 +1,5 @@
 {
   "focusNewTab": false,
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "showInlineTitle": false
 }
