@@ -1,15 +1,15 @@
-
+Tricks-001
 ---
 
+- checks whether the last bit is `1`.
 
-- checks whether the last bit is `1`.  
    ```java
    if ((n & 1) == 1) {
     // odd
    }
    ```
 
-Remove the lowest set bit 
+Remove the lowest set bit
 
 ```
 n & (n - 1)
@@ -22,10 +22,10 @@ AND
       1010000
 ```
 
-
-Isolate the lowest set bit  : 
+Isolate the lowest set bit:
 
 isolating the lowest set bit means finding the rightmost `1` bit in a binary number and keeping only that `1`, while making all other bits `0`.
+
 ```
 n & -n
 
@@ -40,9 +40,9 @@ n & -n
 0010000
 ```
 
-Used in Problem [260. Single Number III](https://leetcode.com/problems/single-number-iii/) where i needed to segregate two number using xor 
+Used in Problem [260. Single Number III](https://leetcode.com/problems/single-number-iii/) where i needed to segregate two number using xor
 
-- <font color="#c0504d">XOR properties (IMP)</font>  : Similar bit  gives 0 
+- <font color="#c0504d">XOR properties (IMP)</font>: Similar bit gives 0
 
 ```java
 x ^ 0 = x
@@ -52,18 +52,24 @@ a ^ b ^ a = b
 ```
 
 [136. Single Number](https://leetcode.com/problems/single-number/)
-[268. Missing Number](https://leetcode.com/problems/missing-number/) 
+
+[268. Missing Number](https://leetcode.com/problems/missing-number/)
 
 [137. Single Number II](https://leetcode.com/problems/single-number-ii/)
-[260. Single Number III](https://leetcode.com/problems/single-number-iii/) 
-[1310. XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/) 
 
-Application : 
-Cancel repeated numbern/same number 
+[260. Single Number III](https://leetcode.com/problems/single-number-iii/)
+
+[1310. XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/)
+
+Application:
+
+Cancel repeated numbern/same number
+
 Prefix sum(cancel past sum)
-[Hamming Distance](https://leetcode.com/problems/hamming-distance/) : two integers is the number of positions at which the corresponding bits are different.
 
- NOT  : 
+[Hamming Distance](https://leetcode.com/problems/hamming-distance/): two integers is the number of positions at which the corresponding bits are different.
+
+ NOT:
 
 ```
 ~x = -x - 1
@@ -72,8 +78,7 @@ e.g.
 ~5 = -6
 ```
 
-
-Left shift `<<` : 
+Left shift `<<`:
 
 ``` java
 x << k ≈ x * 2^k
@@ -86,11 +91,8 @@ eg :
 = 10
 ```
 
-
-
-Check power of 2  
-A power of 2 contains exactly one set bit. 
-
+Check power of 2
+A power of 2 contains exactly one set bit.
 
 ```
 1     = 0001
@@ -105,13 +107,11 @@ Hence if we reset righmost set bit entire binary will be zero
 n > 0 && (n & (n - 1)) == 0
 ```
 
-
-Divide Trick : 
+Divide Trick:
 
 ```java
 6 = 110  → 2 set bits
 3 = 11   → 2 set bits
 ```
 
-Observe : When we divide number by 2. It shift right by 1 
-
+Observe: When we divide number by 2. It shift right by 1
