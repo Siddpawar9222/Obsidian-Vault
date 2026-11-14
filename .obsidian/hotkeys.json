@@ -71,14 +71,6 @@
       "key": "H"
     }
   ],
-  "app:toggle-left-sidebar": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "B"
-    }
-  ],
   "editor:go-to-line": [
     {
       "modifiers": [
@@ -191,13 +183,6 @@
         "Alt"
       ],
       "key": "F1"
-    },
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "E"
     }
   ],
   "editor:swap-line-up": [
@@ -554,6 +539,15 @@
         "Shift"
       ],
       "key": "R"
+    }
+  ],
+  "app:toggle-left-sidebar": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "E"
     }
   ]
 }
