@@ -1,0 +1,3621 @@
+/* ================================================================
+   Git History for Obsidian – GitLens-inspired styles
+   ================================================================ */
+
+/* --- CSS Custom Properties --- */
+:root {
+  --gs-bg: var(--background-primary);
+  --gs-bg2: var(--background-secondary);
+  --gs-bg-hover: var(--background-modifier-hover);
+  --gs-bg-active: var(--background-modifier-active-hover, rgb(255, 255, 255, 0.06));
+  --gs-border: var(--background-modifier-border);
+  --gs-text: var(--text-normal);
+  --gs-text-muted: var(--text-muted);
+  --gs-text-faint: var(--text-faint);
+  --gs-accent: var(--interactive-accent);
+  --gs-accent-text: var(--text-on-accent);
+  --gs-green: #3fb950;
+  --gs-red: #f85149;
+  --gs-blue: #58a6ff;
+  --gs-purple: #bc8cff;
+  --gs-yellow: #d29922;
+  --gs-orange: #f0883e;
+  --gs-mono: var(--font-monospace);
+  --gs-graph-col-width: 60px;
+  --gs-ref-col-width: 140px;
+}
+
+/* ================================================================
+   GRAPH VIEW – GitLens table layout
+   ================================================================ */
+
+.gs-graph-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+/* Toolbar */
+.gs-graph-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--gs-border);
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.gs-toolbar-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.gs-toolbar-right {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.gs-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gs-bg);
+  border: 1px solid var(--gs-border);
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+/* File-history chip — shown next to the search box while the graph is
+   narrowed to a single file. */
+.gs-path-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 2px 4px 2px 6px;
+  border-radius: 4px;
+  background: rgb(88, 166, 255, 0.15);
+  color: var(--gs-blue);
+  font-size: 11px;
+  max-width: 100%;
+  width: fit-content;
+}
+
+.gs-path-chip-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+.gs-path-chip-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.gs-path-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gs-path-chip-clear {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+}
+.gs-path-chip-clear svg {
+  width: 12px;
+  height: 12px;
+}
+.gs-path-chip-clear:hover {
+  color: var(--gs-text);
+}
+
+.gs-search-icon {
+  display: flex;
+  color: var(--gs-text-faint);
+}
+
+.gs-search-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gs-search-input {
+  border: none;
+  background: transparent;
+  color: var(--gs-text);
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+}
+
+.gs-search-input::placeholder {
+  color: var(--gs-text-faint);
+}
+
+.gs-tbtn {
+  background: none;
+  border: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.gs-tbtn svg {
+  width: 16px;
+  height: 16px;
+}
+.gs-tbtn:hover {
+  background: var(--gs-bg-hover);
+  color: var(--gs-text);
+}
+.gs-tbtn-active {
+  color: var(--gs-accent);
+}
+
+/* Column headers */
+.gs-graph-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--gs-border);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gs-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 0;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.gs-col {
+  padding: 0 6px;
+  flex-shrink: 0;
+}
+.gs-col-ref {
+  width: var(--gs-ref-col-width);
+}
+.gs-col-graph {
+  width: var(--gs-graph-col-width);
+}
+.gs-col-msg {
+  flex: 1;
+  min-width: 0;
+}
+.gs-col-author {
+  width: 100px;
+}
+.gs-col-files {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gs-col-files svg {
+  width: 12px;
+  height: 12px;
+}
+.gs-col-date {
+  width: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gs-col-date svg {
+  width: 12px;
+  height: 12px;
+}
+.gs-col-hash {
+  width: 55px;
+  font-family: var(--gs-mono);
+}
+
+/* Scroll area */
+.gs-graph-scroll-wrap {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.gs-graph-inner {
+  position: relative;
+  min-width: 100%;
+}
+
+.gs-graph-svg {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.gs-graph-tbody {
+  position: relative;
+  z-index: 2;
+}
+
+.gs-graph-spacer {
+  pointer-events: none;
+}
+
+/* Rows */
+.gs-graph-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.gs-graph-row:hover {
+  background: var(--gs-bg-hover);
+}
+.gs-row-selected.gs-row-selected {
+  background: var(--gs-bg-active);
+  box-shadow: inset 2px 0 0 var(--gs-accent);
+}
+
+.gs-row-wc {
+  border-bottom: 1px solid var(--gs-border);
+}
+
+.gs-row-wc .gs-wc-label {
+  font-weight: 600;
+  color: var(--gs-green);
+}
+
+/* Cells */
+.gs-cell {
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.gs-cell-ref {
+  width: var(--gs-ref-col-width);
+  display: flex;
+  gap: 3px;
+  overflow: hidden;
+}
+.gs-cell-graph {
+  width: var(--gs-graph-col-width);
+}
+.gs-cell-msg {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gs-cell-author {
+  width: 100px;
+  color: var(--gs-text-muted);
+  font-size: 12px;
+}
+.gs-cell-files {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--gs-text-faint);
+  font-size: 12px;
+}
+.gs-cell-date {
+  width: 65px;
+  color: var(--gs-text-faint);
+  font-size: 12px;
+}
+.gs-cell-hash {
+  width: 55px;
+  font-family: var(--gs-mono);
+  color: var(--gs-text-faint);
+  font-size: 11px;
+}
+
+.gs-commit-msg {
+  color: var(--gs-text);
+}
+
+/* Ref pills */
+.gs-ref-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  padding: 0 5px;
+  border-radius: 3px;
+  font-weight: 600;
+  line-height: 18px;
+  max-width: 120px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.gs-ref-icon {
+  display: flex;
+}
+.gs-ref-icon svg {
+  width: 10px;
+  height: 10px;
+}
+.gs-ref-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gs-ref-head {
+  background: var(--gs-accent);
+  color: var(--gs-accent-text);
+}
+
+.gs-ref-branch {
+  background: rgb(63, 185, 80, 0.2);
+  color: var(--gs-green);
+}
+
+.gs-ref-remote {
+  background: rgb(88, 166, 255, 0.15);
+  color: var(--gs-blue);
+}
+
+.gs-ref-tag {
+  background: rgb(240, 136, 62, 0.2);
+  color: var(--gs-orange);
+}
+
+/* Working changes stats */
+.gs-file-stats {
+  font-size: 12px;
+}
+.gs-stat-staged {
+  color: var(--gs-green);
+}
+.gs-stat-changed {
+  color: var(--gs-yellow);
+}
+
+/* Commit popup */
+/* Expanded commit card. The rows below it move down by its height, so it never
+   covers them — but it starts after the branch and graph columns so the lane
+   stays visible and stretches across the gap. */
+.gs-commit-popup {
+  position: absolute;
+  left: calc(var(--gs-ref-col-width) + var(--gs-graph-col-width));
+  right: 8px;
+  z-index: 3;
+  /* The accent wash guarantees the card reads as raised in every theme —
+     --background-secondary is nearly identical to the list background in some
+     of them, which left the card looking like a hole rather than a panel. */
+  background:
+    linear-gradient(0deg, rgb(88, 166, 255, 0.07), rgb(88, 166, 255, 0.07)), var(--gs-bg2);
+  border: 1px solid var(--background-modifier-border-hover, var(--gs-border));
+  border-left: 3px solid var(--gs-accent);
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 12px rgb(0, 0, 0, 0.35);
+  max-width: 620px;
+  /* Long subjects and pasted URLs must not push the card wider than the list. */
+  overflow-wrap: anywhere;
+}
+
+.gs-popup-header {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.gs-popup-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gs-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gs-text-muted);
+  flex-shrink: 0;
+}
+
+.gs-popup-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.gs-popup-author-line {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.gs-popup-author-name {
+  font-weight: 600;
+  color: var(--gs-text);
+}
+.gs-popup-time {
+  color: var(--gs-text-muted);
+  font-size: 12px;
+}
+.gs-popup-fulldate {
+  color: var(--gs-text-faint);
+  font-size: 11px;
+}
+
+.gs-popup-meta {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--gs-text-muted);
+  margin-top: 4px;
+  font-family: var(--gs-mono);
+}
+
+.gs-popup-parent-label {
+  color: var(--gs-accent);
+}
+.gs-popup-parent-hash {
+  color: var(--gs-text-faint);
+}
+.gs-popup-stats {
+  display: flex;
+  gap: 6px;
+  color: var(--gs-text-muted);
+}
+
+.gs-popup-msg {
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--gs-text);
+  font-weight: 600;
+}
+
+.gs-popup-body {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--gs-text-muted);
+  white-space: pre-wrap;
+}
+
+.gs-popup-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.gs-popup-btn {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-bg);
+  color: var(--gs-text-muted);
+  cursor: pointer;
+}
+
+.gs-popup-btn:hover {
+  background: var(--gs-bg-hover);
+  color: var(--gs-text);
+}
+
+/* ================================================================
+   SOURCE CONTROL VIEW – VS Code style sidebar
+   ================================================================ */
+
+.gs-sc-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 13px;
+}
+
+/*
+ * Background refreshes (file watcher, window focus, auto-fetch) toggle this on
+ * the whole view. It must stay a visual hint only — disabling pointer events
+ * here made every button in the panel dead while a `git status` was in flight,
+ * which on an active vault is most of the time.
+ */
+.gs-loading {
+  opacity: 0.6;
+}
+
+.gs-init-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  gap: 8px;
+  height: 100%;
+}
+.gs-init-icon {
+  color: var(--text-muted);
+}
+.gs-init-icon svg {
+  width: 48px;
+  height: 48px;
+}
+.gs-init-view h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.gs-init-desc {
+  color: var(--text-muted);
+  font-size: 13px;
+  max-width: 280px;
+  margin: 0 0 8px;
+}
+.gs-init-btn {
+  margin-top: 4px;
+}
+
+/* Progress bar between the header and the tabs. The track always occupies its
+   row so the panel never shifts when a command starts. It sits a few pixels
+   above the active tab's accent underline, so the visible track and the
+   rounded, glowing segment are what separate the two. */
+.gs-progress {
+  height: 4px;
+  margin: 2px 8px 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.gs-progress-bar {
+  height: 100%;
+  width: 35%;
+  border-radius: 2px;
+  background: var(--gs-accent);
+  opacity: 0;
+}
+
+.gs-progress-active {
+  background: var(--background-modifier-border);
+}
+
+.gs-progress-active .gs-progress-bar {
+  box-shadow: 0 0 6px var(--gs-accent);
+}
+
+/* Name of the running command, next to the panel title. */
+.gs-sc-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.gs-sc-busy-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gs-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gs-progress-active .gs-progress-bar {
+  opacity: 1;
+  /* Indeterminate on purpose: git reports no usable progress for push, pull or
+     fetch, and an invented percentage is worse than none. */
+  /* Back and forth inside the track, at a constant speed. A one-way sweep
+     starts and ends outside the clip, so the segment spends a third of every
+     cycle invisible or crawling at an edge — which reads as standing still. */
+  animation: gs-progress-slide 0.7s linear infinite alternate;
+}
+
+/* 185% of the segment's own width is the width of the track minus the segment,
+   so it travels edge to edge and never leaves it. */
+@keyframes gs-progress-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(185%);
+  }
+}
+
+@keyframes gs-progress-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No travel, but it still has to read as active — a motionless bar is
+     indistinguishable from a decorative line. */
+  .gs-progress-active .gs-progress-bar {
+    width: 100%;
+    animation: gs-progress-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+/* Header */
+.gs-sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  flex-shrink: 0;
+}
+
+.gs-sc-header-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gs-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gs-sc-header-actions {
+  display: flex;
+  gap: 4px;
+}
+.gs-icon-btn.gs-icon-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.gs-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.gs-icon-btn.gs-icon-btn:hover {
+  background: rgb(255, 255, 255, 0.08);
+  color: var(--gs-text);
+}
+.gs-icon-btn.gs-icon-btn:focus,
+.gs-icon-btn.gs-icon-btn:active {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.gs-icon-btn-sm {
+  padding: 2px;
+}
+.gs-icon-btn-sm svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* List toolbar – layout switch and expand/collapse for the whole list */
+.gs-sc-list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 12px;
+  border-bottom: 1px solid var(--gs-border);
+  flex-shrink: 0;
+  min-height: 26px;
+}
+
+.gs-sc-list-summary {
+  font-size: 11px;
+  color: var(--gs-text-faint);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gs-sc-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.gs-sc-list-actions .gs-icon-btn-sm.gs-icon-btn-sm {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.gs-sc-list-actions .gs-icon-btn-sm.gs-icon-btn-sm:hover {
+  background: var(--gs-bg-hover);
+  color: var(--gs-text);
+}
+
+/* Beats the display: flex above, which would otherwise outrank .gs-hidden. */
+.gs-sc-list-actions .gs-icon-btn-sm.gs-icon-btn-sm.gs-hidden {
+  display: none;
+}
+
+/* File list */
+.gs-sc-filelist {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Section headers – VS Code style */
+.gs-sc-section-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--gs-bg2);
+}
+
+.gs-sc-section-header:hover {
+  background: rgb(255, 255, 255, 0.04);
+}
+
+.gs-section-left {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gs-section-chevron {
+  display: flex;
+  color: var(--gs-text-muted);
+}
+.gs-section-chevron svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gs-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gs-text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.gs-section-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.gs-section-count {
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  background: var(--gs-text-faint);
+  flex-shrink: 0;
+}
+
+.gs-count-staged {
+  background: var(--gs-green);
+}
+.gs-count-changed {
+  background: var(--gs-blue);
+}
+.gs-count-untracked {
+  background: var(--gs-green);
+}
+.gs-count-conflict {
+  background: var(--gs-red);
+}
+
+.gs-section-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.1s;
+  margin-left: auto;
+  padding-left: 8px;
+}
+
+.gs-sc-section-header:hover .gs-section-actions {
+  opacity: 1;
+}
+.gs-section-actions .gs-icon-btn-sm.gs-icon-btn-sm {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+.gs-section-actions .gs-icon-btn-sm.gs-icon-btn-sm:hover {
+  background: rgb(255, 255, 255, 0.08);
+  color: var(--gs-text);
+}
+.gs-section-actions .gs-icon-btn-sm.gs-icon-btn-sm:focus,
+.gs-section-actions .gs-icon-btn-sm.gs-icon-btn-sm:active {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Tree view – VS Code style */
+.gs-tree-dir {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gs-text);
+  user-select: none;
+  min-height: 26px;
+}
+
+.gs-tree-dir:hover {
+  background: rgb(255, 255, 255, 0.04);
+}
+.gs-tree-dir:hover .gs-tree-dir-actions {
+  opacity: 1;
+}
+.gs-tree-dir:hover .gs-tree-dir-dot {
+  display: none;
+}
+
+.gs-tree-chevron {
+  display: flex;
+  color: var(--gs-text-faint);
+  flex-shrink: 0;
+}
+.gs-tree-chevron svg {
+  width: 12px;
+  height: 12px;
+}
+.gs-tree-dirname {
+  font-weight: 400;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gs-tree-dir-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-right: 4px;
+}
+
+.gs-tree-dir-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.gs-tree-dir-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gs-text-faint);
+  opacity: 0.5;
+}
+
+.gs-tree-file {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gs-text);
+  min-height: 26px;
+}
+
+.gs-tree-file:hover {
+  background: rgb(255, 255, 255, 0.04);
+}
+.gs-tree-file:hover .gs-tree-file-actions {
+  opacity: 1;
+}
+
+.gs-tree-file-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+.gs-tree-file-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Nested repositories are listed for information only — git cannot stage them. */
+.gs-tree-file-embedded .gs-tree-filename {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Folder icon color */
+.gs-tree-folder-icon {
+  display: flex;
+  color: #e8ab53;
+  flex-shrink: 0;
+}
+.gs-tree-folder-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* File icon colors by extension */
+.gs-ext-md {
+  color: #519aba;
+}
+.gs-ext-txt {
+  color: #519aba;
+}
+.gs-ext-json {
+  color: #cbcb41;
+}
+.gs-ext-js {
+  color: #cbcb41;
+}
+.gs-ext-mjs {
+  color: #cbcb41;
+}
+.gs-ext-ts {
+  color: #519aba;
+}
+.gs-ext-tsx {
+  color: #519aba;
+}
+.gs-ext-jsx {
+  color: #519aba;
+}
+.gs-ext-css {
+  color: #56b6c2;
+}
+.gs-ext-scss {
+  color: #f55385;
+}
+.gs-ext-less {
+  color: #56b6c2;
+}
+.gs-ext-html {
+  color: #e37933;
+}
+.gs-ext-htm {
+  color: #e37933;
+}
+.gs-ext-xml {
+  color: #e37933;
+}
+.gs-ext-svg {
+  color: #f55385;
+}
+.gs-ext-png {
+  color: #a074c4;
+}
+.gs-ext-jpg {
+  color: #a074c4;
+}
+.gs-ext-jpeg {
+  color: #a074c4;
+}
+.gs-ext-gif {
+  color: #a074c4;
+}
+.gs-ext-webp {
+  color: #a074c4;
+}
+.gs-ext-yml {
+  color: #a074c4;
+}
+.gs-ext-yaml {
+  color: #a074c4;
+}
+.gs-ext-toml {
+  color: #a074c4;
+}
+.gs-ext-py {
+  color: #519aba;
+}
+.gs-ext-rb {
+  color: #cc3e44;
+}
+.gs-ext-rs {
+  color: #dea584;
+}
+.gs-ext-go {
+  color: #519aba;
+}
+.gs-ext-java {
+  color: #cc3e44;
+}
+.gs-ext-sh {
+  color: #89e051;
+}
+.gs-ext-bash {
+  color: #89e051;
+}
+.gs-ext-zsh {
+  color: #89e051;
+}
+.gs-ext-env {
+  color: #89e051;
+}
+.gs-ext-gitignore {
+  color: #41535b;
+}
+.gs-ext-lock {
+  color: #41535b;
+}
+.gs-ext-log {
+  color: #41535b;
+}
+.gs-ext-default {
+  color: var(--gs-text-muted);
+}
+
+.gs-tree-filename {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Flat layout: the folder follows the name and is the first to be cut off. */
+.gs-sc-tree-flat .gs-tree-filename {
+  flex: 0 1 auto;
+}
+
+.gs-tree-filepath {
+  /* Shrinks far more eagerly than the name: the file is what is being read,
+     the folder only tells two files of the same name apart. */
+  flex: 0 100 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--gs-text-faint);
+  margin-left: 2px;
+}
+
+.gs-tree-file-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.gs-tree-file-stats {
+  font-size: 11px;
+  font-family: var(--gs-mono);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.gs-stat-add {
+  color: var(--gs-green);
+}
+.gs-stat-del {
+  color: var(--gs-red);
+}
+
+.gs-tree-file-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.1s;
+  flex-shrink: 0;
+}
+.gs-action-btn.gs-action-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.gs-action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.gs-action-btn.gs-action-btn:hover {
+  background: rgb(255, 255, 255, 0.08);
+  color: var(--gs-text);
+}
+.gs-action-btn.gs-action-btn:focus,
+.gs-action-btn.gs-action-btn:active {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.gs-tree-badge {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--gs-mono);
+  width: 14px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.gs-badge-M {
+  color: var(--gs-yellow);
+}
+.gs-badge-A {
+  color: var(--gs-green);
+}
+.gs-badge-U {
+  color: var(--gs-green);
+}
+.gs-badge-D {
+  color: var(--gs-red);
+}
+.gs-badge-R {
+  color: var(--gs-purple);
+}
+.gs-badge-C {
+  color: var(--gs-yellow);
+}
+/* Type change — a file replaced by a symlink or vice versa. */
+.gs-badge-T {
+  color: var(--gs-yellow);
+}
+
+.gs-sc-empty {
+  text-align: center;
+  color: var(--gs-text-faint);
+  padding: 20px;
+  font-size: 13px;
+}
+
+/* Commit area – VS Code style (input + button at top) */
+.gs-sc-commit-area {
+  padding: 8px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--gs-border);
+}
+
+.gs-commit-input-wrap {
+  margin-bottom: 6px;
+}
+
+.gs-commit-input {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--gs-border);
+  border-radius: 4px;
+  background: var(--gs-bg);
+  color: var(--gs-text);
+  font-size: 12px;
+  font-family: var(--font-interface);
+  box-sizing: border-box;
+  outline: none;
+}
+
+.gs-commit-input:focus {
+  border-color: var(--gs-accent);
+}
+.gs-commit-input::placeholder {
+  color: var(--gs-text-faint);
+}
+
+.gs-commit-btn-row {
+  display: flex;
+}
+.gs-commit-main-btn.gs-commit-main-btn {
+  flex: 1;
+  padding: 5px 12px;
+  border-radius: 4px 0 0 4px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background: var(--gs-green);
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.gs-commit-main-btn.gs-commit-main-btn:hover,
+.gs-commit-main-btn.gs-commit-main-btn:focus,
+.gs-commit-main-btn.gs-commit-main-btn:active {
+  opacity: 0.9;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.gs-commit-main-btn.gs-commit-main-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.gs-commit-check-icon {
+  display: flex;
+}
+.gs-commit-check-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.gs-commit-dropdown-btn.gs-commit-dropdown-btn {
+  padding: 5px 6px;
+  border-radius: 0 4px 4px 0;
+  border: none;
+  border-left: 1px solid rgb(255, 255, 255, 0.2);
+  box-shadow: none;
+  outline: none;
+  background: var(--gs-green);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.gs-commit-dropdown-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.gs-commit-dropdown-btn.gs-commit-dropdown-btn:hover,
+.gs-commit-dropdown-btn.gs-commit-dropdown-btn:focus,
+.gs-commit-dropdown-btn.gs-commit-dropdown-btn:active {
+  opacity: 0.9;
+  border: none;
+  border-left: 1px solid rgb(255, 255, 255, 0.2);
+  box-shadow: none;
+  outline: none;
+}
+
+/* --- Tab bar (Changes / Graph toggle) --- */
+.gs-sc-tabbar {
+  display: flex;
+  border-bottom: 1px solid var(--gs-border);
+  flex-shrink: 0;
+  padding: 0 12px;
+}
+.gs-sc-tab.gs-sc-tab {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  box-shadow: none;
+  outline: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.gs-sc-tab:hover {
+  color: var(--gs-text);
+  background: rgb(255, 255, 255, 0.08);
+}
+.gs-sc-tab.gs-sc-tab:focus {
+  outline: none;
+  box-shadow: none;
+}
+.gs-sc-tab-active.gs-sc-tab-active {
+  color: var(--gs-accent);
+  border-bottom-color: var(--gs-accent);
+}
+
+.gs-sc-changes-panel,
+.gs-sc-graph-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* --- Sidebar graph sub-tabs --- */
+.gs-sg-subtabbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 2px 10px 0;
+  flex-shrink: 0;
+}
+.gs-sg-subtab {
+  padding: 2px 0 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--gs-text-faint);
+  cursor: pointer;
+  line-height: 18px;
+  border-bottom: 2px solid transparent;
+}
+.gs-sg-subtab:hover {
+  color: var(--gs-text-muted);
+}
+.gs-sg-subtab-active {
+  color: var(--gs-accent);
+  font-weight: 500;
+  border-bottom-color: var(--gs-accent);
+}
+
+.gs-sg-subpanel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* --- Sidebar commit changes panel --- */
+.gs-sg-changes-header {
+  display: flex;
+  gap: 8px;
+  padding: 10px 10px 6px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--gs-border);
+}
+.gs-sg-changes-header-info {
+  flex: 1;
+  min-width: 0;
+}
+.gs-sg-changes-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gs-text);
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.gs-sg-changes-meta {
+  font-size: 11px;
+  color: var(--gs-text-faint);
+}
+.gs-sg-changes-actions {
+  display: flex;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--gs-border);
+}
+.gs-sg-changes-files {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+.gs-sg-changes-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 10px;
+  min-height: 26px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gs-text-muted);
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--gs-border);
+}
+
+.gs-sg-changes-summary-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The folder rows of a commit's tree reuse the changes list's own rows, so the
+   two trees look and behave the same; only the row height is nudged to sit
+   with the slightly roomier file rows here. */
+.gs-sg-changes-list .gs-tree-dir {
+  margin: 0 4px;
+  border-radius: 4px;
+}
+.gs-sg-changes-file-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  margin: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gs-text);
+  transition: background 0.15s ease;
+}
+.gs-sg-changes-file-row:hover {
+  background: var(--gs-bg-hover);
+}
+.gs-sg-changes-file-row.is-active {
+  background: var(--gs-bg-active);
+  box-shadow: inset 2px 0 0 var(--gs-accent);
+}
+.gs-sg-changes-hidden {
+  color: var(--gs-text-faint);
+  font-weight: 400;
+}
+.gs-sg-changes-file-row .gs-tree-file-icon {
+  flex-shrink: 0;
+}
+
+.gs-sg-changes-file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gs-sg-changes-file-stats {
+  flex-shrink: 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* Per-file actions on a commit's file rows. The container keeps its width at
+   rest so revealing the buttons does not reflow the row; only the opacity
+   changes. Focus-within keeps them reachable by keyboard. */
+.gs-cf-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.gs-sg-changes-file-row:hover .gs-cf-actions,
+.gs-sg-changes-file-row.is-active .gs-cf-actions,
+.gs-sg-changes-file-row:focus-within .gs-cf-actions,
+.gs-sg-detail-file:hover .gs-cf-actions,
+.gs-sg-detail-file.is-active .gs-cf-actions,
+.gs-sg-detail-file:focus-within .gs-cf-actions {
+  opacity: 1;
+}
+.gs-sg-changes-empty {
+  padding: 20px 10px;
+  text-align: center;
+  color: var(--gs-text-faint);
+  font-size: 12px;
+}
+.gs-sg-changes-loading {
+  padding: 20px 10px;
+  text-align: center;
+  color: var(--gs-text-faint);
+  font-size: 12px;
+}
+
+/* --- Sidebar compact graph --- */
+.gs-sg-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--gs-border);
+  flex-shrink: 0;
+}
+
+.gs-sg-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  background: var(--gs-bg);
+  border: 1px solid var(--gs-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.gs-sg-search-icon {
+  display: flex;
+  color: var(--gs-text-faint);
+}
+.gs-sg-search-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.gs-sg-search-input {
+  border: none;
+  background: transparent;
+  color: var(--gs-text);
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+}
+
+.gs-sg-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.gs-sg-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgb(255, 255, 255, 0.04);
+}
+
+.gs-sg-row:hover {
+  background: rgb(255, 255, 255, 0.04);
+}
+.gs-sg-row-selected {
+  background: var(--gs-bg-active);
+}
+
+.gs-sg-row-wc {
+  border-left: 3px solid var(--gs-green);
+}
+
+.gs-sg-avatar-col {
+  flex-shrink: 0;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px;
+}
+
+.gs-sg-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b4261, #2e3450);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8b949e;
+  flex-shrink: 0;
+  border: 1px solid rgb(255, 255, 255, 0.08);
+  line-height: 1;
+}
+
+.gs-sg-avatar-wc {
+  background: linear-gradient(135deg, rgb(63, 185, 80, 0.3), rgb(63, 185, 80, 0.15));
+  border-color: rgb(63, 185, 80, 0.3);
+  color: var(--gs-green);
+}
+
+.gs-sg-avatar-wc svg {
+  width: 14px;
+  height: 14px;
+}
+.gs-sg-avatar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gs-sg-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gs-sg-refs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.gs-sg-ref-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.gs-sg-msg {
+  font-size: 12px;
+  color: var(--gs-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gs-sg-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.gs-sg-meta {
+  font-size: 10px;
+  color: var(--gs-text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--gs-mono);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.gs-sg-changes-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.gs-sg-changes-icon {
+  display: flex;
+  color: var(--gs-text-faint);
+}
+.gs-sg-changes-icon svg {
+  width: 11px;
+  height: 11px;
+}
+
+.gs-sg-changes-count {
+  font-size: 10px;
+  color: var(--gs-text-faint);
+  font-family: var(--gs-mono);
+  min-width: 10px;
+}
+
+.gs-sg-changes-bar {
+  display: flex;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--gs-border);
+}
+
+.gs-sg-changes-add {
+  height: 100%;
+  background: var(--gs-green);
+}
+
+.gs-sg-changes-del {
+  height: 100%;
+  background: var(--gs-red);
+}
+
+.gs-sg-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--gs-text-faint);
+  font-size: 13px;
+}
+
+/* Sidebar graph detail panel */
+.gs-sg-detail {
+  padding: 8px 10px 8px 34px;
+  border-bottom: 1px solid var(--gs-border);
+  background: var(--gs-bg2);
+  font-size: 12px;
+}
+
+.gs-sg-detail-msg {
+  font-weight: 600;
+  color: var(--gs-text);
+  margin-bottom: 4px;
+}
+
+.gs-sg-detail-body {
+  color: var(--gs-text-muted);
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+
+.gs-sg-detail-meta {
+  color: var(--gs-text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.gs-sg-detail-sha {
+  font-family: var(--gs-mono);
+  font-size: 10px;
+  color: var(--gs-text-faint);
+  user-select: all;
+}
+
+.gs-sg-detail-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.gs-sg-detail-btn {
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid var(--gs-border);
+  border-radius: 4px;
+  background: var(--gs-bg);
+  color: var(--gs-text);
+  cursor: pointer;
+}
+
+.gs-sg-detail-btn:hover {
+  background: var(--gs-bg-hover);
+}
+
+.gs-sg-detail-files {
+  margin-top: 4px;
+}
+
+/* The header carries the layout controls on its right, so it is a row now. */
+.gs-sg-detail-files-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  margin-bottom: 2px;
+}
+
+.gs-sg-detail-files-count {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gs-text-faint);
+  text-transform: uppercase;
+}
+
+.gs-sg-detail-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.gs-sg-detail-file:hover {
+  background: var(--gs-bg-hover);
+}
+
+.gs-sg-detail-file.is-active {
+  background: var(--gs-bg-active);
+  box-shadow: inset 2px 0 0 var(--gs-accent);
+}
+
+.gs-sg-detail-file.is-active .gs-sg-detail-filename {
+  color: var(--gs-accent);
+}
+
+/* Same size and colour as the changes list. It was 11px muted monospace, which
+   made the same note look like a lesser thing depending on which list it was
+   read in — and small enough to be hard work to scan. */
+.gs-sg-detail-filename {
+  font-size: 13px;
+  color: var(--gs-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.gs-sg-detail-file .gs-tree-file-icon {
+  flex-shrink: 0;
+}
+
+/* Folder rows inside a commit detail sit in the same column as its files. */
+.gs-sg-detail-list .gs-tree-dir {
+  margin: 2px 0;
+}
+
+.gs-sg-detail-filestats {
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+/* Commit tooltip */
+.gs-sg-tooltip {
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #1e2030;
+  border: 1px solid rgb(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgb(0, 0, 0, 0.5);
+  max-width: 420px;
+  min-width: 280px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  font-size: 12px;
+  color: #c9d1d9;
+  line-height: 1.5;
+}
+
+.gs-sg-tip-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b4261, #2e3450);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8b949e;
+  flex-shrink: 0;
+  border: 1px solid rgb(255, 255, 255, 0.08);
+}
+
+.gs-sg-tip-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gs-sg-tip-author-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.gs-sg-tip-author {
+  font-weight: 600;
+  color: #58a6ff;
+  font-size: 13px;
+}
+
+.gs-sg-tip-date-rel {
+  color: #8b949e;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.gs-sg-tip-date-full {
+  color: #8b949e;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.gs-sg-tip-sha-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--gs-mono);
+  font-size: 11px;
+}
+
+.gs-sg-tip-sha-icon {
+  color: #f0883e;
+}
+.gs-sg-tip-sha {
+  color: #79c0ff;
+}
+.gs-sg-tip-parents-label {
+  color: #8b949e;
+}
+
+.gs-sg-tip-email {
+  color: #58a6ff;
+  font-size: 11px;
+}
+
+.gs-sg-tip-stats {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+  color: #8b949e;
+  margin-top: 2px;
+}
+
+.gs-sg-tip-stats-files {
+  color: #c9d1d9;
+}
+
+.gs-sg-tip-msg {
+  color: #e6edf3;
+  font-size: 12px;
+  margin-top: 4px;
+  border-top: 1px solid rgb(255, 255, 255, 0.06);
+  padding-top: 6px;
+  overflow-wrap: break-word;
+}
+
+.gs-sg-tip-msg-body {
+  color: #8b949e;
+  font-size: 11px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* ================================================================
+   DIFF VIEW
+   ================================================================ */
+
+.git-history-diff-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* --- Diff View: VS Code-style theme --- */
+
+.git-history-diff-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  --diff-font:
+    "Cascadia Code", "Fira Code", "JetBrains Mono", consolas, "Monaco", "Menlo", "Ubuntu Mono",
+    "Courier New", monospace;
+  --diff-bg: #1e1e1e;
+  --diff-bg-header: #252526;
+  --diff-bg-toolbar: #2d2d2d;
+  --diff-border: #3c3c3c;
+  --diff-text: #d4d4d4;
+  --diff-text-muted: #858585;
+  --diff-text-faint: #6a6a6a;
+  --diff-linenum: #858585;
+  --diff-add-bg: rgb(35, 134, 54, 0.2);
+  --diff-add-gutter: rgb(35, 134, 54, 0.4);
+  --diff-add-sign: #3fb950;
+  --diff-add-word-bg: rgb(46, 160, 67, 0.55);
+  --diff-del-bg: rgb(248, 81, 73, 0.18);
+  --diff-del-gutter: rgb(248, 81, 73, 0.35);
+  --diff-del-sign: #f85149;
+  --diff-del-word-bg: rgb(248, 81, 73, 0.5);
+  --diff-hunk-bg: rgb(88, 166, 255, 0.06);
+  --diff-hunk-text: #569cd6;
+  --diff-empty-bg: rgb(50, 50, 50, 0.5);
+  --diff-scrollbar: rgb(121, 121, 121, 0.4);
+  --diff-selection: rgb(38, 79, 120, 0.6);
+}
+
+.git-diff-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--diff-bg-toolbar);
+  border-bottom: 1px solid var(--diff-border);
+  flex-shrink: 0;
+  min-height: 36px;
+}
+
+.git-diff-toolbar-left,
+.git-diff-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The breadcrumb is the only thing in this toolbar allowed to give up width.
+   Without this the mode buttons on the right wrapped onto three lines in a
+   narrow pane, which is the one place the toolbar has to stay one row. */
+.git-diff-toolbar-left {
+  min-width: 0;
+}
+
+.git-diff-toolbar-right {
+  flex-shrink: 0;
+}
+
+.git-diff-path {
+  font-size: 13px;
+  color: var(--diff-text-muted);
+  font-family: var(--diff-font);
+  letter-spacing: 0.2px;
+}
+
+.git-diff-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  font-family: var(--diff-font);
+
+  /* A deep path gives up its width before the button next to it does: the file
+     name is already repeated over each side of the diff, the button is not. */
+  min-width: 0;
+  overflow: hidden;
+}
+.git-diff-breadcrumb-dir {
+  color: var(--diff-text-muted);
+  cursor: default;
+}
+.git-diff-breadcrumb-sep {
+  color: var(--diff-text-faint);
+  margin: 0 2px;
+  font-size: 11px;
+}
+.git-diff-breadcrumb-file {
+  color: var(--diff-text);
+}
+
+/* Sits next to the breadcrumb it opens. Quiet until hovered, so the path
+   stays the thing the eye lands on first. */
+.git-diff-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid var(--diff-border);
+  background: transparent;
+  color: var(--diff-text-muted);
+  cursor: pointer;
+  font-family: var(--diff-font);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.git-diff-open-btn:hover {
+  background: rgb(255 255 255 / 6%);
+  color: var(--diff-text);
+}
+
+.git-diff-open-btn-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.git-diff-open-btn-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.git-diff-sync {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--diff-text-muted);
+  font-family: var(--diff-font);
+  margin-right: 8px;
+}
+.git-diff-sync-label {
+  color: var(--diff-text-faint);
+  margin-right: 2px;
+}
+.git-diff-sync-stat {
+  color: var(--diff-text-muted);
+}
+
+.git-diff-mode-btn {
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--diff-border);
+  background: transparent;
+  color: var(--diff-text-muted);
+  cursor: pointer;
+  font-family: var(--diff-font);
+  transition: all 0.15s;
+}
+.git-diff-mode-btn:hover {
+  background: rgb(255, 255, 255, 0.06);
+  color: var(--diff-text);
+}
+.git-diff-mode-active {
+  background: var(--gs-accent);
+  color: var(--gs-accent-text);
+  border-color: var(--gs-accent);
+}
+.git-diff-mode-active:hover {
+  opacity: 0.9;
+}
+
+.git-diff-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  background: var(--diff-bg);
+}
+
+.git-diff-container {
+  flex: 1;
+  overflow: auto;
+  background: var(--diff-bg);
+}
+
+.git-diff-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.git-diff-container::-webkit-scrollbar-thumb {
+  background: var(--diff-scrollbar);
+  border-radius: 5px;
+}
+.git-diff-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.git-diff-sbs {
+  display: flex;
+  height: 100%;
+}
+
+.git-diff-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.git-diff-left {
+  border-right: 1px solid var(--diff-border);
+}
+
+.git-diff-pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--diff-text-muted);
+  background: var(--diff-bg-header);
+  font-family: var(--diff-font);
+  border-bottom: 1px solid var(--diff-border);
+  flex-shrink: 0;
+  letter-spacing: 0.2px;
+}
+
+.git-diff-stats {
+  display: flex;
+  gap: 2px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+.git-stat-add {
+  color: var(--diff-add-sign);
+}
+.git-stat-del {
+  color: var(--diff-del-sign);
+}
+
+.git-diff-code {
+  flex: 1;
+  overflow: auto;
+  font-family: var(--diff-font);
+  font-size: 13px;
+  line-height: 22px;
+  tab-size: 4;
+  background: var(--diff-bg);
+  color: var(--diff-text);
+  /* One column as wide as the longest line. As plain blocks the rows were only
+     as wide as the visible pane, so a line's colour stopped where the pane
+     ended and scrolling sideways showed the text on no colour at all. The same
+     width let a hunk header wrap in one pane and not the other, which put the
+     two panes' rows out of line. */
+  display: grid;
+  grid-template-columns: minmax(max-content, 1fr);
+  align-content: start;
+}
+
+.git-diff-code::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.git-diff-code::-webkit-scrollbar-thumb {
+  background: var(--diff-scrollbar);
+  border-radius: 5px;
+}
+.git-diff-code::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.git-diff-code::selection,
+.git-diff-code *::selection {
+  background: var(--diff-selection);
+}
+
+.git-diff-line {
+  display: flex;
+  min-height: 22px;
+  white-space: pre;
+}
+
+/* The gutter stays at the left edge while the text scrolls sideways, so a
+   line's number and sign are in view wherever the change is. Stuck cells need
+   an opaque background, or the text scrolling under them shows through: each
+   row type layers its own colour over the view background. The coloured bar
+   on the left lives here too, since the row's own left edge scrolls away. */
+.git-diff-linenum,
+.git-diff-sign {
+  position: sticky;
+  z-index: 1;
+  flex-shrink: 0;
+  user-select: none;
+  font-size: 13px;
+  background: var(--diff-bg);
+}
+
+.git-diff-linenum {
+  left: 0;
+  box-sizing: content-box;
+  width: 55px;
+  text-align: right;
+  padding-right: 12px;
+  color: var(--diff-linenum);
+  font-family: var(--diff-font);
+  box-shadow: inset 3px 0 transparent;
+}
+
+.git-diff-sign {
+  /* Directly after the number: its width plus its padding. */
+  left: 67px;
+  width: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.git-diff-content {
+  flex: 1;
+  padding-right: 12px;
+  padding-left: 4px;
+}
+
+.git-diff-add {
+  background: var(--diff-add-bg);
+}
+.git-diff-add .git-diff-linenum,
+.git-diff-add .git-diff-sign {
+  background: linear-gradient(var(--diff-add-gutter), var(--diff-add-gutter)), var(--diff-bg);
+}
+.git-diff-add .git-diff-linenum {
+  /* Faded through the colour rather than with opacity, which would fade the
+     background as well and let the text under the stuck cell show through. */
+  color: color-mix(in srgb, var(--diff-add-sign) 70%, transparent);
+  box-shadow: inset 3px 0 var(--diff-add-sign);
+}
+.git-diff-add .git-diff-sign {
+  color: var(--diff-add-sign);
+}
+.git-diff-add .git-diff-content {
+  color: #d4d4d4;
+}
+
+.git-diff-del {
+  background: var(--diff-del-bg);
+}
+.git-diff-del .git-diff-linenum,
+.git-diff-del .git-diff-sign {
+  background: linear-gradient(var(--diff-del-gutter), var(--diff-del-gutter)), var(--diff-bg);
+}
+.git-diff-del .git-diff-linenum {
+  color: color-mix(in srgb, var(--diff-del-sign) 70%, transparent);
+  box-shadow: inset 3px 0 var(--diff-del-sign);
+}
+.git-diff-del .git-diff-sign {
+  color: var(--diff-del-sign);
+}
+.git-diff-del .git-diff-content {
+  color: #d4d4d4;
+}
+
+.git-diff-context {
+  background: transparent;
+}
+.git-diff-context .git-diff-content {
+  color: var(--diff-text);
+}
+
+.git-diff-empty {
+  background: var(--diff-empty-bg);
+}
+.git-diff-empty .git-diff-linenum,
+.git-diff-empty .git-diff-sign {
+  background: linear-gradient(var(--diff-empty-bg), var(--diff-empty-bg)), var(--diff-bg);
+}
+
+/* The words that changed within a changed line, in a clearly stronger tone
+   of the line's own colour. No padding: it would shift everything after a
+   mark, and the old and new line would no longer line up character for
+   character. */
+.git-diff-char-add {
+  background: var(--diff-add-word-bg);
+  border-radius: 2px;
+}
+.git-diff-char-del {
+  background: var(--diff-del-word-bg);
+  border-radius: 2px;
+}
+
+.git-diff-hunk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* No right padding: the actions carry it, so they cover the edge. */
+  padding: 4px 0 4px 12px;
+  background: var(--diff-hunk-bg);
+  color: var(--diff-hunk-text);
+  font-size: 13px;
+  font-family: var(--diff-font);
+  border-top: 1px solid var(--diff-border);
+  border-bottom: 1px solid var(--diff-border);
+  min-height: 28px;
+}
+
+.git-diff-hunk-actions {
+  display: flex;
+  gap: 6px;
+  /* The header is as wide as the longest line; the buttons stay in view,
+     over a background of their own so a long header does not show through. */
+  position: sticky;
+  right: 0;
+  padding: 0 12px 0 8px;
+  background: linear-gradient(var(--diff-hunk-bg), var(--diff-hunk-bg)), var(--diff-bg);
+}
+
+.git-diff-hunk-btn {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--diff-border);
+  background: transparent;
+  color: var(--diff-text-muted);
+  cursor: pointer;
+  font-family: var(--diff-font);
+  transition: all 0.15s;
+}
+
+.git-diff-hunk-btn:hover {
+  background: var(--gs-accent);
+  color: var(--gs-accent-text);
+  border-color: var(--gs-accent);
+}
+
+.git-diff-inline {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.git-diff-binary,
+.git-diff-error {
+  padding: 24px;
+  text-align: center;
+  color: var(--diff-text-faint);
+  font-family: var(--diff-font);
+  font-size: 14px;
+}
+
+/* --- Minimap --- */
+
+.git-diff-minimap {
+  width: 80px;
+  flex-shrink: 0;
+  position: relative;
+  background: rgb(30, 30, 30, 0.8);
+  border-left: 1px solid var(--diff-border);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.git-diff-minimap-canvas {
+  width: 100%;
+  flex: 1;
+}
+
+.git-diff-minimap-viewport {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: rgb(255, 255, 255, 0.08);
+  border: 1px solid rgb(255, 255, 255, 0.15);
+  border-radius: 2px;
+  pointer-events: none;
+  min-height: 20px;
+  transition: top 0.05s ease-out;
+}
+
+.git-graph-btn-active {
+  background: var(--gs-accent);
+  color: var(--gs-accent-text);
+}
+.git-graph-btn-active:hover {
+  opacity: 0.9;
+}
+
+.gs-sc-btn {
+  background: none;
+  border: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.gs-sc-btn:hover {
+  background: var(--gs-bg-hover);
+  color: var(--gs-text);
+}
+
+/* ================================================================
+   STATUS BAR
+   ================================================================ */
+
+.git-history-statusbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.git-history-statusbar:hover {
+  color: var(--gs-text);
+}
+.git-sb-icon {
+  display: inline-flex;
+  align-items: center;
+}
+.git-sb-icon svg {
+  width: 12px;
+  height: 12px;
+}
+.git-sb-branch {
+  font-size: 12px;
+}
+.git-sb-sync {
+  font-size: 11px;
+  color: var(--gs-accent);
+}
+.git-sb-spinner {
+  display: inline-flex;
+  align-items: center;
+}
+.git-sb-spinner svg {
+  width: 12px;
+  height: 12px;
+}
+.git-sb-spinning {
+  animation: gs-spin 1s linear infinite;
+}
+
+@keyframes gs-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================================================
+   MODALS
+   ================================================================ */
+
+.gs-modal-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--gs-border);
+  border-radius: 4px;
+  background: var(--gs-bg);
+  color: var(--gs-text);
+  font-size: 14px;
+  margin-bottom: 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.gs-modal-input:focus {
+  border-color: var(--gs-accent);
+}
+
+.gs-modal-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ================================================================
+   WHAT'S NEW MODAL
+   ================================================================ */
+
+.gs-whats-new-modal {
+  max-width: 640px;
+}
+
+/* Hero and coffee button are fetched from GitHub, so both are laid out to
+   survive the image never arriving — the elements hide themselves on error. */
+.gs-whats-new-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-m);
+  margin-bottom: 12px;
+}
+
+.gs-whats-new-support {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.gs-bmc-button {
+  height: 48px;
+  width: auto;
+  border-radius: var(--radius-s);
+}
+
+/* The note is longer than a modal can be, so the body scrolls and the buttons
+   below it stay reachable. */
+.gs-whats-new-body {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.gs-whats-new-body h2 {
+  margin-top: 1em;
+}
+
+.gs-whats-new-body h2:first-child {
+  margin-top: 0;
+}
+
+/* ================================================================
+   TERMINAL
+   ================================================================ */
+
+.gs-terminal-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gs-terminal-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* The sessions are stacked, not laid out in a row: each one fills the wrapper
+   and all but the active one are hidden, so a session that is out of sight
+   keeps the size it will be shown at. */
+.gs-terminal-instance {
+  position: absolute;
+  inset: 0;
+}
+
+.gs-terminal-instance.gs-terminal-instance.gs-hidden {
+  display: none;
+}
+
+/* Find in terminal – the bar floats over the top-right of the session, the
+   way an editor's find bar does, so it never takes rows away from the shell
+   and never moves the output it is searching. */
+.gs-terminal-search {
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  box-shadow: var(--shadow-s);
+}
+
+.gs-terminal-search-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 4px;
+  border-right: 1px solid var(--background-modifier-border);
+}
+
+.gs-terminal-search-input {
+  width: 14em;
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-s);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+}
+
+.gs-terminal-search-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: none;
+}
+
+/* A term that is in the buffer nowhere, and a regular expression that is not
+   one yet, are different answers: the first found nothing, the second was
+   never asked. Both mark the field, only the first is a result. */
+.gs-terminal-search-empty .gs-terminal-search-input,
+.gs-terminal-search-bad .gs-terminal-search-input {
+  border-color: var(--text-error);
+}
+
+.gs-terminal-search-count {
+  min-width: 6em;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.gs-terminal-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-s);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.gs-terminal-search-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.gs-terminal-search-btn .svg-icon {
+  width: 15px;
+  height: 15px;
+}
+
+/* A toggle that is on keeps the accent colour, so the state of the search is
+   readable without opening anything. */
+.gs-terminal-search-toggle.gs-terminal-search-on {
+  background: var(--background-modifier-active-hover);
+  color: var(--text-accent);
+}
+
+/* Session strip – VS Code's terminal list, on the right edge */
+.gs-terminal-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 3px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--gs-border);
+  background: var(--gs-bg2);
+  overflow-y: auto;
+}
+
+.gs-terminal-strip.gs-terminal-strip.gs-hidden {
+  display: none;
+}
+
+.gs-terminal-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  border-left: 2px solid transparent;
+}
+
+.gs-terminal-tab:hover {
+  background: var(--gs-bg-hover);
+  color: var(--gs-text);
+}
+
+.gs-terminal-tab-active {
+  background: var(--gs-bg-active);
+  color: var(--gs-text);
+  border-left-color: var(--gs-accent);
+}
+
+/* The shell behind this one is gone; the buffer is still worth reading. */
+.gs-terminal-tab-exited .gs-terminal-tab-icon {
+  opacity: 0.4;
+}
+
+.gs-terminal-tab-icon {
+  display: flex;
+}
+
+.gs-terminal-tab-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.gs-terminal-tab-dragging {
+  opacity: 0.4;
+}
+
+/* The drop marker sits on the edge the dragged session would land on. The
+   strip runs top to bottom here, so "before" is the upper edge; the narrow
+   layout further down turns both onto their sides. */
+.gs-terminal-tab-drop-before {
+  box-shadow: inset 0 2px 0 0 var(--gs-accent);
+}
+
+.gs-terminal-tab-drop-after {
+  box-shadow: inset 0 -2px 0 0 var(--gs-accent);
+}
+
+/* --- Session colours ---------------------------------------------------
+   A session can be marked with one of Obsidian's own accent colours, which
+   follow the vault's theme in both light and dark mode. The tint lands on the
+   icon alone, never on the background: the strip already uses background to
+   say which session is active, and two meanings on one channel is one too
+   many. */
+.gs-terminal-tab.gs-terminal-color-red,
+.gs-terminal-tab.gs-terminal-color-red:hover {
+  color: var(--color-red);
+}
+
+.gs-terminal-tab.gs-terminal-color-orange,
+.gs-terminal-tab.gs-terminal-color-orange:hover {
+  color: var(--color-orange);
+}
+
+.gs-terminal-tab.gs-terminal-color-yellow,
+.gs-terminal-tab.gs-terminal-color-yellow:hover {
+  color: var(--color-yellow);
+}
+
+.gs-terminal-tab.gs-terminal-color-green,
+.gs-terminal-tab.gs-terminal-color-green:hover {
+  color: var(--color-green);
+}
+
+.gs-terminal-tab.gs-terminal-color-cyan,
+.gs-terminal-tab.gs-terminal-color-cyan:hover {
+  color: var(--color-cyan);
+}
+
+.gs-terminal-tab.gs-terminal-color-blue,
+.gs-terminal-tab.gs-terminal-color-blue:hover {
+  color: var(--color-blue);
+}
+
+.gs-terminal-tab.gs-terminal-color-purple,
+.gs-terminal-tab.gs-terminal-color-purple:hover {
+  color: var(--color-purple);
+}
+
+.gs-terminal-tab.gs-terminal-color-pink,
+.gs-terminal-tab.gs-terminal-color-pink:hover {
+  color: var(--color-pink);
+}
+
+/* Narrow pane: a column of icons on the right would leave nothing for the
+   terminal, so the strip lies down above it instead. */
+.gs-terminal-narrow {
+  flex-direction: column;
+}
+
+.gs-terminal-narrow .gs-terminal-strip {
+  flex-direction: row;
+  order: -1;
+  border-left: none;
+  border-bottom: 1px solid var(--gs-border);
+  overflow: auto hidden;
+}
+
+.gs-terminal-narrow .gs-terminal-tab {
+  border-left: none;
+  border-bottom: 2px solid transparent;
+}
+
+.gs-terminal-narrow .gs-terminal-tab-active {
+  border-bottom-color: var(--gs-accent);
+}
+
+/* Sideways strip: the drop marker turns with it. */
+.gs-terminal-narrow .gs-terminal-tab-drop-before {
+  box-shadow: inset 2px 0 0 0 var(--gs-accent);
+}
+
+.gs-terminal-narrow .gs-terminal-tab-drop-after {
+  box-shadow: inset -2px 0 0 0 var(--gs-accent);
+}
+
+.gs-terminal-wrapper .xterm {
+  cursor: text;
+  position: relative;
+  user-select: none;
+  height: 100%;
+  padding: 4px;
+}
+
+.gs-terminal-wrapper .xterm.focus,
+.gs-terminal-wrapper .xterm:focus {
+  outline: none;
+}
+
+.gs-terminal-wrapper .xterm .xterm-helpers {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+}
+
+.gs-terminal-wrapper .xterm .xterm-helper-textarea {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  position: absolute;
+  opacity: 0;
+  left: -9999em;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: -5;
+  white-space: nowrap;
+  overflow: hidden;
+  resize: none;
+}
+
+.gs-terminal-wrapper .xterm .composition-view {
+  background: #000;
+  color: #fff;
+  display: none;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.gs-terminal-wrapper .xterm .composition-view.active {
+  display: block;
+}
+
+.gs-terminal-wrapper .xterm .xterm-viewport {
+  overflow-y: scroll;
+  cursor: default;
+  position: absolute;
+  inset: 0;
+}
+
+.gs-terminal-wrapper .xterm .xterm-screen {
+  position: relative;
+}
+
+.gs-terminal-wrapper .xterm .xterm-screen canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* xterm.js measures glyph advance widths by writing char.repeat(32) into these
+   probe spans and reading offsetWidth. They live inside .xterm-helpers, which
+   is absolutely positioned over row 0 — without this rule they stay in flow
+   and paint the measured characters on top of the first line. */
+.gs-terminal-wrapper .xterm .xterm-char-measure-element {
+  display: inline-block;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -9999em;
+  line-height: normal;
+}
+
+.gs-terminal-wrapper .xterm.enable-mouse-events {
+  cursor: default;
+}
+
+.gs-terminal-wrapper .xterm.xterm-cursor-pointer,
+.gs-terminal-wrapper .xterm .xterm-cursor-pointer {
+  cursor: pointer;
+}
+
+.gs-terminal-wrapper .xterm.column-select.focus {
+  cursor: crosshair;
+}
+
+.gs-terminal-wrapper .xterm .xterm-accessibility:not(.debug),
+.gs-terminal-wrapper .xterm .xterm-message {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  color: transparent;
+  pointer-events: none;
+}
+
+.gs-terminal-wrapper .xterm .xterm-accessibility-tree:not(.debug) *::selection {
+  color: transparent;
+}
+
+.gs-terminal-wrapper .xterm .xterm-accessibility-tree {
+  font-family: monospace;
+  user-select: text;
+  white-space: pre;
+}
+
+.gs-terminal-wrapper .xterm .xterm-accessibility-tree > div {
+  transform-origin: left;
+  width: fit-content;
+}
+
+.gs-terminal-wrapper .xterm .live-region {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Dim applies to the foreground only; the renderer bakes the reduced opacity
+   into the generated color rule, so the element itself stays fully opaque.
+   Upstream uses !important here — specificity carries it instead. */
+.gs-terminal-wrapper .xterm .xterm-dim {
+  opacity: 1;
+}
+
+.gs-terminal-wrapper .xterm .xterm-underline-1 {
+  text-decoration-line: underline;
+}
+
+.gs-terminal-wrapper .xterm .xterm-underline-2 {
+  text-decoration-line: underline;
+  text-decoration-style: double;
+}
+
+.gs-terminal-wrapper .xterm .xterm-underline-3 {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+}
+
+.gs-terminal-wrapper .xterm .xterm-underline-4 {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+}
+
+.gs-terminal-wrapper .xterm .xterm-underline-5 {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline {
+  text-decoration-line: overline;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline.xterm-underline-1 {
+  text-decoration-line: overline underline;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline.xterm-underline-2 {
+  text-decoration-line: overline underline;
+  text-decoration-style: double;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline.xterm-underline-3 {
+  text-decoration-line: overline underline;
+  text-decoration-style: wavy;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline.xterm-underline-4 {
+  text-decoration-line: overline underline;
+  text-decoration-style: dotted;
+}
+
+.gs-terminal-wrapper .xterm .xterm-overline.xterm-underline-5 {
+  text-decoration-line: overline underline;
+  text-decoration-style: dashed;
+}
+
+.gs-terminal-wrapper .xterm .xterm-strikethrough {
+  text-decoration-line: line-through;
+}
+
+.gs-terminal-wrapper .xterm-screen .xterm-decoration-container .xterm-decoration {
+  z-index: 6;
+  position: absolute;
+}
+
+.gs-terminal-wrapper
+  .xterm-screen
+  .xterm-decoration-container
+  .xterm-decoration.xterm-decoration-top-layer {
+  z-index: 7;
+}
+
+.gs-terminal-wrapper .xterm-decoration-top {
+  z-index: 2;
+  position: relative;
+}
+
+.gs-terminal-wrapper .xterm .xterm-decoration-overview-ruler {
+  z-index: 8;
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .visible {
+  opacity: 1;
+  background: rgb(0 0 0 / 0%);
+  transition: opacity 100ms linear;
+  z-index: 11;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .invisible.fade {
+  transition: opacity 800ms linear;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .scrollbar {
+  cursor: default;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .scrollbar > .scra {
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .shadow {
+  position: absolute;
+  display: none;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .shadow.top {
+  display: block;
+  top: 0;
+  left: 3px;
+  height: 3px;
+  width: 100%;
+  box-shadow: var(--vscode-scrollbar-shadow, #000) 0 6px 6px -6px inset;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .shadow.left {
+  display: block;
+  top: 3px;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  box-shadow: var(--vscode-scrollbar-shadow, #000) 6px 0 6px -6px inset;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .shadow.top-left-corner {
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 3px;
+}
+
+.gs-terminal-wrapper .xterm .xterm-scrollable-element > .shadow.top.left {
+  box-shadow: var(--vscode-scrollbar-shadow, #000) 6px 0 6px -6px inset;
+}
+
+.gs-terminal-unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: var(--font-ui-medium);
+}
+
+/* ================================================================
+   SESSION APPEARANCE MODAL
+   ================================================================ */
+
+.gs-session-appearance-modal {
+  max-width: 420px;
+}
+
+.gs-appearance-heading {
+  margin: 16px 0 8px;
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  color: var(--gs-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gs-appearance-heading:first-child {
+  margin-top: 0;
+}
+
+.gs-appearance-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 4px;
+}
+
+.gs-appearance-color {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+/* "No colour" is the theme's own muted grey rather than an empty circle: a
+   transparent swatch on a modal background is not a choice the eye can find,
+   and the default has to sit in the row as visibly as the eight colours. */
+.gs-appearance-color-default {
+  background: var(--gs-text-faint);
+}
+
+.gs-appearance-color.gs-terminal-color-red {
+  background: var(--color-red);
+}
+
+.gs-appearance-color.gs-terminal-color-orange {
+  background: var(--color-orange);
+}
+
+.gs-appearance-color.gs-terminal-color-yellow {
+  background: var(--color-yellow);
+}
+
+.gs-appearance-color.gs-terminal-color-green {
+  background: var(--color-green);
+}
+
+.gs-appearance-color.gs-terminal-color-cyan {
+  background: var(--color-cyan);
+}
+
+.gs-appearance-color.gs-terminal-color-blue {
+  background: var(--color-blue);
+}
+
+.gs-appearance-color.gs-terminal-color-purple {
+  background: var(--color-purple);
+}
+
+.gs-appearance-color.gs-terminal-color-pink {
+  background: var(--color-pink);
+}
+
+.gs-appearance-icons {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  padding: 4px;
+}
+
+.gs-appearance-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--gs-text-muted);
+  cursor: pointer;
+}
+
+.gs-appearance-icon:hover {
+  background: var(--gs-bg-hover);
+}
+
+/* The grid is tinted with the colour that is currently picked, so a colour is
+   previewed on every icon before a glyph is chosen. */
+.gs-appearance-icon.gs-terminal-color-red {
+  color: var(--color-red);
+}
+
+.gs-appearance-icon.gs-terminal-color-orange {
+  color: var(--color-orange);
+}
+
+.gs-appearance-icon.gs-terminal-color-yellow {
+  color: var(--color-yellow);
+}
+
+.gs-appearance-icon.gs-terminal-color-green {
+  color: var(--color-green);
+}
+
+.gs-appearance-icon.gs-terminal-color-cyan {
+  color: var(--color-cyan);
+}
+
+.gs-appearance-icon.gs-terminal-color-blue {
+  color: var(--color-blue);
+}
+
+.gs-appearance-icon.gs-terminal-color-purple {
+  color: var(--color-purple);
+}
+
+.gs-appearance-icon.gs-terminal-color-pink {
+  color: var(--color-pink);
+}
+
+.gs-appearance-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* The ring sits outside the swatch instead of inside it: a border would eat
+   2px of a 26px circle, which reads as the colour shrinking rather than as the
+   colour being picked. */
+.gs-appearance-selected {
+  outline: 2px solid var(--gs-accent);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   UTILITIES
+   ================================================================ */
+
+/*
+ * Visibility toggled from code. Inline `style.display` is what
+ * obsidianmd/no-static-styles-assignment forbids, so the state lives in a
+ * class; it comes last in the file to win against the equally specific rules
+ * that give these elements their layout display value.
+ */
+.gs-hidden {
+  display: none;
+}
+
+.gs-tooltip-visible {
+  opacity: 1;
+}
+
+/* ── Terminal: a session that never started ─────────────────────────────── */
+
+/* The xterm canvas stays in the DOM so the session can be retried into it,
+   but it has nothing to show while the panel is up. */
+.gs-terminal-instance-failed .xterm {
+  display: none;
+}
+
+.gs-terminal-error {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 640px;
+  height: 100%;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.gs-terminal-error-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.gs-terminal-error-icon {
+  display: flex;
+  color: var(--text-warning);
+}
+
+.gs-terminal-error-title {
+  margin: 0;
+  font-size: var(--font-ui-medium);
+}
+
+.gs-terminal-error-lead,
+.gs-terminal-error-subhead {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.gs-terminal-error-subhead {
+  font-weight: var(--font-medium);
+  color: var(--text-normal);
+}
+
+.gs-terminal-error-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 0;
+  font-size: var(--font-ui-small);
+}
+
+.gs-terminal-error-facts dt {
+  color: var(--text-muted);
+}
+
+.gs-terminal-error-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-monospace);
+}
+
+.gs-terminal-error-output {
+  max-height: 220px;
+  margin: 0;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: var(--font-smallest);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.gs-terminal-error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gs-terminal-error-button {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.gs-terminal-error-button-icon {
+  display: flex;
+}
+
+.gs-terminal-error-button-icon .svg-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Terminal: the setup report ─────────────────────────────────────────── */
+
+.gs-setup-heading {
+  margin: 16px 0 6px;
+  font-size: var(--font-ui-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.gs-setup-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gs-setup-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border-radius: var(--radius-s);
+  background: var(--background-secondary);
+}
+
+.gs-setup-row-icon {
+  display: flex;
+  margin-top: 2px;
+}
+
+.gs-setup-row-ok .gs-setup-row-icon {
+  color: var(--text-success);
+}
+
+.gs-setup-row-warn .gs-setup-row-icon {
+  color: var(--text-warning);
+}
+
+.gs-setup-row-error .gs-setup-row-icon {
+  color: var(--text-error);
+}
+
+.gs-setup-row-title {
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-small);
+  overflow-wrap: anywhere;
+}
+
+.gs-setup-row-detail {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: var(--font-smallest);
+  white-space: pre-wrap;
+}
+
+/* Settings: the startup script row.
+   A shell script does not fit the narrow control column a settings row gives
+   it, so this row stacks its label above a full-width field. */
+.gs-setting-stacked {
+  display: block;
+}
+
+.gs-setting-stacked .setting-item-control {
+  width: 100%;
+  padding-top: 8px;
+  justify-content: flex-start;
+}
+
+.gs-script-input {
+  width: 100%;
+  resize: vertical;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.5;
+  white-space: pre;
+}
+
+/* Settings: a row's description, in two lines.
+   The first says what the setting is, the second carries the badge and the
+   caveat. Both live in the description column the settings framework owns, so
+   nothing here positions a field or fights a row's layout. */
+.gs-setting-text {
+  line-height: 1.4;
+}
+
+.gs-setting-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.gs-setting-detail {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.4;
+}
+
+/* Where a git-backed value comes from, short enough to read at a glance. */
+.gs-badge {
+  padding: 1px 6px;
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-border);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.gs-badge-accent {
+  background: var(--background-modifier-active-hover);
+  color: var(--text-accent);
+}
+
+.gs-badge-warning {
+  background: var(--background-modifier-error);
+  color: var(--text-on-accent);
+}
+
+/* A field holding a path, a URL or an address: one long string that is read
+   from the start, so a row holding one gets half the width for its field
+   instead of truncating after twenty characters. Half rather than "as much as
+   it needs", so that every such row lines up with the next. */
+.setting-item-control:has(> .gs-path-input),
+.setting-item-control:has(> .gs-identity-input) {
+  flex: 0 0 min(26em, 50%);
+  min-width: 0;
+}
+
+.gs-path-input,
+.gs-identity-input {
+  flex: 1 1 auto;
+  min-width: 6em;
+  width: auto;
+}
+
+.gs-path-input {
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+/* Settings and dialogs: a paragraph that introduces a group. */
+.gs-settings-note {
+  margin: 0 0 1em;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.5;
+}
+
+/* The prompt that asks for an identity when nothing has set one. */
+.gs-identity-intro {
+  margin: 0 0 1em;
+  color: var(--text-muted);
+}
+
+/* What a dialog says when it will not save what was typed. */
+.gs-form-error,
+.gs-identity-error {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-error);
+  color: var(--text-on-accent);
+  font-size: var(--font-ui-smaller);
+}

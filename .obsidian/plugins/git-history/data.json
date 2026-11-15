@@ -1,0 +1,22 @@
+{
+  "commitTemplate": "",
+  "pullStrategy": "merge",
+  "autoFetchEnabled": false,
+  "autoFetchInterval": 300,
+  "autoPullEnabled": false,
+  "diffViewMode": "side-by-side",
+  "onlySupportedFileTypes": true,
+  "showStatusBar": true,
+  "fileListMode": "tree",
+  "compactFolders": true,
+  "debounceMs": 1000,
+  "showNestedRepos": false,
+  "lastWhatsNewVersion": "1.13.0",
+  "identityPromptDismissed": false,
+  "gitPath": "",
+  "terminalShell": "",
+  "terminalPython": "",
+  "terminalPtyBackend": "auto",
+  "terminalStartupScript": "",
+  "terminalAutoColor": false
+}
