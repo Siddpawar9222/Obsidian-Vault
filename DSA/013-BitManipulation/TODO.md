@@ -6,4 +6,7 @@
 Chatgpt : [4039. Sum of Decoded Numbers](https://chatgpt.com/c/6a94e551-1948-83ee-aece-d9d3913e4e5a)
 
 
-[540. Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+[540. Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) 
+
+
+ 3827. Count Monobit Integers           
