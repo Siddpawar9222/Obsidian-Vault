@@ -1,195 +1,107 @@
-# Producer Internals
+# Module 07: Producer Internals (Map of Content)
 
-> [!abstract] Learning status
-> **Covered conceptually:** producer workflow, batching, `batch.size`, `linger.ms`, producer retries, idempotent producer, PID, sequence numbers, and the relationship between acknowledgements and replication.
->
-> **Still to study:** compression trade-offs in depth, buffer exhaustion, delivery timeout, request timeout, callbacks, and hands-on failure experiments.
+> [!abstract] Module Overview
+> The Kafka Producer is not a simple HTTP client—it is a sophisticated, asynchronous distributed client engine.
+> This module explores how records are buffered in JVM memory, grouped into batches, protected against data loss and network duplicates, compressed, and transmitted reliably across distributed brokers.
 
-## What this module explains
+---
 
-A Kafka producer is the client application that creates records and sends them to Kafka. It does more than simply send a message: it obtains metadata, chooses a partition, serializes the key/value, groups records into batches, and sends requests to partition leaders.
+## Module Index & Reading Order
 
-## Producer end-to-end workflow
-
-```text
-Application
-   |
-   | send(topic, key, value)
-   v
-Kafka Producer API
-   |
-   +--> Serialize key and value into byte arrays
-   |
-   +--> Determine target partition
-   |
-   +--> Check metadata: which broker is the partition leader?
-   |
-   +--> Append record to that partition's batch in the Record Accumulator
-   |
-   +--> Sender thread sends ready batches to broker leaders
-   |
-   v
-Kafka Broker
-   |
-   +--> Append record to partition log
-   +--> Replicate according to replication configuration
-   +--> Send acknowledgement according to acks setting
-   |
-   v
-Producer receives success/failure result
+```mermaid
+flowchart LR
+    A["013: Architecture & Batching<br/>• Two-threaded model<br/>• RecordAccumulator<br/>• batch.size & linger.ms<br/>• buffer.memory & max.block.ms"] --> B["014: Reliability & Idempotence<br/>• acks & min.insync.replicas<br/>• Retries & Duplicates<br/>• PID & Sequence Numbers<br/>• Deduplication limits"]
+    B --> C["015: Advanced Tuning<br/>• Compression (LZ4, ZSTD)<br/>• Timeout hierarchy<br/>• Async Callbacks (Java)<br/>• Spring Boot CompletableFuture"]
 ```
 
-## Record Accumulator and batching
+### [013: Producer Architecture and Batching](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/07%20-%20Producer%20Internals/013-Producer_Architecture_and_Batching.md)
+* **Two-Threaded Architecture:** Application thread vs. background `Sender` thread.
+* **The Record Accumulator:** In-memory queue holding per-partition batches.
+* **Batching Mechanics:** `batch.size` (16 KB) and `linger.ms` (throughput vs. latency trade-off).
+* **RAM Protection:** `buffer.memory` (32 MB) as a JVM circuit breaker, buffer exhaustion, and `max.block.ms`.
 
-The producer does not normally send every record as a separate network request. It collects records into batches.
+### [014: Delivery Guarantees and Idempotence](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/07%20-%20Producer%20Internals/014-Delivery_Guarantees_and_Idempotence.md)
+* **Durability Levels:** `acks=0`, `acks=1`, and `acks=all` paired with `min.insync.replicas`.
+* **The Network Failure Dilemma:** Why unacknowledged retries produce duplicate offset records.
+* **The Idempotent Producer:** `enable.idempotence=true`, Producer ID (PID), sequence numbers per partition, and broker deduplication logic.
+* **Production Boundaries:** What producer idempotence does NOT solve (application double-clicks, consumer-side idempotency).
 
-- A batch is maintained per topic-partition.
-- Records destined for different partitions are placed in different batches.
-- The Record Accumulator holds these batches until they are ready to be sent.
-- A background sender thread sends ready batches to the appropriate partition leaders.
+### [015: Compression, Timeouts, and Callbacks](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/07%20-%20Producer%20Internals/015-Compression_Timeouts_and_Callbacks.md)
+* **Compression Algorithms:** Deep dive into `lz4`, `snappy`, `gzip`, and `zstd` with CPU vs. ratio trade-offs.
+* **The Timeout Hierarchy:** The relationship and math between `delivery.timeout.ms`, `request.timeout.ms`, and `max.block.ms`.
+* **Async Result Handling:**
+  * Pure Java Producer `Callback` (`onCompletion(metadata, exception)`).
+  * Spring Boot 3 `CompletableFuture<SendResult>` reactive handling.
+  * Inspecting `RecordMetadata` (topic, partition, offset, timestamp).
 
-### `batch.size`
+---
 
-`batch.size` is the target upper size, in bytes, of a batch for one partition. It is not a limit on the complete producer request or on the total memory used by the producer.
+## Master Producer Configuration Reference
 
-When a partition's batch becomes full, it can be sent without waiting for `linger.ms`.
+| Property | Default Value | Production Recommended | Primary Responsibility |
+| :--- | :--- | :--- | :--- |
+| **`bootstrap.servers`** | - | `broker1:9092,broker2:9092...` | Initial cluster discovery endpoints. |
+| **`key.serializer`** | - | `StringSerializer` / Avro | Serializer for the record key. |
+| **`value.serializer`** | - | `StringSerializer` / Avro | Serializer for the record payload. |
+| **`acks`** | `all` (since 3.0) | `all` | Durability contract with broker replicas. |
+| **`min.insync.replicas`** | `1` (broker/topic) | `2` | Minimum healthy replicas required for `acks=all` writes. |
+| **`enable.idempotence`** | `true` (since 3.0)| `true` | Eliminates retry duplicates via PID and sequence numbers. |
+| **`retries`** | `2147483647` | `2147483647` | Maximum retry attempts (bounded by `delivery.timeout.ms`). |
+| **`max.in.flight.requests...`**| `5` | `5` (with idempotence) | Concurrent in-flight batches per broker connection. |
+| **`batch.size`** | `16384` (16 KB) | `32768` (32 KB) - `65536` | Target batch size per partition. |
+| **`linger.ms`** | `0` ms | `5` - `20` ms | Artificial wait window to accumulate larger batches. |
+| **`buffer.memory`** | `33554432` (32 MB)| `67108864` (64 MB) | Total JVM heap reserved for the Record Accumulator. |
+| **`max.block.ms`** | `60000` (60s) | `60000` (60s) | Max time to freeze `send()` when buffer is full. |
+| **`request.timeout.ms`** | `30000` (30s) | `30000` (30s) | Max wait time for a single network attempt. |
+| **`delivery.timeout.ms`** | `120000` (2m) | `120000` (2m) | Max total time allowed for complete message delivery. |
+| **`compression.type`** | `none` | `lz4` (or `zstd`) | Batch compression algorithm. |
 
-### `linger.ms`
+---
 
-`linger.ms` is the maximum intentional time the producer waits for more records to join a batch before sending it, if the batch has not filled.
+## Production Spring Boot Template (`application.yml`)
 
-Example:
+```yaml
+spring:
+  kafka:
+    producer:
+      bootstrap-servers:
+        - kafka-1.prod.internal:9092
+        - kafka-2.prod.internal:9092
+        - kafka-3.prod.internal:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 2147483647
+      properties:
+        # Zero-data-loss & deduplication
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
 
-```text
-batch.size = 16 KB
-linger.ms  = 5 ms
+        # Throughput & Batching
+        batch.size: 32768          # 32 KB
+        linger.ms: 10              # 10 ms wait window
+        compression.type: lz4      # Ultra-fast CPU-friendly compression
 
-Records arrive for Partition 0:
-  Record A
-  Record B
-  Record C
+        # Memory & Safety
+        buffer.memory: 67108864    # 64 MB heap allocation
+        max.block.ms: 60000        # 60s max blocking threshold
 
-If the batch fills before 5 ms:
-  Send immediately.
-
-If the batch is still not full after 5 ms:
-  Send the partial batch.
+        # Timeouts
+        request.timeout.ms: 30000  # 30s per network attempt
+        delivery.timeout.ms: 120000 # 2m total retry window
 ```
 
-The producer does not wait forever for a batch to fill. `linger.ms` trades a small amount of latency for potentially better batching and throughput.
+---
 
-**Important:** batching is per partition. A busy partition may fill its batch quickly while a quiet partition may send a smaller batch after the linger period.
+## Module 07 Syllabus Checklist
 
-## Producer buffer memory
-
-`buffer.memory` controls the approximate total memory available to buffer records waiting to be sent. It is not the size of one batch.
-
-If the producer cannot send records quickly enough and the buffer becomes full, calls that need buffer space can block up to `max.block.ms`, after which the send operation can fail with a timeout.
-
-## Producer acknowledgements
-
-The `acks` setting controls how much acknowledgement the producer waits for from Kafka.
-
-| Setting | Meaning | Trade-off |
-|---|---|---|
-| `acks=0` | Producer does not wait for a broker acknowledgement. | Lowest acknowledgement assurance; a lost request may go unnoticed. |
-| `acks=1` | Leader acknowledges after it has appended the record locally. | Better than 0, but a leader failure before replication can cause data loss. |
-| `acks=all` | Leader waits for all current in-sync replicas required by Kafka's replication rules. | Stronger durability, usually with more acknowledgement latency. |
-
-### `acks=all` and `min.insync.replicas`
-
-These settings work together:
-
-- `acks=all` says the producer wants acknowledgement after the write has been accepted by the required ISR set.
-- `min.insync.replicas` is a broker/topic-side minimum ISR requirement for accepting writes with `acks=all`.
-- If the current ISR count is below the configured minimum, the write is rejected rather than silently accepting a write with insufficient replicas.
-
-Example:
-
-```text
-Replication factor = 3
-Current ISR         = 3
-min.insync.replicas = 2
-acks                = all
-
-Write can be accepted.
-```
-
-If one replica goes offline, ISR may become 2; writes can still be accepted. If another replica falls out of ISR and ISR becomes 1, writes with `acks=all` are rejected while the minimum is 2.
-
-**Do not confuse:** replication factor is the number of configured replicas; ISR is the subset currently considered in sync.
-
-## Producer retries
-
-A producer may not receive an acknowledgement even though the broker stored the record. For example, the broker may store the record and the acknowledgement may be lost on the network.
-
-The producer may retry because it cannot know whether the original request succeeded.
-
-```text
-Producer                  Broker
-   |                         |
-   |------ Produce A ------->|
-   |                         | Appends A
-   |<--- ACK lost in network |
-   |                         |
-   |------ Retry A --------->|
-   |                         |
-```
-
-Without idempotence, a retry can append a duplicate record. Producer retries address transient send failures; they do not automatically make application business operations idempotent.
-
-## Idempotent producer
-
-An idempotent producer prevents duplicate log entries caused by producer retries within the supported producer session/protocol.
-
-Kafka uses:
-
-- **Producer ID (PID):** identifies the producer session.
-- **Per-partition sequence numbers:** identify the order of records sent by that producer to a partition.
-- **Broker-side tracking:** detects duplicate or out-of-order sequence numbers and avoids appending a retry duplicate.
-
-Conceptual example:
-
-```text
-Producer sends record A to Partition 0 with sequence 5.
-Broker appends sequence 5.
-ACK is lost.
-Producer retries sequence 5.
-Broker recognizes the duplicate sequence and does not append A again.
-```
-
-### What idempotent producer does not guarantee
-
-It does not deduplicate:
-- Two separate application sends that represent the same business event but are assigned new sequence numbers.
-- Duplicate events produced by different producer instances.
-- Duplicate database updates performed by a consumer.
-- An external API call made twice by consumer business logic.
-
-That is why consumer-side idempotency is a separate topic.
-
-## Producer retries vs delivery guarantees
-
-Producer idempotence and consumer delivery semantics solve different problems.
-
-- Producer idempotence prevents duplicate Kafka log entries caused by eligible producer retries.
-- Consumer offset/commit strategy determines whether a consumer may reprocess records.
-- Application-level idempotency protects business effects such as charging a customer or creating a database row.
-
-## Key revision points
-
-- Batches are maintained per topic-partition.
-- `batch.size` controls the target batch size; `linger.ms` controls intentional waiting for more records.
-- `buffer.memory` is producer-wide buffering capacity, not one batch's size.
-- `acks` controls acknowledgement strength.
-- `acks=all` and `min.insync.replicas` must be understood together.
-- Retries can create duplicates when idempotence is not used.
-- Idempotent producer uses PID and per-partition sequence numbers to detect retry duplicates.
-- Producer idempotence is not the same as an idempotent consumer.
-
-## Topics still pending in this module
-
-- Compression algorithms: gzip, Snappy, LZ4, and Zstandard.
-- `request.timeout.ms`, `delivery.timeout.ms`, and `max.block.ms`.
-- Producer callbacks and asynchronous send result handling.
-- Practical experiments with broker failure and producer acknowledgements.
+- [x] High-level Producer Architecture (Two threads, Record Accumulator)
+- [x] Batching mechanics (`batch.size`, `linger.ms`)
+- [x] Buffer Memory Management (`buffer.memory`, `max.block.ms`)
+- [x] Durability guarantees (`acks=0, 1, all`, `min.insync.replicas`)
+- [x] Network retry failure dilemma & duplicate delivery
+- [x] Idempotent Producer (`enable.idempotence=true`, PID, Sequence Numbers)
+- [x] Producer idempotence vs Consumer-side idempotency
+- [x] Compression algorithms (`lz4`, `snappy`, `gzip`, `zstd`)
+- [x] Timeout hierarchy (`max.block.ms`, `request.timeout.ms`, `delivery.timeout.ms`)
+- [x] Asynchronous send result handling with Java Callbacks & Spring Boot `CompletableFuture`
