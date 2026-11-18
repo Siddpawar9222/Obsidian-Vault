@@ -25,5 +25,8 @@ Common problem solving patterns
 String pattern need to cover : 
 KMP String matching algorithm
 https://youtu.be/qases-9gOpk?si=CfMLxRVXC7w_C-1A
-https://www.youtube.com/playlist?list=PLKlHRcGrQWjM
+https://www.youtube.com/playlist?list=PLKlHRcGrQWjM 
+
+https://leetcode.com/problems/repeated-substring-pattern/
+https://leetcode.com/problems/repeated-substring-pattern/solutions/1694256/java-kmp-solution-with-explanation-by-me-e8ob
 
