@@ -1,246 +1,109 @@
-# Serialization, Deserialization and Event Schemas
+# Module 09: Serialization and Schemas (Map of Content)
 
-> [!abstract] Learning status
-> **Covered:** why Kafka stores bytes, serializer/deserializer responsibilities, key vs value serialization, JSON conversion, Java DTO mapping, field-name mismatch behavior, Spring Kafka JSON serializer/deserializer configuration, `KafkaTemplate`, and `@KafkaListener` message conversion flow.
->
-> **Still to study:** headers and timestamps in practice, custom serializers, poison-pill handling, schema evolution, compatibility modes, Avro, and Schema Registry.
+> [!abstract] Module Overview
+> Kafka brokers are completely blind to data formats—they only store raw byte arrays (`byte[]`).
+> This module explores how application objects are converted into bytes and back, how to safely handle JSON DTOs, how to use record headers and timestamps, how to prevent consumer crash loops caused by **Poison Pills** using `ErrorHandlingDeserializer`, and how to govern enterprise event contracts using **Apache Avro** and the **Confluent Schema Registry**.
 
-## Why serialization is required
+---
 
-Kafka stores and transfers record keys and values as byte arrays. It does not store a live Java object and does not understand Java classes or JSON fields.
+## Module Index & Reading Order
 
-A Java application must convert its data to bytes before sending it. A consuming application converts those bytes back into a usable value.
-
-## Serializer and deserializer
-
-- **Serialization:** converting a value into bytes before publishing.
-- **Deserialization:** converting bytes back into a value after consuming.
-
-```text
-Producer application
-Java Order DTO
-     |
-     v
-Serializer
-     |
-     v
-byte[] --------------------> Kafka
-                                |
-                                v
-Consumer application       byte[]
-                                |
-                                v
-                          Deserializer
-                                |
-                                v
-                         Java Order DTO
+```mermaid
+flowchart LR
+    A["019: Serialization & JSON<br/>• Why Kafka stores bytes<br/>• Key vs Value serializers<br/>• JSON DTO mapping<br/>• Field mismatch & @JsonProperty<br/>• Trusted packages security"] --> B["020: Headers & Poison Pills<br/>• Record headers in practice<br/>• CreateTime vs LogAppendTime<br/>• The Poison Pill crash loop<br/>• ErrorHandlingDeserializer<br/>• Dead Letter Topics (DLT)"]
+    B --> C["021: Avro & Schema Registry<br/>• Why JSON fails at scale<br/>• Apache Avro binary encoding<br/>• 5-byte wire format<br/>• Schema Registry architecture<br/>• Evolution & Compatibility modes"]
 ```
 
-## JSON serialization has two conceptual steps
+### [019: Serialization Fundamentals and JSON](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/09%20-%20Serialization%20and%20Schemas/019-Serialization_Fundamentals_and_JSON.md)
+* **The Byte Array Contract:** Why Kafka only knows about bytes and decouples programming languages.
+* **Key vs. Value Serializers:** Why key serializers affect partition hashing, and value serializers carry payload data.
+* **Spring Boot JSON Integration:** `JsonSerializer`, `JsonDeserializer`, `KafkaTemplate`, and `@KafkaListener`.
+* **Field Name Mismatches:** Using Jackson's `@JsonProperty` to prevent silent null values.
+* **Security Whitelisting:** Preventing arbitrary code execution with `spring.json.trusted.packages`.
 
-Suppose the producer has:
+### [020: Record Headers, Timestamps, and Poison Pills](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/09%20-%20Serialization%20and%20Schemas/020-Record_Headers_Timestamps_and_Poison_Pills.md)
+* **Record Headers in Practice:** Separating infrastructure metadata (tracing IDs, tenant flags, `__TypeId__`) from payloads.
+* **Event Timestamps:** `CreateTime` (event time) vs. `LogAppendTime` (broker arrival time) and their impact on retention.
+* **The Poison Pill Problem:** Why a single unparseable message can cause an infinite crash loop on consumer partitions.
+* **The Solution: `ErrorHandlingDeserializer`:** Catching deserialization exceptions, packaging them into headers, and safely routing bad records to a Dead Letter Topic (DLT).
 
-```java
-Order order = new Order(101L, "CREATED", 2500.0);
-```
+### [021: Schema Evolution, Avro, and Schema Registry](file:///c:/Users/siddhesh.pawar/Desktop/Workspace/Obsidian-Vault/Inbox/Kafka_Obsidian_Organized/09%20-%20Serialization%20and%20Schemas/021-Schema_Evolution_Avro_and_Schema_Registry.md)
+* **The Limits of Plain JSON:** Wasted network bandwidth from repeated field names and lack of contract enforcement.
+* **Apache Avro Binary Serialization:** Compacting payloads by 60%–90% by omitting field names from messages.
+* **Confluent Schema Registry:** Central schema repository, local client caching, and the 5-byte Kafka wire format.
+* **Schema Evolution & Compatibility Modes:** Safely evolving schemas under `BACKWARD`, `FORWARD`, and `FULL` rules.
 
-A JSON serializer converts the object's fields into JSON data:
+---
 
-```json
-{
-  "orderId": 101,
-  "status": "CREATED",
-  "amount": 2500.0
-}
-```
+## Master Serialization & Schema Configuration Reference
 
-The JSON text is then encoded into bytes, commonly using UTF-8. Those bytes are what Kafka transports and stores.
+| Property | Default Value | Production Value | Primary Responsibility |
+| :--- | :--- | :--- | :--- |
+| **`key.serializer`** | - | `StringSerializer` | Converts message keys into bytes for partition routing. |
+| **`value.serializer`** | - | `JsonSerializer` / `KafkaAvroSerializer` | Converts message payloads into bytes. |
+| **`key.deserializer`** | - | `ErrorHandlingDeserializer` | Catches key deserialization errors safely. |
+| **`value.deserializer`** | - | `ErrorHandlingDeserializer` | Catches value deserialization errors safely. |
+| **`spring.deserializer.value.delegate.class`** | - | `JsonDeserializer` / `KafkaAvroDeserializer` | The underlying real deserializer wrapped by error handling. |
+| **`spring.json.trusted.packages`** | (empty) | `"com.mycompany.dto"` | Whitelist of Java packages permitted for JSON deserialization. |
+| **`message.timestamp.type`** | `CreateTime` | `CreateTime` | Broker/topic timestamp origin (`CreateTime` vs. `LogAppendTime`). |
+| **`schema.registry.url`** | - | `http://schema-registry:8081` | HTTP address of Confluent Schema Registry. |
+| **`specific.avro.reader`** | `false` | `true` | Tells Avro to create compiled Java DTOs rather than generic records. |
+| **`auto.register.schemas`** | `true` | `false` (in prod) | Restricts schema registration to CI/CD pipelines in production. |
 
-On the consumer side, the bytes are decoded and parsed into the target Java type.
+---
 
-## Key serializer vs value serializer
-
-A Kafka record has a key and a value. Both are serialized independently.
-
-Example:
-
-```java
-kafkaTemplate.send("orders", "order-101", order);
-```
-
-| Record part | Example | Serializer |
-|---|---|---|
-| Key | `"order-101"` | `StringSerializer` |
-| Value | `Order` object | `JsonSerializer` |
-
-The key matters for partition routing. The producer serializes the key, and the partitioner uses the key's serialized representation to determine the partition. With the same key and an unchanged partitioning setup, related records are routed consistently.
-
-The value contains the business event data.
-
-## Spring Boot producer configuration
-
-Example configuration for a Spring Kafka producer:
+## Production Spring Boot Template (`application.yml`)
 
 ```yaml
 spring:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers:
+      - kafka-1.prod.internal:9092
+      - kafka-2.prod.internal:9092
+      - kafka-3.prod.internal:9092
+
+    # Global Schema Registry URL (if using Avro)
+    properties:
+      schema.registry.url: http://schema-registry.prod.internal:8081
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Choose JsonSerializer OR KafkaAvroSerializer based on your architecture
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-```
 
-Responsibilities:
-
-- `StringSerializer` converts the key String into bytes.
-- `JsonSerializer` converts the Java value object into JSON bytes.
-- `KafkaTemplate` provides the send API and delegates serialization to the configured Kafka producer serializers.
-
-Example:
-
-```java
-kafkaTemplate.send("orders", "order-101", order);
-```
-
-The application does not manually convert the DTO to a byte array in this flow.
-
-## Spring Boot consumer configuration
-
-Example:
-
-```yaml
-spring:
-  kafka:
-    bootstrap-servers: localhost:29092
     consumer:
       group-id: payment-service-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      # Bulletproof Poison Pill Protection: Use ErrorHandlingDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
-        spring.json.trusted.packages: "com.example.orders.dto"
+        # Delegate Deserializers
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+        # JSON Security Whitelist
+        spring.json.trusted.packages: "com.mycompany.payment.dto"
+
+        # Avro specific reader (if using Avro)
+        specific.avro.reader: true
 ```
 
-Responsibilities:
+---
 
-- `StringDeserializer` converts key bytes into a String.
-- `JsonDeserializer` converts JSON bytes into a Java object.
-- `trusted.packages` restricts which packages are trusted for JSON deserialization. Prefer a narrow package list rather than trusting all packages.
+## Module 09 Syllabus Checklist
 
-**Important:** producer and consumer must agree on a compatible message format and target data structure.
-
-## Receiving a DTO with `@KafkaListener`
-
-Example:
-
-```java
-@Component
-public class PaymentConsumer {
-
-    @KafkaListener(
-        topics = "orders",
-        groupId = "payment-service-group"
-    )
-    public void consume(Order order) {
-        System.out.println(order.getOrderId());
-        System.out.println(order.getStatus());
-    }
-}
-```
-
-The method receives an `Order` object because the consumer's configured deserializer converts the incoming bytes before the listener method is invoked.
-
-Conceptual flow:
-
-```text
-Kafka broker
-    |
-    v
-Kafka consumer poll()
-    |
-    v
-Deserializer converts value bytes to Order
-    |
-    v
-Spring Kafka listener container
-    |
-    v
-@KafkaListener method receives Order
-```
-
-`@KafkaListener` does not mean Kafka pushes records into the application. Spring Kafka manages the consumer polling loop and invokes the listener when records are available.
-
-## JSON field-name mismatch
-
-Incoming JSON:
-
-```json
-{
-  "orderId": 101,
-  "status": "CREATED",
-  "amount": 2500.0
-}
-```
-
-Consumer DTO:
-
-```java
-public class Order {
-    private Long orderId;
-    private String status;
-    private Double totalAmount;
-}
-```
-
-In a typical Jackson mapping, the JSON field `amount` does not automatically populate the Java field `totalAmount`. The `totalAmount` field can remain `null` (assuming a nullable wrapper type and no custom mapping). This mismatch does not necessarily make deserialization fail.
-
-Use a consistent field name, or map the JSON name explicitly:
-
-```java
-@JsonProperty("amount")
-private Double totalAmount;
-```
-
-## Event contract between microservices
-
-JSON structure is a contract between the producer and its consumers.
-
-Example:
-- Order Service publishes `ORDER_CREATED`.
-- Payment Service consumes the event and processes payment.
-- Notification Service consumes the same event and sends a notification.
-
-Each service needs to understand the event structure. Renaming or removing fields can break consumers or silently produce missing values.
-
-Good event-design practices to study and apply:
-- Use clear event names such as `OrderCreated`.
-- Include a stable event ID and business identifier.
-- Prefer additive, backward-compatible schema changes.
-- Avoid changing the meaning of an existing field.
-- Version event contracts deliberately when breaking changes are unavoidable.
-
-## Multiple consumer groups and the same event
-
-If Payment Service uses `payment-service-group` and Notification Service uses `notification-service-group`, both groups can independently consume the same event from the topic.
-
-Each group maintains its own offsets. Within one group, partitions are load-balanced among its consumer instances.
-
-## Key revision points
-
-- Kafka transports bytes, not Java objects.
-- Serializer converts data to bytes; deserializer converts bytes back.
-- Key and value have separate serializers/deserializers.
-- The key can control partition routing; the value carries event data.
-- `KafkaTemplate` delegates serialization to the configured producer serializer.
-- `JsonDeserializer` converts incoming JSON bytes to the target Java DTO.
-- `@KafkaListener` receives the deserialized object through Spring Kafka's listener container.
-- Producer and consumer event schemas must remain compatible.
-
-## Topics still pending in this module
-
-- Kafka record headers and timestamps.
-- Custom serializers and deserializers.
-- ErrorHandlingDeserializer and poison-pill messages.
-- Schema evolution and compatibility.
-- Backward, forward, and full compatibility.
-- Avro and Schema Registry.
+- [x] Why Kafka only transports bytes (`byte[]`)
+- [x] Key vs. Value serializer and deserializer responsibilities
+- [x] Two-step JSON serialization (Object $\rightarrow$ JSON text $\rightarrow$ UTF-8 bytes)
+- [x] Spring Boot `JsonSerializer` and `JsonDeserializer` setup
+- [x] DTO field mapping and fixing mismatches with `@JsonProperty`
+- [x] Security: Protecting deserialization with `spring.json.trusted.packages`
+- [x] Kafka Record Headers in practice (Distributed tracing, routing flags)
+- [x] Record Timestamps: `CreateTime` vs. `LogAppendTime` and log retention
+- [x] The Poison Pill disaster scenario and infinite consumer crash loops
+- [x] Poison Pill solution: `ErrorHandlingDeserializer` with Dead Letter Topics (DLT)
+- [x] Bandwidth limits and contract challenges of plain JSON at scale
+- [x] Apache Avro binary serialization benefits (60%–90% payload reduction)
+- [x] Confluent Schema Registry architecture and the 5-byte wire format
+- [x] Schema evolution rules and compatibility modes (`BACKWARD`, `FORWARD`, `FULL`, `NONE`)

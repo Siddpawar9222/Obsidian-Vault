@@ -162,37 +162,37 @@
 - [x] `KafkaTemplate` delegates serialization to producer serializers
 - [x] `@KafkaListener` receives deserialized DTOs
 - [x] Consumer groups independently consuming the same event
-- [ ] Kafka record headers and timestamps in practice
-- [ ] Custom serializers and deserializers
-- [ ] Poison pill handling / `ErrorHandlingDeserializer`
-- [ ] Schema evolution
-- [ ] Schema Registry (introduction)
-- [ ] Avro (introduction)
-- [ ] Backward, forward, and full compatibility
+- [x] Kafka record headers and timestamps in practice
+- [x] Custom serializers and deserializers
+- [x] Poison pill handling / `ErrorHandlingDeserializer`
+- [x] Schema evolution
+- [x] Schema Registry (introduction)
+- [x] Avro (introduction)
+- [x] Backward, forward, and full compatibility
 
 **Notes:** [[09 - Serialization and Schemas/README]]
 
-## Module I — Reliability and Error Handling (NOT YET COVERED)
+## Module I — Reliability and Error Handling
 
-- [ ] Producer-side retry behavior in depth
-- [ ] Consumer processing failures
-- [ ] Retry strategies and retry topics
-- [ ] Backoff: fixed, exponential, and jitter
-- [ ] Blocking vs non-blocking retries
-- [ ] Dead Letter Topic (DLT)
-- [ ] Dead Letter Publishing and DLT metadata
-- [ ] Poison pill messages and recovery
-- [ ] Duplicate message handling
-- [ ] Idempotent consumer design
-- [ ] Database deduplication using event/message IDs
-- [ ] Database transaction vs Kafka offset commit challenge
-- [ ] Inbox pattern
-- [ ] Outbox pattern
-- [ ] Kafka transactions and transactional ID
-- [ ] Atomic writes across Kafka partitions
-- [ ] `read_committed` vs `read_uncommitted`
-- [ ] Kafka exactly-once processing overview
-- [ ] Kafka transactions vs database transactions
+- [x] Producer-side retry behavior in depth
+- [x] Consumer processing failures
+- [x] Retry strategies and retry topics
+- [x] Backoff: fixed, exponential, and jitter
+- [x] Blocking vs non-blocking retries
+- [x] Dead Letter Topic (DLT)
+- [x] Dead Letter Publishing and DLT metadata
+- [x] Poison pill messages and recovery
+- [x] Duplicate message handling
+- [x] Idempotent consumer design
+- [x] Database deduplication using event/message IDs
+- [x] Database transaction vs Kafka offset commit challenge
+- [x] Inbox pattern
+- [x] Outbox pattern
+- [x] Kafka transactions and transactional ID
+- [x] Atomic writes across Kafka partitions
+- [x] `read_committed` vs `read_uncommitted`
+- [x] Kafka exactly-once processing overview
+- [x] Kafka transactions vs database transactions
 
 **Notes:** [[10 - Reliability and Error Handling/README]]
 
