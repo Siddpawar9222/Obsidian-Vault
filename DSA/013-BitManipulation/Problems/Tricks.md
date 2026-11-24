@@ -1,4 +1,4 @@
-Tricks-001
+
 ---
 
 - checks whether the last bit is `1`.

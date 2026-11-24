@@ -14,7 +14,7 @@
 
  **Typecasting** 
 ```java 
-long sq = (mid * mid;  // here mid * mid still gives integer
+long sq = mid * mid;  // here mid * mid still gives integer
 long sq = (long) mid * mid; // now here mid * mid still gives long
 ```
 
