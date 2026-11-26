@@ -198,18 +198,20 @@
 
 ## Module J — Kafka Storage, Retention, and Compaction
 
-- [ ] Kafka log structure
-- [ ] Log segments and active segment
-- [ ] Segment rolling
-- [ ] Offset index and timestamp index
-- [ ] Retention policy
-- [ ] Time-based retention (`retention.ms`)
-- [ ] Size-based retention (`retention.bytes`)
-- [ ] Delete cleanup policy
-- [ ] Log compaction
-- [ ] `cleanup.policy=delete` vs `compact`
-- [ ] Tombstone records
-- [ ] How Kafka removes old segments and compacted records
+- [x] Kafka log structure
+- [x] Log segments and active segment
+- [x] Segment rolling
+- [x] Offset index and timestamp index
+- [x] Retention policy
+- [x] Time-based retention (`retention.ms`)
+- [x] Size-based retention (`retention.bytes`)
+- [x] Delete cleanup policy
+- [x] Log compaction
+- [x] `cleanup.policy=delete` vs `compact`
+- [x] Tombstone records
+- [x] How Kafka removes old segments and compacted records
+
+**Notes:** [[11 - Storage and Retention/README]]
 
 ## Module K — Spring Boot and Spring Kafka
 
@@ -238,26 +240,29 @@
 
 ## Module L — Performance, Monitoring, and Operations
 
-- [ ] Producer throughput and latency trade-offs
-- [ ] Batching and compression tuning
-- [ ] Consumer concurrency and throughput
-- [ ] Consumer lag: what it means and how to monitor it
-- [ ] Broker/topic/partition metrics
-- [ ] Spring Boot Actuator and Prometheus
-- [ ] Throughput benchmarking
-- [ ] CLI-based troubleshooting
-- [ ] Operational health checks and graceful recovery
+- [x] Producer throughput and latency trade-offs
+- [x] Batching and compression tuning
+- [x] Consumer concurrency and throughput
+- [x] Consumer lag: what it means and how to monitor it
+- [x] Broker/topic/partition metrics
+- [x] Spring Boot Actuator and Prometheus
+- [x] Throughput benchmarking
+- [x] CLI-based troubleshooting
+- [x] Operational health checks and graceful recovery
 
+**Notes:** [[12 - Performance and Operations/README]]
 **Command reference:** [[05 - Operations and Revision/010-Kafka_CLI_Commands]]
 
 ## Module M — Kafka Ecosystem
 
-- [ ] Kafka vs RabbitMQ
-- [ ] When to choose Kafka vs a traditional message broker
-- [ ] Kafka Connect
-- [ ] Source and sink connectors
-- [ ] Kafka Streams
-- [ ] Stream processing use cases
+- [x] Kafka vs RabbitMQ
+- [x] When to choose Kafka vs a traditional message broker
+- [x] Kafka Connect
+- [x] Source and sink connectors
+- [x] Kafka Streams
+- [x] Stream processing use cases
+
+**Notes:** [[13 - Kafka Ecosystem/README]]
 
 ## Module N — End-to-End Practical Project
 
